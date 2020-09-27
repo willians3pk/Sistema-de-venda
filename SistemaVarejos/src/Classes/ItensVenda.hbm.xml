@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/09/2020 16:30:38 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Classes.ItensVenda" table="itens_venda" catalog="bancoSistemaVenda" optimistic-lock="version">
+        <id name="iditensVenda" type="java.lang.Integer">
+            <column name="iditens_venda" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="items" class="Classes.Items" fetch="select">
+            <column name="item" />
+        </many-to-one>
+        <many-to-one name="venda" class="Classes.Venda" fetch="select">
+            <column name="venda_id" />
+        </many-to-one>
+        <property name="qnt" type="java.lang.Integer">
+            <column name="qnt" />
+        </property>
+        <property name="status" type="java.lang.Boolean">
+            <column name="status" />
+        </property>
+    </class>
+</hibernate-mapping>

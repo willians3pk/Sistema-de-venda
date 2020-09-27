@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/09/2020 16:30:38 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Classes.Endereco" table="Endereco" catalog="bancoSistemaVenda" optimistic-lock="version">
+        <id name="idEndereco" type="java.lang.Integer">
+            <column name="idEndereco" />
+            <generator class="identity" />
+        </id>
+        <property name="rua" type="string">
+            <column name="rua" length="65" />
+        </property>
+        <property name="cep" type="java.lang.Integer">
+            <column name="cep" />
+        </property>
+        <property name="bairro" type="string">
+            <column name="bairro" length="65" />
+        </property>
+        <property name="numeroCasa" type="java.lang.Integer">
+            <column name="numero_casa" />
+        </property>
+        <property name="complemento" type="string">
+            <column name="complemento" length="100" />
+        </property>
+        <property name="estadoUf" type="string">
+            <column name="estado_uf" length="65" />
+        </property>
+        <property name="cidade" type="string">
+            <column name="cidade" length="65" />
+        </property>
+        <set name="pessoas" table="pessoa" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="endereco_id" />
+            </key>
+            <one-to-many class="Classes.Pessoa" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/09/2020 16:30:38 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Classes.Items" table="items" catalog="bancoSistemaVenda" optimistic-lock="version">
+        <id name="iditem" type="java.lang.Integer">
+            <column name="iditem" />
+            <generator class="identity" />
+        </id>
+        <property name="item" type="string">
+            <column name="item" length="45" />
+        </property>
+        <property name="valor" type="java.lang.Long">
+            <column name="valor" precision="10" scale="0" />
+        </property>
+        <property name="status" type="boolean">
+            <column name="status" not-null="true" />
+        </property>
+        <property name="peso" type="java.lang.Long">
+            <column name="peso" precision="10" scale="0" />
+        </property>
+        <property name="codigo" type="int">
+            <column name="codigo" not-null="true" />
+        </property>
+        <property name="qnt" type="java.lang.Integer">
+            <column name="qnt" />
+        </property>
+        <property name="descricao" type="string">
+            <column name="descricao" length="200" />
+        </property>
+        <set name="itensVendas" table="itens_venda" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="item" />
+            </key>
+            <one-to-many class="Classes.ItensVenda" />
+        </set>
+    </class>
+</hibernate-mapping>
