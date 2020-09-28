@@ -5,8 +5,11 @@
  */
 package Telas;
 
+import Classes.Endereco;
 import Classes.Items;
+import Classes.Pessoa;
 import ConexaoDAO.Conexao;
+import java.util.Date;
 
 /**
  *
@@ -330,6 +333,11 @@ public class Cadastros extends javax.swing.JFrame {
         jPanel3.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 363, 800, 10));
 
         btn_cadPessoa.setText("Cadastrar");
+        btn_cadPessoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cadPessoaActionPerformed(evt);
+            }
+        });
         jPanel3.add(btn_cadPessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 380, -1, -1));
 
         jLabel26.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -348,6 +356,10 @@ public class Cadastros extends javax.swing.JFrame {
     private void btn_cadItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadItemActionPerformed
         CadastroItem();
     }//GEN-LAST:event_btn_cadItemActionPerformed
+
+    private void btn_cadPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadPessoaActionPerformed
+        CadastroPessoa();
+    }//GEN-LAST:event_btn_cadPessoaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -495,5 +507,32 @@ public class Cadastros extends javax.swing.JFrame {
         item.setQnt(null);
         item.setDescricao("");
 
+    }
+
+    private void CadastroPessoa() {
+
+        int cpf = Integer.parseInt(camp_cpfPessoa.getText());
+        
+        Pessoa pessoa = new Pessoa();
+        pessoa.setNome(camp_nomePessoa.getText());
+        pessoa.setCpf(cpf);
+        pessoa.setEmail(camp_emailPessoa.getText());
+        pessoa.setDataNascimento(new Date(camp_dataNasc.getText()));
+        
+        int cep = Integer.parseInt(camp_cepPessoa.getText());
+        int numeroCasa = Integer.parseInt(camp_numerocasaPessoa.getText());
+                
+        Endereco end = new Endereco();
+        end.setRua(camp_ruaPessoa.getText());
+        end.setCidade(camp_cidadePessoa.getText());
+        end.setCep(cep);
+        end.setComplemento(camp_complementoPessoa.getText());
+        end.setNumeroCasa(numeroCasa);
+//        end.setPessoas(pessoas);
+        pessoa.setEndereco(end);
+        
+        Conexao banco = new Conexao();
+        banco.persist(end);
+        banco.persist(pessoa);
     }
 }
