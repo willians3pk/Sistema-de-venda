@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28/09/2020 12:30:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.system.sistemamaven.Items" table="items" catalog="bancoSistemaVenda" optimistic-lock="version">
+        <id name="iditem" type="java.lang.Integer">
+            <column name="iditem" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="fornecedor" class="com.system.sistemamaven.Fornecedor" fetch="select">
+            <column name="fornecedor_id" />
+        </many-to-one>
+        <property name="item" type="string">
+            <column name="item" length="45" />
+        </property>
+        <property name="valor_compra" type="java.lang.Long">
+            <column name="valor_compra" precision="10" scale="0" />
+        </property>
+        <property name="valor_venda" type="java.lang.Long">
+            <column name="valor_venda" precision="10" scale="0" />
+        </property>
+        <property name="status" type="boolean">
+            <column name="status" not-null="true" />
+        </property>
+        <property name="peso" type="java.lang.Long">
+            <column name="peso" precision="10" scale="0" />
+        </property>
+        <property name="codigo" type="int">
+            <column name="codigo" not-null="true" />
+        </property>
+        <property name="qnt" type="java.lang.Integer">
+            <column name="qnt" />
+        </property>
+        <property name="descricao" type="string">
+            <column name="descricao" length="200" />
+        </property>
+        <set name="itensVendas" table="itens_venda" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="item" />
+            </key>
+            <one-to-many class="com.system.sistemamaven.ItensVenda" />
+        </set>
+    </class>
+</hibernate-mapping>

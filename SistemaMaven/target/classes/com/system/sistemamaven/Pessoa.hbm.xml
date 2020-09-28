@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28/09/2020 12:30:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.system.sistemamaven.Pessoa" table="pessoa" catalog="bancoSistemaVenda" optimistic-lock="version">
+        <id name="idpessoa" type="java.lang.Integer">
+            <column name="idpessoa" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="endereco" class="com.system.sistemamaven.Endereco" fetch="select">
+            <column name="endereco_id" />
+        </many-to-one>
+        <many-to-one name="cliente" class="com.system.sistemamaven.Cliente" fetch="select">
+            <column name="cliente_id" />
+        </many-to-one>
+        <many-to-one name="usuario" class="com.system.sistemamaven.Usuario" fetch="select">
+            <column name="usuario_id" />
+        </many-to-one>
+        <property name="nome" type="string">
+            <column name="nome" length="65" />
+        </property>
+        <property name="cpf" type="java.lang.Integer">
+            <column name="cpf" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="45" />
+        </property>
+        <property name="numeroContato" type="java.lang.Integer">
+            <column name="numero_contato" />
+        </property>
+        <property name="dataNascimento" type="date">
+            <column name="data_nascimento" length="10" />
+        </property>
+        <set name="numeroContatos" table="Numero_contato" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="pessoa_id" />
+            </key>
+            <one-to-many class="com.system.sistemamaven.NumeroContato" />
+        </set>
+    </class>
+</hibernate-mapping>

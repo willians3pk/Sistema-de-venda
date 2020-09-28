@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28/09/2020 12:30:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.system.sistemamaven.Cliente" table="cliente" catalog="bancoSistemaVenda" optimistic-lock="version">
+        <id name="idcliente" type="java.lang.Integer">
+            <column name="idcliente" />
+            <generator class="identity" />
+        </id>
+        <property name="clienteDesde" type="date">
+            <column name="cliente_desde" length="10" />
+        </property>
+        <property name="limiteCredito" type="java.lang.Long">
+            <column name="limite_credito" precision="10" scale="0" />
+        </property>
+        <set name="vendas" table="venda" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cliente_id" />
+            </key>
+            <one-to-many class="com.system.sistemamaven.Venda" />
+        </set>
+        <set name="pessoas" table="pessoa" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cliente_id" />
+            </key>
+            <one-to-many class="com.system.sistemamaven.Pessoa" />
+        </set>
+    </class>
+</hibernate-mapping>

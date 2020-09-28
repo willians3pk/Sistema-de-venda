@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28/09/2020 12:30:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.system.sistemamaven.Venda" table="venda" catalog="bancoSistemaVenda" optimistic-lock="version">
+        <id name="idvenda" type="java.lang.Integer">
+            <column name="idvenda" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="cliente" class="com.system.sistemamaven.Cliente" fetch="select">
+            <column name="cliente_id" />
+        </many-to-one>
+        <many-to-one name="formaPagamento" class="com.system.sistemamaven.FormaPagamento" fetch="select">
+            <column name="forma_pagamento_id" />
+        </many-to-one>
+        <many-to-one name="usuario" class="com.system.sistemamaven.Usuario" fetch="select">
+            <column name="usuario_id" />
+        </many-to-one>
+        <property name="dataVenda" type="timestamp">
+            <column name="data_venda" length="19" />
+        </property>
+        <property name="codigoVenda" type="int">
+            <column name="codigo_venda" not-null="true" />
+        </property>
+        <property name="descricao" type="string">
+            <column name="descricao" length="200" />
+        </property>
+        <property name="status" type="java.lang.Boolean">
+            <column name="status" />
+        </property>
+        <property name="valorTotal" type="java.lang.Long">
+            <column name="valorTotal" precision="10" scale="0" />
+        </property>
+        <set name="itensVendas" table="itens_venda" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="venda_id" />
+            </key>
+            <one-to-many class="com.system.sistemamaven.ItensVenda" />
+        </set>
+    </class>
+</hibernate-mapping>
