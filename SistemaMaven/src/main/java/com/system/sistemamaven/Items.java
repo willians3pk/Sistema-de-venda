@@ -28,7 +28,7 @@ public class Items implements java.io.Serializable {
     private String item;
     private Long valor_compra;
     private Long valor_venda;
-    private Long valor_total;
+    private Integer valor_total;
     private boolean status;
     private Long peso;
     private Long codigo;
@@ -106,11 +106,11 @@ public class Items implements java.io.Serializable {
     }
 
     @Column(name = "valor_total", precision = 10, scale = 0)
-    public Long getValor_total() {
+    public Integer getValor_total() {
         return valor_total;
     }
 
-    public void setValor_total(Long valor_total) {
+    public void setValor_total(Integer valor_total) {
         this.valor_total = valor_total;
     }
     

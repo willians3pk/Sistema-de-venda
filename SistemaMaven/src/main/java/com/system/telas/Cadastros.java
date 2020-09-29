@@ -610,7 +610,7 @@ public class Cadastros extends javax.swing.JFrame {
 //            Long peso = Long.parseLong(camp_peso.getText());
             Long codigo = Long.parseLong(camp_codigo.getText());
             int quantidade = Integer.parseInt(camp_qnt.getText());
-            Long valorTotal = precoVenda * quantidade;
+            int valorTotal = (int) (precoVenda * quantidade);
             
 // -- AINDA ESTÁ FALTANDO ACRESCENTAR PREÇO DE COMPRA E FORNECEDOR --
             item.setItem(camp_nomeItem.getText());

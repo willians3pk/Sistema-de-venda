@@ -125,7 +125,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         jLabel14.setText("R$ VALOR");
         jPanel7.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 330, 90, -1));
-        jPanel7.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 310, -1));
+        jPanel7.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 310, 40));
 
         jButton3.setText("Adicionar");
         jPanel7.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 50, -1, -1));

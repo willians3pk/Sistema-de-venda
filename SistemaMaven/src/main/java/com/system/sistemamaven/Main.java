@@ -5,9 +5,7 @@
  */
 package com.system.sistemamaven;
 
-import com.system.conexao.Conexao;
 import com.system.telas.TelaPrincipal;
-import java.util.Date;
 
 /**
  *
@@ -19,11 +17,10 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-        
+
         TelaPrincipal tela = new TelaPrincipal();
         tela.setVisible(true);
-        
+
 //        Pessoa pessoa = new Pessoa();
 //        pessoa.setNome("VITORIA SILVA DE ALMEIDA");
 //        pessoa.setCpf(883998398);
@@ -43,5 +40,5 @@ public class Main {
 //        banco.save(end);
 //        banco.save(pessoa);
     }
-    
+
 }

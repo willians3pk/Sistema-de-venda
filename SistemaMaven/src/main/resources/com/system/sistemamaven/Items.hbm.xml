@@ -20,8 +20,8 @@
         <property name="valor_venda" type="java.lang.Long">
             <column name="valor_venda" precision="10" scale="0" />
         </property>
-        <property name="valor_total" type="java.lang.Long">
-            <column name="valor_total" precision="10" scale="0" />
+        <property name="valor_total" type="java.lang.Integer">
+            <column name="valor_total" />
         </property>
         <property name="status" type="boolean">
             <column name="status" not-null="true" />
