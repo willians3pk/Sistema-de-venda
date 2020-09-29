@@ -128,6 +128,7 @@ public class Cadastros extends javax.swing.JFrame {
         jLabelObrigatorioNome1 = new javax.swing.JLabel();
         jLabelObrigatorioCompra = new javax.swing.JLabel();
         chekBoxAtivado = new javax.swing.JCheckBox();
+        jSeparator10 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -348,7 +349,7 @@ public class Cadastros extends javax.swing.JFrame {
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 10, 210));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 790, 10));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 790, 10));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 363, 800, 10));
 
         btn_cadItem.setText("Cadastrar");
@@ -361,14 +362,14 @@ public class Cadastros extends javax.swing.JFrame {
 
         jLabel23.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel23.setText("Valor Venda:");
-        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, -1, -1));
+        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, -1, -1));
 
         try {
             camp_valorVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##,##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jPanel1.add(camp_valorVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 60, -1));
+        jPanel1.add(camp_valorVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 60, -1));
 
         jLabel31.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel31.setText("Descrição:");
@@ -381,7 +382,7 @@ public class Cadastros extends javax.swing.JFrame {
 
         jLabelObrigatorioVenda.setForeground(new java.awt.Color(250, 7, 37));
         jLabelObrigatorioVenda.setText("*");
-        jPanel1.add(jLabelObrigatorioVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 10, -1));
+        jPanel1.add(jLabelObrigatorioVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, 10, -1));
 
         jLabelObrigatorioQnt.setForeground(new java.awt.Color(255, 0, 3));
         jLabelObrigatorioQnt.setText("*");
@@ -392,10 +393,10 @@ public class Cadastros extends javax.swing.JFrame {
         jPanel1.add(jLabelObrigatorioCodigo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, -1, -1));
 
         jLabel35.setText("unidade:");
-        jPanel1.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 60, -1));
+        jPanel1.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 80, 20));
 
         jLabel36.setText("unidade:");
-        jPanel1.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 60, -1));
+        jPanel1.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 80, -1));
 
         jLabelObrigatorioNome1.setForeground(new java.awt.Color(250, 7, 37));
         jLabelObrigatorioNome1.setText("*");
@@ -403,7 +404,7 @@ public class Cadastros extends javax.swing.JFrame {
 
         jLabelObrigatorioCompra.setForeground(new java.awt.Color(250, 7, 37));
         jLabelObrigatorioCompra.setText("*");
-        jPanel1.add(jLabelObrigatorioCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 10, -1));
+        jPanel1.add(jLabelObrigatorioCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 10, -1));
 
         chekBoxAtivado.setText("Ativo / Desativado");
         chekBoxAtivado.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -412,6 +413,7 @@ public class Cadastros extends javax.swing.JFrame {
             }
         });
         jPanel1.add(chekBoxAtivado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
+        jPanel1.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 790, 10));
 
         jTabbedPane1.addTab("Item", jPanel1);
 
@@ -556,6 +558,7 @@ public class Cadastros extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -594,7 +597,7 @@ public class Cadastros extends javax.swing.JFrame {
         } else {
             jLabelObrigatorioVenda.setVisible(true);
         }
-
+        
         if ((camp_nomeItem.getText().length() > 0)
                 && (camp_codigo.getText().length() > 0)
                 && (camp_qnt.getText().length() > 0)
@@ -602,12 +605,13 @@ public class Cadastros extends javax.swing.JFrame {
                 && (camp_valorVenda.getText().length() > 0)) {
 
             Items item = new Items();
-            Long precoCompra = Long.parseLong(camp_valorCompra.getText().replaceAll(",", ""));
-            Long precoVenda = Long.parseLong(camp_valorVenda.getText().replaceAll(",", ""));
+            Long precoCompra = Long.parseLong(camp_valorCompra.getText().replaceAll(",", ""));//remove a virgula e adiciona apenas os numeros decimais
+            Long precoVenda = Long.parseLong(camp_valorVenda.getText().replaceAll(",", "")); //remove a virgula e adiciona apenas os numeros decimais
 //            Long peso = Long.parseLong(camp_peso.getText());
-            int codigo = Integer.parseInt(camp_codigo.getText());
+            Long codigo = Long.parseLong(camp_codigo.getText());
             int quantidade = Integer.parseInt(camp_qnt.getText());
-
+            Long valorTotal = precoVenda * quantidade;
+            
 // -- AINDA ESTÁ FALTANDO ACRESCENTAR PREÇO DE COMPRA E FORNECEDOR --
             item.setItem(camp_nomeItem.getText());
             item.setValor_compra(precoCompra);
@@ -617,7 +621,8 @@ public class Cadastros extends javax.swing.JFrame {
             item.setStatus(status);
             item.setQnt(quantidade);
             item.setDescricao(camp_descricao.getText());
-
+            item.setValor_total(valorTotal);
+            
             Conexao banco = new Conexao();
             banco.save(item);
 

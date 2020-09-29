@@ -18,6 +18,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         initComponents();
     }
 
+    Pesquisas telaPesq = new Pesquisas();
+    Cadastros telaCad = new Cadastros();
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -232,6 +235,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu2.setText("Edit");
 
         jMenuItem5.setText("Pesquisas");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem5);
 
         jMenuBar1.add(jMenu2);
@@ -261,9 +269,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastroActionPerformed
-        Cadastros telaCad = new Cadastros();
+        
         telaCad.setVisible(true);
     }//GEN-LAST:event_jMenuCadastroActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        
+        telaPesq.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -5,6 +5,8 @@
  */
 package com.system.conexao;
 
+import com.system.sistemamaven.Items;
+import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -138,4 +140,22 @@ public class Conexao {
         }
     }
 
+    public List<Items> list_Items() {
+
+        this.session = NewHibernateUtil.getSessionFactory().openSession();
+        this.tx = session.beginTransaction();
+        List<Items> list = null;
+
+        try {
+            list = (List<Items>) session.createQuery("from Items").list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            System.out.println("Erro ao Pegar lista no Banco de Dados!");
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!");
+        } finally {
+            session.close();
+        }
+        return null;
+    }
 }

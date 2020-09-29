@@ -28,9 +28,10 @@ public class Items implements java.io.Serializable {
     private String item;
     private Long valor_compra;
     private Long valor_venda;
+    private Long valor_total;
     private boolean status;
     private Long peso;
-    private int codigo;
+    private Long codigo;
     private Integer qnt;
     private String descricao;
     private Set itensVendas = new HashSet(0);
@@ -38,12 +39,12 @@ public class Items implements java.io.Serializable {
     public Items() {
     }
 
-    public Items(boolean status, int codigo) {
+    public Items(boolean status, Long codigo) {
         this.status = status;
         this.codigo = codigo;
     }
 
-    public Items(Fornecedor fornecedor, String item, Long valor, boolean status, Long peso, int codigo, Integer qnt, String descricao, Set itensVendas) {
+    public Items(Fornecedor fornecedor, String item, Long valor, boolean status, Long peso, Long codigo, Integer qnt, String descricao, Set itensVendas) {
         this.fornecedor = fornecedor;
         this.item = item;
         this.valor_compra = valor;
@@ -104,6 +105,15 @@ public class Items implements java.io.Serializable {
         this.valor_venda = valor_venda;
     }
 
+    @Column(name = "valor_total", precision = 10, scale = 0)
+    public Long getValor_total() {
+        return valor_total;
+    }
+
+    public void setValor_total(Long valor_total) {
+        this.valor_total = valor_total;
+    }
+    
     @Column(name = "status", nullable = false)
     public boolean isStatus() {
         return this.status;
@@ -123,11 +133,11 @@ public class Items implements java.io.Serializable {
     }
 
     @Column(name = "codigo", nullable = false)
-    public int getCodigo() {
+    public Long getCodigo() {
         return this.codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
 
@@ -158,4 +168,16 @@ public class Items implements java.io.Serializable {
         this.itensVendas = itensVendas;
     }
 
+    @Override
+    public String toString() {
+        return super.toString(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    
 }
