@@ -15,10 +15,8 @@ import javax.swing.JOptionPane;
  */
 public class TelaEdicao extends javax.swing.JFrame {
 
-    
-    
     Items item;
-    
+
     /**
      * Creates new form TelaEdicao
      */
@@ -34,7 +32,6 @@ public class TelaEdicao extends javax.swing.JFrame {
         this.item = item;
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -77,6 +74,7 @@ public class TelaEdicao extends javax.swing.JFrame {
         btn_cancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel16.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -189,7 +187,7 @@ public class TelaEdicao extends javax.swing.JFrame {
                 btn_cancelarActionPerformed(evt);
             }
         });
-        jPanel16.add(btn_cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 380, 90, -1));
+        jPanel16.add(btn_cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 380, 110, -1));
 
         getContentPane().add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 830, 430));
 
@@ -198,7 +196,7 @@ public class TelaEdicao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_cadItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadItem15ActionPerformed
-        Upgradetem();
+        AtualizarItem();
     }//GEN-LAST:event_btn_cadItem15ActionPerformed
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
@@ -274,8 +272,24 @@ public class TelaEdicao extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator49;
     // End of variables declaration//GEN-END:variables
 
-    private void Upgradetem() {
-    
+    public void CarregarCampos() {
+
+        String qnt = String.valueOf(item.getQnt());
+        String valorCompra = String.valueOf(item.getValor_compra());
+        String valorVenda = String.valueOf(item.getValor_venda());
+        String codigo = String.valueOf(item.getCodigo());
+
+        camp_nomeItem.setText(item.getItem());
+        camp_qnt.setText(qnt);
+        camp_valorCompra.setText(valorCompra);
+        camp_valorVenda.setText(valorVenda);
+        camp_descricao.setText(item.getDescricao());
+        camp_codigo.setText(codigo);
+
+    }
+
+    private void AtualizarItem() {
+
         if (camp_nomeItem.getText().length() > 0) {
             jLabelObrigatorioVenda.setVisible(false);
         } else {
@@ -301,22 +315,21 @@ public class TelaEdicao extends javax.swing.JFrame {
         } else {
             jLabelObrigatorioVenda.setVisible(true);
         }
-        
+
         if ((camp_nomeItem.getText().length() > 0)
                 && (camp_codigo.getText().length() > 0)
                 && (camp_qnt.getText().length() > 0)
                 && (camp_valorCompra.getText().length() > 0)
                 && (camp_valorVenda.getText().length() > 0)) {
 
-            
             Long precoCompra = Long.parseLong(camp_valorCompra.getText().replaceAll(",", ""));//remove a virgula e adiciona apenas os numeros decimais
             Long precoVenda = Long.parseLong(camp_valorVenda.getText().replaceAll(",", "")); //remove a virgula e adiciona apenas os numeros decimais
 //            Long peso = Long.parseLong(camp_peso.getText());
             Long codigo = Long.parseLong(camp_codigo.getText());
             int quantidade = Integer.parseInt(camp_qnt.getText());
             int valorTotal = (int) (precoVenda * quantidade);
-            
-// -- AINDA ESTÁ FALTANDO ACRESCENTAR PREÇO DE COMPRA E FORNECEDOR --
+
+// -- AINDA ESTÁ FALTANDO ACRESCENTAR FORNECEDOR --
             item.setItem(camp_nomeItem.getText());
             item.setValor_compra(precoCompra);
             item.setValor_venda(precoVenda);
@@ -326,10 +339,11 @@ public class TelaEdicao extends javax.swing.JFrame {
             item.setQnt(quantidade);
             item.setDescricao(camp_descricao.getText());
             item.setValor_total(valorTotal);
-            
-            Conexao banco = new Conexao();
-            banco.update(item);
 
+            Conexao banco = new Conexao();
+            banco.update(item); // ATUALIZA OS DADOS DO ITEM QUE FOI SELECIONADO;
+
+//            LIMPA TODOS OS CAMPOS NOVAMENTE
             camp_nomeItem.setText("");
             camp_codigo.setText("");
             camp_valorCompra.setText("");
@@ -337,6 +351,10 @@ public class TelaEdicao extends javax.swing.JFrame {
             camp_qnt.setText("");
             camp_descricao.setText("");
 
+            Pesquisas telaPes = new Pesquisas();
+            telaPes.AtualizarTabela();
+            dispose();
+            
         } else {
             JOptionPane.showMessageDialog(null, "Confira os campos Obrigatórios!!");
         }

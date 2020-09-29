@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 public class Pesquisas extends javax.swing.JFrame {
 
     Conexao banco = new Conexao();
+    TelaEdicao tela = new TelaEdicao();
 
     /**
      * Creates new form Pesquisas
@@ -84,11 +85,6 @@ public class Pesquisas extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        table_items2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                table_items2MouseClicked(evt);
-            }
-        });
         jScrollPane3.setViewportView(table_items2);
 
         jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 820, 220));
@@ -125,11 +121,6 @@ public class Pesquisas extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        table_items1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                table_items1MouseClicked(evt);
-            }
-        });
         jScrollPane2.setViewportView(table_items1);
 
         jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 820, 220));
@@ -154,6 +145,7 @@ public class Pesquisas extends javax.swing.JFrame {
         jLabel1.setText("Pesquisa:");
         jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 70, -1));
 
+        table_items.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         table_items.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null}
@@ -205,39 +197,27 @@ public class Pesquisas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisaActionPerformed
-        PesquisaItem();
+        AtualizarTabela();
+        btn_editar.setVisible(false);
     }//GEN-LAST:event_btn_pesquisaActionPerformed
 
     private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
         EditarItem();
-        TelaEdicao tela = new TelaEdicao();
-        jPanelTable.setVisible(false);
-        areaTrabalho.removeAll();
-        tela.setLocation(30, 40);
-        tela.setSize(900, 450);
         tela.setVisible(true);
-        areaTrabalho.add(tela);
+        tela.CarregarCampos();
     }//GEN-LAST:event_btn_editarActionPerformed
-
-    private void table_itemsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_itemsMouseClicked
-        btn_editar.setVisible(true);
-    }//GEN-LAST:event_table_itemsMouseClicked
-
-    private void table_items1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_items1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_table_items1MouseClicked
 
     private void btn_pesquisa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisa1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_pesquisa1ActionPerformed
 
-    private void table_items2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_items2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_table_items2MouseClicked
-
     private void btn_pesquisa2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisa2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_pesquisa2ActionPerformed
+
+    private void table_itemsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_itemsMouseClicked
+        btn_editar.setVisible(true);
+    }//GEN-LAST:event_table_itemsMouseClicked
 
     /**
      * @param args the command line arguments
@@ -298,11 +278,11 @@ public class Pesquisas extends javax.swing.JFrame {
     private javax.swing.JTable table_items2;
     // End of variables declaration//GEN-END:variables
 
-    private void PesquisaItem() {
-        btn_editar.setVisible(false);
+    public void AtualizarTabela() {
+        
         String pesquisa = camp_pesquisa.getText();
         List<Items> items = new ArrayList<>();
-        
+
         for (int i = 0; i < banco.list_Items().size(); i++) {
             if (banco.list_Items().get(i).getItem().contains(pesquisa)) { // VERIFICA SE A STRING CONTEM NO BANCO DE DADOS
                 Items item = banco.list_Items().get(i);
@@ -326,7 +306,7 @@ public class Pesquisas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "<Erro Ao popular a table Itens>");
+            JOptionPane.showMessageDialog(null, "<Erro Ao popular a tabela Itens>");
         }
 
     }
@@ -335,11 +315,11 @@ public class Pesquisas extends javax.swing.JFrame {
 
         DefaultTableModel tableDefault = (DefaultTableModel) table_items.getModel();
         int linha = table_items.getSelectedRow();
-                
+
         for (int i = 0; i < banco.list_Items().size(); i++) {
-            if (banco.list_Items().get(i).getIditem().equals(tableDefault.getValueAt(linha, 0))){ // VERIFICA SE O ID DO OBJETO ONTEM NO BANCO DE DADOS
-                Items busca = banco.list_Items().get(i);
-                System.out.println(busca.getItem());                              // ADICIONA O ITEM DA PESQUISA NA ARRAYLIST
+            if (banco.list_Items().get(i).getIditem().equals(tableDefault.getValueAt(linha, 0))) { // VERIFICA SE O ID DO OBJETO ONTEM NO BANCO DE DADOS
+                Items item = banco.list_Items().get(i);
+                tela.setItem(item); //MANDA O ITEM SELECIONADO PARA OUTRA TELA UTILIZANDO O METODO GETT E SETT
             }
         }
     }
