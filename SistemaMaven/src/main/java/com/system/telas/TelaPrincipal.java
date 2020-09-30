@@ -20,7 +20,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     Pesquisas telaPesq = new Pesquisas();
     Cadastros telaCad = new Cadastros();
-    
+    TelaItensDesativados telaItensDesativados = new TelaItensDesativados();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,9 +48,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -66,17 +64,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jTextField3 = new javax.swing.JTextField();
+        jTextField6 = new javax.swing.JTextField();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jEditorPane1 = new javax.swing.JEditorPane();
         jLabel17 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuCadastro = new javax.swing.JMenuItem();
+        jMenuCadastrar = new javax.swing.JMenu();
+        jMenuPesquisa = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuConfigAvancadas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(MAXIMIZED_BOTH);
@@ -125,7 +127,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         jLabel14.setText("R$ VALOR");
         jPanel7.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 330, 90, -1));
-        jPanel7.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 310, 40));
+        jPanel7.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 310, -1));
 
         jButton3.setText("Adicionar");
         jPanel7.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 50, -1, -1));
@@ -153,15 +155,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel2.setText("Preço Produto:");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 120, 30));
 
-        jTextField2.setText("jTextField2");
-        jPanel3.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 270, 120, 30));
-
         jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         jLabel4.setText("Quant. Produto:");
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 120, 30));
-
-        jTextField4.setText("jTextField4");
-        jPanel3.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, 120, -1));
 
         jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         jLabel7.setText("Cod. Venda: ");
@@ -217,6 +213,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTextField3.setText("jTextField3");
         jPanel3.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 220, -1));
 
+        jTextField6.setText("jTextField6");
+        jPanel3.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, -1, -1));
+
+        jFormattedTextField1.setText("jFormattedTextField1");
+        jPanel3.add(jFormattedTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, 90, -1));
+
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 250, 570));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "IMPRESSÂO NOTA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -232,35 +234,46 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel17.setText("IMPRIMIR CUPOM");
         getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 610, -1, -1));
 
-        jMenu2.setText("Edit");
-
-        jMenuItem5.setText("Pesquisas");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem5);
-
-        jMenuBar1.add(jMenu2);
-
         jMenu4.setText("Vendas");
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("Relatorio");
         jMenuBar1.add(jMenu5);
 
-        jMenu1.setText("File");
+        jMenuCadastrar.setText("Cadastros");
 
-        jMenuCadastro.setText("Cadastros");
-        jMenuCadastro.addActionListener(new java.awt.event.ActionListener() {
+        jMenuPesquisa.setText("Pesquisar");
+        jMenuPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuCadastroActionPerformed(evt);
+                jMenuPesquisaActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuCadastro);
+        jMenuCadastrar.add(jMenuPesquisa);
 
-        jMenuBar1.add(jMenu1);
+        jMenuItem2.setText("Cadastrar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenuCadastrar.add(jMenuItem2);
+
+        jMenuBar1.add(jMenuCadastrar);
+
+        jMenu3.setText("Configurações");
+
+        jMenuItem1.setText("Mostrar Itens Desativados");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
+
+        jMenuConfigAvancadas.setText("Config. Avançadas");
+        jMenu3.add(jMenuConfigAvancadas);
+
+        jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
 
@@ -268,15 +281,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastroActionPerformed
-        
-        telaCad.setVisible(true);
-    }//GEN-LAST:event_jMenuCadastroActionPerformed
-
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void jMenuPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuPesquisaActionPerformed
         telaPesq.setVisible(true);
         telaPesq.AtualizarTabela();
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_jMenuPesquisaActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        telaCad.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        telaItensDesativados.setVisible(true);
+        telaItensDesativados.ItensDesativados();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -321,6 +338,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JEditorPane jEditorPane1;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -338,13 +356,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuCadastro;
-    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenu jMenuCadastrar;
+    private javax.swing.JMenuItem jMenuConfigAvancadas;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuPesquisa;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -358,8 +378,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
 }

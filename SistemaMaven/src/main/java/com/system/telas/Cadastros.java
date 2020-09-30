@@ -5,7 +5,6 @@
  */
 package com.system.telas;
 
-import com.sun.tools.javac.tree.JCTree;
 import com.system.conexao.Conexao;
 import com.system.sistemamaven.Endereco;
 import com.system.sistemamaven.Fornecedor;
@@ -14,7 +13,6 @@ import com.system.sistemamaven.NumeroContato;
 import com.system.sistemamaven.Pessoa;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import jdk.nashorn.internal.ir.BreakNode;
 
 /**
  *
@@ -560,7 +558,6 @@ public class Cadastros extends javax.swing.JFrame {
     private void CadastroItem() {
 
         String tamanho = null;
-
         if (camp_nomeItem.getText().length() > 0) {
             jLabelObrigatorioVenda.setVisible(false);
         } else {
@@ -600,13 +597,14 @@ public class Cadastros extends javax.swing.JFrame {
             int quantidade = Integer.parseInt(camp_qnt.getText());
             int valorTotal = (int) (precoVenda * quantidade);
 
-// -- AINDA ESTÁ FALTANDO ACRESCENTAR PREÇO DE COMPRA E FORNECEDOR --
+//          -- AINDA ESTÁ FALTANDO ACRESCENTAR O FORNECEDOR --
             item.setItem(camp_nomeItem.getText());
             item.setValor_compra(precoCompra);
             item.setValor_venda(precoVenda);
             item.setCodigo(codigo);
 //            boolean status = chekBoxAtivado.isSelected(); // LEMBRA DE REMOVER A CHEKBOX E USAR O CAMPO STATUS APENAS PARA ITEMS EXCLUIDOS
             item.setStatus(true);
+            item.setExcluido(false);
             item.setQnt(quantidade);
             item.setDescricao(camp_descricao.getText());
             item.setValor_total(valorTotal);

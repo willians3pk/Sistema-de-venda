@@ -70,6 +70,10 @@ public class TelaEdicao extends javax.swing.JFrame {
         jSeparator49 = new javax.swing.JSeparator();
         btn_cancelar = new javax.swing.JButton();
         comBox_tamanho = new javax.swing.JComboBox<>();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuDesativarItem = new javax.swing.JMenuItem();
+        jMenuExcluir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -123,7 +127,7 @@ public class TelaEdicao extends javax.swing.JFrame {
         jPanel16.add(jSeparator47, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 790, 10));
         jPanel16.add(jSeparator48, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 363, 800, 10));
 
-        btn_cadItem15.setText("Cadastrar");
+        btn_cadItem15.setText("Atualizar");
         btn_cadItem15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cadItem15ActionPerformed(evt);
@@ -180,12 +184,34 @@ public class TelaEdicao extends javax.swing.JFrame {
                 btn_cancelarActionPerformed(evt);
             }
         });
-        jPanel16.add(btn_cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 380, 110, -1));
+        jPanel16.add(btn_cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 380, 90, -1));
 
         comBox_tamanho.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "P", "M", "G", "GG" }));
         jPanel16.add(comBox_tamanho, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 90, -1));
 
-        getContentPane().add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 830, 430));
+        getContentPane().add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 830, 430));
+
+        jMenu1.setText("Opções");
+
+        jMenuDesativarItem.setText("Desativar item");
+        jMenuDesativarItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuDesativarItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuDesativarItem);
+
+        jMenuExcluir.setText("Excluir");
+        jMenuExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuExcluirActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuExcluir);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         setSize(new java.awt.Dimension(898, 532));
         setLocationRelativeTo(null);
@@ -198,6 +224,14 @@ public class TelaEdicao extends javax.swing.JFrame {
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btn_cancelarActionPerformed
+
+    private void jMenuDesativarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuDesativarItemActionPerformed
+        DesativarItem();
+    }//GEN-LAST:event_jMenuDesativarItemActionPerformed
+
+    private void jMenuExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuExcluirActionPerformed
+        Excluir();
+    }//GEN-LAST:event_jMenuExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -258,6 +292,10 @@ public class TelaEdicao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelObrigatorioNome1;
     private javax.swing.JLabel jLabelObrigatorioQnt;
     private javax.swing.JLabel jLabelObrigatorioVenda;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuDesativarItem;
+    private javax.swing.JMenuItem jMenuExcluir;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JSeparator jSeparator46;
@@ -347,9 +385,35 @@ public class TelaEdicao extends javax.swing.JFrame {
             camp_descricao.setText("");
 
             dispose();
-            
+
         } else {
             JOptionPane.showMessageDialog(null, "Confira os campos Obrigatórios!!");
         }
     }
+
+    private void DesativarItem() {
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Você Deseja desativar esse item?", "Desativar", JOptionPane.YES_NO_OPTION);
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            item.setStatus(false);
+            Conexao banco = new Conexao();
+            banco.update(item); // ATUALIZA OS DADOS DO ITEM QUE FOI SELECIONADO;
+            JOptionPane.showMessageDialog(null, "Voce pode ativa o item novamente quando quiser, \nbasta ir na tela principal do sistema na barra menu configurações!");
+            dispose();
+        }
+    }
+
+    private void Excluir() {
+        
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Voce deseja Realmente Excluir este item?", "Excluir", JOptionPane.YES_NO_OPTION);
+        if(confirmacao == JOptionPane.YES_OPTION){
+            item.setExcluido(true);
+            item.setStatus(false);
+            Conexao banco = new Conexao();
+            banco.update(item); // ATUALIZA OS DADOS DO ITEM QUE FOI SELECIONADO;
+            JOptionPane.showMessageDialog(null, "Item Excluido com Sucesso!!");
+            dispose();
+        }
+    
+    }
+    
 }

@@ -62,7 +62,7 @@ public class Conexao {
         try {
             session.update(objeto);
             tx.commit();
-            JOptionPane.showMessageDialog(null, "Atualizado com Sucesso!");
+//            JOptionPane.showMessageDialog(null, "Atualizado com Sucesso!");
         } catch (Exception e) {
             System.out.println("Erro ao Atualizar no Banco de Dados!");
             JOptionPane.showMessageDialog(null, "Erro ao Atualizar na Base de Dados!");

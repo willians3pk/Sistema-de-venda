@@ -26,6 +26,9 @@
         <property name="status" type="boolean">
             <column name="status" not-null="true" />
         </property>
+        <property name="excluido" type="boolean">
+            <column name="excluido" not-null="true" />
+        </property>
         <property name="tamanho" type="string">
             <column name="tamanho" length="45" />
         </property>

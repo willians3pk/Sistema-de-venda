@@ -1,7 +1,10 @@
 package com.system.sistemamaven;
 // Generated 28/09/2020 12:30:31 by Hibernate Tools 4.3.1
 
+import com.system.conexao.Conexao;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,10 +22,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "items",
-         catalog = "bancoSistemaVenda"
+        catalog = "bancoSistemaVenda"
 )
 public class Items implements java.io.Serializable {
-
+    
     private Integer iditem;
     private Fornecedor fornecedor;
     private String item;
@@ -30,6 +33,7 @@ public class Items implements java.io.Serializable {
     private Long valor_venda;
     private Integer valor_total;
     private boolean status;
+    private boolean excluido;
     private String tamanho;
     private Long codigo;
     private Integer qnt;
@@ -113,7 +117,7 @@ public class Items implements java.io.Serializable {
     public void setValor_total(Integer valor_total) {
         this.valor_total = valor_total;
     }
-    
+
     @Column(name = "status", nullable = false)
     public boolean isStatus() {
         return this.status;
@@ -121,6 +125,15 @@ public class Items implements java.io.Serializable {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    @Column(name = "excluido", nullable = false)
+    public boolean isExcluido() {
+        return excluido;
+    }
+
+    public void setExcluido(boolean excluido) {
+        this.excluido = excluido;
     }
 
     @Column(name = "tamanho", length = 45)
@@ -178,6 +191,22 @@ public class Items implements java.io.Serializable {
         return super.hashCode(); //To change body of generated methods, choose Tools | Templates.
     }
 
+//  ----- METODOS ESPECIFICOS DA CLASSE ITEMS --------
     
-    
+    public List<Items> Pesquisa(String pesquisa, Conexao banco) {
+        
+        List<Items> items = new ArrayList<>();
+        
+        for (int i = 0; i < banco.list_Items().size(); i++) {
+            if (banco.list_Items().get(i).getItem().contains(pesquisa)) {   // VERIFICA SE A STRING CONTEM NO BANCO DE DADOS
+                Items item = banco.list_Items().get(i);
+                if (item.isStatus()) {                                    // ESSE IF VAI ADICIONAR NA ARRAYLIST APENAS OS ITEMS QUE TIVEREM COM STATUS TRUE
+                    items.add(item);                                  // ADICIONA O ITEM DA PESQUISA NA ARRAYLIST
+                    return items;
+                }
+            }
+        }
+        return null;
+    }
+
 }

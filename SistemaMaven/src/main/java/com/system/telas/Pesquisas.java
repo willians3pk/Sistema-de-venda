@@ -28,6 +28,7 @@ public class Pesquisas extends javax.swing.JFrame {
     public Pesquisas() {
         initComponents();
         btn_editar.setVisible(false);
+        jMenuIDesativarItens.setEnabled(true);
     }
 
     /**
@@ -57,9 +58,15 @@ public class Pesquisas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_items = new javax.swing.JTable();
-        btn_pesquisa = new javax.swing.JButton();
         btn_editar = new javax.swing.JButton();
-        areaTrabalho = new javax.swing.JDesktopPane();
+        btn_atualizar = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuIDesativarItens = new javax.swing.JMenuItem();
+        jMenuExcluirItens = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -96,7 +103,7 @@ public class Pesquisas extends javax.swing.JFrame {
                 btn_pesquisa2ActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_pesquisa2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, 110, 40));
+        jPanel1.add(btn_pesquisa2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, 100, 30));
 
         jLabel3.setText("Pesquisa:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 70, -1));
@@ -132,7 +139,7 @@ public class Pesquisas extends javax.swing.JFrame {
                 btn_pesquisa1ActionPerformed(evt);
             }
         });
-        jPanel2.add(btn_pesquisa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, 110, 40));
+        jPanel2.add(btn_pesquisa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, 110, 30));
 
         jLabel2.setText("Pesquisa:");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 70, -1));
@@ -171,14 +178,6 @@ public class Pesquisas extends javax.swing.JFrame {
 
         jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 820, 220));
 
-        btn_pesquisa.setText("pesquisar");
-        btn_pesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_pesquisaActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btn_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, 110, 40));
-
         btn_editar.setText("Editar");
         btn_editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,19 +186,43 @@ public class Pesquisas extends javax.swing.JFrame {
         });
         jPanel3.add(btn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 356, 90, 40));
 
+        btn_atualizar.setText("Atualizar");
+        btn_atualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_atualizarActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btn_atualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, -1, 30));
+        jPanel3.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 820, 10));
+        jPanel3.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 820, 10));
+
         jPanelTable.addTab("Itens", jPanel3);
 
-        getContentPane().add(jPanelTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 900, 450));
-        getContentPane().add(areaTrabalho, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 1, 950, 530));
+        getContentPane().add(jPanelTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 900, 450));
+
+        jMenu1.setText("Opções");
+
+        jMenuIDesativarItens.setText("Desativar itens");
+        jMenuIDesativarItens.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuIDesativarItensActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuIDesativarItens);
+
+        jMenuExcluirItens.setText("Excluir itens");
+        jMenu1.add(jMenuExcluirItens);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         setSize(new java.awt.Dimension(965, 556));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisaActionPerformed
-        AtualizarTabela();
-        btn_editar.setVisible(false);
-    }//GEN-LAST:event_btn_pesquisaActionPerformed
 
     private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
         EditarItem();
@@ -218,6 +241,15 @@ public class Pesquisas extends javax.swing.JFrame {
     private void table_itemsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_itemsMouseClicked
         btn_editar.setVisible(true);
     }//GEN-LAST:event_table_itemsMouseClicked
+
+    private void btn_atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_atualizarActionPerformed
+        AtualizarTabela();
+        btn_editar.setVisible(false);
+    }//GEN-LAST:event_btn_atualizarActionPerformed
+
+    private void jMenuIDesativarItensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuIDesativarItensActionPerformed
+        DesativarItens();
+    }//GEN-LAST:event_jMenuIDesativarItensActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,9 +287,8 @@ public class Pesquisas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane areaTrabalho;
+    private javax.swing.JButton btn_atualizar;
     private javax.swing.JButton btn_editar;
-    private javax.swing.JButton btn_pesquisa;
     private javax.swing.JButton btn_pesquisa1;
     private javax.swing.JButton btn_pesquisa2;
     private javax.swing.JTextField camp_pesquisa;
@@ -266,6 +297,11 @@ public class Pesquisas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuExcluirItens;
+    private javax.swing.JMenuItem jMenuIDesativarItens;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -273,42 +309,43 @@ public class Pesquisas extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable table_items;
     private javax.swing.JTable table_items1;
     private javax.swing.JTable table_items2;
     // End of variables declaration//GEN-END:variables
 
     public void AtualizarTabela() {
-        
+
         String pesquisa = camp_pesquisa.getText();
         List<Items> items = new ArrayList<>();
 
         for (int i = 0; i < banco.list_Items().size(); i++) {
-            if (banco.list_Items().get(i).getItem().contains(pesquisa)) { // VERIFICA SE A STRING CONTEM NO BANCO DE DADOS
+            if (banco.list_Items().get(i).getItem().contains(pesquisa)) {   // VERIFICA SE A STRING CONTEM NO BANCO DE DADOS
                 Items item = banco.list_Items().get(i);
-                System.out.println(item.getItem());
-                items.add(item);                                          // ADICIONA O ITEM DA PESQUISA NA ARRAYLIST
-            };
+                if (item.isStatus()) {                                    // ESSE IF VAI ADICIONAR NA ARRAYLIST APENAS OS ITEMS QUE TIVEREM COM STATUS TRUE
+                    items.add(item);                                     // ADICIONA O ITEM DA PESQUISA NA ARRAYLIST
+                }
+            }
         }
         DefaultTableModel tableDefault = (DefaultTableModel) table_items.getModel();
         try {
 
             tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
             for (Items item : items) {
-                double l = item.getValor_venda() / 100; // A DIVISÃO POR 100 É APENAS PRA MOVER A VIRGULA 3 CASAS DECIMAIS.
-                double t = item.getValor_total() / 100; // A DIVISÃO POR 100 É APENAS PRA MOVER A VIRGULA 3 CASAS DECIMAIS.
+                float l = item.getValor_venda() / 100; // A DIVISÃO POR 100 É APENAS PRA MOVER A VIRGULA 3 CASAS DECIMAIS.
+                float t = item.getValor_total() / 100; // A DIVISÃO POR 100 É APENAS PRA MOVER A VIRGULA 3 CASAS DECIMAIS.
 
-                String valorVenda = Double.toString(l);
-                String valorTotal = Double.toString(t);
-//                String valorVenda = DecimalFormat.getNumberInstance().format(l);
-//                String valorTotal = DecimalFormat.getNumberInstance().format(t);
+                String valorVenda = Float.toString(l);
+                String valorTotal = Float.toString(t);
 
                 tableDefault.addRow(new Object[]{item.getIditem(), item.getCodigo(), item.getItem(), "R$ " + valorVenda,
                     item.getQnt(), item.getFornecedor(), item.getDescricao(), item.getTamanho(), "R$ " + valorTotal});
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "<Erro Ao popular a tabela Itens>");
+            JOptionPane.showMessageDialog(null, "<Item não Encontrado>");
         }
 
     }
@@ -323,6 +360,29 @@ public class Pesquisas extends javax.swing.JFrame {
                 Items item = banco.list_Items().get(i);
                 tela.setItem(item); //MANDA O ITEM SELECIONADO PARA OUTRA TELA UTILIZANDO O METODO GETT E SETT
             }
+        }
+    }
+
+    private void DesativarItens() {
+
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Você Deseja desativar *OS ITENS SELECIONADOS*?", "Desativar", JOptionPane.YES_NO_OPTION);
+        if (confirmacao == JOptionPane.YES_OPTION) {
+
+            DefaultTableModel tableDefault = (DefaultTableModel) table_items.getModel();
+            int linha = table_items.getSelectedRow();
+
+            for (int i = 0; i < banco.list_Items().size(); i++) {
+                if (banco.list_Items().get(i).getIditem().equals(tableDefault.getValueAt(linha, 0))) { // VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
+                    Items item = banco.list_Items().get(i);
+                    item.setStatus(false);
+                    banco.update(item);
+                    AtualizarTabela();
+
+                }
+            }
+            JOptionPane.showMessageDialog(null, "Item *DESATIVADOS* com Sucesso!");
+            JOptionPane.showMessageDialog(null, "Voce pode ativa-los novamente quando quiser, basta ir na\ntela principal do sistema na barra menu configurações!");
+
         }
     }
 }
