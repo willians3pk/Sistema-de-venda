@@ -5,6 +5,7 @@
  */
 package com.system.telas;
 
+import com.sun.tools.javac.tree.JCTree;
 import com.system.conexao.Conexao;
 import com.system.sistemamaven.Endereco;
 import com.system.sistemamaven.Fornecedor;
@@ -13,6 +14,7 @@ import com.system.sistemamaven.NumeroContato;
 import com.system.sistemamaven.Pessoa;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import jdk.nashorn.internal.ir.BreakNode;
 
 /**
  *
@@ -104,7 +106,6 @@ public class Cadastros extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         camp_valorCompra = new javax.swing.JFormattedTextField();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         camp_qnt = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -123,12 +124,11 @@ public class Cadastros extends javax.swing.JFrame {
         jLabelObrigatorioVenda = new javax.swing.JLabel();
         jLabelObrigatorioQnt = new javax.swing.JLabel();
         jLabelObrigatorioCodigo1 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
         jLabelObrigatorioNome1 = new javax.swing.JLabel();
         jLabelObrigatorioCompra = new javax.swing.JLabel();
-        chekBoxAtivado = new javax.swing.JCheckBox();
         jSeparator10 = new javax.swing.JSeparator();
+        jLabel35 = new javax.swing.JLabel();
+        comBox_tamanho = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -325,13 +325,11 @@ public class Cadastros extends javax.swing.JFrame {
         }
         jPanel1.add(camp_valorCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 60, -1));
 
-        jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel3.setText("Status:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
-
         jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel4.setText("Qnt:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, -1, -1));
+
+        camp_qnt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         jPanel1.add(camp_qnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 100, -1));
 
         camp_descricao.setColumns(20);
@@ -376,9 +374,11 @@ public class Cadastros extends javax.swing.JFrame {
         jPanel1.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, -1, -1));
 
         jLabel32.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel32.setText("Codigo:");
-        jPanel1.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
-        jPanel1.add(camp_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 140, -1));
+        jLabel32.setText("Tamanho:");
+        jPanel1.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 100, -1));
+
+        camp_codigo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        jPanel1.add(camp_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 140, -1));
 
         jLabelObrigatorioVenda.setForeground(new java.awt.Color(250, 7, 37));
         jLabelObrigatorioVenda.setText("*");
@@ -390,13 +390,7 @@ public class Cadastros extends javax.swing.JFrame {
 
         jLabelObrigatorioCodigo1.setForeground(new java.awt.Color(255, 0, 3));
         jLabelObrigatorioCodigo1.setText("*");
-        jPanel1.add(jLabelObrigatorioCodigo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, -1, -1));
-
-        jLabel35.setText("unidade:");
-        jPanel1.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 80, 20));
-
-        jLabel36.setText("unidade:");
-        jPanel1.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 80, -1));
+        jPanel1.add(jLabelObrigatorioCodigo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 10, -1));
 
         jLabelObrigatorioNome1.setForeground(new java.awt.Color(250, 7, 37));
         jLabelObrigatorioNome1.setText("*");
@@ -405,15 +399,14 @@ public class Cadastros extends javax.swing.JFrame {
         jLabelObrigatorioCompra.setForeground(new java.awt.Color(250, 7, 37));
         jLabelObrigatorioCompra.setText("*");
         jPanel1.add(jLabelObrigatorioCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 10, -1));
-
-        chekBoxAtivado.setText("Ativo / Desativado");
-        chekBoxAtivado.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                chekBoxAtivadoMouseClicked(evt);
-            }
-        });
-        jPanel1.add(chekBoxAtivado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
         jPanel1.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 790, 10));
+
+        jLabel35.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel35.setText("Codigo:");
+        jPanel1.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
+
+        comBox_tamanho.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecione>", "P", "M", "G", "GG" }));
+        jPanel1.add(comBox_tamanho, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, 120, -1));
 
         jTabbedPane1.addTab("Item", jPanel1);
 
@@ -434,10 +427,6 @@ public class Cadastros extends javax.swing.JFrame {
     private void btn_cadFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadFornecedorActionPerformed
         CadastroFornecedor();
     }//GEN-LAST:event_btn_cadFornecedorActionPerformed
-
-    private void chekBoxAtivadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chekBoxAtivadoMouseClicked
-
-    }//GEN-LAST:event_chekBoxAtivadoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -508,9 +497,9 @@ public class Cadastros extends javax.swing.JFrame {
     private javax.swing.JTextField camp_ruaPessoa;
     private javax.swing.JFormattedTextField camp_valorCompra;
     private javax.swing.JFormattedTextField camp_valorVenda;
-    private javax.swing.JCheckBox chekBoxAtivado;
     private javax.swing.JComboBox<String> comBox_estadorPessoa;
     private javax.swing.JComboBox<String> comBox_fornecedor;
+    private javax.swing.JComboBox<String> comBox_tamanho;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -533,14 +522,12 @@ public class Cadastros extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -572,6 +559,8 @@ public class Cadastros extends javax.swing.JFrame {
 
     private void CadastroItem() {
 
+        String tamanho = null;
+
         if (camp_nomeItem.getText().length() > 0) {
             jLabelObrigatorioVenda.setVisible(false);
         } else {
@@ -597,7 +586,7 @@ public class Cadastros extends javax.swing.JFrame {
         } else {
             jLabelObrigatorioVenda.setVisible(true);
         }
-        
+
         if ((camp_nomeItem.getText().length() > 0)
                 && (camp_codigo.getText().length() > 0)
                 && (camp_qnt.getText().length() > 0)
@@ -607,32 +596,38 @@ public class Cadastros extends javax.swing.JFrame {
             Items item = new Items();
             Long precoCompra = Long.parseLong(camp_valorCompra.getText().replaceAll(",", ""));//remove a virgula e adiciona apenas os numeros decimais
             Long precoVenda = Long.parseLong(camp_valorVenda.getText().replaceAll(",", "")); //remove a virgula e adiciona apenas os numeros decimais
-//            Long peso = Long.parseLong(camp_peso.getText());
             Long codigo = Long.parseLong(camp_codigo.getText());
             int quantidade = Integer.parseInt(camp_qnt.getText());
             int valorTotal = (int) (precoVenda * quantidade);
-            
+
 // -- AINDA ESTÁ FALTANDO ACRESCENTAR PREÇO DE COMPRA E FORNECEDOR --
             item.setItem(camp_nomeItem.getText());
             item.setValor_compra(precoCompra);
             item.setValor_venda(precoVenda);
             item.setCodigo(codigo);
-            boolean status = chekBoxAtivado.isSelected();
-            item.setStatus(status);
+//            boolean status = chekBoxAtivado.isSelected(); // LEMBRA DE REMOVER A CHEKBOX E USAR O CAMPO STATUS APENAS PARA ITEMS EXCLUIDOS
+            item.setStatus(true);
             item.setQnt(quantidade);
             item.setDescricao(camp_descricao.getText());
             item.setValor_total(valorTotal);
-            
-            Conexao banco = new Conexao();
-            banco.save(item);
 
-            camp_nomeItem.setText("");
-            camp_codigo.setText("");
-            camp_valorCompra.setText("");
-            camp_valorVenda.setText("");
-            camp_qnt.setText("");
-            camp_descricao.setText("");
+            if (comBox_tamanho.getSelectedItem().toString().equals("<selecione>")) {
+                JOptionPane.showMessageDialog(null, "Selecione o Tamanho!!");
+            } else {
 
+                tamanho = comBox_tamanho.getSelectedItem().toString();
+                item.setTamanho(tamanho);
+                Conexao banco = new Conexao();
+                banco.save(item);
+
+                camp_nomeItem.setText("");
+                camp_codigo.setText("");
+                camp_valorCompra.setText("");
+                camp_valorVenda.setText("");
+                camp_qnt.setText("");
+                camp_descricao.setText("");
+
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Confira os campos Obrigatórios!!");
         }

@@ -30,7 +30,7 @@ public class Items implements java.io.Serializable {
     private Long valor_venda;
     private Integer valor_total;
     private boolean status;
-    private Long peso;
+    private String tamanho;
     private Long codigo;
     private Integer qnt;
     private String descricao;
@@ -44,12 +44,12 @@ public class Items implements java.io.Serializable {
         this.codigo = codigo;
     }
 
-    public Items(Fornecedor fornecedor, String item, Long valor, boolean status, Long peso, Long codigo, Integer qnt, String descricao, Set itensVendas) {
+    public Items(Fornecedor fornecedor, String item, Long valor, boolean status, String tamanho, Long codigo, Integer qnt, String descricao, Set itensVendas) {
         this.fornecedor = fornecedor;
         this.item = item;
         this.valor_compra = valor;
         this.status = status;
-        this.peso = peso;
+        this.tamanho = tamanho;
         this.codigo = codigo;
         this.qnt = qnt;
         this.descricao = descricao;
@@ -123,13 +123,13 @@ public class Items implements java.io.Serializable {
         this.status = status;
     }
 
-    @Column(name = "peso", precision = 10, scale = 0)
-    public Long getPeso() {
-        return this.peso;
+    @Column(name = "tamanho", length = 45)
+    public String getTamanho() {
+        return this.tamanho;
     }
 
-    public void setPeso(Long peso) {
-        this.peso = peso;
+    public void setTamanho(String tamanho) {
+        this.tamanho = tamanho;
     }
 
     @Column(name = "codigo", nullable = false)

@@ -65,13 +65,11 @@ public class TelaEdicao extends javax.swing.JFrame {
         jLabelObrigatorioVenda = new javax.swing.JLabel();
         jLabelObrigatorioQnt = new javax.swing.JLabel();
         jLabelObrigatorioCodigo1 = new javax.swing.JLabel();
-        jLabel84 = new javax.swing.JLabel();
-        jLabel85 = new javax.swing.JLabel();
         jLabelObrigatorioNome1 = new javax.swing.JLabel();
         jLabelObrigatorioCompra = new javax.swing.JLabel();
-        chekBoxAtivado = new javax.swing.JCheckBox();
         jSeparator49 = new javax.swing.JSeparator();
         btn_cancelar = new javax.swing.JButton();
+        comBox_tamanho = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -97,12 +95,14 @@ public class TelaEdicao extends javax.swing.JFrame {
         jPanel16.add(camp_valorCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 60, -1));
 
         jLabel78.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel78.setText("Status:");
-        jPanel16.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+        jLabel78.setText("Tamanho:");
+        jPanel16.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, -1, -1));
 
         jLabel79.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel79.setText("Qnt:");
         jPanel16.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, -1, -1));
+
+        camp_qnt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         jPanel16.add(camp_qnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 100, -1));
 
         camp_descricao.setColumns(20);
@@ -148,8 +148,10 @@ public class TelaEdicao extends javax.swing.JFrame {
 
         jLabel83.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel83.setText("Codigo:");
-        jPanel16.add(jLabel83, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
-        jPanel16.add(camp_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 140, -1));
+        jPanel16.add(jLabel83, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
+
+        camp_codigo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        jPanel16.add(camp_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 140, -1));
 
         jLabelObrigatorioVenda.setForeground(new java.awt.Color(250, 7, 37));
         jLabelObrigatorioVenda.setText("*");
@@ -161,13 +163,7 @@ public class TelaEdicao extends javax.swing.JFrame {
 
         jLabelObrigatorioCodigo1.setForeground(new java.awt.Color(255, 0, 3));
         jLabelObrigatorioCodigo1.setText("*");
-        jPanel16.add(jLabelObrigatorioCodigo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, -1, -1));
-
-        jLabel84.setText("unidade:");
-        jPanel16.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 80, 20));
-
-        jLabel85.setText("unidade:");
-        jPanel16.add(jLabel85, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 80, -1));
+        jPanel16.add(jLabelObrigatorioCodigo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 10, -1));
 
         jLabelObrigatorioNome1.setForeground(new java.awt.Color(250, 7, 37));
         jLabelObrigatorioNome1.setText("*");
@@ -176,9 +172,6 @@ public class TelaEdicao extends javax.swing.JFrame {
         jLabelObrigatorioCompra.setForeground(new java.awt.Color(250, 7, 37));
         jLabelObrigatorioCompra.setText("*");
         jPanel16.add(jLabelObrigatorioCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 10, -1));
-
-        chekBoxAtivado.setText("Ativo / Desativado");
-        jPanel16.add(chekBoxAtivado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
         jPanel16.add(jSeparator49, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 790, 10));
 
         btn_cancelar.setText("Cancelar");
@@ -188,6 +181,9 @@ public class TelaEdicao extends javax.swing.JFrame {
             }
         });
         jPanel16.add(btn_cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 380, 110, -1));
+
+        comBox_tamanho.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "P", "M", "G", "GG" }));
+        jPanel16.add(comBox_tamanho, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 90, -1));
 
         getContentPane().add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 830, 430));
 
@@ -247,8 +243,8 @@ public class TelaEdicao extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField camp_qnt;
     private javax.swing.JFormattedTextField camp_valorCompra;
     private javax.swing.JFormattedTextField camp_valorVenda;
-    private javax.swing.JCheckBox chekBoxAtivado;
     private javax.swing.JComboBox<String> comBox_fornecedor;
+    private javax.swing.JComboBox<String> comBox_tamanho;
     private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabel77;
     private javax.swing.JLabel jLabel78;
@@ -257,8 +253,6 @@ public class TelaEdicao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
-    private javax.swing.JLabel jLabel84;
-    private javax.swing.JLabel jLabel85;
     private javax.swing.JLabel jLabelObrigatorioCodigo1;
     private javax.swing.JLabel jLabelObrigatorioCompra;
     private javax.swing.JLabel jLabelObrigatorioNome1;
@@ -334,8 +328,9 @@ public class TelaEdicao extends javax.swing.JFrame {
             item.setValor_compra(precoCompra);
             item.setValor_venda(precoVenda);
             item.setCodigo(codigo);
-            boolean status = chekBoxAtivado.isSelected();
-            item.setStatus(status);
+//            boolean status = chekBoxAtivado.isSelected();
+            item.setStatus(true);
+            item.setTamanho(comBox_tamanho.getSelectedItem().toString());
             item.setQnt(quantidade);
             item.setDescricao(camp_descricao.getText());
             item.setValor_total(valorTotal);
@@ -351,8 +346,6 @@ public class TelaEdicao extends javax.swing.JFrame {
             camp_qnt.setText("");
             camp_descricao.setText("");
 
-            Pesquisas telaPes = new Pesquisas();
-            telaPes.AtualizarTabela();
             dispose();
             
         } else {

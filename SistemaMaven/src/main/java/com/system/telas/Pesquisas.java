@@ -148,14 +148,14 @@ public class Pesquisas extends javax.swing.JFrame {
         table_items.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         table_items.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "codigo", "nome", "valor", "qnt", "fornecedor", "descrição", "Total"
+                "Id", "codigo", "nome", "valor", "qnt", "fornecedor", "descrição", "tamanho", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -295,14 +295,16 @@ public class Pesquisas extends javax.swing.JFrame {
 
             tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
             for (Items item : items) {
-                Long l = item.getValor_venda() / 100; // A DIVISÃO POR 100 É APENAS PRA MOVER A VIRGULA 3 CASAS DECIMAIS.
-                int t = item.getValor_total() / 100; // A DIVISÃO POR 100 É APENAS PRA MOVER A VIRGULA 3 CASAS DECIMAIS.
+                double l = item.getValor_venda() / 100; // A DIVISÃO POR 100 É APENAS PRA MOVER A VIRGULA 3 CASAS DECIMAIS.
+                double t = item.getValor_total() / 100; // A DIVISÃO POR 100 É APENAS PRA MOVER A VIRGULA 3 CASAS DECIMAIS.
 
-                String valorVenda = DecimalFormat.getNumberInstance().format(l);
-                String valorTotal = DecimalFormat.getNumberInstance().format(t);
+                String valorVenda = Double.toString(l);
+                String valorTotal = Double.toString(t);
+//                String valorVenda = DecimalFormat.getNumberInstance().format(l);
+//                String valorTotal = DecimalFormat.getNumberInstance().format(t);
 
                 tableDefault.addRow(new Object[]{item.getIditem(), item.getCodigo(), item.getItem(), "R$ " + valorVenda,
-                    item.getQnt(), item.getFornecedor(), item.getDescricao(), "R$ " + valorTotal});
+                    item.getQnt(), item.getFornecedor(), item.getDescricao(), item.getTamanho(), "R$ " + valorTotal});
             }
 
         } catch (Exception e) {
