@@ -71,6 +71,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jEditorPane1 = new javax.swing.JEditorPane();
         jLabel17 = new javax.swing.JLabel();
+        jPanelFundo = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
@@ -133,9 +134,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButton3.setText("Adicionar");
         jPanel7.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 50, -1, -1));
 
-        jLabel15.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel15.setText("Informe o codigo do produto:");
-        jPanel7.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, 220, 20));
+        jPanel7.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 280, 20));
 
         jButton4.setFont(new java.awt.Font("Ubuntu", 1, 13)); // NOI18N
         jButton4.setText("Remover Item");
@@ -234,6 +235,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel17.setText("IMPRIMIR CUPOM");
         getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 610, -1, -1));
+
+        jPanelFundo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jPanelFundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1360, 690));
 
         jMenu4.setText("Vendas");
         jMenuBar1.add(jMenu4);
@@ -379,6 +383,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanelFundo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;

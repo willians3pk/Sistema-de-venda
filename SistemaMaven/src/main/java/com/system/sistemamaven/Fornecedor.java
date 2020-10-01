@@ -28,8 +28,8 @@ public class Fornecedor  implements java.io.Serializable {
      private Integer idFornecedor;
      private Endereco endereco;
      private String nome;
-     private Integer cnpj;
-     private Integer cpf;
+     private Long cnpj;
+     private Long cpf;
      private String email;
      private String homePage;
      private Set itemses = new HashSet(0);
@@ -38,7 +38,7 @@ public class Fornecedor  implements java.io.Serializable {
     public Fornecedor() {
     }
 
-    public Fornecedor(Endereco endereco, String nome, Integer cnpj, Integer cpf, String email, String homePage, Set itemses, Set numeroContatos) {
+    public Fornecedor(Endereco endereco, String nome, Long cnpj, Long cpf, String email, String homePage, Set itemses, Set numeroContatos) {
        this.endereco = endereco;
        this.nome = nome;
        this.cnpj = cnpj;
@@ -83,21 +83,21 @@ public class Fornecedor  implements java.io.Serializable {
 
     
     @Column(name="cnpj")
-    public Integer getCnpj() {
+    public Long getCnpj() {
         return this.cnpj;
     }
     
-    public void setCnpj(Integer cnpj) {
+    public void setCnpj(Long cnpj) {
         this.cnpj = cnpj;
     }
 
     
     @Column(name="cpf")
-    public Integer getCpf() {
+    public Long getCpf() {
         return this.cpf;
     }
     
-    public void setCpf(Integer cpf) {
+    public void setCpf(Long cpf) {
         this.cpf = cpf;
     }
 

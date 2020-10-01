@@ -20,7 +20,7 @@
         <property name="fone" type="java.lang.Integer">
             <column name="fone" />
         </property>
-        <property name="cpf" type="java.lang.Integer">
+        <property name="cpf" type="java.lang.Long">
             <column name="cpf" />
         </property>
     </class>

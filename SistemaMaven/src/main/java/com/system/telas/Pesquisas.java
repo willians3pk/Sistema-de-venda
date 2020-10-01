@@ -7,7 +7,6 @@ package com.system.telas;
 
 import com.system.conexao.Conexao;
 import com.system.sistemamaven.Items;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -151,8 +150,9 @@ public class Pesquisas extends javax.swing.JFrame {
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel3.add(camp_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 370, 30));
 
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel1.setText("Pesquisa:");
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 70, -1));
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 110, -1));
 
         table_items.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         table_items.setModel(new javax.swing.table.DefaultTableModel(
@@ -180,21 +180,23 @@ public class Pesquisas extends javax.swing.JFrame {
 
         jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 820, 190));
 
+        btn_editar.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btn_editar.setText("Editar");
         btn_editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_editarActionPerformed(evt);
             }
         });
-        jPanel3.add(btn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 370, 90, 40));
+        jPanel3.add(btn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 370, 110, 40));
 
+        btn_atualizar.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btn_atualizar.setText("Atualizar");
         btn_atualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_atualizarActionPerformed(evt);
             }
         });
-        jPanel3.add(btn_atualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, -1, 30));
+        jPanel3.add(btn_atualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, 120, 30));
         jPanel3.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 820, 10));
         jPanel3.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 820, 10));
 
@@ -202,6 +204,7 @@ public class Pesquisas extends javax.swing.JFrame {
         jInternalFrame1.setVisible(true);
         jInternalFrame1.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        checkBox_valor.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         checkBox_valor.setText("Valor:");
         checkBox_valor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,6 +213,7 @@ public class Pesquisas extends javax.swing.JFrame {
         });
         jInternalFrame1.getContentPane().add(checkBox_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 160, -1));
 
+        checkBox_tamanho.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         checkBox_tamanho.setText(" Tamanho:");
         checkBox_tamanho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,6 +222,7 @@ public class Pesquisas extends javax.swing.JFrame {
         });
         jInternalFrame1.getContentPane().add(checkBox_tamanho, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 170, -1));
 
+        checkBox_qnt.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         checkBox_qnt.setText("Quantidade:");
         checkBox_qnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -384,7 +389,6 @@ public class Pesquisas extends javax.swing.JFrame {
     public void AtualizarTabela() {
 
         String pesquisa = camp_pesquisa.getText();
-        
         List<Items> items = new ArrayList<>();
 
         if (!checkBox_valor.isSelected() && !checkBox_tamanho.isSelected() && !checkBox_qnt.isSelected()) {

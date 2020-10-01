@@ -51,7 +51,6 @@ public class Cadastros extends javax.swing.JFrame {
         btn_cadFornecedor = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        camp_cpfFornecedor = new javax.swing.JTextField();
         camp_emailFornecedor = new javax.swing.JTextField();
         camp_homepage = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
@@ -67,10 +66,13 @@ public class Cadastros extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         camp_cepFornecedor = new javax.swing.JFormattedTextField();
         jLabel33 = new javax.swing.JLabel();
-        camp_dddFornecedor = new javax.swing.JFormattedTextField();
         camp_contatoFornecedor = new javax.swing.JFormattedTextField();
         jLabel34 = new javax.swing.JLabel();
         camp_EstadoFornecedor = new javax.swing.JTextField();
+        jLabelObrigatorionome = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        camp_dddFornecedor = new javax.swing.JFormattedTextField();
+        camp_cpfFornecedor = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
         jSeparator7 = new javax.swing.JSeparator();
         jLabel19 = new javax.swing.JLabel();
@@ -151,7 +153,14 @@ public class Cadastros extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel8.setText("CPF:");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 60, -1, -1));
-        jPanel2.add(camp_cnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 200, -1));
+
+        try {
+            camp_cnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        camp_cnpj.setText("00.000.000/0000-00");
+        jPanel2.add(camp_cnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 170, -1));
 
         jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel9.setText("CNPJ:");
@@ -176,7 +185,6 @@ public class Cadastros extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel11.setText("E-mail:");
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
-        jPanel2.add(camp_cpfFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 80, 170, -1));
         jPanel2.add(camp_emailFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 260, -1));
         jPanel2.add(camp_homepage, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 260, -1));
 
@@ -193,6 +201,9 @@ public class Cadastros extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel14.setText("Numero (casa):");
         jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 120, -1, -1));
+
+        camp_numerocasaFornecedor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        camp_numerocasaFornecedor.setText("00000000");
         jPanel2.add(camp_numerocasaFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 140, 90, -1));
 
         jLabel15.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -211,18 +222,55 @@ public class Cadastros extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel18.setText("CEP:");
         jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
+
+        try {
+            camp_cepFornecedor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        camp_cepFornecedor.setText("00000000");
         jPanel2.add(camp_cepFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 120, -1));
 
         jLabel33.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel33.setText("DDD");
         jPanel2.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, -1, -1));
-        jPanel2.add(camp_dddFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 40, -1));
+
+        try {
+            camp_contatoFornecedor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        camp_contatoFornecedor.setText("000000000");
         jPanel2.add(camp_contatoFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, 90, -1));
 
         jLabel34.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel34.setText("Contato:");
         jPanel2.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, -1, -1));
         jPanel2.add(camp_EstadoFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 140, 90, -1));
+
+        jLabelObrigatorionome.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelObrigatorionome.setText("*");
+        jPanel2.add(jLabelObrigatorionome, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
+
+        jLabel3.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel3.setText("*");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, -1));
+
+        try {
+            camp_dddFornecedor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        camp_dddFornecedor.setText("00");
+        jPanel2.add(camp_dddFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 40, -1));
+
+        try {
+            camp_cpfFornecedor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        camp_cpfFornecedor.setText("000.000.000-00");
+        jPanel2.add(camp_cpfFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 80, 120, -1));
 
         jTabbedPane1.addTab("Fornecedor", jPanel2);
 
@@ -477,7 +525,7 @@ public class Cadastros extends javax.swing.JFrame {
     private javax.swing.JTextArea camp_complementoForncedor;
     private javax.swing.JTextArea camp_complementoPessoa;
     private javax.swing.JFormattedTextField camp_contatoFornecedor;
-    private javax.swing.JTextField camp_cpfFornecedor;
+    private javax.swing.JFormattedTextField camp_cpfFornecedor;
     private javax.swing.JFormattedTextField camp_cpfPessoa;
     private javax.swing.JFormattedTextField camp_dataNasc;
     private javax.swing.JFormattedTextField camp_dddFornecedor;
@@ -520,6 +568,7 @@ public class Cadastros extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
@@ -536,6 +585,7 @@ public class Cadastros extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelObrigatorioNome1;
     private javax.swing.JLabel jLabelObrigatorioQnt;
     private javax.swing.JLabel jLabelObrigatorioVenda;
+    private javax.swing.JLabel jLabelObrigatorionome;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -692,40 +742,70 @@ public class Cadastros extends javax.swing.JFrame {
         Endereco end = new Endereco();
         NumeroContato contato = new NumeroContato();
 
-        int cnpj = Integer.parseInt(camp_cnpj.getText());
-        int cpf = Integer.parseInt(camp_cpfPessoa.getText());
+        if (camp_nomeFornecedor.getText().length() > 0) {
+            jLabelObrigatorionome.setVisible(false);
+        } else {
+            jLabelObrigatorionome.setVisible(true);
+        }
 
-        forne.setNome(camp_nomeFornecedor.getText());
-        forne.setCnpj(cnpj);
-        forne.setEmail(camp_emailFornecedor.getText());
-        forne.setHomePage(camp_homepage.getText());
-        forne.setCpf(cpf);
+        if((camp_nomeFornecedor.getText().length() > 0) && (camp_ruaFornecedor.getText().length() > 0)){
+            
+            Long cnpj = Long.parseLong(camp_cnpj.getText().replaceAll(".", ""));
+            Long cpf = Long.parseLong(camp_cpfFornecedor.getText().replaceAll(". -", ""));
 
-        //---------------------------------------------------------------------//
-        int ddd = Integer.parseInt(camp_dddFornecedor.getText());
-        int numeroContato = Integer.parseInt(camp_contatoFornecedor.getText());
+    //--------------------------------- Dados Fornecedor ------------------------------------//
 
-        // -- numero de contato --
-        contato.setDdd(ddd);
-        contato.setFone(numeroContato);
-        contato.setFornecedor(forne);
-        contato.setCpf(cpf);
+            forne.setNome(camp_nomeFornecedor.getText());
+            forne.setCnpj(cnpj);
+            forne.setEmail(camp_emailFornecedor.getText());
+            forne.setHomePage(camp_homepage.getText());
+            forne.setCpf(cpf);
 
-        int cep = Integer.parseInt(camp_cepFornecedor.getText());
-        int numeroCasa = Integer.parseInt(camp_numerocasaFornecedor.getText());
+    //--------------------------------- numero de contato -----------------------------------//
+            int ddd = Integer.parseInt(camp_dddFornecedor.getText());
+            int numeroContato = Integer.parseInt(camp_contatoFornecedor.getText());
 
-        end.setRua(camp_ruaFornecedor.getText());
-        end.setCep(cep);
-        end.setNumeroCasa(numeroCasa);
-        end.setBairro(camp_bairroFornecedor.getText());
-        end.setEstadoUf(camp_EstadoFornecedor.getText());
-        end.setComplemento(camp_complementoForncedor.getText());
+            contato.setDdd(ddd);
+            contato.setFone(numeroContato);
+            contato.setFornecedor(forne);
+            contato.setCpf(cpf);
 
-        forne.setEndereco(end);
-        Conexao banco = new Conexao();
-        banco.save(end);
-        banco.persist(forne);
-        banco.save(contato);
 
+    //--------------------------------- Endereço -----------------------------------//
+
+            int cep = Integer.parseInt(camp_cepFornecedor.getText().replaceAll("-", ""));
+            int numeroCasa = Integer.parseInt(camp_numerocasaFornecedor.getText());
+
+            end.setRua(camp_ruaFornecedor.getText());
+            end.setCep(cep);
+            end.setNumeroCasa(numeroCasa);
+            end.setBairro(camp_bairroFornecedor.getText());
+            end.setEstadoUf(camp_EstadoFornecedor.getText());
+            end.setComplemento(camp_complementoForncedor.getText());
+
+            forne.setEndereco(end);
+            Conexao banco = new Conexao();
+            banco.persist(end);
+            banco.save_update(forne);
+            banco.save_update(contato);
+            
+//            LIMPA OS CAMPOS DE TEXTOS
+            camp_nomeFornecedor.setText("");
+            camp_ruaFornecedor.setText("");
+            camp_emailFornecedor.setText("");
+            camp_homepage.setText("");
+            camp_cepFornecedor.setText("00000000");
+            camp_dddFornecedor.setText("00");
+            camp_contatoFornecedor.setText("000000000");
+            camp_cnpj.setText("000000000");
+            camp_cpfFornecedor.setText("0000000000");
+            camp_bairroFornecedor.setText("");
+            camp_numerocasaFornecedor.setText("00000000");
+            camp_EstadoFornecedor.setText("");
+            camp_cidadeFornecedor.setText("");
+            camp_complementoForncedor.setText("");
+        }else{
+            JOptionPane.showMessageDialog(null, "Preencha as Informações Obrigatorias");
+        }
     }
 }

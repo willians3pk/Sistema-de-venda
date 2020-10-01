@@ -27,12 +27,12 @@ public class NumeroContato  implements java.io.Serializable {
      private Pessoa pessoa;
      private Integer ddd;
      private Integer fone;
-     private Integer cpf;
+     private Long cpf;
 
     public NumeroContato() {
     }
 
-    public NumeroContato(Fornecedor fornecedor, Pessoa pessoa, Integer ddd, Integer fone, Integer cpf) {
+    public NumeroContato(Fornecedor fornecedor, Pessoa pessoa, Integer ddd, Integer fone, Long cpf) {
        this.fornecedor = fornecedor;
        this.pessoa = pessoa;
        this.ddd = ddd;
@@ -94,11 +94,11 @@ public class NumeroContato  implements java.io.Serializable {
 
     
     @Column(name="cpf")
-    public Integer getCpf() {
+    public Long getCpf() {
         return this.cpf;
     }
     
-    public void setCpf(Integer cpf) {
+    public void setCpf(Long cpf) {
         this.cpf = cpf;
     }
 

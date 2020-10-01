@@ -14,10 +14,10 @@
         <property name="nome" type="string">
             <column name="nome" length="65" />
         </property>
-        <property name="cnpj" type="java.lang.Integer">
+        <property name="cnpj" type="java.lang.Long">
             <column name="cnpj" />
         </property>
-        <property name="cpf" type="java.lang.Integer">
+        <property name="cpf" type="java.lang.Long">
             <column name="cpf" />
         </property>
         <property name="email" type="string">
