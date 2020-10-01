@@ -5,6 +5,7 @@
  */
 package com.system.conexao;
 
+import com.system.sistemamaven.Fornecedor;
 import com.system.sistemamaven.Items;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -158,4 +159,24 @@ public class Conexao {
         }
         return null;
     }
+
+    public List<Fornecedor> list_Fornecedores() {
+
+        this.session = NewHibernateUtil.getSessionFactory().openSession();
+        this.tx = session.beginTransaction();
+        List<Fornecedor> list = null;
+
+        try {
+            list = (List<Fornecedor>) session.createQuery("from Fornecedor").list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            System.out.println("Erro ao Pegar lista no Banco de Dados!");
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!");
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
 }

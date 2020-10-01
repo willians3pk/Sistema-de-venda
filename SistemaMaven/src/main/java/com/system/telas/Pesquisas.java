@@ -20,10 +20,9 @@ public class Pesquisas extends javax.swing.JFrame {
 
     Conexao banco = new Conexao();
     TelaEdicao tela = new TelaEdicao();
-
-    /**
-     * Creates new form Pesquisas
-     */
+    CadastroItens telacad = new CadastroItens();
+    TelaItensDesativados telaItens = new TelaItensDesativados();
+    
     public Pesquisas() {
         initComponents();
         btn_editar.setVisible(false);
@@ -39,18 +38,6 @@ public class Pesquisas extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanelTable = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        table_items2 = new javax.swing.JTable();
-        camp_pesquisa2 = new javax.swing.JTextField();
-        btn_pesquisa2 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        table_items1 = new javax.swing.JTable();
-        camp_pesquisa1 = new javax.swing.JTextField();
-        btn_pesquisa1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         camp_pesquisa = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -60,14 +47,17 @@ public class Pesquisas extends javax.swing.JFrame {
         btn_atualizar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        jInternalFrame1 = new javax.swing.JInternalFrame();
-        checkBox_valor = new javax.swing.JCheckBox();
+        btn_novo = new javax.swing.JButton();
         checkBox_tamanho = new javax.swing.JCheckBox();
+        checkBox_valor = new javax.swing.JCheckBox();
         checkBox_qnt = new javax.swing.JCheckBox();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuIDesativarItens = new javax.swing.JMenuItem();
         jMenuExcluirItens = new javax.swing.JMenuItem();
+        jMenuIItensDesativados = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -75,84 +65,12 @@ public class Pesquisas extends javax.swing.JFrame {
 
         jPanelTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        table_items2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Id", "nome", "cnpj", "email", "home page", "rua", "cep", "bairro", "contato"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane3.setViewportView(table_items2);
-
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 820, 220));
-        jPanel1.add(camp_pesquisa2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 370, 30));
-
-        btn_pesquisa2.setText("pesquisar");
-        btn_pesquisa2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_pesquisa2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_pesquisa2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, 100, 30));
-
-        jLabel3.setText("Pesquisa:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 70, -1));
-
-        jPanelTable.addTab("Fornecedor", jPanel1);
-
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        table_items1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Id", "nome", "cpf", "email", "contato", "data nascimento"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(table_items1);
-
-        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 820, 220));
-        jPanel2.add(camp_pesquisa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 370, 30));
-
-        btn_pesquisa1.setText("pesquisar");
-        btn_pesquisa1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_pesquisa1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btn_pesquisa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, 110, 30));
-
-        jLabel2.setText("Pesquisa:");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 70, -1));
-
-        jPanelTable.addTab("Pessoas", jPanel2);
-
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel3.add(camp_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 370, 30));
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel1.setText("Pesquisa:");
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 110, -1));
+        jLabel1.setText("Pesquisa por:");
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 70, 140, -1));
 
         table_items.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         table_items.setModel(new javax.swing.table.DefaultTableModel(
@@ -178,7 +96,7 @@ public class Pesquisas extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(table_items);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 820, 190));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 900, 270));
 
         btn_editar.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btn_editar.setText("Editar");
@@ -187,7 +105,7 @@ public class Pesquisas extends javax.swing.JFrame {
                 btn_editarActionPerformed(evt);
             }
         });
-        jPanel3.add(btn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 370, 110, 40));
+        jPanel3.add(btn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 450, 110, 30));
 
         btn_atualizar.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btn_atualizar.setText("Atualizar");
@@ -197,21 +115,17 @@ public class Pesquisas extends javax.swing.JFrame {
             }
         });
         jPanel3.add(btn_atualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, 120, 30));
-        jPanel3.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 820, 10));
-        jPanel3.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 820, 10));
+        jPanel3.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 900, 10));
+        jPanel3.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, 910, 10));
 
-        jInternalFrame1.setTitle("Filtrar por:");
-        jInternalFrame1.setVisible(true);
-        jInternalFrame1.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        checkBox_valor.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
-        checkBox_valor.setText("Valor:");
-        checkBox_valor.addActionListener(new java.awt.event.ActionListener() {
+        btn_novo.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btn_novo.setText("Novo");
+        btn_novo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBox_valorActionPerformed(evt);
+                btn_novoActionPerformed(evt);
             }
         });
-        jInternalFrame1.getContentPane().add(checkBox_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 160, -1));
+        jPanel3.add(btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, 100, -1));
 
         checkBox_tamanho.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         checkBox_tamanho.setText(" Tamanho:");
@@ -220,7 +134,16 @@ public class Pesquisas extends javax.swing.JFrame {
                 checkBox_tamanhoActionPerformed(evt);
             }
         });
-        jInternalFrame1.getContentPane().add(checkBox_tamanho, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 170, -1));
+        jPanel3.add(checkBox_tamanho, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 90, 120, -1));
+
+        checkBox_valor.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
+        checkBox_valor.setText("Valor:");
+        checkBox_valor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBox_valorActionPerformed(evt);
+            }
+        });
+        jPanel3.add(checkBox_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 90, 100, -1));
 
         checkBox_qnt.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         checkBox_qnt.setText("Quantidade:");
@@ -229,13 +152,16 @@ public class Pesquisas extends javax.swing.JFrame {
                 checkBox_qntActionPerformed(evt);
             }
         });
-        jInternalFrame1.getContentPane().add(checkBox_qnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 58, 170, -1));
+        jPanel3.add(checkBox_qnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 90, 130, -1));
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, -1, -1));
 
-        jPanel3.add(jInternalFrame1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, 300, 110));
+        jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel3.setText("Pesquisa:");
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 110, -1));
 
         jPanelTable.addTab("Itens", jPanel3);
 
-        getContentPane().add(jPanelTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 900, 470));
+        getContentPane().add(jPanelTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 960, 540));
 
         jMenu1.setText("Opções");
 
@@ -252,40 +178,35 @@ public class Pesquisas extends javax.swing.JFrame {
         jMenuExcluirItens.setEnabled(false);
         jMenu1.add(jMenuExcluirItens);
 
+        jMenuIItensDesativados.setText("Itens Desativados");
+        jMenuIItensDesativados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuIItensDesativadosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuIItensDesativados);
+
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
-        setSize(new java.awt.Dimension(965, 556));
+        setSize(new java.awt.Dimension(1012, 625));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
-        EditarItem();
-        tela.setVisible(true);
-        tela.CarregarCampos();
-    }//GEN-LAST:event_btn_editarActionPerformed
-
-    private void btn_pesquisa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisa1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_pesquisa1ActionPerformed
-
-    private void btn_pesquisa2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisa2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_pesquisa2ActionPerformed
-
-    private void table_itemsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_itemsMouseClicked
-        btn_editar.setVisible(true);
-    }//GEN-LAST:event_table_itemsMouseClicked
-
-    private void btn_atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_atualizarActionPerformed
-        AtualizarTabela();
-        btn_editar.setVisible(false);
-    }//GEN-LAST:event_btn_atualizarActionPerformed
 
     private void jMenuIDesativarItensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuIDesativarItensActionPerformed
         DesativarItens();
     }//GEN-LAST:event_jMenuIDesativarItensActionPerformed
+
+    private void checkBox_qntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBox_qntActionPerformed
+        if (checkBox_qnt.isSelected()) {
+            checkBox_tamanho.setEnabled(false);
+            checkBox_valor.setEnabled(false);
+        } else {
+            checkBox_tamanho.setEnabled(true);
+            checkBox_valor.setEnabled(true);
+        }
+    }//GEN-LAST:event_checkBox_qntActionPerformed
 
     private void checkBox_tamanhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBox_tamanhoActionPerformed
         if (checkBox_tamanho.isSelected()) {
@@ -295,7 +216,6 @@ public class Pesquisas extends javax.swing.JFrame {
             checkBox_qnt.setEnabled(true);
             checkBox_valor.setEnabled(true);
         }
-
     }//GEN-LAST:event_checkBox_tamanhoActionPerformed
 
     private void checkBox_valorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBox_valorActionPerformed
@@ -308,15 +228,30 @@ public class Pesquisas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_checkBox_valorActionPerformed
 
-    private void checkBox_qntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBox_qntActionPerformed
-        if (checkBox_qnt.isSelected()) {
-            checkBox_tamanho.setEnabled(false);
-            checkBox_valor.setEnabled(false);
-        } else {
-            checkBox_tamanho.setEnabled(true);
-            checkBox_valor.setEnabled(true);
-        }
-    }//GEN-LAST:event_checkBox_qntActionPerformed
+    private void btn_atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_atualizarActionPerformed
+        AtualizarTabela();
+        btn_editar.setVisible(false);
+    }//GEN-LAST:event_btn_atualizarActionPerformed
+
+    private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
+        EditarItem();
+        tela.setVisible(true);
+        tela.CarregarCampos();
+        tela.PopularComcobox();
+    }//GEN-LAST:event_btn_editarActionPerformed
+
+    private void table_itemsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_itemsMouseClicked
+        btn_editar.setVisible(true);
+    }//GEN-LAST:event_table_itemsMouseClicked
+
+    private void btn_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novoActionPerformed
+        telacad.setVisible(true);
+    }//GEN-LAST:event_btn_novoActionPerformed
+
+    private void jMenuIItensDesativadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuIItensDesativadosActionPerformed
+        telaItens.setVisible(true);
+        telaItens.ItensDesativados();
+    }//GEN-LAST:event_jMenuIItensDesativadosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -355,16 +290,12 @@ public class Pesquisas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_atualizar;
-    private javax.swing.JButton btn_editar;
-    private javax.swing.JButton btn_pesquisa1;
-    private javax.swing.JButton btn_pesquisa2;
+    public javax.swing.JButton btn_editar;
+    private javax.swing.JButton btn_novo;
     private javax.swing.JTextField camp_pesquisa;
-    private javax.swing.JTextField camp_pesquisa1;
-    private javax.swing.JTextField camp_pesquisa2;
     private javax.swing.JCheckBox checkBox_qnt;
     private javax.swing.JCheckBox checkBox_tamanho;
     private javax.swing.JCheckBox checkBox_valor;
-    private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -372,18 +303,13 @@ public class Pesquisas extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     public javax.swing.JMenuItem jMenuExcluirItens;
     public javax.swing.JMenuItem jMenuIDesativarItens;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JMenuItem jMenuIItensDesativados;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTabbedPane jPanelTable;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable table_items;
-    private javax.swing.JTable table_items1;
-    private javax.swing.JTable table_items2;
     // End of variables declaration//GEN-END:variables
 
     public void AtualizarTabela() {
@@ -445,7 +371,7 @@ public class Pesquisas extends javax.swing.JFrame {
 
                 String valorVenda = Float.toString(l);
                 String valorTotal = Float.toString(t);
-
+                
                 tableDefault.addRow(new Object[]{item.getIditem(), item.getCodigo(), item.getItem(), "R$ " + valorVenda,
                     item.getQnt(), item.getFornecedor(), item.getDescricao(), item.getTamanho(), "R$ " + valorTotal});
             }

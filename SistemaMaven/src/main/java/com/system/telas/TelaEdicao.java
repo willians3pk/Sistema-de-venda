@@ -6,7 +6,9 @@
 package com.system.telas;
 
 import com.system.conexao.Conexao;
+import com.system.sistemamaven.Fornecedor;
 import com.system.sistemamaven.Items;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,6 +24,7 @@ public class TelaEdicao extends javax.swing.JFrame {
      */
     public TelaEdicao() {
         initComponents();
+        PopularComcobox();
     }
 
     public Items getItem() {
@@ -404,9 +407,9 @@ public class TelaEdicao extends javax.swing.JFrame {
     }
 
     private void Excluir() {
-        
+
         int confirmacao = JOptionPane.showConfirmDialog(null, "Voce deseja Realmente Excluir este item?", "Excluir", JOptionPane.YES_NO_OPTION);
-        if(confirmacao == JOptionPane.YES_OPTION){
+        if (confirmacao == JOptionPane.YES_OPTION) {
             item.setExcluido(true);
             item.setStatus(false);
             Conexao banco = new Conexao();
@@ -414,7 +417,16 @@ public class TelaEdicao extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Item Excluido com Sucesso!!");
             dispose();
         }
-    
+
     }
-    
+
+    public void PopularComcobox() {
+        Conexao banco = new Conexao();
+        DefaultComboBoxModel comboBox = new DefaultComboBoxModel();
+        for (Fornecedor fornecedor : banco.list_Fornecedores()) {
+            comboBox.addElement(fornecedor.getNome());
+            comBox_fornecedor.setModel(comboBox);           // ADICIONA OS FORNECEDORES NA COMBOBOX
+        }
+    }
+
 }
