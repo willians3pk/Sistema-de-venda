@@ -21,6 +21,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     Pesquisas telaPesq = new Pesquisas();
     Cadastros telaCad = new Cadastros();
     TelaItensDesativados telaItensDesativados = new TelaItensDesativados();
+    TelaConfig telaconfig = new TelaConfig();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -271,6 +272,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu3.add(jMenuItem1);
 
         jMenuConfigAvancadas.setText("Config. Avançadas");
+        jMenuConfigAvancadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuConfigAvancadasActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuConfigAvancadas);
 
         jMenuBar1.add(jMenu3);
@@ -294,6 +300,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaItensDesativados.setVisible(true);
         telaItensDesativados.ItensDesativados();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuConfigAvancadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuConfigAvancadasActionPerformed
+        telaconfig.setVisible(true);
+    }//GEN-LAST:event_jMenuConfigAvancadasActionPerformed
 
     /**
      * @param args the command line arguments

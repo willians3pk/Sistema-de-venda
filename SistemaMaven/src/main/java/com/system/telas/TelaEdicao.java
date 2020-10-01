@@ -202,6 +202,7 @@ public class TelaEdicao extends javax.swing.JFrame {
         jMenu1.add(jMenuDesativarItem);
 
         jMenuExcluir.setText("Excluir");
+        jMenuExcluir.setEnabled(false);
         jMenuExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuExcluirActionPerformed(evt);
@@ -383,7 +384,7 @@ public class TelaEdicao extends javax.swing.JFrame {
             camp_valorVenda.setText("");
             camp_qnt.setText("");
             camp_descricao.setText("");
-
+            JOptionPane.showConfirmDialog(null, "Atualizado com Sucesso");
             dispose();
 
         } else {
