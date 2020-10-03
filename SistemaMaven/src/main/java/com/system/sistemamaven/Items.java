@@ -29,14 +29,14 @@ public class Items implements java.io.Serializable {
     private Integer iditem;
     private Fornecedor fornecedor;
     private String item;
-    private Long valor_compra;
-    private Long valor_venda;
-    private Integer valor_total;
+    private double valor_compra;
+    private double valor_venda;
+    private double valor_total;
     private boolean status;
     private boolean excluido;
     private String tamanho;
     private Long codigo;
-    private Integer qnt;
+    private int qnt;
     private String descricao;
     private Set itensVendas = new HashSet(0);
 
@@ -48,7 +48,7 @@ public class Items implements java.io.Serializable {
         this.codigo = codigo;
     }
 
-    public Items(Fornecedor fornecedor, String item, Long valor, boolean status, String tamanho, Long codigo, Integer qnt, String descricao, Set itensVendas) {
+    public Items(Fornecedor fornecedor, String item, double valor, boolean status, String tamanho, Long codigo, int qnt, String descricao, Set itensVendas) {
         this.fornecedor = fornecedor;
         this.item = item;
         this.valor_compra = valor;
@@ -72,7 +72,7 @@ public class Items implements java.io.Serializable {
         this.iditem = iditem;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "fornecedor_id")
     public Fornecedor getFornecedor() {
         return this.fornecedor;
@@ -92,29 +92,29 @@ public class Items implements java.io.Serializable {
     }
 
     @Column(name = "valor_compra", precision = 10, scale = 0)
-    public Long getValor_compra() {
+    public double getValor_compra() {
         return this.valor_compra;
     }
 
-    public void setValor_compra(Long valor_compra) {
+    public void setValor_compra(double valor_compra) {
         this.valor_compra = valor_compra;
     }
 
     @Column(name = "valor_venda", precision = 10, scale = 0)
-    public Long getValor_venda() {
+    public double getValor_venda() {
         return valor_venda;
     }
 
-    public void setValor_venda(Long valor_venda) {
+    public void setValor_venda(double valor_venda) {
         this.valor_venda = valor_venda;
     }
 
     @Column(name = "valor_total", precision = 10, scale = 0)
-    public Integer getValor_total() {
+    public double getValor_total() {
         return valor_total;
     }
 
-    public void setValor_total(Integer valor_total) {
+    public void setValor_total(double valor_total) {
         this.valor_total = valor_total;
     }
 
@@ -155,11 +155,11 @@ public class Items implements java.io.Serializable {
     }
 
     @Column(name = "qnt")
-    public Integer getQnt() {
+    public int getQnt() {
         return this.qnt;
     }
 
-    public void setQnt(Integer qnt) {
+    public void setQnt(int qnt) {
         this.qnt = qnt;
     }
 
@@ -183,7 +183,7 @@ public class Items implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return super.toString(); //To change body of generated methods, choose Tools | Templates.
+        return this.getItem(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

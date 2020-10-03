@@ -14,13 +14,13 @@
         <property name="item" type="string">
             <column name="item" length="45" />
         </property>
-        <property name="valor_compra" type="java.lang.Long">
+        <property name="valor_compra" type="java.lang.Double">
             <column name="valor_compra" precision="10" scale="0" />
         </property>
-        <property name="valor_venda" type="java.lang.Long">
+        <property name="valor_venda" type="java.lang.Double">
             <column name="valor_venda" precision="10" scale="0" />
         </property>
-        <property name="valor_total" type="java.lang.Integer">
+        <property name="valor_total" type="java.lang.Double">
             <column name="valor_total" />
         </property>
         <property name="status" type="boolean">

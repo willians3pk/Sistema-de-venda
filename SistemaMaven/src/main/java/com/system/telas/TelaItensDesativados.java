@@ -6,6 +6,7 @@
 package com.system.telas;
 
 import com.system.conexao.Conexao;
+import com.system.sistemamaven.Fornecedor;
 import com.system.sistemamaven.Items;
 import java.util.ArrayList;
 import java.util.List;
@@ -145,14 +146,16 @@ public class TelaItensDesativados extends javax.swing.JFrame {
 
             tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
             for (Items item : items) {
-                float l = item.getValor_venda() / 100; // A DIVISÃO POR 100 É APENAS PRA MOVER A VIRGULA 3 CASAS DECIMAIS.
-                float t = item.getValor_total() / 100; // A DIVISÃO POR 100 É APENAS PRA MOVER A VIRGULA 3 CASAS DECIMAIS.
 
-                String valorVenda = Float.toString(l);
-                String valorTotal = Float.toString(t);
-
-                tableDefault.addRow(new Object[]{item.getIditem(), item.getCodigo(), item.getItem(), "R$ " + valorVenda,
-                    item.getQnt(), item.getFornecedor(), item.getDescricao(), item.getTamanho(), "R$ " + valorTotal});
+                Fornecedor forne = null;
+                for (Fornecedor fornecedor : banco.list_Fornecedores()) { // PEGA O FORNECEDOR DO ITEM;
+                    if(fornecedor.getIdFornecedor() == item.getFornecedor().getIdFornecedor()){
+                        forne = fornecedor;
+                    }
+                }
+                
+                tableDefault.addRow(new Object[]{item.getIditem(), item.getCodigo(), item.getItem(), "R$ " + item.getValor_venda(),
+                    item.getQnt(), forne.getNome(), item.getDescricao(), item.getTamanho(), "R$ " + item.getValor_total()});
             }
 
         } catch (Exception e) {

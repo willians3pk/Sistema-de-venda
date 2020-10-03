@@ -641,11 +641,11 @@ public class Cadastros extends javax.swing.JFrame {
                 && (camp_valorVenda.getText().length() > 0)) {
 
             Items item = new Items();
-            Long precoCompra = Long.parseLong(camp_valorCompra.getText().replaceAll(",", ""));//remove a virgula e adiciona apenas os numeros decimais
-            Long precoVenda = Long.parseLong(camp_valorVenda.getText().replaceAll(",", "")); //remove a virgula e adiciona apenas os numeros decimais
+            int precoCompra = Integer.parseInt(camp_valorCompra.getText().replaceAll(",", ""));//remove a virgula e adiciona apenas os numeros decimais
+            int precoVenda = Integer.parseInt(camp_valorVenda.getText().replaceAll(",", "")); //remove a virgula e adiciona apenas os numeros decimais
             Long codigo = Long.parseLong(camp_codigo.getText());
             int quantidade = Integer.parseInt(camp_qnt.getText());
-            int valorTotal = (int) (precoVenda * quantidade);
+            int valorTotal = (precoVenda * quantidade);
 
 //          -- AINDA ESTÁ FALTANDO ACRESCENTAR O FORNECEDOR --
             item.setItem(camp_nomeItem.getText());
@@ -750,8 +750,8 @@ public class Cadastros extends javax.swing.JFrame {
 
         if((camp_nomeFornecedor.getText().length() > 0) && (camp_ruaFornecedor.getText().length() > 0)){
             
-            Long cnpj = Long.parseLong(camp_cnpj.getText().replaceAll(".", ""));
-            Long cpf = Long.parseLong(camp_cpfFornecedor.getText().replaceAll(". -", ""));
+            Long cnpj = Long.parseLong(camp_cnpj.getText().replace(".", "").replace(".", "").replace("/", "").replace("-", ""));
+            Long cpf = Long.parseLong(camp_cpfFornecedor.getText().replace(".", "").replace(".", "").replace("-", ""));
 
     //--------------------------------- Dados Fornecedor ------------------------------------//
 
@@ -797,8 +797,8 @@ public class Cadastros extends javax.swing.JFrame {
             camp_cepFornecedor.setText("00000000");
             camp_dddFornecedor.setText("00");
             camp_contatoFornecedor.setText("000000000");
-            camp_cnpj.setText("000000000");
-            camp_cpfFornecedor.setText("0000000000");
+            camp_cnpj.setText("0000000000000");
+            camp_cpfFornecedor.setText("00000000000");
             camp_bairroFornecedor.setText("");
             camp_numerocasaFornecedor.setText("00000000");
             camp_EstadoFornecedor.setText("");

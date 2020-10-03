@@ -8,6 +8,11 @@ package com.system.telas;
 import com.system.conexao.Conexao;
 import com.system.sistemamaven.Fornecedor;
 import com.system.sistemamaven.Items;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -18,7 +23,7 @@ import javax.swing.JOptionPane;
 public class TelaEdicao extends javax.swing.JFrame {
 
     Items item;
-
+    Set<Items> itemses = new HashSet<>();
     /**
      * Creates new form TelaEdicao
      */
@@ -358,36 +363,47 @@ public class TelaEdicao extends javax.swing.JFrame {
                 && (camp_valorCompra.getText().length() > 0)
                 && (camp_valorVenda.getText().length() > 0)) {
 
-            Long precoCompra = Long.parseLong(camp_valorCompra.getText().replaceAll(",", ""));//remove a virgula e adiciona apenas os numeros decimais
-            Long precoVenda = Long.parseLong(camp_valorVenda.getText().replaceAll(",", "")); //remove a virgula e adiciona apenas os numeros decimais
-//            Long peso = Long.parseLong(camp_peso.getText());
+// -----------    VARIAVEIS   ---------------------
+
+            Conexao banco = new Conexao();
+            int precoCompra = Integer.parseInt(camp_valorCompra.getText().replace(",", ""));//remove a virgula e adiciona apenas os numeros decimais
+            int precoVenda = Integer.parseInt(camp_valorVenda.getText().replace(",", "")); //remove a virgula e adiciona apenas os numeros decimais
             Long codigo = Long.parseLong(camp_codigo.getText());
             int quantidade = Integer.parseInt(camp_qnt.getText());
-            int valorTotal = (int) (precoVenda * quantidade);
+            int valorTotal = (precoVenda * quantidade);
 
-// -- AINDA ESTÁ FALTANDO ACRESCENTAR FORNECEDOR --
+            Fornecedor forne = null;
+            int posicao = comBox_fornecedor.getSelectedIndex();
+            forne = banco.list_Fornecedores().get(posicao);
+
+//------------- ADICIONANDO AS INFORMAÇÕES DO ITEM -------------
+
             item.setItem(camp_nomeItem.getText());
             item.setValor_compra(precoCompra);
             item.setValor_venda(precoVenda);
             item.setCodigo(codigo);
-//            boolean status = chekBoxAtivado.isSelected();
             item.setStatus(true);
             item.setTamanho(comBox_tamanho.getSelectedItem().toString());
             item.setQnt(quantidade);
             item.setDescricao(camp_descricao.getText());
             item.setValor_total(valorTotal);
+            item.setFornecedor(forne);
+            forne.setItemses(itemses);
+            forne.getItemses().add(item);
+            
+            banco.update(forne);// ATUALIZA O FORNECEDOR QUE RECEBEU O ITEM;
+            banco.update(item);// ATUALIZA OS DADOS DO ITEM QUE FOI SELECIONADO;
 
-            Conexao banco = new Conexao();
-            banco.update(item); // ATUALIZA OS DADOS DO ITEM QUE FOI SELECIONADO;
-
-//            LIMPA TODOS OS CAMPOS NOVAMENTE
+            
+// ----------- LIMPA TODOS OS CAMPOS NOVAMENTE ------------------
             camp_nomeItem.setText("");
             camp_codigo.setText("");
             camp_valorCompra.setText("");
             camp_valorVenda.setText("");
             camp_qnt.setText("");
             camp_descricao.setText("");
-            JOptionPane.showConfirmDialog(null, "Atualizado com Sucesso");
+            
+            JOptionPane.showMessageDialog(null, "Atualizado com Sucesso");
             dispose();
 
         } else {
@@ -396,12 +412,13 @@ public class TelaEdicao extends javax.swing.JFrame {
     }
 
     private void DesativarItem() {
+        
         int confirmacao = JOptionPane.showConfirmDialog(null, "Você Deseja desativar esse item?", "Desativar", JOptionPane.YES_NO_OPTION);
         if (confirmacao == JOptionPane.YES_OPTION) {
             item.setStatus(false);
             Conexao banco = new Conexao();
             banco.update(item); // ATUALIZA OS DADOS DO ITEM QUE FOI SELECIONADO;
-            JOptionPane.showMessageDialog(null, "Voce pode ativa o item novamente quando quiser, \nbasta ir na tela principal do sistema na barra menu configurações!");
+            
             dispose();
         }
     }

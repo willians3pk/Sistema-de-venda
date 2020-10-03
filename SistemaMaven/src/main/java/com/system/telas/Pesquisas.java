@@ -6,6 +6,7 @@
 package com.system.telas;
 
 import com.system.conexao.Conexao;
+import com.system.sistemamaven.Fornecedor;
 import com.system.sistemamaven.Items;
 import java.util.ArrayList;
 import java.util.List;
@@ -246,6 +247,8 @@ public class Pesquisas extends javax.swing.JFrame {
 
     private void btn_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novoActionPerformed
         telacad.setVisible(true);
+        telacad.PopularComcobox();
+        
     }//GEN-LAST:event_btn_novoActionPerformed
 
     private void jMenuIItensDesativadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuIItensDesativadosActionPerformed
@@ -339,9 +342,9 @@ public class Pesquisas extends javax.swing.JFrame {
             }
         }
         if (checkBox_valor.isSelected() == true) {
-            Long valor = Long.parseLong(pesquisa) * 100;
+            float valor = Float.parseFloat(pesquisa);
             for (int i = 0; i < banco.list_Items().size(); i++) {
-                if (banco.list_Items().get(i).getValor_venda().longValue() == valor) {   // VERIFICA SE O VALOR CONTEM NO BANCO DE DADOS
+                if (banco.list_Items().get(i).getValor_venda() == valor) {   // VERIFICA SE O VALOR CONTEM NO BANCO DE DADOS
                     Items item = banco.list_Items().get(i);
                     if (item.isStatus()) {                                    // ESSE IF VAI ADICIONAR NA ARRAYLIST APENAS OS ITEMS QUE TIVEREM COM STATUS TRUE
                         items.add(item);                                     // ADICIONA O ITEM DA PESQUISA NA ARRAYLIST
@@ -350,9 +353,9 @@ public class Pesquisas extends javax.swing.JFrame {
             }
         }
         if (checkBox_qnt.isSelected() == true) {
-            Long valor = Long.parseLong(pesquisa);
+            int valor = Integer.parseInt(pesquisa);
             for (int i = 0; i < banco.list_Items().size(); i++) {
-                if (banco.list_Items().get(i).getQnt().intValue() == valor) {   // VERIFICA SE A QNT CONTEM NO BANCO DE DADOS
+                if (banco.list_Items().get(i).getQnt() == valor) {   // VERIFICA SE A QNT CONTEM NO BANCO DE DADOS
                     Items item = banco.list_Items().get(i);
                     if (item.isStatus()) {                                    // ESSE IF VAI ADICIONAR NA ARRAYLIST APENAS OS ITEMS QUE TIVEREM COM STATUS TRUE
                         items.add(item);                                     // ADICIONA O ITEM DA PESQUISA NA ARRAYLIST
@@ -366,14 +369,15 @@ public class Pesquisas extends javax.swing.JFrame {
 
             tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
             for (Items item : items) {
-                float l = item.getValor_venda() / 100; // A DIVISÃO POR 100 É APENAS PRA MOVER A VIRGULA 3 CASAS DECIMAIS.
-                float t = item.getValor_total() / 100; // A DIVISÃO POR 100 É APENAS PRA MOVER A VIRGULA 3 CASAS DECIMAIS.
-
-                String valorVenda = Float.toString(l);
-                String valorTotal = Float.toString(t);
+                Fornecedor forn = null;
+                for (Fornecedor fornecedor : banco.list_Fornecedores()) { // PEGA O FORNECEDOR DO ITEM;
+                    if(fornecedor.getIdFornecedor() == item.getFornecedor().getIdFornecedor()){
+                        forn = fornecedor;
+                    }
+                }
                 
-                tableDefault.addRow(new Object[]{item.getIditem(), item.getCodigo(), item.getItem(), "R$ " + valorVenda,
-                    item.getQnt(), item.getFornecedor(), item.getDescricao(), item.getTamanho(), "R$ " + valorTotal});
+                tableDefault.addRow(new Object[]{item.getIditem(), item.getCodigo(), item.getItem(), "R$ "+item.getValor_venda()/100,
+                    item.getQnt(), forn.getNome(), item.getDescricao(), item.getTamanho(), "R$ "+item.getValor_total()/100});
             }
 
         } catch (Exception e) {
@@ -412,8 +416,7 @@ public class Pesquisas extends javax.swing.JFrame {
                 }
             }
             JOptionPane.showMessageDialog(null, "Item *DESATIVADOS* com Sucesso!");
-            JOptionPane.showMessageDialog(null, "Voce pode ativa-los novamente quando quiser, basta ir na\ntela principal do sistema na barra menu configurações!");
-
+           
         }
     }
 }

@@ -15,6 +15,7 @@ public class CadastroItens extends javax.swing.JFrame {
 
     public CadastroItens() {
         initComponents();
+        PopularComcobox();
     }
 
     @SuppressWarnings("unchecked")
@@ -262,26 +263,26 @@ public class CadastroItens extends javax.swing.JFrame {
 
             Items item = new Items();
             Conexao banco = new Conexao();
-            
-            Long precoCompra = Long.parseLong(camp_valorCompra.getText().replaceAll(",", ""));//remove a virgula e adiciona apenas os numeros decimais
-            Long precoVenda = Long.parseLong(camp_valorVenda.getText().replaceAll(",", "")); //remove a virgula e adiciona apenas os numeros decimais
+
+            int precoCompra = Integer.parseInt(camp_valorCompra.getText().replaceAll(",", ""));//remove a virgula e adiciona apenas os numeros decimais
+            int precoVenda = Integer.parseInt(camp_valorVenda.getText().replaceAll(",", "")); //remove a virgula e adiciona apenas os numeros decimais
             Long codigo = Long.parseLong(camp_codigo.getText());
             int quantidade = Integer.parseInt(camp_qnt.getText());
-            int valorTotal = (int) (precoVenda * quantidade);
+            int valorTotal = (precoVenda * quantidade);
 
             DefaultComboBoxModel comboBox = new DefaultComboBoxModel();
-        for (Fornecedor fornecedor : banco.list_Fornecedores()) {
-            comboBox.addElement(fornecedor.getNome());
-            comBox_fornecedor.setModel(comboBox);           // ADICIONA OS FORNECEDORES NA COMBOBOX
-        }
-
-            Fornecedor forne = banco.list_Fornecedores().get(comBox_fornecedor.getSelectedIndex());
+            for (Fornecedor fornecedor : banco.list_Fornecedores()) {
+                comboBox.addElement(fornecedor.getNome());
+                comBox_fornecedor.setModel(comboBox);           // ADICIONA OS FORNECEDORES NA COMBOBOX
+            }
+            int posicao = comBox_fornecedor.getSelectedIndex();
+            Fornecedor forne = banco.list_Fornecedores().get(posicao);
+            
             item.setFornecedor(forne);
             item.setItem(camp_nomeItem.getText());
             item.setValor_compra(precoCompra);
             item.setValor_venda(precoVenda);
             item.setCodigo(codigo);
-//            boolean status = chekBoxAtivado.isSelected(); // LEMBRA DE REMOVER A CHEKBOX E USAR O CAMPO STATUS APENAS PARA ITEMS EXCLUIDOS
             item.setStatus(true);
             item.setExcluido(false);
             item.setQnt(quantidade);
@@ -308,6 +309,15 @@ public class CadastroItens extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Confira os campos Obrigatórios!!");
         }
 
+    }
+
+    public void PopularComcobox() {
+        Conexao banco = new Conexao();
+        DefaultComboBoxModel comboBox = new DefaultComboBoxModel();
+        for (Fornecedor fornecedor : banco.list_Fornecedores()) {
+            comboBox.addElement(fornecedor.getNome());
+            comBox_fornecedor.setModel(comboBox);           // ADICIONA OS FORNECEDORES NA COMBOBOX
+        }
     }
 
 }
