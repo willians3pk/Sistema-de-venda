@@ -8,10 +8,7 @@ package com.system.telas;
 import com.system.conexao.Conexao;
 import com.system.sistemamaven.Fornecedor;
 import com.system.sistemamaven.Items;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -24,12 +21,12 @@ public class TelaEdicao extends javax.swing.JFrame {
 
     Items item;
     Set<Items> itemses = new HashSet<>();
+
     /**
      * Creates new form TelaEdicao
      */
     public TelaEdicao() {
         initComponents();
-        PopularComcobox();
     }
 
     public Items getItem() {
@@ -78,6 +75,8 @@ public class TelaEdicao extends javax.swing.JFrame {
         jSeparator49 = new javax.swing.JSeparator();
         btn_cancelar = new javax.swing.JButton();
         comBox_tamanho = new javax.swing.JComboBox<>();
+        jLabel_valorcompra = new javax.swing.JLabel();
+        jLabel_valorvenda = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuDesativarItem = new javax.swing.JMenuItem();
@@ -192,10 +191,16 @@ public class TelaEdicao extends javax.swing.JFrame {
                 btn_cancelarActionPerformed(evt);
             }
         });
-        jPanel16.add(btn_cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 380, 90, -1));
+        jPanel16.add(btn_cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 380, 110, -1));
 
         comBox_tamanho.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "P", "M", "G", "GG" }));
         jPanel16.add(comBox_tamanho, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 90, -1));
+
+        jLabel_valorcompra.setText("jLabel1");
+        jPanel16.add(jLabel_valorcompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
+
+        jLabel_valorvenda.setText("jLabel2");
+        jPanel16.add(jLabel_valorvenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, -1, -1));
 
         getContentPane().add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 830, 430));
 
@@ -301,6 +306,8 @@ public class TelaEdicao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelObrigatorioNome1;
     private javax.swing.JLabel jLabelObrigatorioQnt;
     private javax.swing.JLabel jLabelObrigatorioVenda;
+    private javax.swing.JLabel jLabel_valorcompra;
+    private javax.swing.JLabel jLabel_valorvenda;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuDesativarItem;
@@ -320,13 +327,24 @@ public class TelaEdicao extends javax.swing.JFrame {
         String valorVenda = String.valueOf(item.getValor_venda());
         String codigo = String.valueOf(item.getCodigo());
 
+        String lvalorCompra = String.valueOf(item.getValor_compra() / 100);
+        String lvalorVenda = String.valueOf(item.getValor_venda() / 100);
+        jLabel_valorcompra.setText(lvalorCompra);
+        jLabel_valorvenda.setText(lvalorVenda);
+
         camp_nomeItem.setText(item.getItem());
         camp_qnt.setText(qnt);
         camp_valorCompra.setText(valorCompra);
         camp_valorVenda.setText(valorVenda);
         camp_descricao.setText(item.getDescricao());
         camp_codigo.setText(codigo);
+        comBox_tamanho.setSelectedItem(item.getTamanho());
 
+        if (comBox_fornecedor.getSelectedItem().toString() == item.fornecedor().getNome()) {
+            JOptionPane.showMessageDialog(null, "Fornecedor nao contem na lista");
+        } else {
+            comBox_fornecedor.setSelectedItem(item.fornecedor().getNome());
+        }
     }
 
     private void AtualizarItem() {
@@ -364,7 +382,6 @@ public class TelaEdicao extends javax.swing.JFrame {
                 && (camp_valorVenda.getText().length() > 0)) {
 
 // -----------    VARIAVEIS   ---------------------
-
             Conexao banco = new Conexao();
             int precoCompra = Integer.parseInt(camp_valorCompra.getText().replace(",", ""));//remove a virgula e adiciona apenas os numeros decimais
             int precoVenda = Integer.parseInt(camp_valorVenda.getText().replace(",", "")); //remove a virgula e adiciona apenas os numeros decimais
@@ -377,7 +394,6 @@ public class TelaEdicao extends javax.swing.JFrame {
             forne = banco.list_Fornecedores().get(posicao);
 
 //------------- ADICIONANDO AS INFORMAÇÕES DO ITEM -------------
-
             item.setItem(camp_nomeItem.getText());
             item.setValor_compra(precoCompra);
             item.setValor_venda(precoVenda);
@@ -390,11 +406,10 @@ public class TelaEdicao extends javax.swing.JFrame {
             item.setFornecedor(forne);
             forne.setItemses(itemses);
             forne.getItemses().add(item);
-            
+
             banco.update(forne);// ATUALIZA O FORNECEDOR QUE RECEBEU O ITEM;
             banco.update(item);// ATUALIZA OS DADOS DO ITEM QUE FOI SELECIONADO;
 
-            
 // ----------- LIMPA TODOS OS CAMPOS NOVAMENTE ------------------
             camp_nomeItem.setText("");
             camp_codigo.setText("");
@@ -402,7 +417,7 @@ public class TelaEdicao extends javax.swing.JFrame {
             camp_valorVenda.setText("");
             camp_qnt.setText("");
             camp_descricao.setText("");
-            
+
             JOptionPane.showMessageDialog(null, "Atualizado com Sucesso");
             dispose();
 
@@ -412,13 +427,13 @@ public class TelaEdicao extends javax.swing.JFrame {
     }
 
     private void DesativarItem() {
-        
+
         int confirmacao = JOptionPane.showConfirmDialog(null, "Você Deseja desativar esse item?", "Desativar", JOptionPane.YES_NO_OPTION);
         if (confirmacao == JOptionPane.YES_OPTION) {
             item.setStatus(false);
             Conexao banco = new Conexao();
             banco.update(item); // ATUALIZA OS DADOS DO ITEM QUE FOI SELECIONADO;
-            
+
             dispose();
         }
     }

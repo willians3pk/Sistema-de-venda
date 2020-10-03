@@ -25,7 +25,7 @@ import javax.persistence.Table;
         catalog = "bancoSistemaVenda"
 )
 public class Items implements java.io.Serializable {
-    
+
     private Integer iditem;
     private Fornecedor fornecedor;
     private String item;
@@ -193,20 +193,15 @@ public class Items implements java.io.Serializable {
 
 //  ----- METODOS ESPECIFICOS DA CLASSE ITEMS --------
     
-    public List<Items> Pesquisa(String pesquisa, Conexao banco) {
-        
-        List<Items> items = new ArrayList<>();
-        
-        for (int i = 0; i < banco.list_Items().size(); i++) {
-            if (banco.list_Items().get(i).getItem().contains(pesquisa)) {   // VERIFICA SE A STRING CONTEM NO BANCO DE DADOS
-                Items item = banco.list_Items().get(i);
-                if (item.isStatus()) {                                    // ESSE IF VAI ADICIONAR NA ARRAYLIST APENAS OS ITEMS QUE TIVEREM COM STATUS TRUE
-                    items.add(item);                                  // ADICIONA O ITEM DA PESQUISA NA ARRAYLIST
-                    return items;
-                }
+    public Fornecedor fornecedor() {
+        Conexao banco = new Conexao();
+        Fornecedor forn = null;
+        for (Fornecedor fornecedor : banco.list_Fornecedores()) { // PEGA O FORNECEDOR DO ITEM;
+            if (fornecedor.getIdFornecedor() == this.fornecedor.getIdFornecedor()) {
+                forn = fornecedor;
+                return forn;
             }
         }
         return null;
     }
-
 }

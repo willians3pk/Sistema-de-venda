@@ -8,22 +8,20 @@ package com.system.telas;
 import com.system.conexao.Conexao;
 import com.system.sistemamaven.Endereco;
 import com.system.sistemamaven.Fornecedor;
-import com.system.sistemamaven.Items;
 import com.system.sistemamaven.NumeroContato;
-import com.system.sistemamaven.Pessoa;
-import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author willian
  */
-public class Cadastros extends javax.swing.JFrame {
+public class CadastroFornecedor extends javax.swing.JFrame {
 
+    
     /**
-     * Creates new form Cadastros
+     * Creates new form CadastroFornecedor
      */
-    public Cadastros() {
+    public CadastroFornecedor() {
         initComponents();
     }
 
@@ -73,34 +71,7 @@ public class Cadastros extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         camp_dddFornecedor = new javax.swing.JFormattedTextField();
         camp_cpfFornecedor = new javax.swing.JFormattedTextField();
-        jPanel3 = new javax.swing.JPanel();
-        jSeparator7 = new javax.swing.JSeparator();
-        jLabel19 = new javax.swing.JLabel();
-        camp_nomePessoa = new javax.swing.JTextField();
-        jLabel20 = new javax.swing.JLabel();
-        camp_ruaPessoa = new javax.swing.JTextField();
-        jLabel21 = new javax.swing.JLabel();
-        camp_cepPessoa = new javax.swing.JFormattedTextField();
-        jLabel22 = new javax.swing.JLabel();
-        camp_emailPessoa = new javax.swing.JTextField();
-        camp_cidadePessoa = new javax.swing.JTextField();
-        jLabel24 = new javax.swing.JLabel();
-        camp_bairroPessoa = new javax.swing.JTextField();
-        jLabel25 = new javax.swing.JLabel();
-        camp_cpfPessoa = new javax.swing.JFormattedTextField();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        camp_numerocasaPessoa = new javax.swing.JFormattedTextField();
-        jLabel30 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        camp_complementoPessoa = new javax.swing.JTextArea();
-        jSeparator8 = new javax.swing.JSeparator();
-        jSeparator9 = new javax.swing.JSeparator();
-        btn_cadPessoa = new javax.swing.JButton();
-        jLabel26 = new javax.swing.JLabel();
-        camp_dataNasc = new javax.swing.JFormattedTextField();
-        jTextField1 = new javax.swing.JTextField();
+        btn_cancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -244,122 +215,32 @@ public class Cadastros extends javax.swing.JFrame {
         camp_cpfFornecedor.setText("000.000.000-00");
         jPanel2.add(camp_cpfFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 80, 120, -1));
 
-        jTabbedPane1.addTab("Fornecedor", jPanel2);
-
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel3.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 790, 10));
-
-        jLabel19.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel19.setText("Nome:");
-        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
-        jPanel3.add(camp_nomePessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 290, -1));
-
-        jLabel20.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel20.setText("Rua:");
-        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, -1, -1));
-        jPanel3.add(camp_ruaPessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 290, -1));
-
-        jLabel21.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel21.setText("CEP:");
-        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 60, -1, -1));
-
-        try {
-            camp_cepPessoa.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        camp_cepPessoa.setText("00000-000");
-        jPanel3.add(camp_cepPessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 80, 110, -1));
-
-        jLabel22.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel22.setText("E-mail:");
-        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
-        jPanel3.add(camp_emailPessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 260, -1));
-        jPanel3.add(camp_cidadePessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 220, 200, -1));
-
-        jLabel24.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel24.setText("Cidade:");
-        jPanel3.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 200, -1, -1));
-        jPanel3.add(camp_bairroPessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, 140, -1));
-
-        jLabel25.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel25.setText("Bairro:");
-        jPanel3.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, -1, -1));
-
-        try {
-            camp_cpfPessoa.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        camp_cpfPessoa.setText("000.000.000-00");
-        jPanel3.add(camp_cpfPessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 120, -1));
-
-        jLabel27.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel27.setText("CPF:");
-        jPanel3.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
-
-        jLabel28.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel28.setText("Estado:");
-        jPanel3.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 120, -1, -1));
-
-        jLabel29.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel29.setText("Nª (casa):");
-        jPanel3.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 120, -1, -1));
-
-        camp_numerocasaPessoa.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        camp_numerocasaPessoa.setText("0000000000");
-        jPanel3.add(camp_numerocasaPessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 140, 90, -1));
-
-        jLabel30.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel30.setText("Complemento:");
-        jPanel3.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 260, -1, -1));
-
-        camp_complementoPessoa.setColumns(20);
-        camp_complementoPessoa.setRows(5);
-        jScrollPane3.setViewportView(camp_complementoPessoa);
-
-        jPanel3.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 290, 470, 60));
-
-        jSeparator8.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel3.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 10, 280));
-        jPanel3.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 363, 800, 10));
-
-        btn_cadPessoa.setText("Cadastrar");
-        btn_cadPessoa.addActionListener(new java.awt.event.ActionListener() {
+        btn_cancelar.setText("Cancelar");
+        btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cadPessoaActionPerformed(evt);
+                btn_cancelarActionPerformed(evt);
             }
         });
-        jPanel3.add(btn_cadPessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 380, -1, -1));
+        jPanel2.add(btn_cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 380, -1, -1));
 
-        jLabel26.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel26.setText("Data-Nascimento:");
-        jPanel3.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, -1, -1));
-
-        try {
-            camp_dataNasc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        camp_dataNasc.setText("00/00/0000");
-        jPanel3.add(camp_dataNasc, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 90, -1));
-        jPanel3.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 140, 110, -1));
-
-        jTabbedPane1.addTab("Pessoa", jPanel3);
+        jTabbedPane1.addTab("Fornecedor", jPanel2);
 
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 860, 490));
 
-        setSize(new java.awt.Dimension(891, 552));
+        setSize(new java.awt.Dimension(891, 553));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_cadPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadPessoaActionPerformed
-        CadastroPessoa();
-    }//GEN-LAST:event_btn_cadPessoaActionPerformed
 
     private void btn_cadFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadFornecedorActionPerformed
         CadastroFornecedor();
     }//GEN-LAST:event_btn_cadFornecedorActionPerformed
+
+    private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
+        CadastroItens telaItens = new CadastroItens();
+        telaItens.setVisible(true);
+        telaItens.PopularComcobox();
+        dispose();
+    }//GEN-LAST:event_btn_cancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -378,51 +259,41 @@ public class Cadastros extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Cadastros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Cadastros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Cadastros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Cadastros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Cadastros().setVisible(true);
+                new CadastroFornecedor().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cadFornecedor;
-    private javax.swing.JButton btn_cadPessoa;
+    private javax.swing.JButton btn_cancelar;
     private javax.swing.JTextField camp_EstadoFornecedor;
     private javax.swing.JTextField camp_bairroFornecedor;
-    private javax.swing.JTextField camp_bairroPessoa;
     private javax.swing.JFormattedTextField camp_cepFornecedor;
-    private javax.swing.JFormattedTextField camp_cepPessoa;
     private javax.swing.JTextField camp_cidadeFornecedor;
-    private javax.swing.JTextField camp_cidadePessoa;
     private javax.swing.JFormattedTextField camp_cnpj;
     private javax.swing.JTextArea camp_complementoForncedor;
-    private javax.swing.JTextArea camp_complementoPessoa;
     private javax.swing.JFormattedTextField camp_contatoFornecedor;
     private javax.swing.JFormattedTextField camp_cpfFornecedor;
-    private javax.swing.JFormattedTextField camp_cpfPessoa;
-    private javax.swing.JFormattedTextField camp_dataNasc;
     private javax.swing.JFormattedTextField camp_dddFornecedor;
     private javax.swing.JTextField camp_emailFornecedor;
-    private javax.swing.JTextField camp_emailPessoa;
     private javax.swing.JTextField camp_homepage;
     private javax.swing.JTextField camp_nomeFornecedor;
-    private javax.swing.JTextField camp_nomePessoa;
     private javax.swing.JFormattedTextField camp_numerocasaFornecedor;
-    private javax.swing.JFormattedTextField camp_numerocasaPessoa;
     private javax.swing.JTextField camp_ruaFornecedor;
-    private javax.swing.JTextField camp_ruaPessoa;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -432,18 +303,7 @@ public class Cadastros extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel7;
@@ -451,72 +311,12 @@ public class Cadastros extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelObrigatorionome;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
-
-    private void CadastroPessoa() {
-
-        Conexao banco = new Conexao();
-
-        if ((camp_nomePessoa.getText().length() > 0) && (camp_cpfPessoa.getText().length() > 0)
-                && (camp_emailPessoa.getText().length() > 0) && (camp_dataNasc.getText().length() > 0)) {
-
-            Pessoa pessoa = new Pessoa();
-            pessoa.setNome(camp_nomePessoa.getText());
-            int cpf = Integer.parseInt(camp_cpfPessoa.getText());
-            pessoa.setCpf(cpf);
-            pessoa.setEmail(camp_emailPessoa.getText());
-            pessoa.setDataNascimento(new Date(camp_dataNasc.getText()));
-
-// ---------- ENDEREÇO -----------------
-            Endereco end = new Endereco();
-
-            if ((camp_ruaPessoa.getText().length() > 0) && (camp_cepPessoa.getText().length() > 0)
-                    && (camp_bairroPessoa.getText().length() > 0) && (camp_cidadePessoa.getText().length() > 0)
-                    && (camp_numerocasaPessoa.getText().length() > 0)) {
-
-                end.setRua(camp_ruaPessoa.getText());
-                end.setCidade(camp_cidadePessoa.getText());
-                int cep = Integer.parseInt(camp_cepPessoa.getText());
-                end.setCep(cep);
-                end.setComplemento(camp_complementoPessoa.getText());
-                int numeroCasa = Integer.parseInt(camp_numerocasaPessoa.getText());
-                end.setNumeroCasa(numeroCasa);
-//              end.setPessoas(pessoas);
-                banco.persist(end);
-            }
-
-            pessoa.setEndereco(end);
-
-            banco.persist(pessoa);
-
-//            LIMPA OS CAMPOS DO FORMULARIO
-            camp_nomePessoa.setText("");
-            camp_cpfPessoa.setText("");
-            camp_emailPessoa.setText("");
-            camp_dataNasc.setText("");
-            camp_ruaPessoa.setText("");
-            camp_cepPessoa.setText("");
-            camp_bairroPessoa.setText("");
-            camp_numerocasaPessoa.setText("");
-            camp_cidadePessoa.setText("");
-            camp_complementoPessoa.setText("");
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Preencha as Informações relevantes");
-        }
-
-    }
 
     private void CadastroFornecedor() {
 
@@ -583,6 +383,11 @@ public class Cadastros extends javax.swing.JFrame {
             camp_EstadoFornecedor.setText("");
             camp_cidadeFornecedor.setText("");
             camp_complementoForncedor.setText("");
+
+            CadastroItens telaItens = new CadastroItens();
+            telaItens.setVisible(true);
+            telaItens.PopularComcobox();
+            dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Preencha as Informações Obrigatorias");
         }

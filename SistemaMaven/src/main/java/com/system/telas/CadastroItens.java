@@ -3,8 +3,8 @@ package com.system.telas;
 import com.system.conexao.Conexao;
 import com.system.sistemamaven.Fornecedor;
 import com.system.sistemamaven.Items;
+import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -49,6 +49,8 @@ public class CadastroItens extends javax.swing.JFrame {
         jSeparator10 = new javax.swing.JSeparator();
         jLabel35 = new javax.swing.JLabel();
         comBox_tamanho = new javax.swing.JComboBox<>();
+        btn_novoFornecedor = new javax.swing.JButton();
+        btn_cancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -86,7 +88,7 @@ public class CadastroItens extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 540, 140));
 
-        comBox_fornecedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comBox_fornecedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione Fornecedor>" }));
         jPanel1.add(comBox_fornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 130, 250, -1));
 
         jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -153,6 +155,22 @@ public class CadastroItens extends javax.swing.JFrame {
         comBox_tamanho.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecione>", "P", "M", "G", "GG" }));
         jPanel1.add(comBox_tamanho, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 200, 140, -1));
 
+        btn_novoFornecedor.setText("Novo");
+        btn_novoFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_novoFornecedorActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_novoFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 90, 90, -1));
+
+        btn_cancelar.setText("Cancelar");
+        btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancelarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(688, 420, 110, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 930, 470));
 
         setSize(new java.awt.Dimension(972, 529));
@@ -162,6 +180,16 @@ public class CadastroItens extends javax.swing.JFrame {
     private void btn_cadItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadItemActionPerformed
         CadastroItem();
     }//GEN-LAST:event_btn_cadItemActionPerformed
+
+    private void btn_novoFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novoFornecedorActionPerformed
+        CadastroFornecedor tela = new CadastroFornecedor();
+        tela.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btn_novoFornecedorActionPerformed
+
+    private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btn_cancelarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -198,6 +226,8 @@ public class CadastroItens extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cadItem;
+    private javax.swing.JButton btn_cancelar;
+    private javax.swing.JButton btn_novoFornecedor;
     private javax.swing.JFormattedTextField camp_codigo;
     private javax.swing.JTextArea camp_descricao;
     private javax.swing.JTextField camp_nomeItem;
@@ -261,6 +291,7 @@ public class CadastroItens extends javax.swing.JFrame {
                 && (camp_valorCompra.getText().length() > 0)
                 && (camp_valorVenda.getText().length() > 0)) {
 
+//            CRIA AS VARIAVEIS 
             Items item = new Items();
             Conexao banco = new Conexao();
 
@@ -269,42 +300,50 @@ public class CadastroItens extends javax.swing.JFrame {
             Long codigo = Long.parseLong(camp_codigo.getText());
             int quantidade = Integer.parseInt(camp_qnt.getText());
             int valorTotal = (precoVenda * quantidade);
-
-            DefaultComboBoxModel comboBox = new DefaultComboBoxModel();
-            for (Fornecedor fornecedor : banco.list_Fornecedores()) {
-                comboBox.addElement(fornecedor.getNome());
-                comBox_fornecedor.setModel(comboBox);           // ADICIONA OS FORNECEDORES NA COMBOBOX
-            }
-            int posicao = comBox_fornecedor.getSelectedIndex();
-            Fornecedor forne = banco.list_Fornecedores().get(posicao);
             
-            item.setFornecedor(forne);
-            item.setItem(camp_nomeItem.getText());
-            item.setValor_compra(precoCompra);
-            item.setValor_venda(precoVenda);
-            item.setCodigo(codigo);
-            item.setStatus(true);
-            item.setExcluido(false);
-            item.setQnt(quantidade);
-            item.setDescricao(camp_descricao.getText());
-            item.setValor_total(valorTotal);
+            try {
+                
+                DefaultComboBoxModel comboBox = new DefaultComboBoxModel();
+                for (Fornecedor fornecedor : banco.list_Fornecedores()) {
+                    comboBox.addElement(fornecedor.getNome());
+                    comBox_fornecedor.setModel(comboBox);           // ADICIONA OS FORNECEDORES NA COMBOBOX
+                }
+                
+                int posicao = comBox_fornecedor.getSelectedIndex();
+                Fornecedor forne = banco.list_Fornecedores().get(posicao);
 
-            if (comBox_tamanho.getSelectedItem().toString().equals("<selecione>")) {
-                JOptionPane.showMessageDialog(null, "Selecione o Tamanho!!");
-            } else {
+                item.setFornecedor(forne);
+                item.setItem(camp_nomeItem.getText());
+                item.setValor_compra(precoCompra);
+                item.setValor_venda(precoVenda);
+                item.setCodigo(codigo);
+                item.setStatus(true);
+                item.setExcluido(false);
+                item.setQnt(quantidade);
+                item.setDescricao(camp_descricao.getText());
+                item.setValor_total(valorTotal);
 
-                tamanho = comBox_tamanho.getSelectedItem().toString();
-                item.setTamanho(tamanho);
+                if (comBox_tamanho.getSelectedItem().toString().equals("<selecione>")) {
+                    JOptionPane.showMessageDialog(null, "Selecione o Tamanho!!");
+                } else {
 
-                banco.save(item);
-                camp_nomeItem.setText("");
-                camp_codigo.setText("");
-                camp_valorCompra.setText("");
-                camp_valorVenda.setText("");
-                camp_qnt.setText("");
-                camp_descricao.setText("");
+                    tamanho = comBox_tamanho.getSelectedItem().toString();
+                    item.setTamanho(tamanho);
 
+                    banco.save(item);
+                    camp_nomeItem.setText("");
+                    camp_codigo.setText("");
+                    camp_valorCompra.setText("");
+                    camp_valorVenda.setText("");
+                    camp_qnt.setText("");
+                    camp_descricao.setText("");
+                    comBox_tamanho.setSelectedIndex(0);
+                } 
+            } catch (Exception e) {
+                System.out.println(" Erro "+e);
+                JOptionPane.showMessageDialog(null, "Certifique-se o Fornecedor está cadastrado");
             }
+            
         } else {
             JOptionPane.showMessageDialog(null, "Confira os campos Obrigatórios!!");
         }

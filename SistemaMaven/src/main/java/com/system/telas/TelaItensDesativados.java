@@ -146,16 +146,9 @@ public class TelaItensDesativados extends javax.swing.JFrame {
 
             tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
             for (Items item : items) {
-
-                Fornecedor forne = null;
-                for (Fornecedor fornecedor : banco.list_Fornecedores()) { // PEGA O FORNECEDOR DO ITEM;
-                    if(fornecedor.getIdFornecedor() == item.getFornecedor().getIdFornecedor()){
-                        forne = fornecedor;
-                    }
-                }
                 
-                tableDefault.addRow(new Object[]{item.getIditem(), item.getCodigo(), item.getItem(), "R$ " + item.getValor_venda(),
-                    item.getQnt(), forne.getNome(), item.getDescricao(), item.getTamanho(), "R$ " + item.getValor_total()});
+                tableDefault.addRow(new Object[]{item.getIditem(), item.getCodigo(), item.getItem(), "R$ " + item.getValor_venda()/100,
+                    item.getQnt(), item.fornecedor().getNome(), item.getDescricao(), item.getTamanho(), "R$ " + item.getValor_total()/100});
             }
 
         } catch (Exception e) {

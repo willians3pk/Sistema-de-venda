@@ -128,7 +128,7 @@
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="40" y="150" width="900" height="270"/>
+                  <AbsoluteConstraints x="30" y="150" width="900" height="270"/>
                 </Constraint>
               </Constraints>
 
@@ -251,14 +251,14 @@
             <Component class="javax.swing.JSeparator" name="jSeparator1">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="40" y="130" width="900" height="10"/>
+                  <AbsoluteConstraints x="30" y="130" width="900" height="10"/>
                 </Constraint>
               </Constraints>
             </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator2">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="30" y="430" width="910" height="10"/>
+                  <AbsoluteConstraints x="30" y="430" width="900" height="10"/>
                 </Constraint>
               </Constraints>
             </Component>

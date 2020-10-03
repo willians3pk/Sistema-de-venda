@@ -97,7 +97,7 @@ public class Pesquisas extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(table_items);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 900, 270));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 900, 270));
 
         btn_editar.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btn_editar.setText("Editar");
@@ -116,8 +116,8 @@ public class Pesquisas extends javax.swing.JFrame {
             }
         });
         jPanel3.add(btn_atualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, 120, 30));
-        jPanel3.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 900, 10));
-        jPanel3.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, 910, 10));
+        jPanel3.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 900, 10));
+        jPanel3.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, 900, 10));
 
         btn_novo.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btn_novo.setText("Novo");
@@ -237,8 +237,9 @@ public class Pesquisas extends javax.swing.JFrame {
     private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
         EditarItem();
         tela.setVisible(true);
-        tela.CarregarCampos();
         tela.PopularComcobox();
+        tela.CarregarCampos();
+        
     }//GEN-LAST:event_btn_editarActionPerformed
 
     private void table_itemsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_itemsMouseClicked
@@ -369,15 +370,9 @@ public class Pesquisas extends javax.swing.JFrame {
 
             tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
             for (Items item : items) {
-                Fornecedor forn = null;
-                for (Fornecedor fornecedor : banco.list_Fornecedores()) { // PEGA O FORNECEDOR DO ITEM;
-                    if(fornecedor.getIdFornecedor() == item.getFornecedor().getIdFornecedor()){
-                        forn = fornecedor;
-                    }
-                }
                 
                 tableDefault.addRow(new Object[]{item.getIditem(), item.getCodigo(), item.getItem(), "R$ "+item.getValor_venda()/100,
-                    item.getQnt(), forn.getNome(), item.getDescricao(), item.getTamanho(), "R$ "+item.getValor_total()/100});
+                    item.getQnt(), item.fornecedor().getNome(), item.getDescricao(), item.getTamanho(), "R$ "+item.getValor_total()/100});
             }
 
         } catch (Exception e) {

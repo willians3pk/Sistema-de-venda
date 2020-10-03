@@ -144,7 +144,6 @@ public class Fornecedor implements java.io.Serializable {
                 this.itemses.add(item);
             }
         }
-
         return null;
     }
     
