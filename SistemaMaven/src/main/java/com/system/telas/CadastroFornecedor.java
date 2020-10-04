@@ -48,8 +48,10 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        table_fornecedor.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         table_fornecedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -89,7 +91,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
                 btn_atualizarActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_atualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, 110, 30));
+        getContentPane().add(btn_atualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, 110, 40));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 810, 10));
         getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 810, 10));
 
@@ -103,7 +105,9 @@ public class CadastroFornecedor extends javax.swing.JFrame {
 
         jLabel1.setText("Pesquisar:");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, -1, -1));
-        getContentPane().add(camp_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 510, -1));
+
+        camp_pesquisa.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        getContentPane().add(camp_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 510, 40));
 
         jMenu1.setText("Configurações");
         jMenuBar1.add(jMenu1);
@@ -203,7 +207,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         try {
             tabela.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
             for (Fornecedor f : forne) {
-                tabela.addRow(new Object[]{f.getIdFornecedor(), f.getNome(), f.getEmail(), f.getHomePage(), f.getcontato()});
+                tabela.addRow(new Object[]{f.getIdFornecedor(), f.getNome(), f.getEmail(), f.getHomePage(), f.getcontato().getFone()});
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "<Item não encontrado!!>");

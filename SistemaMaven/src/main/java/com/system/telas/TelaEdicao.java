@@ -88,6 +88,8 @@ public class TelaEdicao extends javax.swing.JFrame {
 
         jPanel16.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel16.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        camp_nomeItem.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         jPanel16.add(camp_nomeItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 290, -1));
 
         jLabel76.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -117,6 +119,7 @@ public class TelaEdicao extends javax.swing.JFrame {
         jPanel16.add(camp_qnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 100, -1));
 
         camp_descricao.setColumns(20);
+        camp_descricao.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         camp_descricao.setRows(5);
         jScrollPane16.setViewportView(camp_descricao);
 

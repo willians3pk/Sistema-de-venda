@@ -65,6 +65,8 @@ public class CadastroItem extends javax.swing.JFrame {
         jPanelTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        camp_pesquisa.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jPanel3.add(camp_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 370, 30));
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -72,6 +74,7 @@ public class CadastroItem extends javax.swing.JFrame {
         jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 70, 140, -1));
 
         table_items.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        table_items.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         table_items.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null}

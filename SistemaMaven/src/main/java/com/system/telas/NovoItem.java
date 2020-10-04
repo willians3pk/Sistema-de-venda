@@ -58,6 +58,8 @@ public class NovoItem extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        camp_nomeItem.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         jPanel1.add(camp_nomeItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 630, -1));
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -83,6 +85,7 @@ public class NovoItem extends javax.swing.JFrame {
         jPanel1.add(camp_qnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 200, 100, -1));
 
         camp_descricao.setColumns(20);
+        camp_descricao.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         camp_descricao.setRows(5);
         jScrollPane1.setViewportView(camp_descricao);
 

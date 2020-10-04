@@ -149,7 +149,7 @@ public class Fornecedor implements java.io.Serializable {
     public NumeroContato getcontato() {
         Conexao banco = new Conexao();
         for (NumeroContato contato : banco.list_Contatos()) {
-            if (this.getIdFornecedor() == contato.getFornecedor().idFornecedor) {
+            if (contato.getFornecedor().getIdFornecedor() == this.getIdFornecedor()) {
                 return contato;
             }
         }

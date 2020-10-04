@@ -86,6 +86,8 @@ public class NovoFornecedor extends javax.swing.JFrame {
         jScrollPane2.setViewportView(camp_complementoForncedor);
 
         jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 260, 470, 90));
+
+        camp_nomeFornecedor.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         jPanel2.add(camp_nomeFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 290, -1));
         jPanel2.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 790, 10));
 
@@ -128,17 +130,25 @@ public class NovoFornecedor extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel11.setText("E-mail:");
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
+
+        camp_emailFornecedor.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         jPanel2.add(camp_emailFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 260, -1));
+
+        camp_homepage.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         jPanel2.add(camp_homepage, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 260, -1));
 
         jLabel12.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel12.setText("Rua:");
         jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
+
+        camp_ruaFornecedor.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         jPanel2.add(camp_ruaFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 290, -1));
 
         jLabel13.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel13.setText("Bairro:");
         jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, -1, -1));
+
+        camp_bairroFornecedor.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         jPanel2.add(camp_bairroFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, 140, -1));
 
         jLabel14.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -160,6 +170,8 @@ public class NovoFornecedor extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel17.setText("Cidade:");
         jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, -1, -1));
+
+        camp_cidadeFornecedor.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         jPanel2.add(camp_cidadeFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 200, 200, -1));
 
         jLabel18.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -189,6 +201,8 @@ public class NovoFornecedor extends javax.swing.JFrame {
         jLabel34.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel34.setText("Contato:");
         jPanel2.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, -1, -1));
+
+        camp_EstadoFornecedor.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         jPanel2.add(camp_EstadoFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 140, 90, -1));
 
         jLabelObrigatorionome.setForeground(new java.awt.Color(255, 0, 0));
