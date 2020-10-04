@@ -18,8 +18,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         initComponents();
     }
 
-    Pesquisas telaPesq = new Pesquisas();
-    Cadastros telaCad = new Cadastros();
+    CadastroItem telaPesq = new CadastroItem();
+    CadastroFornecedor telaCad = new CadastroFornecedor();
     TelaItensDesativados telaItensDesativados = new TelaItensDesativados();
     TelaConfig telaconfig = new TelaConfig();
     TelaVenda telavenda = new TelaVenda();
@@ -37,7 +37,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItems = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuConfigAvancadas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,7 +67,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenuCadastrar.add(jMenuItems);
 
-        jMenuItem2.setText("Cadastrar");
+        jMenuItem2.setText("Fornecedores");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -79,14 +78,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenuCadastrar);
 
         jMenu3.setText("Configurações");
-
-        jMenuItem1.setText("Mostrar Itens Desativados");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem1);
 
         jMenuConfigAvancadas.setText("Config. Avançadas");
         jMenuConfigAvancadas.addActionListener(new java.awt.event.ActionListener() {
@@ -113,11 +104,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         telaCad.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        telaItensDesativados.setVisible(true);
-        telaItensDesativados.ItensDesativados();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuConfigAvancadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuConfigAvancadasActionPerformed
         telaconfig.setVisible(true);
@@ -166,7 +152,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCadastrar;
     private javax.swing.JMenuItem jMenuConfigAvancadas;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItems;
     private javax.swing.JPanel jPanel2;

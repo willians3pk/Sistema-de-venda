@@ -6,10 +6,12 @@
 package com.system.telas;
 
 import com.system.conexao.Conexao;
-import com.system.sistemamaven.Endereco;
 import com.system.sistemamaven.Fornecedor;
-import com.system.sistemamaven.NumeroContato;
+import com.system.sistemamaven.Items;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,12 +19,11 @@ import javax.swing.JOptionPane;
  */
 public class CadastroFornecedor extends javax.swing.JFrame {
 
+   
     
-    /**
-     * Creates new form CadastroFornecedor
-     */
     public CadastroFornecedor() {
         initComponents();
+        btn_editar.setVisible(false);
     }
 
     /**
@@ -34,213 +35,106 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        camp_complementoForncedor = new javax.swing.JTextArea();
-        camp_nomeFornecedor = new javax.swing.JTextField();
-        jSeparator4 = new javax.swing.JSeparator();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        camp_cnpj = new javax.swing.JFormattedTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jSeparator5 = new javax.swing.JSeparator();
-        jSeparator6 = new javax.swing.JSeparator();
-        btn_cadFornecedor = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        camp_emailFornecedor = new javax.swing.JTextField();
-        camp_homepage = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        camp_ruaFornecedor = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        camp_bairroFornecedor = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
-        camp_numerocasaFornecedor = new javax.swing.JFormattedTextField();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        camp_cidadeFornecedor = new javax.swing.JTextField();
-        jLabel18 = new javax.swing.JLabel();
-        camp_cepFornecedor = new javax.swing.JFormattedTextField();
-        jLabel33 = new javax.swing.JLabel();
-        camp_contatoFornecedor = new javax.swing.JFormattedTextField();
-        jLabel34 = new javax.swing.JLabel();
-        camp_EstadoFornecedor = new javax.swing.JTextField();
-        jLabelObrigatorionome = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        camp_dddFornecedor = new javax.swing.JFormattedTextField();
-        camp_cpfFornecedor = new javax.swing.JFormattedTextField();
-        btn_cancelar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table_fornecedor = new javax.swing.JTable();
+        btn_novo = new javax.swing.JButton();
+        btn_atualizar = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        btn_editar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        camp_pesquisa = new javax.swing.JTextField();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTabbedPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Cadastro", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 18))); // NOI18N
+        table_fornecedor.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+            },
+            new String [] {
+                "Id", "nome", "email", "home-page", "Contato"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
 
-        camp_complementoForncedor.setColumns(20);
-        camp_complementoForncedor.setRows(5);
-        jScrollPane2.setViewportView(camp_complementoForncedor);
-
-        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 260, 470, 90));
-        jPanel2.add(camp_nomeFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 290, -1));
-        jPanel2.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 790, 10));
-
-        jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel7.setText("Nome:");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
-
-        jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel8.setText("CPF:");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 60, -1, -1));
-
-        try {
-            camp_cnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        camp_cnpj.setText("00.000.000/0000-00");
-        jPanel2.add(camp_cnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 170, -1));
-
-        jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel9.setText("CNPJ:");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, -1, -1));
-
-        jSeparator5.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel2.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 10, 280));
-        jPanel2.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 363, 800, 10));
-
-        btn_cadFornecedor.setText("Cadastrar");
-        btn_cadFornecedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cadFornecedorActionPerformed(evt);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        jPanel2.add(btn_cadFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 380, -1, -1));
-
-        jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel10.setText("Home-Page:");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
-
-        jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel11.setText("E-mail:");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
-        jPanel2.add(camp_emailFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 260, -1));
-        jPanel2.add(camp_homepage, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 260, -1));
-
-        jLabel12.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel12.setText("Rua:");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
-        jPanel2.add(camp_ruaFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 290, -1));
-
-        jLabel13.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel13.setText("Bairro:");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, -1, -1));
-        jPanel2.add(camp_bairroFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, 140, -1));
-
-        jLabel14.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel14.setText("Nª (casa):");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 120, -1, -1));
-
-        camp_numerocasaFornecedor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        camp_numerocasaFornecedor.setText("00000000");
-        jPanel2.add(camp_numerocasaFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 140, 90, -1));
-
-        jLabel15.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel15.setText("Complemento:");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 240, -1, -1));
-
-        jLabel16.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel16.setText("Estado:");
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 120, -1, -1));
-
-        jLabel17.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel17.setText("Cidade:");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, -1, -1));
-        jPanel2.add(camp_cidadeFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 200, 200, -1));
-
-        jLabel18.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel18.setText("CEP:");
-        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
-
-        try {
-            camp_cepFornecedor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        camp_cepFornecedor.setText("00000-000");
-        jPanel2.add(camp_cepFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 120, -1));
-
-        jLabel33.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel33.setText("DDD");
-        jPanel2.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, -1, -1));
-
-        try {
-            camp_contatoFornecedor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#########")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        camp_contatoFornecedor.setText("000000000");
-        jPanel2.add(camp_contatoFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, 90, -1));
-
-        jLabel34.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel34.setText("Contato:");
-        jPanel2.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, -1, -1));
-        jPanel2.add(camp_EstadoFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 140, 90, -1));
-
-        jLabelObrigatorionome.setForeground(new java.awt.Color(255, 0, 0));
-        jLabelObrigatorionome.setText("*");
-        jPanel2.add(jLabelObrigatorionome, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
-
-        jLabel3.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel3.setText("*");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, -1));
-
-        try {
-            camp_dddFornecedor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        camp_dddFornecedor.setText("00");
-        jPanel2.add(camp_dddFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 40, -1));
-
-        try {
-            camp_cpfFornecedor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        camp_cpfFornecedor.setText("000.000.000-00");
-        jPanel2.add(camp_cpfFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 80, 120, -1));
-
-        btn_cancelar.setText("Cancelar");
-        btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cancelarActionPerformed(evt);
+        table_fornecedor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_fornecedorMouseClicked(evt);
             }
         });
-        jPanel2.add(btn_cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 380, -1, -1));
+        jScrollPane1.setViewportView(table_fornecedor);
 
-        jTabbedPane1.addTab("Fornecedor", jPanel2);
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 790, 260));
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 860, 490));
+        btn_novo.setText("Novo");
+        btn_novo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_novoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 110, -1));
 
-        setSize(new java.awt.Dimension(891, 553));
+        btn_atualizar.setText("Atualizar");
+        btn_atualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_atualizarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_atualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, 110, 30));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 810, 10));
+        getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 810, 10));
+
+        btn_editar.setText("Editar");
+        btn_editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_editarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 420, 110, -1));
+
+        jLabel1.setText("Pesquisar:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, -1, -1));
+        getContentPane().add(camp_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 510, -1));
+
+        jMenu1.setText("Configurações");
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
+        setSize(new java.awt.Dimension(896, 524));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_cadFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadFornecedorActionPerformed
-        CadastroFornecedor();
-    }//GEN-LAST:event_btn_cadFornecedorActionPerformed
+    private void btn_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novoActionPerformed
+        NovoFornecedor tela = new NovoFornecedor();
+        tela.setVisible(true);
+    }//GEN-LAST:event_btn_novoActionPerformed
 
-    private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
-        CadastroItens telaItens = new CadastroItens();
-        telaItens.setVisible(true);
-        telaItens.PopularComcobox();
-        dispose();
-    }//GEN-LAST:event_btn_cancelarActionPerformed
+    private void btn_atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_atualizarActionPerformed
+        btn_editar.setVisible(false);
+        AtualizarTabela();
+    }//GEN-LAST:event_btn_atualizarActionPerformed
+
+    private void table_fornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_fornecedorMouseClicked
+        btn_editar.setVisible(true);
+    }//GEN-LAST:event_table_fornecedorMouseClicked
+
+    private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
+        EditarFornecedor tela = new EditarFornecedor();
+        tela.setVisible(true);
+        EditarFornecedor(tela);
+        tela.CarregarCampos();
+        
+    }//GEN-LAST:event_btn_editarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -268,6 +162,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(CadastroFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -278,118 +173,54 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_cadFornecedor;
-    private javax.swing.JButton btn_cancelar;
-    private javax.swing.JTextField camp_EstadoFornecedor;
-    private javax.swing.JTextField camp_bairroFornecedor;
-    private javax.swing.JFormattedTextField camp_cepFornecedor;
-    private javax.swing.JTextField camp_cidadeFornecedor;
-    private javax.swing.JFormattedTextField camp_cnpj;
-    private javax.swing.JTextArea camp_complementoForncedor;
-    private javax.swing.JFormattedTextField camp_contatoFornecedor;
-    private javax.swing.JFormattedTextField camp_cpfFornecedor;
-    private javax.swing.JFormattedTextField camp_dddFornecedor;
-    private javax.swing.JTextField camp_emailFornecedor;
-    private javax.swing.JTextField camp_homepage;
-    private javax.swing.JTextField camp_nomeFornecedor;
-    private javax.swing.JFormattedTextField camp_numerocasaFornecedor;
-    private javax.swing.JTextField camp_ruaFornecedor;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabelObrigatorionome;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JButton btn_atualizar;
+    private javax.swing.JButton btn_editar;
+    private javax.swing.JButton btn_novo;
+    private javax.swing.JTextField camp_pesquisa;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTable table_fornecedor;
     // End of variables declaration//GEN-END:variables
 
-    private void CadastroFornecedor() {
+    public void AtualizarTabela() {
 
-        Fornecedor forne = new Fornecedor();
-        Endereco end = new Endereco();
-        NumeroContato contato = new NumeroContato();
+        String pesquisa = camp_pesquisa.getText();
+        List<Fornecedor> forne = new ArrayList<>();
+        Conexao banco = new Conexao();
 
-        if (camp_nomeFornecedor.getText().length() > 0) {
-            jLabelObrigatorionome.setVisible(false);
-        } else {
-            jLabelObrigatorionome.setVisible(true);
+        for (int i = 0; i < banco.list_Fornecedores().size(); i++) {
+            if (banco.list_Fornecedores().get(i).getNome().contains(pesquisa)) {   // VERIFICA SE O NOME CONTEM NO BANCO DE DADOS
+                Fornecedor f = banco.list_Fornecedores().get(i);
+                forne.add(f);
+            }
         }
 
-        if ((camp_nomeFornecedor.getText().length() > 0) && (camp_ruaFornecedor.getText().length() > 0)) {
+        DefaultTableModel tabela = (DefaultTableModel) table_fornecedor.getModel();
+        try {
+            tabela.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
+            for (Fornecedor f : forne) {
+                tabela.addRow(new Object[]{f.getIdFornecedor(), f.getNome(), f.getEmail(), f.getHomePage(), f.getcontato()});
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "<Item não encontrado!!>");
+        }
 
-            Long cnpj = Long.parseLong(camp_cnpj.getText().replace(".", "").replace(".", "").replace("/", "").replace("-", ""));
-            Long cpf = Long.parseLong(camp_cpfFornecedor.getText().replace(".", "").replace(".", "").replace("-", ""));
+    }
 
-            //--------------------------------- Dados Fornecedor ------------------------------------//
-            forne.setNome(camp_nomeFornecedor.getText());
-            forne.setCnpj(cnpj);
-            forne.setEmail(camp_emailFornecedor.getText());
-            forne.setHomePage(camp_homepage.getText());
-            forne.setCpf(cpf);
+    private void EditarFornecedor(EditarFornecedor tela) {
+        Conexao banco = new Conexao();
+        DefaultTableModel tableDefault = (DefaultTableModel) table_fornecedor.getModel();
+        int linha = table_fornecedor.getSelectedRow();
 
-            //--------------------------------- numero de contato -----------------------------------//
-            int ddd = Integer.parseInt(camp_dddFornecedor.getText());
-            int numeroContato = Integer.parseInt(camp_contatoFornecedor.getText());
-
-            contato.setDdd(ddd);
-            contato.setFone(numeroContato);
-            contato.setFornecedor(forne);
-            contato.setCpf(cpf);
-
-            //--------------------------------- Endereço -----------------------------------//
-            int cep = Integer.parseInt(camp_cepFornecedor.getText().replaceAll("-", ""));
-            int numeroCasa = Integer.parseInt(camp_numerocasaFornecedor.getText());
-
-            end.setRua(camp_ruaFornecedor.getText());
-            end.setCep(cep);
-            end.setNumeroCasa(numeroCasa);
-            end.setBairro(camp_bairroFornecedor.getText());
-            end.setEstadoUf(camp_EstadoFornecedor.getText());
-            end.setComplemento(camp_complementoForncedor.getText());
-
-            forne.setEndereco(end);
-            Conexao banco = new Conexao();
-            banco.persist(end);
-            banco.save_update(forne);
-            banco.save_update(contato);
-
-//            LIMPA OS CAMPOS DE TEXTOS
-            camp_nomeFornecedor.setText("");
-            camp_ruaFornecedor.setText("");
-            camp_emailFornecedor.setText("");
-            camp_homepage.setText("");
-            camp_cepFornecedor.setText("00000000");
-            camp_dddFornecedor.setText("00");
-            camp_contatoFornecedor.setText("000000000");
-            camp_cnpj.setText("0000000000000");
-            camp_cpfFornecedor.setText("00000000000");
-            camp_bairroFornecedor.setText("");
-            camp_numerocasaFornecedor.setText("00000000");
-            camp_EstadoFornecedor.setText("");
-            camp_cidadeFornecedor.setText("");
-            camp_complementoForncedor.setText("");
-
-            CadastroItens telaItens = new CadastroItens();
-            telaItens.setVisible(true);
-            telaItens.PopularComcobox();
-            dispose();
-        } else {
-            JOptionPane.showMessageDialog(null, "Preencha as Informações Obrigatorias");
+        for (int i = 0; i < banco.list_Fornecedores().size(); i++) {
+            if (banco.list_Fornecedores().get(i).getIdFornecedor().equals(tableDefault.getValueAt(linha, 0))) { // VERIFICA SE O ID DO OBJETO ONTEM NO BANCO DE DADOS
+                Fornecedor f = banco.list_Fornecedores().get(i);
+                tela.setFornecedor(f); //MANDA O ITEM SELECIONADO PARA OUTRA TELA UTILIZANDO O METODO GETT E SETT
+            }
         }
     }
 }

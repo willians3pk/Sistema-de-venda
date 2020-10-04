@@ -17,14 +17,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author willian
  */
-public class Pesquisas extends javax.swing.JFrame {
+public class CadastroItem extends javax.swing.JFrame {
 
     Conexao banco = new Conexao();
-    TelaEdicao tela = new TelaEdicao();
-    CadastroItens telacad = new CadastroItens();
+    NovoItem telacad = new NovoItem();
     TelaItensDesativados telaItens = new TelaItensDesativados();
-    
-    public Pesquisas() {
+
+    public CadastroItem() {
         initComponents();
         btn_editar.setVisible(false);
     }
@@ -57,7 +56,6 @@ public class Pesquisas extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuIDesativarItens = new javax.swing.JMenuItem();
-        jMenuExcluirItens = new javax.swing.JMenuItem();
         jMenuIItensDesativados = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -164,7 +162,7 @@ public class Pesquisas extends javax.swing.JFrame {
 
         getContentPane().add(jPanelTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 960, 540));
 
-        jMenu1.setText("Opções");
+        jMenu1.setText("Configurações");
 
         jMenuIDesativarItens.setText("Desativar itens");
         jMenuIDesativarItens.setEnabled(false);
@@ -174,10 +172,6 @@ public class Pesquisas extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuIDesativarItens);
-
-        jMenuExcluirItens.setText("Excluir itens");
-        jMenuExcluirItens.setEnabled(false);
-        jMenu1.add(jMenuExcluirItens);
 
         jMenuIItensDesativados.setText("Itens Desativados");
         jMenuIItensDesativados.addActionListener(new java.awt.event.ActionListener() {
@@ -235,11 +229,11 @@ public class Pesquisas extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_atualizarActionPerformed
 
     private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
-        EditarItem();
+        TelaEdicao tela = new TelaEdicao();
         tela.setVisible(true);
+        EditarItem(tela);
         tela.PopularComcobox();
         tela.CarregarCampos();
-        
     }//GEN-LAST:event_btn_editarActionPerformed
 
     private void table_itemsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_itemsMouseClicked
@@ -249,7 +243,7 @@ public class Pesquisas extends javax.swing.JFrame {
     private void btn_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novoActionPerformed
         telacad.setVisible(true);
         telacad.PopularComcobox();
-        
+
     }//GEN-LAST:event_btn_novoActionPerformed
 
     private void jMenuIItensDesativadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuIItensDesativadosActionPerformed
@@ -274,20 +268,21 @@ public class Pesquisas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Pesquisas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Pesquisas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Pesquisas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Pesquisas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Pesquisas().setVisible(true);
+                new CadastroItem().setVisible(true);
             }
         });
     }
@@ -305,7 +300,6 @@ public class Pesquisas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     public javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    public javax.swing.JMenuItem jMenuExcluirItens;
     public javax.swing.JMenuItem jMenuIDesativarItens;
     private javax.swing.JMenuItem jMenuIItensDesativados;
     private javax.swing.JPanel jPanel3;
@@ -323,7 +317,7 @@ public class Pesquisas extends javax.swing.JFrame {
 
         if (!checkBox_valor.isSelected() && !checkBox_tamanho.isSelected() && !checkBox_qnt.isSelected()) {
             for (int i = 0; i < banco.list_Items().size(); i++) {
-                if (banco.list_Items().get(i).getItem().contains(pesquisa)) {   // VERIFICA SE O TAMANHO CONTEM NO BANCO DE DADOS
+                if (banco.list_Items().get(i).getItem().contains(pesquisa)) {   // VERIFICA SE O NOME CONTEM NO BANCO DE DADOS
                     Items item = banco.list_Items().get(i);
                     if (item.isStatus()) {                                    // ESSE IF VAI ADICIONAR NA ARRAYLIST APENAS OS ITEMS QUE TIVEREM COM STATUS TRUE
                         items.add(item);                                     // ADICIONA O ITEM DA PESQUISA NA ARRAYLIST
@@ -343,7 +337,7 @@ public class Pesquisas extends javax.swing.JFrame {
             }
         }
         if (checkBox_valor.isSelected() == true) {
-            float valor = Float.parseFloat(pesquisa);
+            double valor = Float.parseFloat(pesquisa.replace(",", "").replace(".", ""));
             for (int i = 0; i < banco.list_Items().size(); i++) {
                 if (banco.list_Items().get(i).getValor_venda() == valor) {   // VERIFICA SE O VALOR CONTEM NO BANCO DE DADOS
                     Items item = banco.list_Items().get(i);
@@ -367,12 +361,11 @@ public class Pesquisas extends javax.swing.JFrame {
 
         DefaultTableModel tableDefault = (DefaultTableModel) table_items.getModel();
         try {
-
             tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
             for (Items item : items) {
-                
-                tableDefault.addRow(new Object[]{item.getIditem(), item.getCodigo(), item.getItem(), "R$ "+item.getValor_venda()/100,
-                    item.getQnt(), item.fornecedor().getNome(), item.getDescricao(), item.getTamanho(), "R$ "+item.getValor_total()/100});
+
+                tableDefault.addRow(new Object[]{item.getIditem(), item.getCodigo(), item.getItem(), "R$ " + item.getValor_venda() / 100,
+                    item.getQnt(), item.fornecedor().getNome(), item.getDescricao(), item.getTamanho(), "R$ " + item.getValor_total() / 100});
             }
 
         } catch (Exception e) {
@@ -381,8 +374,8 @@ public class Pesquisas extends javax.swing.JFrame {
 
     }
 
-    private void EditarItem() {
-
+    private void EditarItem(TelaEdicao tela) {
+        
         DefaultTableModel tableDefault = (DefaultTableModel) table_items.getModel();
         int linha = table_items.getSelectedRow();
 
@@ -411,7 +404,7 @@ public class Pesquisas extends javax.swing.JFrame {
                 }
             }
             JOptionPane.showMessageDialog(null, "Item *DESATIVADOS* com Sucesso!");
-           
+
         }
     }
 }

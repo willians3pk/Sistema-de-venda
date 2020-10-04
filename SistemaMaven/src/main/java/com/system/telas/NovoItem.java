@@ -11,9 +11,9 @@ import javax.swing.JOptionPane;
  *
  * @author willian
  */
-public class CadastroItens extends javax.swing.JFrame {
+public class NovoItem extends javax.swing.JFrame {
 
-    public CadastroItens() {
+    public NovoItem() {
         initComponents();
         PopularComcobox();
     }
@@ -182,7 +182,7 @@ public class CadastroItens extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_cadItemActionPerformed
 
     private void btn_novoFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novoFornecedorActionPerformed
-        CadastroFornecedor tela = new CadastroFornecedor();
+        NovoFornecedor tela = new NovoFornecedor();
         tela.setVisible(true);
         dispose();
     }//GEN-LAST:event_btn_novoFornecedorActionPerformed
@@ -205,21 +205,23 @@ public class CadastroItens extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroItens.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovoItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroItens.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovoItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroItens.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovoItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroItens.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovoItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastroItens().setVisible(true);
+                new NovoItem().setVisible(true);
             }
         });
     }

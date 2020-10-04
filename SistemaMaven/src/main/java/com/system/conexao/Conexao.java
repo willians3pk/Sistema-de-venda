@@ -5,8 +5,10 @@
  */
 package com.system.conexao;
 
+import com.system.sistemamaven.Endereco;
 import com.system.sistemamaven.Fornecedor;
 import com.system.sistemamaven.Items;
+import com.system.sistemamaven.NumeroContato;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.Session;
@@ -179,4 +181,41 @@ public class Conexao {
         return null;
     }
 
+    public List<NumeroContato> list_Contatos() {
+
+        this.session = NewHibernateUtil.getSessionFactory().openSession();
+        this.tx = session.beginTransaction();
+        List<NumeroContato> list = null;
+
+        try {
+            list = (List<NumeroContato>) session.createQuery("from NumeroContato").list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            System.out.println("Erro ao Pegar lista no Banco de Dados!");
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!");
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
+    public List<Endereco> list_Endereco() {
+
+        this.session = NewHibernateUtil.getSessionFactory().openSession();
+        this.tx = session.beginTransaction();
+        List<Endereco> list = null;
+
+        try {
+            list = (List<Endereco>) session.createQuery("from Endereco").list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            System.out.println("Erro ao Pegar lista no Banco de Dados!");
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!");
+        } finally {
+            session.close();
+        }
+        return null;
+    }
 }

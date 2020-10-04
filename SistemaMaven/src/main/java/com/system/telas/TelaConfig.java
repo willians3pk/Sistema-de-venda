@@ -115,7 +115,7 @@ public class TelaConfig extends javax.swing.JFrame {
         
         if(checkbox_DesatItens.isSelected()){
             checkbox_DesatItens.setText("false");
-            Pesquisas tela = new Pesquisas();
+            CadastroItem tela = new CadastroItem();
             tela.jMenuIDesativarItens.setEnabled(true);
         }else{
             checkbox_DesatItens.setText("true");

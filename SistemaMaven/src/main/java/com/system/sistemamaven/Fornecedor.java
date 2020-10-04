@@ -1,6 +1,7 @@
 package com.system.sistemamaven;
 // Generated 28/09/2020 12:30:31 by Hibernate Tools 4.3.1
 
+import com.system.conexao.Conexao;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,7 +23,7 @@ import org.hibernate.annotations.CascadeType;
  */
 @Entity
 @Table(name = "Fornecedor",
-         catalog = "bancoSistemaVenda"
+        catalog = "bancoSistemaVenda"
 )
 public class Fornecedor implements java.io.Serializable {
 
@@ -136,9 +137,7 @@ public class Fornecedor implements java.io.Serializable {
         this.numeroContatos = numeroContatos;
     }
 
-    
     public List<Items> FiltrodeItems(List<Items> items) {
-
         for (Items item : items) {
             if (this.idFornecedor == item.getFornecedor().idFornecedor) {
                 this.itemses.add(item);
@@ -146,5 +145,26 @@ public class Fornecedor implements java.io.Serializable {
         }
         return null;
     }
-    
+
+    public NumeroContato getcontato() {
+        Conexao banco = new Conexao();
+        for (NumeroContato contato : banco.list_Contatos()) {
+            if (this.getIdFornecedor() == contato.getFornecedor().idFornecedor) {
+                return contato;
+            }
+        }
+        return null;
+    }
+
+    public Endereco endereco() {
+        Conexao banco = new Conexao();
+        Endereco enderec = null;
+        for (Endereco end : banco.list_Endereco()) {
+            if (end.getIdEndereco() == this.endereco.getIdEndereco()) {
+                enderec = end;
+                return enderec;
+            }
+        }
+        return null;
+    }
 }

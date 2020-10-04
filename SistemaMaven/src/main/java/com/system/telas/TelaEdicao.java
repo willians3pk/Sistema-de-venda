@@ -204,7 +204,7 @@ public class TelaEdicao extends javax.swing.JFrame {
 
         getContentPane().add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 830, 430));
 
-        jMenu1.setText("Opções");
+        jMenu1.setText("Configurações");
 
         jMenuDesativarItem.setText("Desativar item");
         jMenuDesativarItem.addActionListener(new java.awt.event.ActionListener() {
@@ -327,8 +327,8 @@ public class TelaEdicao extends javax.swing.JFrame {
         String valorVenda = String.valueOf(item.getValor_venda());
         String codigo = String.valueOf(item.getCodigo());
 
-        String lvalorCompra = String.valueOf(item.getValor_compra() / 100);
-        String lvalorVenda = String.valueOf(item.getValor_venda() / 100);
+        String lvalorCompra = String.valueOf(item.getValor_compra() / 100);// JLABEL QUE MOSTRAM OS VALORES
+        String lvalorVenda = String.valueOf(item.getValor_venda() / 100); // JLABEL QUE MOSTRAM OS VALORES
         jLabel_valorcompra.setText(lvalorCompra);
         jLabel_valorvenda.setText(lvalorVenda);
 
@@ -343,7 +343,7 @@ public class TelaEdicao extends javax.swing.JFrame {
         if (comBox_fornecedor.getSelectedItem().toString() == item.fornecedor().getNome()) {
             JOptionPane.showMessageDialog(null, "Fornecedor nao contem na lista");
         } else {
-            comBox_fornecedor.setSelectedItem(item.fornecedor().getNome());
+            comBox_fornecedor.setSelectedItem(item.fornecedor().getNome()); // ADICIONA O FORNECEDOR DO ITEM NA COMBOBOX
         }
     }
 

@@ -5,6 +5,7 @@
  */
 package com.system.sistemamaven;
 
+import com.system.conexao.Conexao;
 import com.system.telas.TelaPrincipal;
 
 /**
@@ -20,7 +21,12 @@ public class Main {
 
         TelaPrincipal tela = new TelaPrincipal();
         tela.setVisible(true);
-
+        
+//        Conexao banco = new Conexao();
+//
+//        Fornecedor f = banco.list_Fornecedores().get(0);
+//        System.out.println(f.endereco().getCep());
+        
 //        Pessoa pessoa = new Pessoa();
 //        pessoa.setNome("VITORIA SILVA DE ALMEIDA");
 //        pessoa.setCpf(883998398);

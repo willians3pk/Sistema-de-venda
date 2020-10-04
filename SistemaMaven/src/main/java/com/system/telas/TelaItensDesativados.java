@@ -53,7 +53,7 @@ public class TelaItensDesativados extends javax.swing.JFrame {
                 btn_AtivaItensActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_AtivaItens, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 210, -1, -1));
+        getContentPane().add(btn_AtivaItens, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 210, -1, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 700, 20));
         getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 700, 10));
 
