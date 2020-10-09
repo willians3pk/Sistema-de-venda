@@ -32,6 +32,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu4 = new javax.swing.JMenu();
+        jMenuFazerVenda = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuCadastrar = new javax.swing.JMenu();
         jMenuItems = new javax.swing.JMenuItem();
@@ -52,6 +53,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 50));
 
         jMenu4.setText("Vendas");
+
+        jMenuFazerVenda.setText("Fazer uma venda");
+        jMenuFazerVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuFazerVendaActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuFazerVenda);
+
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("Relatorio");
@@ -109,6 +119,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaconfig.setVisible(true);
     }//GEN-LAST:event_jMenuConfigAvancadasActionPerformed
 
+    private void jMenuFazerVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFazerVendaActionPerformed
+        TelaVenda();
+    }//GEN-LAST:event_jMenuFazerVendaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -152,6 +166,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCadastrar;
     private javax.swing.JMenuItem jMenuConfigAvancadas;
+    private javax.swing.JMenuItem jMenuFazerVenda;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItems;
     private javax.swing.JPanel jPanel2;

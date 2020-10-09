@@ -100,11 +100,7 @@ public class TelaEdicao extends javax.swing.JFrame {
         jLabel77.setText("Valor Compra:");
         jPanel16.add(jLabel77, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
 
-        try {
-            camp_valorCompra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##,##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        camp_valorCompra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         jPanel16.add(camp_valorCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 60, -1));
 
         jLabel78.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -149,11 +145,7 @@ public class TelaEdicao extends javax.swing.JFrame {
         jLabel81.setText("Valor Venda:");
         jPanel16.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, -1, -1));
 
-        try {
-            camp_valorVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##,##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        camp_valorVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         jPanel16.add(camp_valorVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 60, -1));
 
         jLabel82.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -326,8 +318,8 @@ public class TelaEdicao extends javax.swing.JFrame {
     public void CarregarCampos() {
 
         String qnt = String.valueOf(item.getQnt());
-        String valorCompra = String.valueOf(item.getValor_compra());
-        String valorVenda = String.valueOf(item.getValor_venda());
+        String valorCompra = String.valueOf(item.getValor_compra() /100);
+        String valorVenda = String.valueOf(item.getValor_venda()/100);
         String codigo = String.valueOf(item.getCodigo());
 
         String lvalorCompra = String.valueOf(item.getValor_compra() / 100);// JLABEL QUE MOSTRAM OS VALORES
@@ -386,8 +378,8 @@ public class TelaEdicao extends javax.swing.JFrame {
 
 // -----------    VARIAVEIS   ---------------------
             Conexao banco = new Conexao();
-            int precoCompra = Integer.parseInt(camp_valorCompra.getText().replace(",", ""));//remove a virgula e adiciona apenas os numeros decimais
-            int precoVenda = Integer.parseInt(camp_valorVenda.getText().replace(",", "")); //remove a virgula e adiciona apenas os numeros decimais
+            int precoCompra = Integer.parseInt(camp_valorCompra.getText().replace(",", "").replace(".", ""));//remove a virgula e adiciona apenas os numeros decimais
+            int precoVenda = Integer.parseInt(camp_valorVenda.getText().replace(",", "").replace(".", "")); //remove a virgula e adiciona apenas os numeros decimais
             Long codigo = Long.parseLong(camp_codigo.getText());
             int quantidade = Integer.parseInt(camp_qnt.getText());
             int valorTotal = (precoVenda * quantidade);

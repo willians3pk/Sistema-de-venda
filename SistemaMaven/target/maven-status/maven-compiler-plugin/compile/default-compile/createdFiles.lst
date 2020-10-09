@@ -1,11 +1,15 @@
 com/system/telas/Cadastros$3.class
+com/system/telas/TelaVenda$2.class
+com/system/telas/ItensVenda$3.class
 com/system/telas/TelaPrincipal$1.class
+com/system/telas/ItensVenda.class
 com/system/telas/TelaItensDesativados$2.class
 com/system/telas/CadastroItem$7.class
 com/system/telas/NovoFornecedor.class
 com/system/telas/NovoItem$1.class
 com/system/sistemamaven/Fornecedor.class
 com/system/telas/NovoItem$4.class
+com/system/telas/EditarFornecedor$3.class
 com/system/telas/TelaConfig.class
 com/system/telas/TelaConfig$1.class
 com/system/sistemamaven/Cliente.class
@@ -17,6 +21,7 @@ com/system/sistemamaven/Endereco.class
 com/system/telas/CadastroItem$3.class
 com/system/telas/TelaEdicao$3.class
 com/system/telas/Cadastros$2.class
+com/system/telas/TelaPrincipal$5.class
 com/system/telas/CadastroFornecedor$1.class
 com/system/telas/TelaPrincipal.class
 com/system/telas/CadastroItem.class
@@ -35,6 +40,7 @@ com/system/sistemamaven/Items.class
 com/system/telas/NovoFornecedor$1.class
 com/system/telas/EditarFornecedor$1.class
 com/system/sistemamaven/ItensVenda.class
+com/system/telas/ItensVenda$1.class
 com/system/sistemamaven/Usuario.class
 com/system/telas/CadastroFornecedor$2.class
 com/system/telas/Cadastros$1.class
@@ -48,6 +54,7 @@ com/system/telas/TelaEdicao$5.class
 com/system/conexao/Conexao.class
 com/system/telas/TelaItensDesativados$3.class
 com/system/sistemamaven/NumeroContato.class
+com/system/telas/ItensVenda$2.class
 com/system/telas/CadastroItem$8.class
 com/system/telas/NovoItem$2.class
 com/system/telas/EditarFornecedor.class

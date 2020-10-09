@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
  */
 public class NovoItem extends javax.swing.JFrame {
 
+    Conexao banco = new Conexao();
     public NovoItem() {
         initComponents();
         PopularComcobox();
@@ -70,11 +71,7 @@ public class NovoItem extends javax.swing.JFrame {
         jLabel2.setText("Valor Compra:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
 
-        try {
-            camp_valorCompra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##,##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        camp_valorCompra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         jPanel1.add(camp_valorCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 60, -1));
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -112,11 +109,7 @@ public class NovoItem extends javax.swing.JFrame {
         jLabel23.setText("Valor Venda:");
         jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, -1, -1));
 
-        try {
-            camp_valorVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##,##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        camp_valorVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         jPanel1.add(camp_valorVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 60, -1));
 
         jLabel31.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -298,7 +291,7 @@ public class NovoItem extends javax.swing.JFrame {
 
 //            CRIA AS VARIAVEIS 
             Items item = new Items();
-            Conexao banco = new Conexao();
+            
 
             int precoCompra = Integer.parseInt(camp_valorCompra.getText().replaceAll(",", ""));//remove a virgula e adiciona apenas os numeros decimais
             int precoVenda = Integer.parseInt(camp_valorVenda.getText().replaceAll(",", "")); //remove a virgula e adiciona apenas os numeros decimais
