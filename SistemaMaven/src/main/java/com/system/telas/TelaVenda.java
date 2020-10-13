@@ -12,12 +12,12 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
-
 public class TelaVenda extends javax.swing.JPanel {
 
     Items item = null;
+    double valortotal = 0;
     List<Items> items = new ArrayList<>();
+
     public TelaVenda() {
         initComponents();
     }
@@ -86,7 +86,7 @@ public class TelaVenda extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Nome", "Preço", "Codigo", "Qnt", "Fornecedor"
+                "Nome", "Preço", "Codigo", "Qnt", "valor"
             }
         ) {
             Class[] types = new Class [] {
@@ -141,6 +141,11 @@ public class TelaVenda extends javax.swing.JPanel {
 
         jButton4.setFont(new java.awt.Font("Ubuntu", 1, 13)); // NOI18N
         jButton4.setText("Remover Item");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jPanel7.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 370, -1, -1));
 
         btn_pesquisar.setText("....");
@@ -160,11 +165,11 @@ public class TelaVenda extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         jLabel3.setText("Nome Produto:");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 130, 30));
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 130, 30));
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         jLabel2.setText("Preço Produto:");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 120, 30));
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 120, 30));
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         jLabel4.setText("Quant. Produto:");
@@ -221,9 +226,10 @@ public class TelaVenda extends javax.swing.JPanel {
 
         camp_precoproduto.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
         camp_precoproduto.setEnabled(false);
-        jPanel3.add(camp_precoproduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, 90, 40));
+        jPanel3.add(camp_precoproduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, 100, 40));
 
         camp_qnt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        camp_qnt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPanel3.add(camp_qnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 80, 40));
 
         btn_adicionarcarrinho.setText("Adiciona ao Carrinho");
@@ -290,19 +296,12 @@ public class TelaVenda extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_pesquisarActionPerformed
 
     private void btn_adicionarcarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adicionarcarrinhoActionPerformed
-        
-        items.add(item);
-        
-        DefaultTableModel tableDefault = (DefaultTableModel) tabela.getModel();
-        try {
-            tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
-            for (Items item : items) {
-                tableDefault.addRow(new Object[]{item.getItem(), "R$ " + item.getValor_venda() / 100, item.getCodigo()});
-            }
-        } catch (Exception e) {
-
-        }
+        tabelaItem();
     }//GEN-LAST:event_btn_adicionarcarrinhoActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        removeItem();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -354,8 +353,10 @@ public class TelaVenda extends javax.swing.JPanel {
     public void carregaCampos() {
 
         Conexao banco = new Conexao();
-        int busca = Integer.parseInt(camp_pesquisa.getText());
+
         try {
+            int busca = Integer.parseInt(camp_pesquisa.getText());
+
             for (int i = 0; i < banco.list_Items().size(); i++) {
                 if (banco.list_Items().get(i).getCodigo() == busca) {
                     item = banco.list_Items().get(i);
@@ -363,13 +364,87 @@ public class TelaVenda extends javax.swing.JPanel {
 
             }
 
-            String preco = String.valueOf(item.getValor_venda() / 100);
+            String preco = String.valueOf(item.getValor_venda() / 100); // A DIVISÃO POR 100 É APENAS PARA MOVER A VIRGULA
             camp_nomeproduto.setText(item.getItem());
             camp_precoproduto.setText(preco);
+            camp_qnt.setText("1");
+
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Caractere Invalido!!");
+            JOptionPane.showMessageDialog(null, "Caractere Invalido!! DIGITE VALORES NUMERICOS");
         }
 
+    }
+
+    public void tabelaItem() {
+
+        DefaultTableModel tableDefault = (DefaultTableModel) tabela.getModel();
+        try {
+
+            int qnt = Integer.parseInt(camp_qnt.getText());
+            item.setQnt(qnt);
+            items.add(item);
+
+            tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
+            for (Items obj : items) {
+
+                double valortotalitens = obj.getQnt() * obj.getValor_venda();//pega a quantidade de items multiplica pelo valor dele;
+                obj.setValor_total(valortotalitens);
+
+                tableDefault.addRow(new Object[]{obj.getItem(), "R$ " + obj.getValor_venda() / 100, obj.getCodigo(), obj.getQnt(), "R$ " + obj.getValor_total() / 100});
+
+            }
+
+            double valorItem = 0;
+            for (int i = 0; i < items.size(); i++) {
+                valorItem = valorItem + (items.get(i).getQnt() * items.get(i).getValor_venda()) /100;
+            }
+
+            valortotal = 0 + valorItem;
+
+            System.out.println(valortotal);
+            String total = String.valueOf(valortotal);
+            jlabelvalortotal.setText("R$ "+total);
+            labelvalortotal.setText("R$ "+total);
+            camp_qnt.setText("1");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void removeItem() {
+
+        items.remove(tabela.getSelectedRow());
+
+        DefaultTableModel tableDefault = (DefaultTableModel) tabela.getModel();
+        try {
+
+            tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
+            for (Items obj : items) {
+
+                double valortotalitens = obj.getQnt() * obj.getValor_venda();//pega a quantidade de items multiplica pelo valor dele;
+                obj.setValor_total(valortotalitens);
+
+                tableDefault.addRow(new Object[]{obj.getItem(), "R$ " + obj.getValor_venda() / 100, obj.getCodigo(), obj.getQnt(), "R$ " + obj.getValor_total() / 100});
+
+            }
+
+            double valorItem = 0;
+            for (int i = 0; i < items.size(); i++) {
+                valorItem = valorItem + items.get(i).getQnt() * items.get(i).getValor_venda() / 100;
+            }
+
+            valortotal = 0 + valorItem;
+
+            System.out.println(valortotal);
+            String total = String.valueOf(valortotal);
+            jlabelvalortotal.setText("R$ "+total);
+            labelvalortotal.setText("R$ "+total);
+            camp_qnt.setText("1");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
 }

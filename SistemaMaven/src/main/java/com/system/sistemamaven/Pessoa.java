@@ -32,6 +32,7 @@ public class Pessoa implements java.io.Serializable {
     private Usuario usuario;
     private String nome;
     private Integer cpf;
+    private String sexo;
     private String email;
     private boolean status;
     private Date dataNascimento;

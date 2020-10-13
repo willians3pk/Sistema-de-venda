@@ -11,9 +11,16 @@
         <many-to-one name="cliente" class="com.system.sistemamaven.Cliente" fetch="select">
             <column name="cliente_id" />
         </many-to-one>
-        <many-to-one name="formaPagamento" class="com.system.sistemamaven.FormaPagamento" fetch="select">
+        
+        <set name="formaPagamento" table="venda_forma_pagamento" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="venda_id" />
+            </key>
+            <many-to-many column="formapagamento_id" class="com.system.sistemamaven.FormaPagamento" />
+        </set>
+<!--    <many-to-many name="formaPagamento" class="com.system.sistemamaven.FormaPagamento" fetch="select">
             <column name="forma_pagamento_id" />
-        </many-to-one>
+        </many-to-many>-->
         <many-to-one name="usuario" class="com.system.sistemamaven.Usuario" fetch="select">
             <column name="usuario_id" />
         </many-to-one>
