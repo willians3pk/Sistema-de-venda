@@ -15,7 +15,9 @@ import javax.swing.table.DefaultTableModel;
 public class TelaVenda extends javax.swing.JPanel {
 
     Items item = null;
-    double valortotal = 0;
+    float valortotal = 0;
+    List<String> textoImpresao;
+    
     List<Items> items = new ArrayList<>();
 
     public TelaVenda() {
@@ -65,7 +67,7 @@ public class TelaVenda extends javax.swing.JPanel {
         btn_adicionarcarrinho = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jEditorPane1 = new javax.swing.JEditorPane();
+        jImpressao = new javax.swing.JEditorPane();
         jLabel19 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -125,7 +127,7 @@ public class TelaVenda extends javax.swing.JPanel {
         jPanel7.add(labelvalortotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 330, 90, -1));
 
         camp_pesquisa.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
-        jPanel7.add(camp_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 310, -1));
+        jPanel7.add(camp_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 310, 40));
 
         btn_pesquisa.setText("Buscar");
         btn_pesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -154,7 +156,7 @@ public class TelaVenda extends javax.swing.JPanel {
                 btn_pesquisarActionPerformed(evt);
             }
         });
-        jPanel7.add(btn_pesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, 50, -1));
+        jPanel7.add(btn_pesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, 50, 40));
 
         jTabbedPane2.addTab("Caixa", jPanel7);
 
@@ -245,8 +247,8 @@ public class TelaVenda extends javax.swing.JPanel {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jEditorPane1.setEnabled(false);
-        jScrollPane2.setViewportView(jEditorPane1);
+        jImpressao.setEnabled(false);
+        jScrollPane2.setViewportView(jImpressao);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 360, 520));
 
@@ -316,7 +318,7 @@ public class TelaVenda extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JEditorPane jEditorPane1;
+    private javax.swing.JEditorPane jImpressao;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -383,28 +385,23 @@ public class TelaVenda extends javax.swing.JPanel {
             int qnt = Integer.parseInt(camp_qnt.getText());
             item.setQnt(qnt);
             items.add(item);
-
+            
             tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
             for (Items obj : items) {
 
-                double valortotalitens = obj.getQnt() * obj.getValor_venda();//pega a quantidade de items multiplica pelo valor dele;
-                obj.setValor_total(valortotalitens);
-
-                tableDefault.addRow(new Object[]{obj.getItem(), "R$ " + obj.getValor_venda() / 100, obj.getCodigo(), obj.getQnt(), "R$ " + obj.getValor_total() / 100});
-
+                float valortotalitens = obj.getQnt() * obj.getValor_venda();//pega a quantidade de items multiplica pelo valor dele;
+                obj.setValor_total(valortotalitens / 100);
+                tableDefault.addRow(new Object[]{obj.getItem(), "R$ " + obj.getValor_venda() / 100, obj.getCodigo(), obj.getQnt(), "R$ " + obj.getValor_total()});
+                
+                textoImpresao.add(item.toString());
+                
             }
-
-            double valorItem = 0;
-            for (int i = 0; i < items.size(); i++) {
-                valorItem = valorItem + (items.get(i).getQnt() * items.get(i).getValor_venda()) /100;
-            }
-
-            valortotal = 0 + valorItem;
-
-            System.out.println(valortotal);
-            String total = String.valueOf(valortotal);
-            jlabelvalortotal.setText("R$ "+total);
-            labelvalortotal.setText("R$ "+total);
+            
+            impressao(textoImpresao);
+            System.out.println(valorTotal());
+            String total = String.valueOf(valorTotal());
+            jlabelvalortotal.setText("R$ " + total);
+            labelvalortotal.setText("R$ " + total);
             camp_qnt.setText("1");
 
         } catch (Exception e) {
@@ -415,31 +412,21 @@ public class TelaVenda extends javax.swing.JPanel {
     public void removeItem() {
 
         items.remove(tabela.getSelectedRow());
-
         DefaultTableModel tableDefault = (DefaultTableModel) tabela.getModel();
         try {
 
             tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
             for (Items obj : items) {
-
-                double valortotalitens = obj.getQnt() * obj.getValor_venda();//pega a quantidade de items multiplica pelo valor dele;
-                obj.setValor_total(valortotalitens);
-
-                tableDefault.addRow(new Object[]{obj.getItem(), "R$ " + obj.getValor_venda() / 100, obj.getCodigo(), obj.getQnt(), "R$ " + obj.getValor_total() / 100});
+                float valortotalitens = obj.getQnt() * obj.getValor_venda();//pega a quantidade de items multiplica pelo valor dele;
+                obj.setValor_total(valortotalitens / 100);
+                tableDefault.addRow(new Object[]{obj.getItem(), "R$ " + obj.getValor_venda() / 100, obj.getCodigo(), obj.getQnt(), "R$ " + obj.getValor_total()});
 
             }
 
-            double valorItem = 0;
-            for (int i = 0; i < items.size(); i++) {
-                valorItem = valorItem + items.get(i).getQnt() * items.get(i).getValor_venda() / 100;
-            }
-
-            valortotal = 0 + valorItem;
-
-            System.out.println(valortotal);
-            String total = String.valueOf(valortotal);
-            jlabelvalortotal.setText("R$ "+total);
-            labelvalortotal.setText("R$ "+total);
+            System.out.println(valorTotal());
+            String total = String.valueOf(valorTotal());
+            jlabelvalortotal.setText("R$ " + total);
+            labelvalortotal.setText("R$ " + total);
             camp_qnt.setText("1");
 
         } catch (Exception e) {
@@ -447,4 +434,18 @@ public class TelaVenda extends javax.swing.JPanel {
         }
     }
 
+//    METODO QUE CALCULA O VALOR TOTAL
+    public float valorTotal() {
+
+        float valorItem = 0;
+        for (int i = 0; i < items.size(); i++) {
+            valorItem = valorItem + (items.get(i).getQnt() * items.get(i).getValor_venda()) / 100;
+        }
+        valortotal = valorItem;
+        return valortotal;
+    }
+
+    private void impressao(List<String> string) {
+        jImpressao.setText(string.toString());
+    }
 }
