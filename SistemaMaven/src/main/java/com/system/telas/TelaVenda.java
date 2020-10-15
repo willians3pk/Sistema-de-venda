@@ -14,11 +14,9 @@ import javax.swing.table.DefaultTableModel;
 
 public class TelaVenda extends javax.swing.JPanel {
 
-    Items item = null;
-    float valortotal = 0;
-    List<String> textoImpresao;
-    
-    List<Items> items = new ArrayList<>();
+    public static Items item = null;
+    public static float valortotal = 0;
+    public static List<Items> items = new ArrayList<>();
 
     public TelaVenda() {
         initComponents();
@@ -290,6 +288,7 @@ public class TelaVenda extends javax.swing.JPanel {
 
     private void btn_pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisaActionPerformed
         ItensVenda tela = new ItensVenda();
+        tela.setItems(items);
         tela.setVisible(true);
     }//GEN-LAST:event_btn_pesquisaActionPerformed
 
@@ -298,7 +297,7 @@ public class TelaVenda extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_pesquisarActionPerformed
 
     private void btn_adicionarcarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adicionarcarrinhoActionPerformed
-        tabelaItem();
+        adicionarItem();
     }//GEN-LAST:event_btn_adicionarcarrinhoActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -307,49 +306,49 @@ public class TelaVenda extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_adicionarcarrinho;
-    private javax.swing.JButton btn_pesquisa;
-    private javax.swing.JButton btn_pesquisar;
-    private javax.swing.JTextField camp_nomeproduto;
-    private javax.swing.JTextField camp_pesquisa;
-    private javax.swing.JTextField camp_precoproduto;
-    private javax.swing.JFormattedTextField camp_qnt;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
+    public static javax.swing.JButton btn_adicionarcarrinho;
+    public static javax.swing.JButton btn_pesquisa;
+    public static javax.swing.JButton btn_pesquisar;
+    public static javax.swing.JTextField camp_nomeproduto;
+    public static javax.swing.JTextField camp_pesquisa;
+    public static javax.swing.JTextField camp_precoproduto;
+    public static javax.swing.JFormattedTextField camp_qnt;
+    public static javax.swing.JButton jButton1;
+    public static javax.swing.JButton jButton2;
+    public static javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JEditorPane jImpressao;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanelFundo;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JLabel jlabelvalortotal;
-    private javax.swing.JLabel labelvalortotal;
-    private javax.swing.JTable tabela;
+    public static javax.swing.JEditorPane jImpressao;
+    public static javax.swing.JLabel jLabel10;
+    public static javax.swing.JLabel jLabel12;
+    public static javax.swing.JLabel jLabel13;
+    public static javax.swing.JLabel jLabel15;
+    public static javax.swing.JLabel jLabel16;
+    public static javax.swing.JLabel jLabel17;
+    public static javax.swing.JLabel jLabel18;
+    public static javax.swing.JLabel jLabel19;
+    public static javax.swing.JLabel jLabel2;
+    public static javax.swing.JLabel jLabel3;
+    public static javax.swing.JLabel jLabel4;
+    public static javax.swing.JLabel jLabel5;
+    public static javax.swing.JLabel jLabel6;
+    public static javax.swing.JLabel jLabel7;
+    public static javax.swing.JLabel jLabel8;
+    public static javax.swing.JLabel jLabel9;
+    public static javax.swing.JPanel jPanel1;
+    public static javax.swing.JPanel jPanel3;
+    public static javax.swing.JPanel jPanel4;
+    public static javax.swing.JPanel jPanel7;
+    public static javax.swing.JPanel jPanelFundo;
+    public static javax.swing.JScrollPane jScrollPane1;
+    public static javax.swing.JScrollPane jScrollPane2;
+    public static javax.swing.JSeparator jSeparator1;
+    public static javax.swing.JSeparator jSeparator2;
+    public static javax.swing.JSeparator jSeparator3;
+    public static javax.swing.JSeparator jSeparator4;
+    public static javax.swing.JTabbedPane jTabbedPane2;
+    public static javax.swing.JLabel jlabelvalortotal;
+    public static javax.swing.JLabel labelvalortotal;
+    public static javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 
     public void carregaCampos() {
@@ -372,12 +371,12 @@ public class TelaVenda extends javax.swing.JPanel {
             camp_qnt.setText("1");
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Caractere Invalido!! DIGITE VALORES NUMERICOS");
+            JOptionPane.showMessageDialog(null, "Item Não encontrado");
         }
 
     }
 
-    public void tabelaItem() {
+    public void adicionarItem() {
 
         DefaultTableModel tableDefault = (DefaultTableModel) tabela.getModel();
         try {
@@ -385,20 +384,39 @@ public class TelaVenda extends javax.swing.JPanel {
             int qnt = Integer.parseInt(camp_qnt.getText());
             item.setQnt(qnt);
             items.add(item);
-            
+
             tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
             for (Items obj : items) {
 
                 float valortotalitens = obj.getQnt() * obj.getValor_venda();//pega a quantidade de items multiplica pelo valor dele;
                 obj.setValor_total(valortotalitens / 100);
                 tableDefault.addRow(new Object[]{obj.getItem(), "R$ " + obj.getValor_venda() / 100, obj.getCodigo(), obj.getQnt(), "R$ " + obj.getValor_total()});
-                
-                textoImpresao.add(item.toString());
-                
+
             }
-            
-            impressao(textoImpresao);
-            System.out.println(valorTotal());
+
+            String total = String.valueOf(valorTotal());
+            jlabelvalortotal.setText("R$ " + total);
+            labelvalortotal.setText("R$ " + total);
+            camp_qnt.setText("1");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public static void atualizartabela() {
+        DefaultTableModel tableDefault = (DefaultTableModel) tabela.getModel();
+        try {
+
+            tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
+            for (Items obj : items) {
+
+                float valortotalitens = obj.getQnt() * obj.getValor_venda();//pega a quantidade de items multiplica pelo valor dele;
+                obj.setValor_total(valortotalitens / 100);
+                tableDefault.addRow(new Object[]{obj.getItem(), "R$ " + obj.getValor_venda() / 100, obj.getCodigo(), obj.getQnt(), "R$ " + obj.getValor_total()});
+
+            }
+
             String total = String.valueOf(valorTotal());
             jlabelvalortotal.setText("R$ " + total);
             labelvalortotal.setText("R$ " + total);
@@ -435,7 +453,7 @@ public class TelaVenda extends javax.swing.JPanel {
     }
 
 //    METODO QUE CALCULA O VALOR TOTAL
-    public float valorTotal() {
+    public static float valorTotal() {
 
         float valorItem = 0;
         for (int i = 0; i < items.size(); i++) {
@@ -445,7 +463,4 @@ public class TelaVenda extends javax.swing.JPanel {
         return valortotal;
     }
 
-    private void impressao(List<String> string) {
-        jImpressao.setText(string.toString());
-    }
 }

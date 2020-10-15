@@ -9,11 +9,17 @@ import com.system.conexao.Conexao;
 import com.system.sistemamaven.Items;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JSeparator;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class ItensVenda extends javax.swing.JFrame {
 
+    List<Items> items;
+    TelaVenda tela;
+    
     public ItensVenda() {
         initComponents();
         carregaCampos();
@@ -22,6 +28,14 @@ public class ItensVenda extends javax.swing.JFrame {
         btn_busca.setEnabled(false);
     }
 
+    public List<Items> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Items> items) {
+        this.items = items;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -43,7 +57,7 @@ public class ItensVenda extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        camp_qnt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        camp_qnt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
         camp_pesquisa.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         camp_pesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -157,6 +171,7 @@ public class ItensVenda extends javax.swing.JFrame {
     private void tabela_itensMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabela_itensMouseClicked
         btn_confirmar.setEnabled(true);
         camp_qnt.setEnabled(true);
+        camp_qnt.setText("1"); // adiciona o valor 1 sempre que clicar em um item na tabela
     }//GEN-LAST:event_tabela_itensMouseClicked
 
     private void camp_pesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_camp_pesquisaMouseClicked
@@ -170,16 +185,7 @@ public class ItensVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_buscaActionPerformed
 
     private void btn_confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_confirmarActionPerformed
-        Conexao banco = new Conexao();
-        DefaultTableModel tableDefault = (DefaultTableModel) tabela_itens.getModel();
-        int linha = tabela_itens.getSelectedRow();
-
-        for (int i = 0; i < banco.list_Items().size(); i++) {
-            if (banco.list_Items().get(i).getIditem().equals(tableDefault.getValueAt(linha, 0))) { // VERIFICA SE O ID DO OBJETO ONTEM NO BANCO DE DADOS
-                Items item = banco.list_Items().get(i);
-//                tela.setItem(item); //MANDA O ITEM SELECIONADO PARA OUTRA TELA UTILIZANDO O METODO GETT E SETT
-            }
-        }
+        confirmarItem();
     }//GEN-LAST:event_btn_confirmarActionPerformed
 
     /**
@@ -234,12 +240,13 @@ public class ItensVenda extends javax.swing.JFrame {
     public void carregaCampos() {
 
         Conexao banco = new Conexao();
-        String busca = camp_pesquisa.getText();
-        List<Items> items = new ArrayList<>();
-        for (int i = 0; i < banco.list_Items().size(); i++) {
-            if (banco.list_Items().get(i).getItem().contains(busca)) {
-                Items item = banco.list_Items().get(i);
-                items.add(item);
+        String busca = camp_pesquisa.getText(); //pega o texto escrito no campo pesquisa;
+        List<Items> items = new ArrayList<>();  // instacia uma nova lista de itens
+        
+        for (int i = 0; i < banco.list_Items().size(); i++) { // percorre toda a tabela item no banco de dados
+            if (banco.list_Items().get(i).getItem().contains(busca)) {  // verifica se existe algum caractere que foi digitado;
+                Items item = banco.list_Items().get(i); // pega o item que foi encontrado e armazena em uma variavel do tipo item
+                items.add(item); // pega o item e adiciona na lista de itens;
             }
 
         }
@@ -256,4 +263,20 @@ public class ItensVenda extends javax.swing.JFrame {
 
     }
 
+    public void confirmarItem() {
+        Conexao banco = new Conexao();
+        DefaultTableModel tableDefault = (DefaultTableModel) tabela_itens.getModel();
+        int linha = tabela_itens.getSelectedRow();
+
+        for (int i = 0; i < banco.list_Items().size(); i++) {
+            if (banco.list_Items().get(i).getIditem().equals(tableDefault.getValueAt(linha, 0))) { // VERIFICA SE O ID DO OBJETO ONTEM NO BANCO DE DADOS
+                Items item = banco.list_Items().get(i);
+                int qnt = Integer.parseInt(camp_qnt.getText()); // converte a String digitada pra valor inteiro;
+                item.setQnt(qnt); // adiciona a quantidade do item;
+                items.add(item);
+                TelaVenda.atualizartabela(); // atualiza a tabela de itens da venda;
+                dispose();
+            }
+        }
+    }
 }

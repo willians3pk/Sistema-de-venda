@@ -1,0 +1,13 @@
+com/systema/conexao/Conexao.class
+com/systema/conexao/NewHibernateUtil.class
+com/systema/projetows/Fornecedor.class
+com/systema/projetows/FormaPagamento.class
+com/systema/projetows/Cliente.class
+com/systema/projetows/ItensVenda.class
+com/systema/projetows/Usuario.class
+com/systema/projetows/Main.class
+com/systema/projetows/Pessoa.class
+com/systema/projetows/Endereco.class
+com/systema/projetows/Venda.class
+com/systema/projetows/Items.class
+com/systema/projetows/NumeroContato.class
