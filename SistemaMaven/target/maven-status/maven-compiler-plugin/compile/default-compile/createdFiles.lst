@@ -54,6 +54,7 @@ com/system/sistemamaven/Main.class
 com/system/telas/CadastroItem$5.class
 com/system/telas/CadastroFornecedor$6.class
 com/system/telas/TelaPrincipal$3.class
+com/system/telas/FinalizarVenda.class
 com/system/telas/TelaEdicao$5.class
 com/system/telas/ItensVenda$5.class
 com/system/conexao/Conexao.class
@@ -70,11 +71,13 @@ com/system/telas/CadastroFornecedor$3.class
 com/system/telas/Cadastros.class
 com/system/telas/TelaEdicao$1.class
 com/system/sistemamaven/FormaPagamento.class
+com/system/telas/TelaVenda$6.class
 com/system/telas/TelaPrincipal$4.class
 com/system/telas/CadastroItem$11.class
 com/system/sistemamaven/Venda.class
 com/system/telas/TelaEdicao$4.class
 com/system/telas/CadastroItem$4.class
+com/system/telas/FinalizarVenda$1.class
 com/system/telas/NovoFornecedor$2.class
 com/system/telas/TelaVenda.class
 com/system/telas/NovoItem.class

@@ -18,7 +18,7 @@
             </key>
             <many-to-many column="formapagamento_id" class="com.system.sistemamaven.FormaPagamento" />
         </set>
-<!--    <many-to-many name="formaPagamento" class="com.system.sistemamaven.FormaPagamento" fetch="select">
+        <!--    <many-to-many name="formaPagamento" class="com.system.sistemamaven.FormaPagamento" fetch="select">
             <column name="forma_pagamento_id" />
         </many-to-many>-->
         <many-to-one name="usuario" class="com.system.sistemamaven.Usuario" fetch="select">
@@ -38,6 +38,9 @@
         </property>
         <property name="valorTotal" type="java.lang.Long">
             <column name="valorTotal" precision="10" scale="0" />
+        </property>
+        <property name="desconto" type="java.lang.Integer">
+            <column name="desconto" precision="10" scale="0" />
         </property>
         <set name="itensVendas" table="itens_venda" inverse="true" lazy="true" fetch="select">
             <key>

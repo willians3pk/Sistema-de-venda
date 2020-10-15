@@ -36,6 +36,7 @@ public class Venda implements java.io.Serializable {
     private String descricao;
     private Boolean status;
     private Long valorTotal;
+    private int desconto;
     private Set itensVendas = new HashSet(0);
 
     public Venda() {
@@ -143,6 +144,15 @@ public class Venda implements java.io.Serializable {
 
     public void setValorTotal(Long valorTotal) {
         this.valorTotal = valorTotal;
+    }
+
+    @Column(name = "desconto", precision = 10, scale = 0)
+    public int getDesconto() {
+        return desconto;
+    }
+
+    public void setDesconto(int desconto) {
+        this.desconto = desconto;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "venda")

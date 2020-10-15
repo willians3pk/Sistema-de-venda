@@ -75,7 +75,7 @@ public class ItensVenda extends javax.swing.JFrame {
 
         jLabel1.setText("Qnt:");
 
-        jLabel2.setText("Pesquisa:");
+        jLabel2.setText("Digite o nome do item:");
 
         tabela_itens.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -264,9 +264,9 @@ public class ItensVenda extends javax.swing.JFrame {
     }
 
     public void confirmarItem() {
-        Conexao banco = new Conexao();
+        Conexao banco = new Conexao(); // cria conexao com banco de dados
         DefaultTableModel tableDefault = (DefaultTableModel) tabela_itens.getModel();
-        int linha = tabela_itens.getSelectedRow();
+        int linha = tabela_itens.getSelectedRow(); // pega a linha selecionada na tabela de items;
 
         for (int i = 0; i < banco.list_Items().size(); i++) {
             if (banco.list_Items().get(i).getIditem().equals(tableDefault.getValueAt(linha, 0))) { // VERIFICA SE O ID DO OBJETO ONTEM NO BANCO DE DADOS

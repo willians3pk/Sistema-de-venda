@@ -156,7 +156,7 @@ public class TelaVenda extends javax.swing.JPanel {
         });
         jPanel7.add(btn_pesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, 50, 40));
 
-        jTabbedPane2.addTab("Caixa", jPanel7);
+        jTabbedPane2.addTab("CARRINHO", jPanel7);
 
         jPanelFundo.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 690, 450));
 
@@ -172,7 +172,7 @@ public class TelaVenda extends javax.swing.JPanel {
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 120, 30));
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
-        jLabel4.setText("Quant. Produto:");
+        jLabel4.setText("Quantidade:");
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 120, 30));
 
         jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
@@ -195,7 +195,6 @@ public class TelaVenda extends javax.swing.JPanel {
         jLabel10.setText("Vend:");
         jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel3.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 170, -1));
 
         jPanel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -215,6 +214,11 @@ public class TelaVenda extends javax.swing.JPanel {
         jPanel3.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 353, 220, 10));
 
         jButton1.setText("Finalizar Venda");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 220, 50));
 
         jButton2.setText("Cancelar Venda Atual");
@@ -304,6 +308,11 @@ public class TelaVenda extends javax.swing.JPanel {
         removeItem();
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        FinalizarVenda tela = new FinalizarVenda();
+        tela.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btn_adicionarcarrinho;
@@ -316,7 +325,7 @@ public class TelaVenda extends javax.swing.JPanel {
     public static javax.swing.JButton jButton1;
     public static javax.swing.JButton jButton2;
     public static javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox2;
+    public static javax.swing.JComboBox<String> jComboBox2;
     public static javax.swing.JEditorPane jImpressao;
     public static javax.swing.JLabel jLabel10;
     public static javax.swing.JLabel jLabel12;
