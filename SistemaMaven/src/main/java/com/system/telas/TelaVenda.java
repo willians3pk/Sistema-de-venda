@@ -41,7 +41,7 @@ public class TelaVenda extends javax.swing.JPanel {
         camp_pesquisa = new javax.swing.JTextField();
         btn_pesquisa = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        btn_removeItem = new javax.swing.JButton();
         btn_pesquisar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -125,6 +125,11 @@ public class TelaVenda extends javax.swing.JPanel {
         jPanel7.add(labelvalortotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 330, 90, -1));
 
         camp_pesquisa.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
+        camp_pesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                camp_pesquisaActionPerformed(evt);
+            }
+        });
         jPanel7.add(camp_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 310, 40));
 
         btn_pesquisa.setText("Buscar");
@@ -139,14 +144,14 @@ public class TelaVenda extends javax.swing.JPanel {
         jLabel15.setText("Informe o codigo do produto:");
         jPanel7.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 280, 20));
 
-        jButton4.setFont(new java.awt.Font("Ubuntu", 1, 13)); // NOI18N
-        jButton4.setText("Remover Item");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btn_removeItem.setFont(new java.awt.Font("Ubuntu", 1, 13)); // NOI18N
+        btn_removeItem.setText("Remover Item");
+        btn_removeItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btn_removeItemActionPerformed(evt);
             }
         });
-        jPanel7.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 370, -1, -1));
+        jPanel7.add(btn_removeItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 370, -1, -1));
 
         btn_pesquisar.setText("....");
         btn_pesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -234,6 +239,11 @@ public class TelaVenda extends javax.swing.JPanel {
 
         camp_qnt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         camp_qnt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        camp_qnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                camp_qntActionPerformed(evt);
+            }
+        });
         jPanel3.add(camp_qnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 80, 40));
 
         btn_adicionarcarrinho.setText("Adiciona ao Carrinho");
@@ -304,27 +314,35 @@ public class TelaVenda extends javax.swing.JPanel {
         adicionarItem();
     }//GEN-LAST:event_btn_adicionarcarrinhoActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btn_removeItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removeItemActionPerformed
         removeItem();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btn_removeItemActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         FinalizarVenda tela = new FinalizarVenda();
         tela.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void camp_pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camp_pesquisaActionPerformed
+        carregaCampos();
+    }//GEN-LAST:event_camp_pesquisaActionPerformed
+
+    private void camp_qntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camp_qntActionPerformed
+        adicionarItem();
+    }//GEN-LAST:event_camp_qntActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btn_adicionarcarrinho;
     public static javax.swing.JButton btn_pesquisa;
     public static javax.swing.JButton btn_pesquisar;
+    public static javax.swing.JButton btn_removeItem;
     public static javax.swing.JTextField camp_nomeproduto;
     public static javax.swing.JTextField camp_pesquisa;
     public static javax.swing.JTextField camp_precoproduto;
     public static javax.swing.JFormattedTextField camp_qnt;
     public static javax.swing.JButton jButton1;
     public static javax.swing.JButton jButton2;
-    public static javax.swing.JButton jButton4;
     public static javax.swing.JComboBox<String> jComboBox2;
     public static javax.swing.JEditorPane jImpressao;
     public static javax.swing.JLabel jLabel10;
