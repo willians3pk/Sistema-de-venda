@@ -293,11 +293,11 @@ public class NovoItem extends javax.swing.JFrame {
             Items item = new Items();
             
 
-            int precoCompra = Integer.parseInt(camp_valorCompra.getText().replaceAll(",", ""));//remove a virgula e adiciona apenas os numeros decimais
-            int precoVenda = Integer.parseInt(camp_valorVenda.getText().replaceAll(",", "")); //remove a virgula e adiciona apenas os numeros decimais
+            Float precoCompra = Float.parseFloat(camp_valorCompra.getText().replaceAll(",", ""));//remove a virgula e adiciona apenas os numeros decimais
+            Float precoVenda = Float.parseFloat(camp_valorVenda.getText().replaceAll(",", "")); //remove a virgula e adiciona apenas os numeros decimais
             Long codigo = Long.parseLong(camp_codigo.getText());
             int quantidade = Integer.parseInt(camp_qnt.getText());
-            int valorTotal = (precoVenda * quantidade);
+            Float valorTotal = (precoVenda * quantidade);
             
             try {
                 

@@ -29,9 +29,9 @@ public class Items implements java.io.Serializable {
     private Integer iditem;
     private Fornecedor fornecedor;
     private String item;
-    private float valor_compra;
-    private float valor_venda;
-    private float valor_total;
+    private Float valor_compra;
+    private Float valor_venda;
+    private Float valor_total;
     private boolean status;
     private boolean excluido;
     private String tamanho;
@@ -48,7 +48,7 @@ public class Items implements java.io.Serializable {
         this.codigo = codigo;
     }
 
-    public Items(Integer iditem, Fornecedor fornecedor, String item, float valor_compra, float valor_venda, float valor_total, boolean status, boolean excluido, String tamanho, Long codigo, int qnt, String descricao) {
+    public Items(Integer iditem, Fornecedor fornecedor, String item, Float valor_compra, Float valor_venda, Float valor_total, boolean status, boolean excluido, String tamanho, Long codigo, int qnt, String descricao) {
         this.iditem = iditem;
         this.fornecedor = fornecedor;
         this.item = item;
@@ -62,7 +62,6 @@ public class Items implements java.io.Serializable {
         this.qnt = qnt;
         this.descricao = descricao;
     }
-
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -100,25 +99,25 @@ public class Items implements java.io.Serializable {
         return this.valor_compra;
     }
 
-    public void setValor_compra(float valor_compra) {
+    public void setValor_compra(Float valor_compra) {
         this.valor_compra = valor_compra;
     }
 
     @Column(name = "valor_venda", precision = 10, scale = 0)
-    public float getValor_venda() {
+    public Float getValor_venda() {
         return valor_venda;
     }
 
-    public void setValor_venda(float valor_venda) {
+    public void setValor_venda(Float valor_venda) {
         this.valor_venda = valor_venda;
     }
 
     @Column(name = "valor_total", precision = 10, scale = 0)
-    public float getValor_total() {
+    public Float getValor_total() {
         return valor_total;
     }
 
-    public void setValor_total(float valor_total) {
+    public void setValor_total(Float valor_total) {
         this.valor_total = valor_total;
     }
 

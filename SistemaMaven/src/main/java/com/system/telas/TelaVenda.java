@@ -9,6 +9,7 @@ import com.system.conexao.Conexao;
 import com.system.sistemamaven.Items;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,7 +18,9 @@ public class TelaVenda extends javax.swing.JPanel {
     public static Items item = null;
     public static float valortotal = 0;
     public static List<Items> items = new ArrayList<>();
-
+    DefaultListModel listaPesquisa = new DefaultListModel();
+    Conexao banco = new Conexao();
+    
     public TelaVenda() {
         initComponents();
     }
@@ -125,11 +128,6 @@ public class TelaVenda extends javax.swing.JPanel {
         jPanel7.add(labelvalortotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 330, 90, -1));
 
         camp_pesquisa.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
-        camp_pesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                camp_pesquisaActionPerformed(evt);
-            }
-        });
         jPanel7.add(camp_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 310, 40));
 
         btn_pesquisa.setText("Buscar");
@@ -301,7 +299,7 @@ public class TelaVenda extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisaActionPerformed
-        ItensVenda tela = new ItensVenda();
+        telaBuscaItens tela = new telaBuscaItens();
         tela.setItems(items);
         tela.setVisible(true);
     }//GEN-LAST:event_btn_pesquisaActionPerformed
@@ -321,11 +319,8 @@ public class TelaVenda extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         FinalizarVenda tela = new FinalizarVenda();
         tela.setVisible(true);
+        tela.setItem_venda(items);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void camp_pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camp_pesquisaActionPerformed
-        carregaCampos();
-    }//GEN-LAST:event_camp_pesquisaActionPerformed
 
     private void camp_qntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camp_qntActionPerformed
         adicionarItem();
@@ -392,7 +387,7 @@ public class TelaVenda extends javax.swing.JPanel {
 
             }
 
-            String preco = String.valueOf(item.getValor_venda() / 100); // A DIVISÃO POR 100 É APENAS PARA MOVER A VIRGULA
+            String preco = String.valueOf((item.getValor_venda() / 100)).replace(".", ","); // A DIVISÃO POR 100 É APENAS PARA MOVER A VIRGULA
             camp_nomeproduto.setText(item.getItem());
             camp_precoproduto.setText(preco);
             camp_qnt.setText("1");
@@ -416,14 +411,13 @@ public class TelaVenda extends javax.swing.JPanel {
             for (Items obj : items) {
 
                 float valortotalitens = obj.getQnt() * obj.getValor_venda();//pega a quantidade de items multiplica pelo valor dele;
-                obj.setValor_total(valortotalitens / 100);
-                tableDefault.addRow(new Object[]{obj.getItem(), "R$ " + obj.getValor_venda() / 100, obj.getCodigo(), obj.getQnt(), "R$ " + obj.getValor_total()});
+                obj.setValor_total((valortotalitens / 100));
+                tableDefault.addRow(new Object[]{obj.getItem(), "R$ " + obj.getValor_venda() / 100, obj.getCodigo(), obj.getQnt(), "R$ " + obj.getValor_total().toString()});
 
             }
 
-            String total = String.valueOf(valorTotal());
-            jlabelvalortotal.setText("R$ " + total);
-            labelvalortotal.setText("R$ " + total);
+            jlabelvalortotal.setText(String.valueOf("R$ " + valorTotal()).replace(".", ","));
+            labelvalortotal.setText(String.valueOf("R$ " + valorTotal()).replace(".", ","));
             camp_qnt.setText("1");
 
         } catch (Exception e) {
@@ -444,9 +438,8 @@ public class TelaVenda extends javax.swing.JPanel {
 
             }
 
-            String total = String.valueOf(valorTotal());
-            jlabelvalortotal.setText("R$ " + total);
-            labelvalortotal.setText("R$ " + total);
+            jlabelvalortotal.setText(String.valueOf("R$ " + valorTotal()).replace(".", ","));
+            labelvalortotal.setText(String.valueOf("R$ " + valorTotal()).replace(".", ","));
             camp_qnt.setText("1");
 
         } catch (Exception e) {
@@ -467,11 +460,8 @@ public class TelaVenda extends javax.swing.JPanel {
                 tableDefault.addRow(new Object[]{obj.getItem(), "R$ " + obj.getValor_venda() / 100, obj.getCodigo(), obj.getQnt(), "R$ " + obj.getValor_total()});
 
             }
-
-            System.out.println(valorTotal());
-            String total = String.valueOf(valorTotal());
-            jlabelvalortotal.setText("R$ " + total);
-            labelvalortotal.setText("R$ " + total);
+            jlabelvalortotal.setText(String.valueOf("R$ " + valorTotal()).replace(".", ","));
+            labelvalortotal.setText(String.valueOf("R$ " + valorTotal()).replace(".", ","));
             camp_qnt.setText("1");
 
         } catch (Exception e) {
@@ -490,4 +480,58 @@ public class TelaVenda extends javax.swing.JPanel {
         return valortotal;
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//    public void pesquisa() {
+//        new Thread() {
+//            String pesquisa = camp_pesquisa.getText();
+//            @Override
+//            public void run() {
+//                while (true) {
+//                    try {
+//                        sleep(1000);
+//                        if(camp_pesquisa.getText().length() > 0) {
+//
+//                            for (int i = 0; i < banco.list_Items().size(); i++) {
+//
+//                                if (banco.list_Items().get(i).getItem().contains(pesquisa)) {
+//                                    
+//                                    Items t = banco.list_Items().get(i);
+//                                    listaPesquisa.addElement(t.getItem());
+//                                    jList1.setVisible(true);
+//                                    jList1.setModel(listaPesquisa);
+//
+//                                }
+//
+//                            }
+//                        }else{jList1.setVisible(false);}
+//                        
+//                    } catch (InterruptedException ex) {
+//                        Logger.getLogger(TelaVenda.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                }
+//            }
+//        }.start();
+//    }
 }

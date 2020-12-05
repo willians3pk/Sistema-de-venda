@@ -37,7 +37,7 @@ public class Venda implements java.io.Serializable {
     private Boolean status;
     private Long valorTotal;
     private int desconto;
-    private Set itensVendas = new HashSet(0);
+    private Set<ItensVenda> itensVendas;
 
     public Venda() {
     }
@@ -46,7 +46,8 @@ public class Venda implements java.io.Serializable {
         this.codigoVenda = codigoVenda;
     }
 
-    public Venda(Cliente cliente, Set<FormaPagamento> formaPagamento, Usuario usuario, Date dataVenda, int codigoVenda, String descricao, Boolean status, Long valorTotal, Set itensVendas) {
+    public Venda(Integer idvenda, Cliente cliente, Set<FormaPagamento> formaPagamento, Usuario usuario, Date dataVenda, int codigoVenda, String descricao, Boolean status, Long valorTotal, int desconto, Set<ItensVenda> itensVendas) {
+        this.idvenda = idvenda;
         this.cliente = cliente;
         this.formaPagamento = formaPagamento;
         this.usuario = usuario;
@@ -55,8 +56,11 @@ public class Venda implements java.io.Serializable {
         this.descricao = descricao;
         this.status = status;
         this.valorTotal = valorTotal;
+        this.desconto = desconto;
         this.itensVendas = itensVendas;
     }
+
+
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -81,7 +85,6 @@ public class Venda implements java.io.Serializable {
     }
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "venda")
-//    @JoinColumn(name = "forma_pagamento_id")
     public Set<FormaPagamento> getFormaPagamento() {
         return this.formaPagamento;
     }
@@ -156,11 +159,11 @@ public class Venda implements java.io.Serializable {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "venda")
-    public Set getItensVendas() {
+    public Set<ItensVenda> getItensVendas() {
         return this.itensVendas;
     }
 
-    public void setItensVendas(Set itensVendas) {
+    public void setItensVendas(Set<ItensVenda> itensVendas) {
         this.itensVendas = itensVendas;
     }
 

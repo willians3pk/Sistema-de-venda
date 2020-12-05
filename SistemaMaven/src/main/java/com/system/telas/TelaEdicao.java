@@ -378,11 +378,11 @@ public class TelaEdicao extends javax.swing.JFrame {
 
 // -----------    VARIAVEIS   ---------------------
             Conexao banco = new Conexao();
-            int precoCompra = Integer.parseInt(camp_valorCompra.getText().replace(",", "").replace(".", ""));//remove a virgula e adiciona apenas os numeros decimais
-            int precoVenda = Integer.parseInt(camp_valorVenda.getText().replace(",", "").replace(".", "")); //remove a virgula e adiciona apenas os numeros decimais
+            Float precoCompra = Float.parseFloat(camp_valorCompra.getText().replace(",", "").replace(".", ""));//remove a virgula e adiciona apenas os numeros decimais
+            Float precoVenda = Float.parseFloat(camp_valorVenda.getText().replace(",", "").replace(".", "")); //remove a virgula e adiciona apenas os numeros decimais
             Long codigo = Long.parseLong(camp_codigo.getText());
             int quantidade = Integer.parseInt(camp_qnt.getText());
-            int valorTotal = (precoVenda * quantidade);
+            Float valorTotal = (precoVenda * quantidade);
 
             Fornecedor forne = null;
             int posicao = comBox_fornecedor.getSelectedIndex();

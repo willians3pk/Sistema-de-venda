@@ -6,9 +6,13 @@
 package com.system.conexao;
 
 import com.system.sistemamaven.Endereco;
+import com.system.sistemamaven.FormaPagamento;
 import com.system.sistemamaven.Fornecedor;
 import com.system.sistemamaven.Items;
+import com.system.sistemamaven.ItensVenda;
 import com.system.sistemamaven.NumeroContato;
+import com.system.sistemamaven.Venda;
+import com.system.telas.telaBuscaItens;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.Session;
@@ -31,7 +35,7 @@ public class Conexao {
         try {
             session.save(objeto);
             tx.commit();
-            JOptionPane.showMessageDialog(null, "Salvo com Sucesso!");
+//            JOptionPane.showMessageDialog(null, "Salvo com Sucesso!");
         } catch (Exception e) {
             System.out.println("Erro " + e);
             JOptionPane.showMessageDialog(null, "Erro ao Salvar na Base de Dados!");
@@ -208,6 +212,60 @@ public class Conexao {
 
         try {
             list = (List<Endereco>) session.createQuery("from Endereco").list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            System.out.println("Erro ao Pegar lista no Banco de Dados!");
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!");
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
+    public List<FormaPagamento> FormaPagamento() {
+        this.session = NewHibernateUtil.getSessionFactory().openSession();
+        this.tx = session.beginTransaction();
+        List<FormaPagamento> list = null;
+
+        try {
+            list = (List<FormaPagamento>) session.createQuery("from FormaPagamento").list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            System.out.println("Erro ao Pegar lista no Banco de Dados!");
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!");
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
+    public List<ItensVenda> ItensVenda() {
+        this.session = NewHibernateUtil.getSessionFactory().openSession();
+        this.tx = session.beginTransaction();
+        List<ItensVenda> list = null;
+
+        try {
+            list = (List<ItensVenda>) session.createQuery("from ItensVenda").list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            System.out.println("Erro ao Pegar lista no Banco de Dados!");
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!");
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
+    public List<Venda> list_Venda() {
+        this.session = NewHibernateUtil.getSessionFactory().openSession();
+        this.tx = session.beginTransaction();
+        List<Venda> list = null;
+
+        try {
+            list = (List<Venda>) session.createQuery("from ItensVenda").list();
             tx.commit();
             return list;
         } catch (Exception e) {
