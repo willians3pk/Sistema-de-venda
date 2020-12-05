@@ -182,6 +182,12 @@ public class Items implements java.io.Serializable {
         this.itensVendas = itensVendas;
     }
 
+    @Override
+    public String toString() {
+        return super.toString(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 //  ----- METODOS ESPECIFICOS DA CLASSE ITEMS --------
     public Fornecedor fornecedor() {
         Conexao banco = new Conexao();

@@ -343,7 +343,7 @@ public class FinalizarVenda extends javax.swing.JFrame {
             ItensVenda itensvenda = new ItensVenda();
 
             for (int i = 0; i < item_venda.size(); i++) {
-                if (banco.list_Items().get(i).equals(item_venda.get(i).getItem())) {
+                if (banco.list_Items().get(i).getItem().equals(item_venda.get(i).getItem())) {
                     Items item = banco.list_Items().get(i);
                     System.out.println(item.getItem());
                     
@@ -351,16 +351,29 @@ public class FinalizarVenda extends javax.swing.JFrame {
                     itensvenda.setVenda(venda);
                     itensvenda.setQnt(item_venda.get(i).getQnt());
                     itensvenda.setStatus(true);
+                    banco.persist(itensvenda);
                     
-                    banco.save_update(itensvenda);
                 }
             }
             
             venda.getItensVendas().add(itensvenda);
-            
             banco.save(venda);
             banco.update(forma_Pagamento);
-
+            
+            for (int i = 0; i < item_venda.size(); i++) {
+                if (banco.list_Items().get(i).equals(item_venda.get(i).getItem())) {
+                    Items item = banco.list_Items().get(i);
+                    System.out.println(item.getItem());
+                    
+//                    itensvenda.setItems(item);
+                    itensvenda.setVenda(venda);
+//                    itensvenda.setQnt(item_venda.get(i).getQnt());
+//                    itensvenda.setStatus(true);
+                    banco.update(itensvenda);
+                }
+            }
+            
+            
             JOptionPane.showMessageDialog(null, "Venda finalizada!");
 
         } else {

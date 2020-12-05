@@ -7,6 +7,7 @@ package com.systema.conexao;
 
 import com.systema.projetows.Fornecedor;
 import com.systema.projetows.Items;
+import com.systema.projetows.ItensVenda;
 import com.systema.projetows.NumeroContato;
 import com.systema.projetows.Pessoa;
 import java.util.List;
@@ -48,10 +49,10 @@ public class Conexao {
         try {
             session.persist(obj);
             tx.commit();
-            JOptionPane.showMessageDialog(null, "Atualizado com Sucesso!");
+            JOptionPane.showMessageDialog(null, "Atualizado com Sucesso! ao persistir");
         } catch (Exception e) {
-            System.out.println("Erro " + e);
-            JOptionPane.showMessageDialog(null, "Erro!");
+            System.out.println("Erro ao persistir" + e);
+            JOptionPane.showMessageDialog(null, "-----Erro!----");
         } finally {
             session.close();
         }
@@ -219,4 +220,23 @@ public class Conexao {
         return null;
     }
 
+        public List<ItensVenda> list_ItemsVenda() {
+
+        this.session = NewHibernateUtil.getSessionFactory().openSession();
+        this.tx = session.beginTransaction();
+        List<ItensVenda> list = null;
+
+        try {
+            list = (List<ItensVenda>) session.createQuery("from ItensVenda").list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            System.out.println("Erro ao Pegar lista no Banco de Dados!");
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!");
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+    
 }
