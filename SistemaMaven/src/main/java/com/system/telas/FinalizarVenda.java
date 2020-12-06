@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  */
 public class FinalizarVenda extends javax.swing.JFrame {
 
-    List<Items> item_venda;
+    List<Items> carrinho;
 
     public FinalizarVenda() {
         initComponents();
@@ -31,11 +31,11 @@ public class FinalizarVenda extends javax.swing.JFrame {
     }
 
     public List<Items> getItem_venda() {
-        return item_venda;
+        return carrinho;
     }
 
     public void setItem_venda(List<Items> item_venda) {
-        this.item_venda = item_venda;
+        this.carrinho = item_venda;
     }
 
     @SuppressWarnings("unchecked")
@@ -328,6 +328,7 @@ public class FinalizarVenda extends javax.swing.JFrame {
 
         if (valorVenda > 0) {
             Venda venda = new Venda();
+            // dados da venda
             venda.setDataVenda(new Date());
             venda.setDesconto(desconto);
             venda.setValorTotal(total);
@@ -338,42 +339,37 @@ public class FinalizarVenda extends javax.swing.JFrame {
             forma_Pagamento.setVendas(setVendas);
             forma_Pagamento.getVendas().add(venda);
             venda.setItensVendas(setItensVenda);
-            
 
-            ItensVenda itensvenda = new ItensVenda();
+            for (int i = 0; i < carrinho.size(); i++) {
+                ItensVenda itensvenda = new ItensVenda();
 
-            for (int i = 0; i < item_venda.size(); i++) {
-                if (banco.list_Items().get(i).getItem().equals(item_venda.get(i).getItem())) {
-                    Items item = banco.list_Items().get(i);
-                    System.out.println(item.getItem());
-                    
-                    itensvenda.setItems(item);
-                    itensvenda.setVenda(venda);
-                    itensvenda.setQnt(item_venda.get(i).getQnt());
-                    itensvenda.setStatus(true);
-                    banco.persist(itensvenda);
-                    
-                }
+                System.out.println(carrinho.get(i));
+
+                itensvenda.setItems(carrinho.get(i)); // adiciona o item do carrinho na tabela itens da venda;
+                itensvenda.setQnt(carrinho.get(i).getQnt()); // adiciona a quantidade de itens;
+                itensvenda.setStatus(true); // adiciona o status do items da venda;
+                banco.persist(itensvenda); // persiste o objeto no banco de dados;
+                venda.getItensVendas().add(itensvenda); // adiciona a lista de itensVenda os itens da venda;
+
             }
-            
-            venda.getItensVendas().add(itensvenda);
+
             banco.save(venda);
             banco.update(forma_Pagamento);
-            
-            for (int i = 0; i < item_venda.size(); i++) {
-                if (banco.list_Items().get(i).equals(item_venda.get(i).getItem())) {
-                    Items item = banco.list_Items().get(i);
-                    System.out.println(item.getItem());
+
+            for (int i = 0; i < banco.list_ItemsVenda().size(); i++) {
+                ItensVenda itemdaVenda = new ItensVenda();
+                itemdaVenda = banco.list_ItemsVenda().get(i);
+
+                if (banco.list_ItemsVenda().get(i).getIditensVenda() == venda.getItensVendas().hashCode()) {
+                    itemdaVenda.setVenda(venda);
+                    System.out.println("agora deu certo!");
+                    banco.update(itemdaVenda);
                     
-//                    itensvenda.setItems(item);
-                    itensvenda.setVenda(venda);
-//                    itensvenda.setQnt(item_venda.get(i).getQnt());
-//                    itensvenda.setStatus(true);
-                    banco.update(itensvenda);
+                }else{
+                    System.out.println("deu errado cara, tenta outra!");
                 }
             }
-            
-            
+
             JOptionPane.showMessageDialog(null, "Venda finalizada!");
 
         } else {

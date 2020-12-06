@@ -276,4 +276,23 @@ public class Conexao {
         }
         return null;
     }
+
+    public List<ItensVenda> list_ItemsVenda() {
+
+        this.session = NewHibernateUtil.getSessionFactory().openSession();
+        this.tx = session.beginTransaction();
+        List<ItensVenda> list = null;
+
+        try {
+            list = (List<ItensVenda>) session.createQuery("from ItensVenda").list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            System.out.println("Erro ao Pegar lista no Banco de Dados!");
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!");
+        } finally {
+            session.close();
+        }
+        return null;
+    }
 }

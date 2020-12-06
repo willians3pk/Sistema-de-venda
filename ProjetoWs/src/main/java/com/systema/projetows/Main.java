@@ -87,14 +87,17 @@ public class Main {
 //        Conexao banco = new Conexao();
 //        FormaPagamento pagamento = new FormaPagamento();
 //        pagamento.setDescricao("A VISTA");
-        Conexao banco = new Conexao();
-        Items item = new Items();
-        item.setCodigo(Long.parseLong("2"));
-        item.setExcluido(false);
-        item.setStatus(true);
-        item.setDescricao("feijao");
-        item.setValor_venda(Long.parseLong("15"));
-        banco.save(item);
+
+//        Conexao banco = new Conexao();
+//        Items item = new Items();
+//        item.setCodigo(Long.parseLong("2"));
+//        item.setExcluido(false);
+//        item.setStatus(true);
+//        item.setDescricao("feijao");
+//        item.setValor_venda(Long.parseLong("15"));
+//        banco.save(item);
+
+
 
 //        Conexao banco = new Conexao();
 //        Venda venda = new Venda();

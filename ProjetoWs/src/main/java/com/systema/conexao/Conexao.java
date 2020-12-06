@@ -220,7 +220,7 @@ public class Conexao {
         return null;
     }
 
-        public List<ItensVenda> list_ItemsVenda() {
+    public List<ItensVenda> list_ItemsVenda() {
 
         this.session = NewHibernateUtil.getSessionFactory().openSession();
         this.tx = session.beginTransaction();
@@ -238,5 +238,5 @@ public class Conexao {
         }
         return null;
     }
-    
+
 }

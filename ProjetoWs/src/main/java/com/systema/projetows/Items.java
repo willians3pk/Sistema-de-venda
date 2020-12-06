@@ -184,7 +184,10 @@ public class Items implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return super.toString(); //To change body of generated methods, choose Tools | Templates.
+        return "--------------------------------------------------------------------------------------"
+                    + "\nDescrição:      " + "    Codigo:       " + "     Qnt:     " + "    valor unitario:\n"
+                    + this.item + "            " + this.codigo + "                   " + this.qnt + "            " + this.valor_venda / 100;
+                
     }
 
     
