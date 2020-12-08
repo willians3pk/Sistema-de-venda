@@ -106,7 +106,6 @@ public class EditarFornecedor extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        camp_cnpj.setText("00.000.000/0000-00");
         jPanel2.add(camp_cnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 170, -1));
 
         jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -197,7 +196,6 @@ public class EditarFornecedor extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        camp_contatoFornecedor.setText("000000000");
         jPanel2.add(camp_contatoFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, 90, -1));
 
         jLabel34.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N

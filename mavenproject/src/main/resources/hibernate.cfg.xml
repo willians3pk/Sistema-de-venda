@@ -40,24 +40,25 @@ made subject to such option by the copyright holder.
 Contributor(s):
 -->
 <hibernate-configuration>
-  <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bancoSistemaVenda?zeroDateTimeBehavior=convertToNull</property>
-    <property name="hibernate.connection.username">wsmint</property>
-    <property name="hibernate.connection.password">Ws@14092019</property>
-    <property name="hibernate.current_session_context_class">thread</property>
-    <property name="hibernate.hbm2ddl.auto">update</property>
-    
-    <mapping resource="com/system/sistemamaven/Endereco.hbm.xml"/>
-    <mapping resource="com/system/sistemamaven/Pessoa.hbm.xml"/>
-    <mapping resource="com/system/sistemamaven/Cliente.hbm.xml"/>
-    <mapping resource="com/system/sistemamaven/FormaPagamento.hbm.xml"/>
-    <mapping resource="com/system/sistemamaven/Items.hbm.xml"/>
-    <mapping resource="com/system/sistemamaven/Venda.hbm.xml"/>
-    <mapping resource="com/system/sistemamaven/NumeroContato.hbm.xml"/>
-    <mapping resource="com/system/sistemamaven/ItensVenda.hbm.xml"/>
-    <mapping resource="com/system/sistemamaven/Fornecedor.hbm.xml"/>
-    <mapping resource="com/system/sistemamaven/Usuario.hbm.xml"/>
-  </session-factory>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ModaIntima?zeroDateTimeBehavior=convertToNull</property>
+        <property name="hibernate.connection.username">wsmint</property>
+        <property name="hibernate.connection.password">Ws@14092019</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        
+        <mapping class="br.com.classes.Cliente"/>
+        <mapping class="br.com.classes.Endereco"/>
+        <mapping class="br.com.classes.FormaPagamento"/>
+        <mapping class="br.com.classes.Fornecedor"/>
+        <mapping class="br.com.classes.ItensVenda"/>
+        <mapping class="br.com.classes.NumeroContato"/>
+        <mapping class="br.com.classes.Pessoa"/>
+        <mapping class="br.com.classes.Produto"/>
+        <mapping class="br.com.classes.Usuario"/>
+        <mapping class="br.com.classes.Venda"/>
+        
+    </session-factory>
 </hibernate-configuration>

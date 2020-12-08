@@ -196,7 +196,7 @@ public class NovoFornecedor extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         camp_contatoFornecedor.setText("000000000");
-        jPanel2.add(camp_contatoFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, 90, -1));
+        jPanel2.add(camp_contatoFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, 90, -1));
 
         jLabel34.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel34.setText("Contato:");

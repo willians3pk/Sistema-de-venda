@@ -149,9 +149,6 @@ public class Endereco  implements java.io.Serializable {
         this.pessoas = pessoas;
     }
 
-
-
-
 }
 
 
