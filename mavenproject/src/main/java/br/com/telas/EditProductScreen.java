@@ -43,8 +43,6 @@ public class EditProductScreen extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         camp_Code = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        camp_Profitmargin = new javax.swing.JFormattedTextField();
         jLabel9 = new javax.swing.JLabel();
         camp_Deliverydate = new javax.swing.JFormattedTextField();
         jLabel10 = new javax.swing.JLabel();
@@ -116,14 +114,6 @@ public class EditProductScreen extends javax.swing.JFrame {
         jLabel7.setText("Codigo:");
         jPanel2.add(jLabel7);
         jLabel7.setBounds(200, 160, 70, 16);
-
-        jLabel8.setText("Margem de Lucro:");
-        jPanel2.add(jLabel8);
-        jLabel8.setBounds(620, 100, 120, 16);
-
-        camp_Profitmargin.setEnabled(false);
-        jPanel2.add(camp_Profitmargin);
-        camp_Profitmargin.setBounds(620, 120, 110, 32);
 
         jLabel9.setText("Fornecedor:");
         jPanel2.add(jLabel9);
@@ -246,7 +236,6 @@ public class EditProductScreen extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField camp_Deliverydate;
     private javax.swing.JTextPane camp_Description;
     private javax.swing.JTextField camp_ProductName;
-    private javax.swing.JFormattedTextField camp_Profitmargin;
     private javax.swing.JFormattedTextField camp_Qnt;
     private javax.swing.JFormattedTextField camp_Sellprice;
     private javax.swing.JComboBox<String> comboBox_Size;
@@ -259,7 +248,6 @@ public class EditProductScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
