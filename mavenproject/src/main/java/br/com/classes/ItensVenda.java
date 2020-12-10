@@ -1,10 +1,13 @@
 package br.com.classes;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -14,13 +17,21 @@ public class ItensVenda {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="Cod_ItensVenda", unique=true, nullable=false)
     private int iditensVenda;
-    @OneToOne(fetch = FetchType.EAGER)
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name="Cod_Produto")
     private Produto items;
-    @OneToOne(fetch = FetchType.EAGER)
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name="Cod_Venda")
     private Venda venda;
     
+//    @Column(name="Qnt")
     private int qnt;
+    
+//    @Column(name="Status")
     private boolean status;
 
     public ItensVenda() {

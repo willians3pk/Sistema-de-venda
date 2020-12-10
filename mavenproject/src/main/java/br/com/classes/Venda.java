@@ -2,14 +2,22 @@ package br.com.classes;
 
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name = "venda")
@@ -17,19 +25,35 @@ public class Venda {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "Cod_Venda", unique = true, nullable = false)
     private int idvenda;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "Cod_Cliente")
     private Cliente cliente;
-    @OneToMany(fetch = FetchType.EAGER)
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @Cascade({CascadeType.ALL})
     private List<FormaPagamento> formaPagamento;
+
     @OneToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "Cod_Usuario")
     private Usuario usuario;
-    
+
+//    @Temporal(TemporalType.TIMESTAMP)
+//    @Column(name = "Data_Venda", length = 19)
     private Date dataVenda;
+    
+//    @Column(name = "Codigo_Venda", nullable = false)
     private int codigoVenda;
+    
+//    @Column(name = "Descricao", length = 200)
     private String descricao;
+    
+//    @Column(name = "Status")
     private boolean status;
+    
+//    @Column(name = "ValorTotal", precision = 10, scale = 0)
     private Long valorTotal;
 
     public Venda() {

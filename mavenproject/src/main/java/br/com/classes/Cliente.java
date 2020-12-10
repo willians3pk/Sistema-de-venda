@@ -1,8 +1,8 @@
-
 package br.com.classes;
 
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,22 +10,32 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-@Table(name =  "cliente")
+@Table(name = "cliente")
 public class Cliente {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "Cod_cliente", unique = true, nullable = false)
     private int idcliente;
-    private Date clienteDesde;
-    private Long limiteCredito;
     
+//    @Temporal(TemporalType.DATE)
+//    @Column(name = "cliente_desde", length = 10)
+    private Date clienteDesde;
+    
+//    @Column(name="Credito_limit", precision=10, scale=0)
+    private Long limiteCredito;
+
     @OneToMany(fetch = FetchType.EAGER)
     private List<Venda> vendas;
+    
     @OneToMany(fetch = FetchType.EAGER)
     private List<Pessoa> pessoas;
 
+    
     public Cliente() {
     }
 
@@ -76,6 +86,5 @@ public class Cliente {
     public void setPessoas(List<Pessoa> pessoas) {
         this.pessoas = pessoas;
     }
-    
-    
+
 }

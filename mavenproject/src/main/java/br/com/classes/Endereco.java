@@ -1,5 +1,6 @@
 package br.com.classes;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,17 +15,33 @@ public class Endereco {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="Cod_endereco", unique=true, nullable=false)
     private int idEndereco;
+    
+//    @Column(name="Rua", length=65)
     private String rua;
+    
+//    @Column(name="Cep")
     private int cep;
+    
+//    @Column(name="Bairro", length=65)
     private String bairro;
+    
+//    @Column(name="Numero_casa")
     private int numeroCasa;
+    
+//    @Column(name="Complemento", leng/th=100)
     private String complemento;
+    
+//    @Column(name="Estado_uf", length=65)
     private String estadoUf;
+    
+//    @Column(name="Cidade", length=65)
     private String cidade;
     
     @OneToOne(fetch = FetchType.EAGER)
     private Fornecedor fornecedors;
+    
     @OneToOne(fetch = FetchType.EAGER)
     private Pessoa pessoas;
 

@@ -1,10 +1,13 @@
 package br.com.classes;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -14,13 +17,24 @@ public class NumeroContato {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="Cod_NumeroContato", unique=true, nullable=false)
     private int idNumeroContato;
-    @OneToOne(fetch = FetchType.EAGER)
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name="FK")
     private Fornecedor fornecedor;
+    
     @OneToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name="FK")
     private Pessoa pessoa;
+    
+//    @Column(name="DDD")
     private int ddd;
+    
+//    @Column(name="Fone")
     private int fone;
+    
+//    @Column(name="CPF")
     private Long cpf;
 
     public NumeroContato() {
@@ -42,7 +56,7 @@ public class NumeroContato {
     public void setIdNumeroContato(int idNumeroContato) {
         this.idNumeroContato = idNumeroContato;
     }
-
+    
     public Fornecedor getFornecedor() {
         return fornecedor;
     }

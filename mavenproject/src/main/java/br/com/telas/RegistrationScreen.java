@@ -572,10 +572,11 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
     private void RegisterSupplier() {
 
-        Fornecedor supplier = new Fornecedor();
-        Endereco end = new Endereco();
-        NumeroContato contact = new NumeroContato();
+        Fornecedor supplier = new Fornecedor(); // cria um novo fornecedor;
+        Endereco end = new Endereco(); // cria um novo endereço;
+        NumeroContato contact = new NumeroContato(); // cria um novo numero de contato;
 
+/*      FAZ UMA VERIFICAÇÃO SE TODOS OS CAMPOS OBRIGATORIOS ESTÃO PREENCHIDOS;*/
         if (camp_SupplierName.getText().length() > 0) {
             obrigatorioName.setVisible(false);
         } else {
@@ -599,6 +600,8 @@ public class RegistrationScreen extends javax.swing.JPanel {
             supplier.setEmail(camp_EmailSupplier.getText());
             supplier.setHomePage(camp_HomePageSupplier.getText());
             supplier.setCpf(cpf);
+            List<NumeroContato> phoneBook = new ArrayList<>();
+            supplier.setContatos(phoneBook);
 
             //--------------------------------- numero de contato -----------------------------------//
             int ddd = Integer.parseInt(camp_DDDSupplier.getText());
@@ -620,23 +623,19 @@ public class RegistrationScreen extends javax.swing.JPanel {
             end.setEstadoUf(camp_StateSupplier.getText());
             end.setComplemento(camp_ComplementSupplier.getText());
 
+            //----------------------- Reacionamento entre objetos ---------------------------//
             supplier.setEndereco(end); // adiciona o endereço ao forncedor;
             end.setFornecedors(supplier); // adiciona o fornecedor ao endereco;
+            supplier.getContatos().add(contact); // adiciona o contato a lista de contatos;
             
-            Conexao connectbanco = new Conexao();
-            connectbanco.save(supplier);
+            Conexao connectbanco = new Conexao(); // abre conexao com o banco;
+            connectbanco.save(supplier); // salva a classe Pai
             
 /*          connectbanco.save(end); 
             connectbanco.save(contact);
-            
 NÃO A NECESSIDADE DE SALVAR O ENDERECO E NEM "CONTATO", POIS A CLASSE ESTÁ MAPEADA COMO CASCADE, ENTAO SÓ PRECISA
 SALVAR A CLASS PAI QUE AUTOMATICAMENTO SALVA A CLASSE FILHO */
 
-            
-            
-            
-            
-            
 //            LIMPA OS CAMPOS DE TEXTOS
             camp_SupplierName.setText(""); // name do fornecedor
             camp_AddressRuaSupplier.setText(""); // rua do fornecedor

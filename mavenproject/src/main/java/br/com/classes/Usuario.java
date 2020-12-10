@@ -2,6 +2,7 @@ package br.com.classes;
 
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -9,20 +10,34 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "usuario")
 public class Usuario {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "Cod_Usuario", unique = true, nullable = false)
     private int idusuario;
+
+//    @Temporal(TemporalType.DATE)
+//    @Column(name = "Data_Emissao", length = 10)
     private Date dataEmissao;
+//    @Temporal(TemporalType.DATE)
+//    @Column(name = "Data_Demissao", length = 10)
     private Date dataDemissao;
+    
+//    @Column(name="Previlegios")
     private int previlegios;
+    
+//    @Column(name="Status")
     private boolean status;
+    
     @OneToMany(fetch = FetchType.EAGER)
     private List<Venda> venda;
+    
     @OneToMany(fetch = FetchType.EAGER)
     private List<Pessoa> pessoa;
 
@@ -94,9 +109,5 @@ public class Usuario {
     public void setPessoa(List<Pessoa> pessoa) {
         this.pessoa = pessoa;
     }
-    
-    
-    
-    
 
 }

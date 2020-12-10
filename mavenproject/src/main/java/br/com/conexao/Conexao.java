@@ -146,14 +146,14 @@ public class Conexao {
         }
     }
 
-    public List<Produto> list_Items() {
+    public List<Produto> productBook() {
 
         this.session = NewHibernateUtil.getSessionFactory().openSession();
         this.tx = session.beginTransaction();
         List<Produto> list = null;
 
         try {
-            list = (List<Produto>) session.createQuery("from Items").list();
+            list = (List<Produto>) session.createQuery("from Produto").list();
             tx.commit();
             return list;
         } catch (Exception e) {

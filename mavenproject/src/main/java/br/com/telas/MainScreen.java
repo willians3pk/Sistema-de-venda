@@ -197,6 +197,7 @@ public class MainScreen extends javax.swing.JFrame {
         p.setLocation(0, 0);
         p.setSize(1140, 650);
         p.setVisible(true);
+        p.loadingCampos();
         jDesktopPane1.add(p);
     }//GEN-LAST:event_jLabel1MouseClicked
 

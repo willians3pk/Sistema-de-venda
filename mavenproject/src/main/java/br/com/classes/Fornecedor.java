@@ -1,11 +1,13 @@
 package br.com.classes;
 
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -18,16 +20,27 @@ public class Fornecedor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "Cod_Fornecedor", unique = true, nullable = false)
     private int idFornecedor;
     
     @OneToOne(fetch = FetchType.EAGER)
     @Cascade({CascadeType.PERSIST,CascadeType.SAVE_UPDATE})
+//    @JoinColumn(name = "FK")
     private Endereco endereco;
     
+//    @Column(name = "Nome", length = 65)
     private String nome;
+    
+//    @Column(name = "CNPJ")
     private Long cnpj;
+    
+//    @Column(name = "CPF")
     private Long cpf;
+    
+//    @Column(name = "E-mail", length = 45)
     private String email;
+    
+//    @Column(name = "Home-page", length = 45)
     private String homePage;
     
     @OneToMany(fetch = FetchType.EAGER)
