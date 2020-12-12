@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name = "endereco")
@@ -40,9 +42,11 @@ public class Endereco {
     private String cidade;
     
     @OneToOne(fetch = FetchType.EAGER)
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.PERSIST})
     private Fornecedor fornecedors;
     
     @OneToOne(fetch = FetchType.EAGER)
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.PERSIST})
     private Pessoa pessoas;
 
     public Endereco() {

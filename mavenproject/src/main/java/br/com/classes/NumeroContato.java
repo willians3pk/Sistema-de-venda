@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name = "numerocontato")
@@ -21,11 +23,11 @@ public class NumeroContato {
     private int idNumeroContato;
     
     @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name="FK")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.PERSIST})
     private Fornecedor fornecedor;
     
     @OneToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name="FK")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.PERSIST})
     private Pessoa pessoa;
     
 //    @Column(name="DDD")

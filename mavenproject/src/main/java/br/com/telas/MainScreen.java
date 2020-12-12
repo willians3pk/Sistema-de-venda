@@ -68,7 +68,7 @@ public class MainScreen extends javax.swing.JFrame {
 
         jPanel5.setLayout(null);
 
-        jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("jLabel1");
         jLabel4.setToolTipText("");
@@ -81,14 +81,14 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
         jPanel5.add(jLabel4);
-        jLabel4.setBounds(10, 0, 190, 60);
+        jLabel4.setBounds(10, 0, 190, 30);
 
         menuLateral.add(jPanel5);
-        jPanel5.setBounds(10, 350, 200, 60);
+        jPanel5.setBounds(10, 290, 200, 30);
 
         jPanel4.setLayout(null);
 
-        jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("jLabel1");
         jLabel3.setToolTipText("");
@@ -101,14 +101,14 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
         jPanel4.add(jLabel3);
-        jLabel3.setBounds(10, 0, 190, 60);
+        jLabel3.setBounds(10, 0, 190, 30);
 
         menuLateral.add(jPanel4);
-        jPanel4.setBounds(10, 280, 200, 60);
+        jPanel4.setBounds(10, 240, 200, 30);
 
         jPanel3.setLayout(null);
 
-        jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Cadastros");
         jLabel2.setToolTipText("");
@@ -121,14 +121,14 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jLabel2);
-        jLabel2.setBounds(10, 0, 190, 60);
+        jLabel2.setBounds(10, 0, 190, 30);
 
         menuLateral.add(jPanel3);
-        jPanel3.setBounds(10, 210, 200, 60);
+        jPanel3.setBounds(10, 190, 200, 30);
 
         jPanel2.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Produtos");
         jLabel1.setToolTipText("");
@@ -141,18 +141,18 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(10, 0, 190, 60);
+        jLabel1.setBounds(10, 0, 190, 30);
 
         menuLateral.add(jPanel2);
-        jPanel2.setBounds(10, 140, 200, 60);
+        jPanel2.setBounds(10, 140, 200, 30);
         menuLateral.add(jSeparator1);
-        jSeparator1.setBounds(10, 410, 200, 20);
+        jSeparator1.setBounds(10, 320, 200, 10);
         menuLateral.add(jSeparator2);
-        jSeparator2.setBounds(10, 200, 200, 20);
+        jSeparator2.setBounds(10, 170, 200, 10);
         menuLateral.add(jSeparator3);
-        jSeparator3.setBounds(10, 270, 200, 20);
+        jSeparator3.setBounds(10, 220, 200, 10);
         menuLateral.add(jSeparator4);
-        jSeparator4.setBounds(10, 340, 200, 20);
+        jSeparator4.setBounds(10, 270, 200, 20);
 
         getContentPane().add(menuLateral);
         menuLateral.setBounds(0, 50, 220, 650);
@@ -197,6 +197,8 @@ public class MainScreen extends javax.swing.JFrame {
         p.setLocation(0, 0);
         p.setSize(1140, 650);
         p.setVisible(true);
+        p.btn_ToEdit.setEnabled(false);
+        p.btn_Deactivate.setEnabled(false);
         p.loadingCampos();
         jDesktopPane1.add(p);
     }//GEN-LAST:event_jLabel1MouseClicked

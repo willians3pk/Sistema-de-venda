@@ -14,6 +14,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name = "pessoa")
@@ -25,15 +27,15 @@ public class Pessoa {
     private int idpessoa;
     
     @OneToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "Cod_Endereco")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.PERSIST})
     private Endereco endereco;
     
     @OneToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "Cod_Cliente")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.PERSIST})
     private Cliente cliente;
     
     @OneToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "Cod_Usuario")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.PERSIST})
     private Usuario usuario;
     
 //    @Column(name = "Nome", length = 65)
@@ -53,6 +55,7 @@ public class Pessoa {
     private Date dataNascimento;
     
     @OneToMany(fetch = FetchType.EAGER)
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.PERSIST})
     private List<NumeroContato> numeroContatos;
 
     public Pessoa() {

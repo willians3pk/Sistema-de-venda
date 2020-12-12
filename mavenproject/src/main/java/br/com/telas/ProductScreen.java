@@ -9,11 +9,13 @@ import br.com.conexao.Conexao;
 import br.com.classes.Fornecedor;
 import br.com.classes.Produto;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -80,17 +82,17 @@ public class ProductScreen extends javax.swing.JPanel {
 
         table_Product.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Cod_Produto", "codigoBarra", "nome", "valor Venda", "qnt", "fornecedor", "descrição", "tamanho", "total"
+                "Cod_Produto", "Receb/Produto", "nome", "Preço", "qnt", "fornecedor", "tamanho", "total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -176,7 +178,7 @@ public class ProductScreen extends javax.swing.JPanel {
         jLabel8.setBounds(940, 40, 160, 16);
 
         add(jPanel1);
-        jPanel1.setBounds(10, 320, 1120, 300);
+        jPanel1.setBounds(10, 320, 1120, 320);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro Produto"));
         jPanel2.setLayout(null);
@@ -196,10 +198,23 @@ public class ProductScreen extends javax.swing.JPanel {
 
         jPanel2.add(jScrollPane2);
         jScrollPane2.setBounds(200, 160, 380, 110);
+
+        camp_Buyprice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
+        camp_Buyprice.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                camp_BuypriceKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                camp_BuypriceKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                camp_BuypriceKeyTyped(evt);
+            }
+        });
         jPanel2.add(camp_Buyprice);
         camp_Buyprice.setBounds(20, 110, 140, 32);
 
-        camp_Sellprice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        camp_Sellprice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
         jPanel2.add(camp_Sellprice);
         camp_Sellprice.setBounds(20, 180, 140, 32);
 
@@ -247,6 +262,11 @@ public class ProductScreen extends javax.swing.JPanel {
         jLabel9.setBounds(650, 30, 100, 16);
 
         btn_NewSupplier.setText("Novo");
+        btn_NewSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_NewSupplierActionPerformed(evt);
+            }
+        });
         jPanel2.add(btn_NewSupplier);
         btn_NewSupplier.setBounds(1030, 50, 80, 36);
 
@@ -363,16 +383,33 @@ public class ProductScreen extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btn_ToEditActionPerformed
 
+    private void btn_NewSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NewSupplierActionPerformed
+
+    }//GEN-LAST:event_btn_NewSupplierActionPerformed
+
+    private void camp_BuypriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_BuypriceKeyReleased
+//        camp_Buyprice.setText("R$");
+    }//GEN-LAST:event_camp_BuypriceKeyReleased
+
+    private void camp_BuypriceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_BuypriceKeyTyped
+//        camp_Buyprice.setText("R$");
+    }//GEN-LAST:event_camp_BuypriceKeyTyped
+
+    private void camp_BuypriceKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_BuypriceKeyPressed
+        camp_Buyprice.setText("R$");
+
+    }//GEN-LAST:event_camp_BuypriceKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox box_Price;
     private javax.swing.JCheckBox box_Qnt;
     private javax.swing.JCheckBox box_Size;
-    private javax.swing.JButton btn_Deactivate;
+    public javax.swing.JButton btn_Deactivate;
     private javax.swing.JButton btn_NewSupplier;
     private javax.swing.JButton btn_Register;
     private javax.swing.JButton btn_Search;
-    private javax.swing.JButton btn_ToEdit;
+    public javax.swing.JButton btn_ToEdit;
     private javax.swing.JFormattedTextField camp_Buyprice;
     private javax.swing.JFormattedTextField camp_Code;
     private javax.swing.JFormattedTextField camp_Deliverydate;
@@ -458,12 +495,12 @@ public class ProductScreen extends javax.swing.JPanel {
                 int position = comboBox_Supplier.getSelectedIndex();
                 Fornecedor forne = connectbanco.list_Fornecedores().get(position);
 
-                // adiciona os valores dos campos nos atributos do novo produto;
+                // adiciona os valores dos campos, nos atributos do novo produto;
                 newProduct.setFornecedor(forne);
                 newProduct.setNome(camp_ProductName.getText());
                 newProduct.setValor_compra(priceBuy);
                 newProduct.setValor_venda(priceSell);
-                newProduct.setCodigo(code);
+//                newProduct.setCodigo(code);
                 newProduct.setStatus(true);
                 newProduct.setExcluido(false);
                 newProduct.setQnt(qnt);
@@ -555,21 +592,22 @@ public class ProductScreen extends javax.swing.JPanel {
         NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
         NumberFormat lucroBruto = NumberFormat.getCurrencyInstance(localeBR);
 
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
+
         float y = 0;
         float x = 0;
         float z = 0;
-        
+
         DefaultTableModel tableDefault = (DefaultTableModel) table_Product.getModel();
         try {
             tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR PARA NAO HAVER DUPLICAÇÃO DE ITENS;
             for (Produto item : items) {
 
                 x = item.getValor_total();
+                tableDefault.addRow(new Object[]{item.getIdProduto(), formato.format(item.getDataEntrega()), item.getNome(), dinheiro.format(item.getValor_venda()),
+                    item.getQnt(), item.getFornecedor().getNome(), item.getTamanho(), dinheiro.format(item.getValor_total())});
 
-                tableDefault.addRow(new Object[]{item.getIdProduto(), item.getCodigo(), item.getNome(), dinheiro.format(item.getValor_venda()),
-                    item.getQnt(), item.getFornecedor().getNome(), item.getDescricao(), item.getTamanho(), dinheiro.format(item.getValor_total())});
-
-            // calculo do valor lucro bruto
+                // calculo do valor lucro bruto
                 y = z + x;
                 z = y;
             }

@@ -81,7 +81,7 @@ public class EditProductScreen extends javax.swing.JFrame {
         jPanel2.add(camp_Buyprice);
         camp_Buyprice.setBounds(20, 110, 140, 32);
 
-        camp_Sellprice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        camp_Sellprice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         jPanel2.add(camp_Sellprice);
         camp_Sellprice.setBounds(20, 180, 140, 32);
 
@@ -187,7 +187,7 @@ public class EditProductScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveActionPerformed
-
+        editProduct();
     }//GEN-LAST:event_btn_saveActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -261,20 +261,96 @@ public class EditProductScreen extends javax.swing.JFrame {
 
     private void editProduct() {
 
+        if (camp_ProductName.getText().length() > 0) {
+            obrigatorioName.setVisible(false);
+        } else {
+            obrigatorioName.setVisible(true);
+        }
+        if (camp_Qnt.getText().length() > 0) {
+            obrigatorioQnt.setVisible(false);
+        } else {
+            obrigatorioQnt.setVisible(true);
+        }
+        if (camp_Buyprice.getText().length() > 0) {
+            obrigatorioPriceBuy.setVisible(false);
+        } else {
+            obrigatorioPriceBuy.setVisible(true);
+        }
+        if (camp_Sellprice.getText().length() > 0) {
+            obrigatorioPriceSell.setVisible(false);
+        } else {
+            obrigatorioPriceSell.setVisible(true);
+        }
+
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Você Deseja Realmente alterar *OS DADOS DESSE ITEN*?", "Salvar?", JOptionPane.YES_NO_OPTION);
+
+        if ((camp_ProductName.getText().length() > 0)
+                && (camp_Buyprice.getText().length() > 0)
+                && (camp_Qnt.getText().length() > 0)
+                && (camp_Sellprice.getText().length() > 0)
+                && (camp_Deliverydate.getText().length() > 0)
+                && (comboBox_Supplier.getSelectedItem().toString() != "<Selecione o Fornecedor>")
+                && (confirmacao == JOptionPane.YES_OPTION)) {
+
+            String size = null;
+
+            Long priceBuy = Long.parseLong(camp_Buyprice.getText().replaceAll(",", "").replace(".", ""));//remove a virgula e adiciona apenas os numeros decimais
+            Long priceSell = Long.parseLong(camp_Sellprice.getText().replaceAll(",", "").replace(".", "")); //remove a virgula e adiciona apenas os numeros decimais
+            Long code = Long.parseLong(camp_Code.getText());
+            int qnt = Integer.parseInt(camp_Qnt.getText());
+            Long totalvalue = (priceSell * qnt);
+
+            Fornecedor forne = null;
+            int posicao = comboBox_Supplier.getSelectedIndex();
+            forne = connectbanco.list_Fornecedores().get(posicao);
+
+            // ADICIONA AS INFORMAÇÕES DO PRODUTO;
+            produto.setFornecedor(forne);
+            produto.setNome(camp_ProductName.getText());
+            produto.setValor_compra(priceBuy);
+            produto.setValor_venda(priceSell);
+            produto.setCodigo(code);
+            produto.setStatus(true);
+            produto.setExcluido(false);
+            produto.setQnt(qnt);
+            produto.setDescricao(camp_Description.getText());
+            
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
+            Date data = new Date(camp_Deliverydate.getText());
+            
+            produto.setDataEntrega(data);
+            
+            produto.setValor_total(totalvalue);
+
+            if (comboBox_Size.getSelectedItem().toString().equals("<selecione>")) {
+                JOptionPane.showMessageDialog(null, "Selecione o Tamanho!!");
+            } else {
+
+                size = comboBox_Size.getSelectedItem().toString(); // PEGA O TAMANHO DO ITEM NA COMBOBOX;
+                produto.setTamanho(size); // ADICIONA O TAMANHO DO ITEM AO PRODUTO;
+                connectbanco.update(produto);// ATUALIZA O PRODUTO;
+                JOptionPane.showMessageDialog(null, "Produto *ATUALIZADO* Com Sucesso!");
+                dispose();
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Confira os campos obrigatorio!");
+        }
+
     }
 
     public void loadingCampos() {
 
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
+
         // ADICIONA OS ATRIBUTOS DO ITEM NOS CAMPOS PARA SER EDITADOS;
-        
-        
         camp_ProductName.setText(produto.getNome());
         camp_Code.setText(produto.getCodigo().toString());
         camp_Buyprice.setText(produto.getValor_compra().toString());
         camp_Sellprice.setText(produto.getValor_venda().toString());
         camp_Qnt.setText(String.valueOf(produto.getQnt()));
         camp_Description.setText(produto.getDescricao());
-        camp_Deliverydate.setText("");
+        camp_Deliverydate.setText(formato.format(produto.getDataEntrega()));
         comboBox_Size.setSelectedItem(produto.getTamanho());
 
         if (comboBox_Supplier.getSelectedItem().toString() == produto.getFornecedor().getNome()) {
@@ -285,7 +361,7 @@ public class EditProductScreen extends javax.swing.JFrame {
     }
 
     public void PopularComcobox() {
-        
+
         DefaultComboBoxModel comboBox = new DefaultComboBoxModel();
         for (Fornecedor fornecedor : connectbanco.list_Fornecedores()) {
             comboBox.addElement(fornecedor.getNome());
