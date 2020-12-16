@@ -1,5 +1,6 @@
 package br.com.classes;
 
+import br.com.conexao.Conexao;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,33 +23,22 @@ public class Fornecedor {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Cod_Fornecedor", unique = true, nullable = false)
     private int idFornecedor;
-    
-    @OneToOne(fetch = FetchType.EAGER)
-    @Cascade({CascadeType.PERSIST,CascadeType.SAVE_UPDATE})
-//    @JoinColumn(name = "FK")
-    private Endereco endereco;
-    
-//    @Column(name = "Nome", length = 65)
     private String nome;
-    
-//    @Column(name = "CNPJ")
     private Long cnpj;
-    
-//    @Column(name = "CPF")
     private Long cpf;
-    
-//    @Column(name = "E-mail", length = 45)
     private String email;
-    
-//    @Column(name = "Home-page", length = 45)
     private String homePage;
-    
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @Cascade({CascadeType.PERSIST, CascadeType.SAVE_UPDATE})
+    private Endereco endereco;
+
     @OneToMany(fetch = FetchType.EAGER)
-    @Cascade({CascadeType.PERSIST,CascadeType.SAVE_UPDATE})
+    @Cascade({CascadeType.PERSIST, CascadeType.SAVE_UPDATE})
     private List<Produto> list_Produto;
-    
+
     @OneToMany(fetch = FetchType.EAGER)
-    @Cascade({CascadeType.PERSIST,CascadeType.SAVE_UPDATE})
+    @Cascade({CascadeType.PERSIST, CascadeType.SAVE_UPDATE})
     private List<NumeroContato> contatos;
 
     public Fornecedor() {
@@ -136,6 +126,16 @@ public class Fornecedor {
 
     public void setContatos(List<NumeroContato> contatos) {
         this.contatos = contatos;
+    }
+
+    public NumeroContato getcontato() {
+        Conexao banco = new Conexao();
+        for (NumeroContato contato : banco.list_Contatos()) {
+            if (contato.getFornecedor().getIdFornecedor() == this.getIdFornecedor()) {
+                return contato;
+            }
+        }
+        return null;
     }
 
 }

@@ -10,11 +10,8 @@ public class Main {
     
     public static void main(String[] args) {
        
-        Fornecedor  forn = new Fornecedor();
-        Conexao connect = new Conexao();
         
-        forn.setNome("MariaDB");
-        connect.save(forn);
+        Conexao connect = new Conexao();
         
     }
     

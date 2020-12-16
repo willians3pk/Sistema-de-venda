@@ -5,6 +5,7 @@
  */
 package br.com.telas;
 
+import br.com.classes.Cliente;
 import br.com.conexao.Conexao;
 import br.com.classes.Endereco;
 import br.com.classes.Fornecedor;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -26,6 +28,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
      */
     public RegistrationScreen() {
         initComponents();
+        preencherTable();
     }
 
     /**
@@ -113,11 +116,12 @@ public class RegistrationScreen extends javax.swing.JPanel {
         jInternalFrame1 = new javax.swing.JInternalFrame();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        tableSupplier = new javax.swing.JTable();
+        fieldSearch = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
+        btn_buscar = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
 
         setLayout(null);
@@ -268,7 +272,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         obrigatorioRua.setBounds(50, 20, 90, 16);
 
         jPanel1.add(jPanel9);
-        jPanel9.setBounds(10, 250, 1090, 240);
+        jPanel9.setBounds(10, 250, 1090, 260);
 
         btn_Register.setText("Cadastrar");
         btn_Register.addActionListener(new java.awt.event.ActionListener() {
@@ -364,7 +368,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             ex.printStackTrace();
         }
         jPanel6.add(field_date);
-        field_date.setBounds(630, 170, 57, 32);
+        field_date.setBounds(630, 170, 100, 32);
 
         jLabel2.setForeground(new java.awt.Color(255, 0, 0));
         jLabel2.setText("* obrigatorio");
@@ -449,7 +453,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         jPanel2.add(btn_limpAll);
         btn_limpAll.setBounds(848, 550, 110, 36);
 
-        jTabbedPane1.addTab("Pessoa:", jPanel2);
+        jTabbedPane1.addTab("Cliente", jPanel2);
 
         jPanel3.setLayout(null);
 
@@ -459,7 +463,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Fornecedores"));
         jPanel4.setLayout(null);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableSupplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -467,33 +471,51 @@ public class RegistrationScreen extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Cod_Fornecedor", "Nome", "Home-Page", "Contato"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tableSupplier);
 
         jPanel4.add(jScrollPane1);
         jScrollPane1.setBounds(20, 110, 1040, 110);
-        jPanel4.add(jTextField1);
-        jTextField1.setBounds(20, 60, 780, 32);
+        jPanel4.add(fieldSearch);
+        fieldSearch.setBounds(20, 60, 780, 32);
 
         jLabel1.setText("Nome:");
         jPanel4.add(jLabel1);
         jLabel1.setBounds(20, 40, 50, 16);
 
-        jButton5.setText("Buscar");
-        jPanel4.add(jButton5);
-        jButton5.setBounds(830, 60, 90, 36);
+        btn_buscar.setText("Buscar");
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btn_buscar);
+        btn_buscar.setBounds(830, 60, 90, 36);
 
         jInternalFrame1.getContentPane().add(jPanel4);
-        jPanel4.setBounds(10, 10, 1080, 270);
+        jPanel4.setBounds(10, 10, 1080, 230);
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel10.setLayout(null);
+
+        jPanel5.setLayout(null);
+        jPanel10.add(jPanel5);
+        jPanel5.setBounds(10, 10, 1060, 270);
+
         jInternalFrame1.getContentPane().add(jPanel10);
-        jPanel10.setBounds(10, 300, 1080, 260);
+        jPanel10.setBounds(10, 270, 1080, 290);
         jInternalFrame1.getContentPane().add(jSeparator1);
-        jSeparator1.setBounds(10, 290, 1080, 10);
+        jSeparator1.setBounds(0, 250, 1080, 10);
 
         jPanel3.add(jInternalFrame1);
         jInternalFrame1.setBounds(0, 0, 1110, 600);
@@ -549,12 +571,17 @@ public class RegistrationScreen extends javax.swing.JPanel {
         camp_StateSupplier.setText(""); // Estado UF do fornecedor
         camp_CitySupplier.setText(""); // cidade do forncedor
         camp_ComplementSupplier.setText(""); // complemento do fornecedor
-        
+
     }//GEN-LAST:event_btn_limpallActionPerformed
+
+    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+       preencherTable();
+    }//GEN-LAST:event_btn_buscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_Register;
+    private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_limpAll;
     private javax.swing.JButton btn_limpall;
     private javax.swing.JTextField camp_AddressRuaSupplier;
@@ -571,6 +598,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
     private javax.swing.JTextField camp_StateSupplier;
     private javax.swing.JTextField camp_SupplierName;
     private javax.swing.JFormattedTextField camp_cpfSupplier;
+    private javax.swing.JTextField fieldSearch;
     private javax.swing.JFormattedTextField field_DDD;
     private javax.swing.JTextField field_Name;
     private javax.swing.JTextField field_Rua;
@@ -586,7 +614,6 @@ public class RegistrationScreen extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField field_numeroCasa;
     private javax.swing.JTextField filed_Email;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton5;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
@@ -621,6 +648,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -632,10 +660,9 @@ public class RegistrationScreen extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel obrigatorioName;
     private javax.swing.JLabel obrigatorioRua;
+    private javax.swing.JTable tableSupplier;
     // End of variables declaration//GEN-END:variables
 
     private void RegisterSupplier() {
@@ -731,12 +758,12 @@ SALVAR A CLASS PAI QUE AUTOMATICAMENTO SALVA A CLASSE FILHO */
 
         if ((field_Name.getText().length() > 0)) {
 
-            Pessoa pessoa = new Pessoa();
-            pessoa.setNome(field_Name.getText());
+            Cliente cliente = new Cliente();
+            cliente.setNome(field_Name.getText());
             Long cpf = Long.parseLong(field_cpf.getText().replace(".", "").replace(".", "").replace("-", ""));
-            pessoa.setCpf(cpf);
-            pessoa.setEmail(filed_Email.getText());
-//            pessoa.setDataNascimento(new Date(field_date.getText()));  NAO ESQUECER DE ARRUMAR ESSA LINHA DE CODIGO
+            cliente.setCpf(cpf);
+            cliente.setEmail(filed_Email.getText());
+//            cliente.setDataNascimento(new Date(field_date.getText()));  NAO ESQUECER DE ARRUMAR ESSA LINHA DE CODIGO
 
 // ---------- ENDEREÇO -----------------
             Endereco end = new Endereco();
@@ -748,8 +775,8 @@ SALVAR A CLASS PAI QUE AUTOMATICAMENTO SALVA A CLASSE FILHO */
             end.setComplemento(field_complement.getText());
             int numeroCasa = Integer.parseInt(field_numeroCasa.getText());
             end.setNumeroCasa(numeroCasa);
-            end.setPessoas(pessoa);
-            pessoa.setEndereco(end);
+            end.setPessoas(cliente);
+            cliente.setEndereco(end);
 
             // NUMERO DE CONTATO 
             NumeroContato contact = new NumeroContato();
@@ -759,15 +786,15 @@ SALVAR A CLASS PAI QUE AUTOMATICAMENTO SALVA A CLASSE FILHO */
             contact.setDdd(ddd);
             contact.setFone(fone);
             contact.setCpf(cpf);
-            contact.setPessoa(pessoa);
+            contact.setPessoa(cliente);
 
             List<NumeroContato> listContato = new ArrayList<>();
-            pessoa.setNumeroContatos(listContato);
-            pessoa.getNumeroContatos().add(contact);
+            cliente.setNumeroContatos(listContato);
+            cliente.getNumeroContatos().add(contact);
 
             /*NÃO A NECESSIDADE DE SALVAR O ENDERECO E NEM "CONTATO", POIS A CLASSE ESTÁ MAPEADA COMO CASCADE, ENTAO SÓ PRECISA
 SALVAR A CLASS PAI QUE AUTOMATICAMENTO SALVA A CLASSE FILHO */
-            banco.save(pessoa);
+            banco.save(cliente);
 
 //            LIMPA OS CAMPOS DO FORMULARIO
             // pessoa
@@ -783,7 +810,7 @@ SALVAR A CLASS PAI QUE AUTOMATICAMENTO SALVA A CLASSE FILHO */
             field_Rua.setText("");
             field_cep.setText("00000-000");
             field_bairro.setText("");
-            field_numeroCasa.setText("");
+            field_numeroCasa.setText("0000000");
             field_cidade.setText("");
             field_estado.setText("");
             field_complement.setText("");
@@ -793,4 +820,27 @@ SALVAR A CLASS PAI QUE AUTOMATICAMENTO SALVA A CLASSE FILHO */
         }
     }
 
+    private void preencherTable() {
+
+        String pesquisa = fieldSearch.getText();
+        List<Fornecedor> forne = new ArrayList<>();
+        Conexao banco = new Conexao();
+
+        for (int i = 0; i < banco.list_Fornecedores().size(); i++) {
+            if (banco.list_Fornecedores().get(i).getNome().contains(pesquisa)) {   // VERIFICA SE O NOME CONTEM NO BANCO DE DADOS
+                Fornecedor f = banco.list_Fornecedores().get(i);
+                forne.add(f);
+            }
+        }
+
+        DefaultTableModel tabela = (DefaultTableModel) tableSupplier.getModel();
+        try {
+            tabela.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
+            for (Fornecedor f : forne) {
+                tabela.addRow(new Object[]{f.getIdFornecedor(), f.getNome(), f.getHomePage(), f.getContatos().get(0).getFone()});
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "<Item não encontrado!!>");
+        }
+    }
 }

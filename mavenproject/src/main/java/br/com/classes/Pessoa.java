@@ -29,29 +29,10 @@ public class Pessoa {
     @OneToOne(fetch = FetchType.EAGER)
     @Cascade({CascadeType.SAVE_UPDATE, CascadeType.PERSIST})
     private Endereco endereco;
-    
-    @OneToOne(fetch = FetchType.EAGER)
-    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.PERSIST})
-    private Cliente cliente;
-    
-    @OneToOne(fetch = FetchType.EAGER)
-    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.PERSIST})
-    private Usuario usuario;
-    
-//    @Column(name = "Nome", length = 65)
     private String nome;
-    
-//    @Column(name = "CPF")
     private Long cpf;
-    
-//    @Column(name = "E-Mail", length = 45)
     private String email;
-    
-//    @Column(name = "Status", nullable = false)
     private boolean status;
-    
-//    @Temporal(TemporalType.DATE)
-//    @Column(name = "Data_Nascimento", length = 10)
     private Date dataNascimento;
     
     @OneToMany(fetch = FetchType.EAGER)
@@ -61,11 +42,9 @@ public class Pessoa {
     public Pessoa() {
     }
 
-    public Pessoa(int idpessoa, Endereco endereco, Cliente cliente, Usuario usuario, String nome, Long cpf, String email, boolean status, Date dataNascimento, List<NumeroContato> numeroContatos) {
+    public Pessoa(int idpessoa, Endereco endereco, String nome, Long cpf, String email, boolean status, Date dataNascimento, List<NumeroContato> numeroContatos) {
         this.idpessoa = idpessoa;
         this.endereco = endereco;
-        this.cliente = cliente;
-        this.usuario = usuario;
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
@@ -89,23 +68,7 @@ public class Pessoa {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
+    
     public String getNome() {
         return nome;
     }
@@ -154,6 +117,4 @@ public class Pessoa {
         this.numeroContatos = numeroContatos;
     }
     
-    
-
 }

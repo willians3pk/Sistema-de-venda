@@ -2,6 +2,7 @@ package br.com.classes;
 
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,51 +16,16 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "usuario")
-public class Usuario {
+public class Usuario extends Pessoa{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "Cod_Usuario", unique = true, nullable = false)
-    private int idusuario;
-
-//    @Temporal(TemporalType.DATE)
-//    @Column(name = "Data_Emissao", length = 10)
     private Date dataEmissao;
-//    @Temporal(TemporalType.DATE)
-//    @Column(name = "Data_Demissao", length = 10)
     private Date dataDemissao;
-    
-//    @Column(name="Previlegios")
     private int previlegios;
     
-//    @Column(name="Status")
-    private boolean status;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Venda> vendas;
     
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Venda> venda;
-    
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Pessoa> pessoa;
-
     public Usuario() {
-    }
-
-    public Usuario(int idusuario, Date dataEmissao, Date dataDemissao, int previlegios, Boolean status, List<Venda> venda, List<Pessoa> pessoa) {
-        this.idusuario = idusuario;
-        this.dataEmissao = dataEmissao;
-        this.dataDemissao = dataDemissao;
-        this.previlegios = previlegios;
-        this.status = status;
-        this.venda = venda;
-        this.pessoa = pessoa;
-    }
-
-    public int getIdusuario() {
-        return idusuario;
-    }
-
-    public void setIdusuario(int idusuario) {
-        this.idusuario = idusuario;
     }
 
     public Date getDataEmissao() {
@@ -86,28 +52,12 @@ public class Usuario {
         this.previlegios = previlegios;
     }
 
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
     public List<Venda> getVenda() {
-        return venda;
+        return vendas;
     }
 
     public void setVenda(List<Venda> venda) {
-        this.venda = venda;
+        this.vendas = venda;
     }
-
-    public List<Pessoa> getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(List<Pessoa> pessoa) {
-        this.pessoa = pessoa;
-    }
-
+    
 }

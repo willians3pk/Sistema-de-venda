@@ -201,20 +201,19 @@ public class ProductScreen extends javax.swing.JPanel {
 
         camp_Buyprice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
         camp_Buyprice.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                camp_BuypriceKeyPressed(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 camp_BuypriceKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                camp_BuypriceKeyTyped(evt);
             }
         });
         jPanel2.add(camp_Buyprice);
         camp_Buyprice.setBounds(20, 110, 140, 32);
 
         camp_Sellprice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
+        camp_Sellprice.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                camp_SellpriceKeyReleased(evt);
+            }
+        });
         jPanel2.add(camp_Sellprice);
         camp_Sellprice.setBounds(20, 180, 140, 32);
 
@@ -303,9 +302,9 @@ public class ProductScreen extends javax.swing.JPanel {
         obrigatorioQnt.setBounds(230, 90, 100, 16);
 
         obrigatorioDate.setForeground(new java.awt.Color(255, 0, 0));
-        obrigatorioDate.setText("*");
+        obrigatorioDate.setText("* obrigatorio");
         jPanel2.add(obrigatorioDate);
-        obrigatorioDate.setBounds(930, 110, 30, 16);
+        obrigatorioDate.setBounds(930, 110, 100, 16);
 
         obrigatorioSupplier.setForeground(new java.awt.Color(255, 0, 0));
         obrigatorioSupplier.setText("* obrigatorio");
@@ -388,17 +387,12 @@ public class ProductScreen extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_NewSupplierActionPerformed
 
     private void camp_BuypriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_BuypriceKeyReleased
-//        camp_Buyprice.setText("R$");
+        buyPrice();
     }//GEN-LAST:event_camp_BuypriceKeyReleased
 
-    private void camp_BuypriceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_BuypriceKeyTyped
-//        camp_Buyprice.setText("R$");
-    }//GEN-LAST:event_camp_BuypriceKeyTyped
-
-    private void camp_BuypriceKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_BuypriceKeyPressed
-        camp_Buyprice.setText("R$");
-
-    }//GEN-LAST:event_camp_BuypriceKeyPressed
+    private void camp_SellpriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_SellpriceKeyReleased
+        sellPrice();
+    }//GEN-LAST:event_camp_SellpriceKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -467,6 +461,11 @@ public class ProductScreen extends javax.swing.JPanel {
         } else {
             obrigatorioPriceSell.setVisible(true);
         }
+        if (camp_Deliverydate.getText().length() > 0) {
+            obrigatorioDate.setVisible(false);
+        } else {
+            obrigatorioDate.setVisible(true);
+        }
 
         if ((camp_ProductName.getText().length() > 0)
                 && (camp_Buyprice.getText().length() > 0)
@@ -478,8 +477,8 @@ public class ProductScreen extends javax.swing.JPanel {
             Produto newProduct = new Produto(); // cria um novo produto;
             String size = null;
 
-            Long priceBuy = Long.parseLong(camp_Buyprice.getText().replaceAll(",", "").replace(".", ""));//remove a virgula e adiciona apenas os numeros decimais
-            Long priceSell = Long.parseLong(camp_Sellprice.getText().replaceAll(",", "").replace(".", "")); //remove a virgula e adiciona apenas os numeros decimais
+            Long priceBuy = Long.parseLong(camp_Buyprice.getText().replaceAll(",", "").replace(".", "").replace("R$", ""));//remove a virgula e adiciona apenas os numeros decimais
+            Long priceSell = Long.parseLong(camp_Sellprice.getText().replaceAll(",", "").replace(".", "").replace("R$", "")); //remove a virgula e adiciona apenas os numeros decimais
             Long code = Long.parseLong(camp_Code.getText());
             int qnt = Integer.parseInt(camp_Qnt.getText());
             Long totalvalue = (priceSell * qnt);
@@ -603,9 +602,13 @@ public class ProductScreen extends javax.swing.JPanel {
             tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR PARA NAO HAVER DUPLICAÇÃO DE ITENS;
             for (Produto item : items) {
 
-                x = item.getValor_total();
-                tableDefault.addRow(new Object[]{item.getIdProduto(), formato.format(item.getDataEntrega()), item.getNome(), dinheiro.format(item.getValor_venda()),
-                    item.getQnt(), item.getFornecedor().getNome(), item.getTamanho(), dinheiro.format(item.getValor_total())});
+                float sellprice = Float.parseFloat(item.getValor_venda().toString());
+                float totalprice = Float.parseFloat(item.getValor_total().toString());
+                
+                x = totalprice/100;
+
+                tableDefault.addRow(new Object[]{item.getIdProduto(), formato.format(item.getDataEntrega()), item.getNome(), sellprice / 100,
+                    item.getQnt(), item.getFornecedor().getNome(), item.getTamanho(), totalprice / 100});
 
                 // calculo do valor lucro bruto
                 y = z + x;
@@ -638,6 +641,22 @@ public class ProductScreen extends javax.swing.JPanel {
                 }
             }
 
+        }
+    }
+
+    public void buyPrice() {
+        String numero = camp_Buyprice.getText().trim();
+        if (!numero.equals("")) {
+            float preco = Float.parseFloat(numero);
+            camp_Buyprice.setText("R$" + preco);
+        }
+    }
+
+    public void sellPrice() {
+        String numero = camp_Sellprice.getText().trim();
+        if (!numero.equals("")) {
+            float preco = Float.parseFloat(numero);
+            camp_Sellprice.setText("R$" + numero);
         }
     }
 

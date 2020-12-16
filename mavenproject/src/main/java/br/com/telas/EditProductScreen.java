@@ -77,11 +77,21 @@ public class EditProductScreen extends javax.swing.JFrame {
         jPanel2.add(jScrollPane2);
         jScrollPane2.setBounds(20, 240, 380, 110);
 
-        camp_Buyprice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        camp_Buyprice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
+        camp_Buyprice.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                camp_BuypriceKeyReleased(evt);
+            }
+        });
         jPanel2.add(camp_Buyprice);
         camp_Buyprice.setBounds(20, 110, 140, 32);
 
-        camp_Sellprice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        camp_Sellprice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
+        camp_Sellprice.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                camp_SellpriceKeyReleased(evt);
+            }
+        });
         jPanel2.add(camp_Sellprice);
         camp_Sellprice.setBounds(20, 180, 140, 32);
 
@@ -194,6 +204,14 @@ public class EditProductScreen extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void camp_BuypriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_BuypriceKeyReleased
+        buyPrice();
+    }//GEN-LAST:event_camp_BuypriceKeyReleased
+
+    private void camp_SellpriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_SellpriceKeyReleased
+        sellPrice();
+    }//GEN-LAST:event_camp_SellpriceKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -294,9 +312,9 @@ public class EditProductScreen extends javax.swing.JFrame {
 
             String size = null;
 
-            Long priceBuy = Long.parseLong(camp_Buyprice.getText().replaceAll(",", "").replace(".", ""));//remove a virgula e adiciona apenas os numeros decimais
-            Long priceSell = Long.parseLong(camp_Sellprice.getText().replaceAll(",", "").replace(".", "")); //remove a virgula e adiciona apenas os numeros decimais
-            Long code = Long.parseLong(camp_Code.getText());
+            Long priceBuy = Long.parseLong(camp_Buyprice.getText().replaceAll(",", "").replace(".", "").replace("R$", ""));//remove a virgula e adiciona apenas os numeros decimais
+            Long priceSell = Long.parseLong(camp_Sellprice.getText().replaceAll(",", "").replace(".", "").replace("R$", "")); //remove a virgula e adiciona apenas os numeros decimais
+//            Long code = Long.parseLong(camp_Code.getText()); // CORRIGIR ESSA LINHA DE CODIGO NAO ESQUECER
             int qnt = Integer.parseInt(camp_Qnt.getText());
             Long totalvalue = (priceSell * qnt);
 
@@ -309,17 +327,17 @@ public class EditProductScreen extends javax.swing.JFrame {
             produto.setNome(camp_ProductName.getText());
             produto.setValor_compra(priceBuy);
             produto.setValor_venda(priceSell);
-            produto.setCodigo(code);
+//            produto.setCodigo(code); // CORRIGIR ESSA LINHA DE CODIGO NAO ESQUECER
             produto.setStatus(true);
             produto.setExcluido(false);
             produto.setQnt(qnt);
             produto.setDescricao(camp_Description.getText());
-            
+
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
             Date data = new Date(camp_Deliverydate.getText());
-            
+
             produto.setDataEntrega(data);
-            
+
             produto.setValor_total(totalvalue);
 
             if (comboBox_Size.getSelectedItem().toString().equals("<selecione>")) {
@@ -339,15 +357,34 @@ public class EditProductScreen extends javax.swing.JFrame {
 
     }
 
+    public void buyPrice() {
+        String numero = camp_Buyprice.getText().trim();
+        if (!numero.equals("")) {
+            float preco = Float.parseFloat(numero);
+            camp_Buyprice.setText("R$" + preco);
+        }
+    }
+
+    public void sellPrice() {
+        String numero = camp_Sellprice.getText().trim();
+        if (!numero.equals("")) {
+            float preco = Float.parseFloat(numero);
+            camp_Sellprice.setText("R$" + preco);
+        }
+    }
+
     public void loadingCampos() {
 
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
-
+        float buyprice = Float.parseFloat(produto.getValor_compra().toString());
+        float sellprice = Float.parseFloat(produto.getValor_venda().toString());
+        
         // ADICIONA OS ATRIBUTOS DO ITEM NOS CAMPOS PARA SER EDITADOS;
+        
         camp_ProductName.setText(produto.getNome());
-        camp_Code.setText(produto.getCodigo().toString());
-        camp_Buyprice.setText(produto.getValor_compra().toString());
-        camp_Sellprice.setText(produto.getValor_venda().toString());
+//        camp_Code.setText(produto.getCodigo().toString()); 
+        camp_Buyprice.setText("R$"+buyprice/100);
+        camp_Sellprice.setText("R$"+sellprice/100);
         camp_Qnt.setText(String.valueOf(produto.getQnt()));
         camp_Description.setText(produto.getDescricao());
         camp_Deliverydate.setText(formato.format(produto.getDataEntrega()));
