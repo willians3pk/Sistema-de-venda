@@ -22,7 +22,7 @@ public class Fornecedor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Cod_Fornecedor", unique = true, nullable = false)
-    private int idFornecedor;
+    private Integer idFornecedor;
     private String nome;
     private Long cnpj;
     private Long cpf;
@@ -44,7 +44,7 @@ public class Fornecedor {
     public Fornecedor() {
     }
 
-    public Fornecedor(int idFornecedor, Endereco endereco, String nome, Long cnpj, Long cpf, String email, String homePage, List<Produto> list_Produto, List<NumeroContato> contatos) {
+    public Fornecedor(Integer idFornecedor, Endereco endereco, String nome, Long cnpj, Long cpf, String email, String homePage, List<Produto> list_Produto, List<NumeroContato> contatos) {
         this.idFornecedor = idFornecedor;
         this.endereco = endereco;
         this.nome = nome;
@@ -56,11 +56,11 @@ public class Fornecedor {
         this.contatos = contatos;
     }
 
-    public int getIdFornecedor() {
+    public Integer getIdFornecedor() {
         return idFornecedor;
     }
 
-    public void setIdFornecedor(int idFornecedor) {
+    public void setIdFornecedor(Integer idFornecedor) {
         this.idFornecedor = idFornecedor;
     }
 

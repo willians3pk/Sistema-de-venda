@@ -61,7 +61,7 @@ public class ProductScreen extends javax.swing.JPanel {
         comboBox_Size = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         btn_Register = new javax.swing.JButton();
-        camp_Code = new javax.swing.JFormattedTextField();
+        camp_apelido = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         btn_NewSupplier = new javax.swing.JButton();
@@ -249,10 +249,10 @@ public class ProductScreen extends javax.swing.JPanel {
         });
         jPanel2.add(btn_Register);
         btn_Register.setBounds(1010, 240, 90, 36);
-        jPanel2.add(camp_Code);
-        camp_Code.setBounds(650, 130, 157, 32);
+        jPanel2.add(camp_apelido);
+        camp_apelido.setBounds(650, 130, 157, 32);
 
-        jLabel7.setText("Codigo:");
+        jLabel7.setText("Apelido:");
         jPanel2.add(jLabel7);
         jLabel7.setBounds(650, 110, 70, 16);
 
@@ -405,7 +405,6 @@ public class ProductScreen extends javax.swing.JPanel {
     private javax.swing.JButton btn_Search;
     public javax.swing.JButton btn_ToEdit;
     private javax.swing.JFormattedTextField camp_Buyprice;
-    private javax.swing.JFormattedTextField camp_Code;
     private javax.swing.JFormattedTextField camp_Deliverydate;
     private javax.swing.JTextPane camp_Description;
     private javax.swing.JTextField camp_ProductName;
@@ -413,6 +412,7 @@ public class ProductScreen extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField camp_Qnt;
     private javax.swing.JTextField camp_SearchProduct;
     private javax.swing.JFormattedTextField camp_Sellprice;
+    private javax.swing.JFormattedTextField camp_apelido;
     private javax.swing.JComboBox<String> comboBox_Size;
     private javax.swing.JComboBox<String> comboBox_Supplier;
     private javax.swing.JLabel jLabel1;
@@ -479,7 +479,6 @@ public class ProductScreen extends javax.swing.JPanel {
 
             Long priceBuy = Long.parseLong(camp_Buyprice.getText().replaceAll(",", "").replace(".", "").replace("R$", ""));//remove a virgula e adiciona apenas os numeros decimais
             Long priceSell = Long.parseLong(camp_Sellprice.getText().replaceAll(",", "").replace(".", "").replace("R$", "")); //remove a virgula e adiciona apenas os numeros decimais
-            Long code = Long.parseLong(camp_Code.getText());
             int qnt = Integer.parseInt(camp_Qnt.getText());
             Long totalvalue = (priceSell * qnt);
 
@@ -499,7 +498,7 @@ public class ProductScreen extends javax.swing.JPanel {
                 newProduct.setNome(camp_ProductName.getText());
                 newProduct.setValor_compra(priceBuy);
                 newProduct.setValor_venda(priceSell);
-//                newProduct.setCodigo(code);
+                newProduct.setApelido(camp_apelido.getText());
                 newProduct.setStatus(true);
                 newProduct.setExcluido(false);
                 newProduct.setQnt(qnt);
@@ -517,7 +516,7 @@ public class ProductScreen extends javax.swing.JPanel {
                     /*                      LIMPA OS CAMPOS                 */
                     connectbanco.save(newProduct);
                     camp_ProductName.setText("");
-                    camp_Code.setText("");
+                    camp_apelido.setText("");
                     camp_Buyprice.setText("");
                     camp_Sellprice.setText("");
                     camp_Qnt.setText("");

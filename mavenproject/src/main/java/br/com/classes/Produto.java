@@ -50,7 +50,7 @@ public class Produto {
     private String tamanho;
 
 //    @Column(name = "CodigoBarra", nullable = false)
-    private Long codigo;
+    private String apelido;
 
 //    @Column(name = "Qnt")
     private int qnt;
@@ -68,7 +68,7 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(Integer idProduto, Fornecedor fornecedor, String nome, Long valor_compra, Long valor_venda, Long valor_total, boolean status, boolean excluido, String tamanho, Long codigo, int qnt, String descricao, Date dataEntrega, List<ItensVenda> itensVendas) {
+    public Produto(Integer idProduto, Fornecedor fornecedor, String nome, Long valor_compra, Long valor_venda, Long valor_total, boolean status, boolean excluido, String tamanho, String apelido, int qnt, String descricao, Date dataEntrega, List<ItensVenda> itensVendas) {
         this.idProduto = idProduto;
         this.fornecedor = fornecedor;
         this.nome = nome;
@@ -78,7 +78,7 @@ public class Produto {
         this.status = status;
         this.excluido = excluido;
         this.tamanho = tamanho;
-        this.codigo = codigo;
+        this.apelido = apelido;
         this.qnt = qnt;
         this.descricao = descricao;
         this.dataEntrega = dataEntrega;
@@ -157,12 +157,12 @@ public class Produto {
         this.tamanho = tamanho;
     }
 
-    public Long getCodigo() {
-        return codigo;
+    public String getApelido() {
+        return apelido;
     }
 
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
+    public void setApelido(String apelido) {
+        this.apelido = apelido;
     }
 
     public int getQnt() {
@@ -201,7 +201,7 @@ public class Produto {
     public String toString() {
         return "--------------------------------------------------------------------------------------"
                 + "\nDescrição:      " + "    Codigo:       " + "     Qnt:     " + "    valor unitario:\n"
-                + this.nome + "            " + this.codigo + "                   " + this.qnt + "            " + this.valor_venda / 100;
+                + this.nome + "            " + this.apelido + "                   " + this.qnt + "            " + this.valor_venda / 100;
 
     }
 }

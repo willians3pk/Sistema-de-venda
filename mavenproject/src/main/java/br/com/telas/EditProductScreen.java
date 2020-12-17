@@ -41,7 +41,6 @@ public class EditProductScreen extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         comboBox_Size = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        camp_Code = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         camp_Deliverydate = new javax.swing.JFormattedTextField();
@@ -54,6 +53,7 @@ public class EditProductScreen extends javax.swing.JFrame {
         obrigatorioSupplier = new javax.swing.JLabel();
         btn_save = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        camp_Apelido = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -118,10 +118,8 @@ public class EditProductScreen extends javax.swing.JFrame {
         jLabel6.setText("Tamanho:");
         jPanel2.add(jLabel6);
         jLabel6.setBounds(350, 90, 80, 16);
-        jPanel2.add(camp_Code);
-        camp_Code.setBounds(200, 180, 157, 32);
 
-        jLabel7.setText("Codigo:");
+        jLabel7.setText("Apelido:");
         jPanel2.add(jLabel7);
         jLabel7.setBounds(200, 160, 70, 16);
 
@@ -188,6 +186,8 @@ public class EditProductScreen extends javax.swing.JFrame {
         });
         jPanel2.add(jButton1);
         jButton1.setBounds(668, 350, 90, 36);
+        jPanel2.add(camp_Apelido);
+        camp_Apelido.setBounds(200, 180, 150, 32);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(10, 10, 890, 400);
@@ -249,8 +249,8 @@ public class EditProductScreen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_save;
+    private javax.swing.JTextField camp_Apelido;
     private javax.swing.JFormattedTextField camp_Buyprice;
-    private javax.swing.JFormattedTextField camp_Code;
     private javax.swing.JFormattedTextField camp_Deliverydate;
     private javax.swing.JTextPane camp_Description;
     private javax.swing.JTextField camp_ProductName;
@@ -382,7 +382,7 @@ public class EditProductScreen extends javax.swing.JFrame {
         // ADICIONA OS ATRIBUTOS DO ITEM NOS CAMPOS PARA SER EDITADOS;
         
         camp_ProductName.setText(produto.getNome());
-//        camp_Code.setText(produto.getCodigo().toString()); 
+        camp_Apelido.setText(produto.getApelido());
         camp_Buyprice.setText("R$"+buyprice/100);
         camp_Sellprice.setText("R$"+sellprice/100);
         camp_Qnt.setText(String.valueOf(produto.getQnt()));
