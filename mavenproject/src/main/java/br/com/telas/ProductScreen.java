@@ -37,7 +37,7 @@ public class ProductScreen extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         table_Product = new javax.swing.JTable();
         camp_SearchProduct = new javax.swing.JTextField();
-        btn_Search = new javax.swing.JButton();
+        btn_update = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         box_Size = new javax.swing.JCheckBox();
         box_Price = new javax.swing.JCheckBox();
@@ -108,17 +108,23 @@ public class ProductScreen extends javax.swing.JPanel {
 
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(10, 160, 1090, 130);
+
+        camp_SearchProduct.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                camp_SearchProductKeyReleased(evt);
+            }
+        });
         jPanel1.add(camp_SearchProduct);
         camp_SearchProduct.setBounds(10, 90, 470, 32);
 
-        btn_Search.setText("Buscar");
-        btn_Search.addActionListener(new java.awt.event.ActionListener() {
+        btn_update.setText("Atualizar");
+        btn_update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_SearchActionPerformed(evt);
+                btn_updateActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Search);
-        btn_Search.setBounds(510, 90, 100, 36);
+        jPanel1.add(btn_update);
+        btn_update.setBounds(510, 90, 100, 36);
 
         jLabel1.setText("Pesquisar:");
         jPanel1.add(jLabel1);
@@ -356,11 +362,11 @@ public class ProductScreen extends javax.swing.JPanel {
         btn_Deactivate.setEnabled(true);
     }//GEN-LAST:event_table_ProductMouseClicked
 
-    private void btn_SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SearchActionPerformed
-        updateTableProduct();
+    private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed
+        loadingTableProduct();
         btn_ToEdit.setEnabled(false);
         btn_Deactivate.setEnabled(false);
-    }//GEN-LAST:event_btn_SearchActionPerformed
+    }//GEN-LAST:event_btn_updateActionPerformed
 
     private void btn_DeactivateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DeactivateActionPerformed
         DeactivateItens();
@@ -394,6 +400,10 @@ public class ProductScreen extends javax.swing.JPanel {
         sellPrice();
     }//GEN-LAST:event_camp_SellpriceKeyReleased
 
+    private void camp_SearchProductKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_SearchProductKeyReleased
+        loadingTableProduct();
+    }//GEN-LAST:event_camp_SearchProductKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox box_Price;
@@ -402,8 +412,8 @@ public class ProductScreen extends javax.swing.JPanel {
     public javax.swing.JButton btn_Deactivate;
     private javax.swing.JButton btn_NewSupplier;
     private javax.swing.JButton btn_Register;
-    private javax.swing.JButton btn_Search;
     public javax.swing.JButton btn_ToEdit;
+    private javax.swing.JButton btn_update;
     private javax.swing.JFormattedTextField camp_Buyprice;
     private javax.swing.JFormattedTextField camp_Deliverydate;
     private javax.swing.JTextPane camp_Description;
@@ -524,7 +534,7 @@ public class ProductScreen extends javax.swing.JPanel {
                     camp_Deliverydate.setText("");
                     comboBox_Size.setSelectedIndex(0);
 
-                    updateTableProduct();
+                    loadingTableProduct();
                     JOptionPane.showMessageDialog(null, "Produto Salvo Com Sucesso!");
                 }
             } catch (Exception e) {
@@ -537,7 +547,7 @@ public class ProductScreen extends javax.swing.JPanel {
         }
     }
 
-    public void updateTableProduct() {
+    public void loadingTableProduct() {
 
         String pesquisa = camp_SearchProduct.getText();
         List<Produto> items = new ArrayList<>();
@@ -635,8 +645,9 @@ public class ProductScreen extends javax.swing.JPanel {
                     Produto item = connectbanco.productBook().get(i);
                     item.setStatus(false);
                     connectbanco.update(item);
-                    updateTableProduct();
+                    loadingTableProduct();
                     JOptionPane.showMessageDialog(null, "Item *DESATIVADOS* com Sucesso!");
+                    break;
                 }
             }
 
@@ -668,7 +679,7 @@ public class ProductScreen extends javax.swing.JPanel {
                     comboBox.addElement(fornecedor.getNome());
                     comboBox_Supplier.setModel(comboBox);           // ADICIONA OS FORNECEDORES NA COMBOBOX;
                 }
-                updateTableProduct();
+                loadingTableProduct();
             }
         };
         t.start();

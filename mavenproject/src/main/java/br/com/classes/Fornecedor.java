@@ -1,6 +1,7 @@
 package br.com.classes;
 
 import br.com.conexao.Conexao;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,6 +29,7 @@ public class Fornecedor {
     private Long cpf;
     private String email;
     private String homePage;
+    private Date dataCadastro;
 
     @OneToOne(fetch = FetchType.EAGER)
     @Cascade({CascadeType.PERSIST, CascadeType.SAVE_UPDATE})
@@ -128,14 +130,12 @@ public class Fornecedor {
         this.contatos = contatos;
     }
 
-    public NumeroContato getcontato() {
-        Conexao banco = new Conexao();
-        for (NumeroContato contato : banco.list_Contatos()) {
-            if (contato.getFornecedor().getIdFornecedor() == this.getIdFornecedor()) {
-                return contato;
-            }
-        }
-        return null;
+    public Date getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
     }
 
 }

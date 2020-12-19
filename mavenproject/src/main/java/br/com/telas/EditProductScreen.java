@@ -300,7 +300,7 @@ public class EditProductScreen extends javax.swing.JFrame {
             obrigatorioPriceSell.setVisible(true);
         }
 
-        int confirmacao = JOptionPane.showConfirmDialog(null, "Você Deseja Realmente alterar *OS DADOS DESSE ITEN*?", "Salvar?", JOptionPane.YES_NO_OPTION);
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Você Deseja Realmente alterar *OS DADOS DESSE ITEM*?", "Salvar?", JOptionPane.YES_NO_OPTION);
 
         if ((camp_ProductName.getText().length() > 0)
                 && (camp_Buyprice.getText().length() > 0)
@@ -314,10 +314,10 @@ public class EditProductScreen extends javax.swing.JFrame {
 
             Long priceBuy = Long.parseLong(camp_Buyprice.getText().replaceAll(",", "").replace(".", "").replace("R$", ""));//remove a virgula e adiciona apenas os numeros decimais
             Long priceSell = Long.parseLong(camp_Sellprice.getText().replaceAll(",", "").replace(".", "").replace("R$", "")); //remove a virgula e adiciona apenas os numeros decimais
-//            Long code = Long.parseLong(camp_Code.getText()); // CORRIGIR ESSA LINHA DE CODIGO NAO ESQUECER
             int qnt = Integer.parseInt(camp_Qnt.getText());
             Long totalvalue = (priceSell * qnt);
 
+            // PEGA O FORNECEDOR DA COMBOBOX;
             Fornecedor forne = null;
             int posicao = comboBox_Supplier.getSelectedIndex();
             forne = connectbanco.list_Fornecedores().get(posicao);
@@ -327,7 +327,7 @@ public class EditProductScreen extends javax.swing.JFrame {
             produto.setNome(camp_ProductName.getText());
             produto.setValor_compra(priceBuy);
             produto.setValor_venda(priceSell);
-//            produto.setCodigo(code); // CORRIGIR ESSA LINHA DE CODIGO NAO ESQUECER
+            produto.setApelido(camp_Apelido.getText());
             produto.setStatus(true);
             produto.setExcluido(false);
             produto.setQnt(qnt);
@@ -335,10 +335,8 @@ public class EditProductScreen extends javax.swing.JFrame {
 
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
             Date data = new Date(camp_Deliverydate.getText());
-
-            produto.setDataEntrega(data);
-
-            produto.setValor_total(totalvalue);
+            produto.setDataEntrega(data);// ADICIONA A DATA;
+            produto.setValor_total(totalvalue); // ADICIONA O VALOR TOTAL;
 
             if (comboBox_Size.getSelectedItem().toString().equals("<selecione>")) {
                 JOptionPane.showMessageDialog(null, "Selecione o Tamanho!!");
@@ -378,13 +376,12 @@ public class EditProductScreen extends javax.swing.JFrame {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
         float buyprice = Float.parseFloat(produto.getValor_compra().toString());
         float sellprice = Float.parseFloat(produto.getValor_venda().toString());
-        
+
         // ADICIONA OS ATRIBUTOS DO ITEM NOS CAMPOS PARA SER EDITADOS;
-        
         camp_ProductName.setText(produto.getNome());
         camp_Apelido.setText(produto.getApelido());
-        camp_Buyprice.setText("R$"+buyprice/100);
-        camp_Sellprice.setText("R$"+sellprice/100);
+        camp_Buyprice.setText("R$" + buyprice / 100);
+        camp_Sellprice.setText("R$" + sellprice / 100);
         camp_Qnt.setText(String.valueOf(produto.getQnt()));
         camp_Description.setText(produto.getDescricao());
         camp_Deliverydate.setText(formato.format(produto.getDataEntrega()));

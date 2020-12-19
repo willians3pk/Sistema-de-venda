@@ -12,6 +12,10 @@ public class Main {
        
         
         Conexao connect = new Conexao();
+        Pessoa client = new Pessoa();
+        client = null;
+        client = connect.list_Cliente().get(0);
+        System.out.println(client.getNome());
         
     }
     

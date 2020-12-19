@@ -6,6 +6,7 @@ import br.com.classes.Endereco;
 import br.com.classes.Fornecedor;
 import br.com.classes.NumeroContato;
 import br.com.classes.Pessoa;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,14 +18,22 @@ import javax.swing.table.DefaultTableModel;
 public class RegistrationScreen extends javax.swing.JPanel {
 
     Fornecedor f = null;
+    Cliente cliente = null;
 
     public RegistrationScreen() {
         initComponents();
-        preencherTable();
-        jpanelSupplier.setVisible(false);
-        btn_edit.setEnabled(false);
-        btn_save.setEnabled(false);
-        btn_cancelar.setEnabled(false);
+        preencherTableSupplier();
+        preencherTableClient();
+//      tela fornecedor;
+        btn_edit.setEnabled(false); //botao editar da tela fornecedor;
+        btn_save.setEnabled(false); // botao salvar da tela fornecedor;
+        btn_cancelar.setEnabled(false); // botao cancelar da tela fornecedor;
+
+//      tela cliente;        
+        btn_edit1.setEnabled(false); // botao editar da tela cliente;
+        btn_save1.setEnabled(false); // botao editar da tela cliente;
+        btn_cancelar1.setEnabled(false); // botao editar da tela cancelar;
+
     }
 
     @SuppressWarnings("unchecked")
@@ -65,7 +74,6 @@ public class RegistrationScreen extends javax.swing.JPanel {
         jLabel39 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         camp_ComplementSupplier = new javax.swing.JTextPane();
-        obrigatorioRua = new javax.swing.JLabel();
         btn_Register = new javax.swing.JButton();
         btn_limpall = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -74,14 +82,12 @@ public class RegistrationScreen extends javax.swing.JPanel {
         field_Name = new javax.swing.JTextField();
         field_cpf = new javax.swing.JFormattedTextField();
         filed_Email = new javax.swing.JTextField();
-        field_homePage = new javax.swing.JTextField();
         field_contact = new javax.swing.JFormattedTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
         field_DDD = new javax.swing.JFormattedTextField();
         jLabel20 = new javax.swing.JLabel();
         field_date = new javax.swing.JFormattedTextField();
@@ -110,7 +116,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         tableSupplier = new javax.swing.JTable();
         fieldSearch = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        btn_buscar = new javax.swing.JButton();
+        btn_update = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jpanelSupplier = new javax.swing.JPanel();
         camp_SupplierName1 = new javax.swing.JTextField();
@@ -147,6 +153,46 @@ public class RegistrationScreen extends javax.swing.JPanel {
         btn_save = new javax.swing.JButton();
         btn_cancelar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jPanel5 = new javax.swing.JPanel();
+        jInternalFrame2 = new javax.swing.JInternalFrame();
+        jPanel11 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tableClient = new javax.swing.JTable();
+        fieldSearch1 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        btn_update1 = new javax.swing.JButton();
+        jPanel12 = new javax.swing.JPanel();
+        jpanelSupplier1 = new javax.swing.JPanel();
+        camp_ClientName = new javax.swing.JTextField();
+        camp_cpfClient = new javax.swing.JFormattedTextField();
+        camp_EmailClient = new javax.swing.JTextField();
+        jLabel53 = new javax.swing.JLabel();
+        jLabel54 = new javax.swing.JLabel();
+        jLabel55 = new javax.swing.JLabel();
+        jLabel57 = new javax.swing.JLabel();
+        camp_DDDClient = new javax.swing.JFormattedTextField();
+        jLabel59 = new javax.swing.JLabel();
+        camp_CEPClient = new javax.swing.JFormattedTextField();
+        jLabel60 = new javax.swing.JLabel();
+        camp_StateClient = new javax.swing.JTextField();
+        camp_NumbleHouseClient = new javax.swing.JFormattedTextField();
+        jLabel61 = new javax.swing.JLabel();
+        jLabel62 = new javax.swing.JLabel();
+        camp_AddressRuaClient = new javax.swing.JTextField();
+        jLabel63 = new javax.swing.JLabel();
+        jLabel64 = new javax.swing.JLabel();
+        camp_CityClient = new javax.swing.JTextField();
+        camp_BairroClient = new javax.swing.JTextField();
+        jLabel65 = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jListContatoClient = new javax.swing.JList<>();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        camp_ComplementClient = new javax.swing.JTextPane();
+        btn_edit1 = new javax.swing.JButton();
+        btn_save1 = new javax.swing.JButton();
+        btn_cancelar1 = new javax.swing.JButton();
+        jSeparator6 = new javax.swing.JSeparator();
 
         setLayout(null);
 
@@ -256,7 +302,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         camp_BairroSupplier.setBounds(20, 180, 270, 32);
 
         camp_NumbleHouseSupplier.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        camp_NumbleHouseSupplier.setText("0000");
+        camp_NumbleHouseSupplier.setText("00000000");
         jPanel9.add(camp_NumbleHouseSupplier);
         camp_NumbleHouseSupplier.setBounds(330, 180, 100, 32);
 
@@ -289,11 +335,6 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
         jPanel9.add(jScrollPane3);
         jScrollPane3.setBounds(540, 100, 520, 110);
-
-        obrigatorioRua.setForeground(new java.awt.Color(254, 1, 1));
-        obrigatorioRua.setText("* obrigatorio");
-        jPanel9.add(obrigatorioRua);
-        obrigatorioRua.setBounds(50, 20, 90, 16);
 
         jPanel1.add(jPanel9);
         jPanel9.setBounds(10, 250, 1090, 260);
@@ -334,11 +375,9 @@ public class RegistrationScreen extends javax.swing.JPanel {
         }
         field_cpf.setText("000.000.000-00");
         jPanel6.add(field_cpf);
-        field_cpf.setBounds(360, 170, 250, 32);
+        field_cpf.setBounds(320, 110, 250, 32);
         jPanel6.add(filed_Email);
         filed_Email.setBounds(20, 110, 280, 32);
-        jPanel6.add(field_homePage);
-        field_homePage.setBounds(20, 170, 280, 32);
 
         try {
             field_contact.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#########")));
@@ -347,7 +386,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         }
         field_contact.setText("000000000");
         jPanel6.add(field_contact);
-        field_contact.setBounds(440, 110, 130, 32);
+        field_contact.setBounds(100, 170, 130, 32);
 
         jLabel14.setText("Nome:");
         jPanel6.add(jLabel14);
@@ -355,23 +394,19 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
         jLabel15.setText("Contato:");
         jPanel6.add(jLabel15);
-        jLabel15.setBounds(440, 90, 130, 16);
+        jLabel15.setBounds(100, 150, 130, 16);
 
         jLabel16.setText("CPF:");
         jPanel6.add(jLabel16);
-        jLabel16.setBounds(360, 150, 70, 16);
+        jLabel16.setBounds(320, 90, 70, 16);
 
         jLabel17.setText("Data Nascimento:");
         jPanel6.add(jLabel17);
-        jLabel17.setBounds(630, 150, 160, 16);
+        jLabel17.setBounds(590, 90, 160, 16);
 
         jLabel18.setText("E-mail:");
         jPanel6.add(jLabel18);
         jLabel18.setBounds(20, 90, 80, 16);
-
-        jLabel19.setText("Home Page:");
-        jPanel6.add(jLabel19);
-        jLabel19.setBounds(20, 150, 130, 20);
 
         try {
             field_DDD.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
@@ -380,11 +415,11 @@ public class RegistrationScreen extends javax.swing.JPanel {
         }
         field_DDD.setText("00");
         jPanel6.add(field_DDD);
-        field_DDD.setBounds(360, 110, 60, 32);
+        field_DDD.setBounds(20, 170, 60, 32);
 
         jLabel20.setText("DDD:");
         jPanel6.add(jLabel20);
-        jLabel20.setBounds(360, 90, 60, 16);
+        jLabel20.setBounds(20, 150, 60, 16);
 
         try {
             field_date.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -392,7 +427,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             ex.printStackTrace();
         }
         jPanel6.add(field_date);
-        field_date.setBounds(630, 170, 100, 32);
+        field_date.setBounds(590, 110, 100, 32);
 
         jLabel2.setForeground(new java.awt.Color(255, 0, 0));
         jLabel2.setText("* obrigatorio");
@@ -422,7 +457,8 @@ public class RegistrationScreen extends javax.swing.JPanel {
         jPanel7.add(field_bairro);
         field_bairro.setBounds(20, 180, 270, 32);
 
-        field_numeroCasa.setText("0000");
+        field_numeroCasa.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        field_numeroCasa.setText("00000000");
         jPanel7.add(field_numeroCasa);
         field_numeroCasa.setBounds(330, 180, 100, 32);
 
@@ -484,7 +520,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         jInternalFrame1.setVisible(true);
         jInternalFrame1.getContentPane().setLayout(null);
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Fornecedores"));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fornecedores", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 24))); // NOI18N
         jPanel4.setLayout(null);
 
         tableSupplier.setModel(new javax.swing.table.DefaultTableModel(
@@ -519,25 +555,31 @@ public class RegistrationScreen extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tableSupplier);
 
         jPanel4.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 90, 1040, 100);
+        jScrollPane1.setBounds(20, 100, 1040, 100);
+
+        fieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                fieldSearchKeyReleased(evt);
+            }
+        });
         jPanel4.add(fieldSearch);
-        fieldSearch.setBounds(20, 40, 680, 32);
+        fieldSearch.setBounds(20, 50, 680, 32);
 
         jLabel1.setText("Nome:");
         jPanel4.add(jLabel1);
-        jLabel1.setBounds(20, 20, 50, 16);
+        jLabel1.setBounds(20, 30, 50, 16);
 
-        btn_buscar.setText("Buscar");
-        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
+        btn_update.setText("Atualizar");
+        btn_update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_buscarActionPerformed(evt);
+                btn_updateActionPerformed(evt);
             }
         });
-        jPanel4.add(btn_buscar);
-        btn_buscar.setBounds(720, 40, 90, 36);
+        jPanel4.add(btn_update);
+        btn_update.setBounds(720, 50, 90, 36);
 
         jInternalFrame1.getContentPane().add(jPanel4);
-        jPanel4.setBounds(10, 10, 1080, 200);
+        jPanel4.setBounds(10, 0, 1080, 210);
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel10.setLayout(null);
@@ -686,7 +728,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         jScrollPane5.setViewportView(camp_ComplementSupplier1);
 
         jpanelSupplier.add(jScrollPane5);
-        jScrollPane5.setBounds(450, 150, 360, 90);
+        jScrollPane5.setBounds(450, 150, 360, 100);
 
         btn_edit.setText("Editar");
         btn_edit.addActionListener(new java.awt.event.ActionListener() {
@@ -726,7 +768,240 @@ public class RegistrationScreen extends javax.swing.JPanel {
         jPanel3.add(jInternalFrame1);
         jInternalFrame1.setBounds(0, 0, 1110, 600);
 
-        jTabbedPane1.addTab("Cadastros", jPanel3);
+        jTabbedPane1.addTab("Cadastros/Fornecedor", jPanel3);
+
+        jPanel5.setLayout(null);
+
+        jInternalFrame2.setVisible(true);
+        jInternalFrame2.getContentPane().setLayout(null);
+
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 24))); // NOI18N
+        jPanel11.setLayout(null);
+
+        tableClient.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Cod_Fornecedor", "Nome", "Cliente Desde", "Contato"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableClient.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableClientMouseClicked(evt);
+            }
+        });
+        tableClient.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tableClientKeyReleased(evt);
+            }
+        });
+        jScrollPane6.setViewportView(tableClient);
+
+        jPanel11.add(jScrollPane6);
+        jScrollPane6.setBounds(20, 100, 1040, 100);
+
+        fieldSearch1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                fieldSearch1KeyReleased(evt);
+            }
+        });
+        jPanel11.add(fieldSearch1);
+        fieldSearch1.setBounds(20, 50, 680, 32);
+
+        jLabel3.setText("Nome:");
+        jPanel11.add(jLabel3);
+        jLabel3.setBounds(20, 30, 50, 16);
+
+        btn_update1.setText("Atualizar");
+        btn_update1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_update1ActionPerformed(evt);
+            }
+        });
+        jPanel11.add(btn_update1);
+        btn_update1.setBounds(720, 50, 90, 36);
+
+        jInternalFrame2.getContentPane().add(jPanel11);
+        jPanel11.setBounds(10, 0, 1080, 210);
+
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel12.setLayout(null);
+
+        jpanelSupplier1.setBorder(javax.swing.BorderFactory.createTitledBorder("Fornecedor"));
+        jpanelSupplier1.setLayout(null);
+
+        camp_ClientName.setEnabled(false);
+        jpanelSupplier1.add(camp_ClientName);
+        camp_ClientName.setBounds(20, 50, 380, 32);
+
+        try {
+            camp_cpfClient.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        camp_cpfClient.setText("000.000.000-00");
+        camp_cpfClient.setEnabled(false);
+        jpanelSupplier1.add(camp_cpfClient);
+        camp_cpfClient.setBounds(240, 110, 160, 32);
+
+        camp_EmailClient.setEnabled(false);
+        jpanelSupplier1.add(camp_EmailClient);
+        camp_EmailClient.setBounds(20, 110, 190, 32);
+
+        jLabel53.setText("Nome:");
+        jpanelSupplier1.add(jLabel53);
+        jLabel53.setBounds(20, 30, 80, 16);
+
+        jLabel54.setText("Contato:");
+        jpanelSupplier1.add(jLabel54);
+        jLabel54.setBounds(250, 160, 110, 20);
+
+        jLabel55.setText("CPF:");
+        jpanelSupplier1.add(jLabel55);
+        jLabel55.setBounds(240, 90, 70, 16);
+
+        jLabel57.setText("E-mail:");
+        jpanelSupplier1.add(jLabel57);
+        jLabel57.setBounds(20, 90, 80, 16);
+
+        try {
+            camp_DDDClient.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        camp_DDDClient.setText("00");
+        camp_DDDClient.setEnabled(false);
+        jpanelSupplier1.add(camp_DDDClient);
+        camp_DDDClient.setBounds(20, 180, 60, 32);
+
+        jLabel59.setText("DDD:");
+        jpanelSupplier1.add(jLabel59);
+        jLabel59.setBounds(20, 160, 60, 16);
+
+        try {
+            camp_CEPClient.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        camp_CEPClient.setText("00000-000");
+        camp_CEPClient.setEnabled(false);
+        jpanelSupplier1.add(camp_CEPClient);
+        camp_CEPClient.setBounds(760, 40, 120, 32);
+
+        jLabel60.setText("CEP:");
+        jpanelSupplier1.add(jLabel60);
+        jLabel60.setBounds(760, 20, 50, 16);
+
+        camp_StateClient.setEnabled(false);
+        jpanelSupplier1.add(camp_StateClient);
+        camp_StateClient.setBounds(690, 100, 100, 32);
+
+        camp_NumbleHouseClient.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        camp_NumbleHouseClient.setText("0000");
+        camp_NumbleHouseClient.setEnabled(false);
+        jpanelSupplier1.add(camp_NumbleHouseClient);
+        camp_NumbleHouseClient.setBounds(900, 40, 100, 32);
+
+        jLabel61.setText("Numero da Casa:");
+        jpanelSupplier1.add(jLabel61);
+        jLabel61.setBounds(900, 20, 130, 20);
+
+        jLabel62.setText("Estado:");
+        jpanelSupplier1.add(jLabel62);
+        jLabel62.setBounds(690, 80, 80, 16);
+
+        camp_AddressRuaClient.setEnabled(false);
+        jpanelSupplier1.add(camp_AddressRuaClient);
+        camp_AddressRuaClient.setBounds(450, 40, 290, 32);
+
+        jLabel63.setText("Rua:");
+        jpanelSupplier1.add(jLabel63);
+        jLabel63.setBounds(450, 20, 50, 16);
+
+        jLabel64.setText("Cidade:");
+        jpanelSupplier1.add(jLabel64);
+        jLabel64.setBounds(450, 80, 70, 16);
+
+        camp_CityClient.setEnabled(false);
+        jpanelSupplier1.add(camp_CityClient);
+        camp_CityClient.setBounds(450, 100, 220, 32);
+
+        camp_BairroClient.setEnabled(false);
+        jpanelSupplier1.add(camp_BairroClient);
+        camp_BairroClient.setBounds(810, 100, 220, 32);
+
+        jLabel65.setText("Bairro:");
+        jpanelSupplier1.add(jLabel65);
+        jLabel65.setBounds(810, 80, 70, 16);
+
+        jSeparator5.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jpanelSupplier1.add(jSeparator5);
+        jSeparator5.setBounds(430, 20, 10, 270);
+
+        jListContatoClient.setEnabled(false);
+        jScrollPane7.setViewportView(jListContatoClient);
+
+        jpanelSupplier1.add(jScrollPane7);
+        jScrollPane7.setBounds(250, 180, 140, 80);
+
+        camp_ComplementClient.setBorder(javax.swing.BorderFactory.createTitledBorder("Complemento:"));
+        camp_ComplementClient.setEnabled(false);
+        jScrollPane8.setViewportView(camp_ComplementClient);
+
+        jpanelSupplier1.add(jScrollPane8);
+        jScrollPane8.setBounds(450, 150, 360, 100);
+
+        btn_edit1.setText("Editar");
+        btn_edit1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_edit1ActionPerformed(evt);
+            }
+        });
+        jpanelSupplier1.add(btn_edit1);
+        btn_edit1.setBounds(950, 260, 90, 36);
+
+        btn_save1.setText("Salvar");
+        btn_save1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_save1ActionPerformed(evt);
+            }
+        });
+        jpanelSupplier1.add(btn_save1);
+        btn_save1.setBounds(730, 260, 90, 36);
+
+        btn_cancelar1.setText("Cancelar");
+        btn_cancelar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancelar1ActionPerformed(evt);
+            }
+        });
+        jpanelSupplier1.add(btn_cancelar1);
+        btn_cancelar1.setBounds(840, 260, 90, 36);
+
+        jPanel12.add(jpanelSupplier1);
+        jpanelSupplier1.setBounds(10, 10, 1060, 310);
+
+        jInternalFrame2.getContentPane().add(jPanel12);
+        jPanel12.setBounds(10, 230, 1080, 330);
+        jInternalFrame2.getContentPane().add(jSeparator6);
+        jSeparator6.setBounds(10, 220, 1080, 10);
+
+        jPanel5.add(jInternalFrame2);
+        jInternalFrame2.setBounds(0, 0, 1110, 600);
+
+        jTabbedPane1.addTab("Cadastros/Clientes", jPanel5);
 
         add(jTabbedPane1);
         jTabbedPane1.setBounds(10, 10, 1120, 630);
@@ -737,7 +1012,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_RegisterActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        RegisterPerson();
+        RegisterClient();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btn_limpAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpAllActionPerformed
@@ -747,15 +1022,16 @@ public class RegistrationScreen extends javax.swing.JPanel {
         field_cpf.setText("000.000.000-00");
         filed_Email.setText("");
         field_date.setText("");
-        field_homePage.setText("");
+
         // contato
         field_DDD.setText("00");
         field_contact.setText("000000000");
+
         // endereco
         field_Rua.setText("");
         field_cep.setText("00000-000");
         field_bairro.setText("");
-        field_numeroCasa.setText("");
+        field_numeroCasa.setText("00000000");
         field_cidade.setText("");
         field_estado.setText("");
         field_complement.setText("");
@@ -770,7 +1046,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         camp_CEPSupplier.setText("00000000"); // cep do fornecedor
         camp_DDDSupplier.setText("00"); // DDD do fornecedor
         camp_ContactSupplier.setText("000000000"); // contato do fornecedor
-        camp_CNPJ.setText("0000000000000"); // CNPJ do fornecedor
+        camp_CNPJ.setText("00000000000000"); // CNPJ do fornecedor
         camp_cpfSupplier.setText("00000000000"); // CPF do fornecedor
         camp_BairroSupplier.setText("");// Bairro do fornecedor
         camp_NumbleHouseSupplier.setText("00000000"); // Numero da Casa ou loja do fornecedor
@@ -780,79 +1056,136 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btn_limpallActionPerformed
 
-    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
-        preencherTable();
-        jpanelSupplier.setVisible(false);
-    }//GEN-LAST:event_btn_buscarActionPerformed
+    private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed
+        preencherTableSupplier();
+        CleanFieldSupplier();
+        desableFieldSupplier();
+        btn_edit.setEnabled(false);
+    }//GEN-LAST:event_btn_updateActionPerformed
 
     private void tableSupplierKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tableSupplierKeyReleased
-        loadingField();
-        desabilitarCampos();
+        loadingFieldSupplier();
+        desableFieldSupplier();
         btn_edit.setEnabled(true); // deixa o botao editar habilitado;
         btn_cancelar.setEnabled(false); // desabilita o botao cancelar;
     }//GEN-LAST:event_tableSupplierKeyReleased
 
     private void tableSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSupplierMouseClicked
-        loadingField();
-        desabilitarCampos();
+        loadingFieldSupplier();
+        desableFieldSupplier();
         btn_edit.setEnabled(true); // deixa o botao editar habilitado;
         btn_cancelar.setEnabled(false); // desabilita o botao cancelar;
     }//GEN-LAST:event_tableSupplierMouseClicked
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
-        habilitarcampos();
+        habilitarcamposSupplier();
     }//GEN-LAST:event_btn_editActionPerformed
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
-        loadingField(); // carrega os campos com as informações de antes;
-        desabilitarCampos(); // desabilita dos campos novamente;
+        loadingFieldSupplier(); // carrega os campos com as informações de antes;
+        desableFieldSupplier(); // desabilita dos campos novamente;
         btn_cancelar.setEnabled(false); // desabilita o botao cancelar;
     }//GEN-LAST:event_btn_cancelarActionPerformed
 
     private void btn_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveActionPerformed
-        update();
-        preencherTable();
-        desabilitarCampos();
-        btn_cancelar.setEnabled(false); // desabilita o botao cancelar;
+        updateSupplier();
+        preencherTableSupplier();
+        desableFieldSupplier();
     }//GEN-LAST:event_btn_saveActionPerformed
+
+    private void tableClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableClientMouseClicked
+        loadingFieldClient();
+        btn_edit1.setEnabled(true);
+    }//GEN-LAST:event_tableClientMouseClicked
+
+    private void tableClientKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tableClientKeyReleased
+        loadingFieldClient();
+        btn_edit1.setEnabled(true);
+    }//GEN-LAST:event_tableClientKeyReleased
+
+    private void btn_update1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_update1ActionPerformed
+        preencherTableClient();
+        CleanFieldClient();
+        desabilitarfieldClient();
+        btn_edit1.setEnabled(false);
+    }//GEN-LAST:event_btn_update1ActionPerformed
+
+    private void btn_edit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_edit1ActionPerformed
+        habilitarcamposClient();
+    }//GEN-LAST:event_btn_edit1ActionPerformed
+
+    private void btn_save1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_save1ActionPerformed
+        updateClient();
+        preencherTableClient();
+        desabilitarfieldClient();
+    }//GEN-LAST:event_btn_save1ActionPerformed
+
+    private void btn_cancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelar1ActionPerformed
+        desabilitarfieldClient();
+        btn_cancelar1.setEnabled(false);
+    }//GEN-LAST:event_btn_cancelar1ActionPerformed
+
+    private void fieldSearch1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldSearch1KeyReleased
+        preencherTableClient();
+    }//GEN-LAST:event_fieldSearch1KeyReleased
+
+    private void fieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldSearchKeyReleased
+        preencherTableSupplier();
+    }//GEN-LAST:event_fieldSearchKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_Register;
-    private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_cancelar;
+    private javax.swing.JButton btn_cancelar1;
     private javax.swing.JButton btn_edit;
+    private javax.swing.JButton btn_edit1;
     private javax.swing.JButton btn_limpAll;
     private javax.swing.JButton btn_limpall;
     private javax.swing.JButton btn_save;
+    private javax.swing.JButton btn_save1;
+    private javax.swing.JButton btn_update;
+    private javax.swing.JButton btn_update1;
+    private javax.swing.JTextField camp_AddressRuaClient;
     private javax.swing.JTextField camp_AddressRuaSupplier;
     private javax.swing.JTextField camp_AddressRuaSupplier1;
+    private javax.swing.JTextField camp_BairroClient;
     private javax.swing.JTextField camp_BairroSupplier;
     private javax.swing.JTextField camp_BairroSupplier1;
+    private javax.swing.JFormattedTextField camp_CEPClient;
     private javax.swing.JFormattedTextField camp_CEPSupplier;
     private javax.swing.JFormattedTextField camp_CEPSupplier1;
     private javax.swing.JFormattedTextField camp_CNPJ;
     private javax.swing.JFormattedTextField camp_CNPJ1;
+    private javax.swing.JTextField camp_CityClient;
     private javax.swing.JTextField camp_CitySupplier;
     private javax.swing.JTextField camp_CitySupplier1;
+    private javax.swing.JTextField camp_ClientName;
+    private javax.swing.JTextPane camp_ComplementClient;
     private javax.swing.JTextPane camp_ComplementSupplier;
     private javax.swing.JTextPane camp_ComplementSupplier1;
     private javax.swing.JFormattedTextField camp_ContactSupplier;
+    private javax.swing.JFormattedTextField camp_DDDClient;
     private javax.swing.JFormattedTextField camp_DDDSupplier;
     private javax.swing.JFormattedTextField camp_DDDSupplier1;
+    private javax.swing.JTextField camp_EmailClient;
     private javax.swing.JTextField camp_EmailSupplier;
     private javax.swing.JTextField camp_EmailSupplier1;
     private javax.swing.JTextField camp_HomePageSupplier;
     private javax.swing.JTextField camp_HomePageSupplier1;
+    private javax.swing.JFormattedTextField camp_NumbleHouseClient;
     private javax.swing.JFormattedTextField camp_NumbleHouseSupplier;
     private javax.swing.JFormattedTextField camp_NumbleHouseSupplier1;
+    private javax.swing.JTextField camp_StateClient;
     private javax.swing.JTextField camp_StateSupplier;
     private javax.swing.JTextField camp_StateSupplier1;
     private javax.swing.JTextField camp_SupplierName;
     private javax.swing.JTextField camp_SupplierName1;
+    private javax.swing.JFormattedTextField camp_cpfClient;
     private javax.swing.JFormattedTextField camp_cpfSupplier;
     private javax.swing.JFormattedTextField camp_cpfSupplier1;
     private javax.swing.JTextField fieldSearch;
+    private javax.swing.JTextField fieldSearch1;
     private javax.swing.JFormattedTextField field_DDD;
     private javax.swing.JTextField field_Name;
     private javax.swing.JTextField field_Rua;
@@ -864,18 +1197,17 @@ public class RegistrationScreen extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField field_cpf;
     private javax.swing.JFormattedTextField field_date;
     private javax.swing.JTextField field_estado;
-    private javax.swing.JTextField field_homePage;
     private javax.swing.JFormattedTextField field_numeroCasa;
     private javax.swing.JTextField filed_Email;
     private javax.swing.JButton jButton2;
     private javax.swing.JInternalFrame jInternalFrame1;
+    private javax.swing.JInternalFrame jInternalFrame2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -887,6 +1219,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
@@ -910,12 +1243,27 @@ public class RegistrationScreen extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel59;
+    private javax.swing.JLabel jLabel60;
+    private javax.swing.JLabel jLabel61;
+    private javax.swing.JLabel jLabel62;
+    private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel64;
+    private javax.swing.JLabel jLabel65;
     private javax.swing.JList<String> jListContato;
+    private javax.swing.JList<String> jListContatoClient;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -925,14 +1273,20 @@ public class RegistrationScreen extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel jpanelSupplier;
+    private javax.swing.JPanel jpanelSupplier1;
     private javax.swing.JLabel obrigatorioName;
-    private javax.swing.JLabel obrigatorioRua;
+    private javax.swing.JTable tableClient;
     private javax.swing.JTable tableSupplier;
     // End of variables declaration//GEN-END:variables
 
@@ -948,13 +1302,13 @@ public class RegistrationScreen extends javax.swing.JPanel {
         } else {
             obrigatorioName.setVisible(true);
         }
-        if (camp_AddressRuaSupplier.getText().length() > 0) {
-            obrigatorioRua.setVisible(false);
-        } else {
-            obrigatorioRua.setVisible(true);
-        }
+//        if (camp_AddressRuaSupplier.getText().length() > 0) {
+//            obrigatorioRua.setVisible(false);
+//        } else {
+//            obrigatorioRua.setVisible(true);
+//        }
 
-        if ((camp_SupplierName.getText().length() > 0) && (camp_AddressRuaSupplier.getText().length() > 0)) {
+        if ((camp_SupplierName.getText().length() > 0)) {
 
             Long cnpj = Long.parseLong(camp_CNPJ.getText().replace(".", "").replace(".", "").replace("/", "").replace("-", ""));
             Long cpf = Long.parseLong(camp_cpfSupplier.getText().replace(".", "").replace(".", "").replace("-", ""));
@@ -965,6 +1319,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             supplier.setEmail(camp_EmailSupplier.getText());
             supplier.setHomePage(camp_HomePageSupplier.getText());
             supplier.setCpf(cpf);
+            supplier.setDataCadastro(new Date()); // data em que o fornecedor foi cadastrado;
             List<NumeroContato> phoneBook = new ArrayList<>();
             supplier.setContatos(phoneBook);
 
@@ -1010,7 +1365,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             camp_CEPSupplier.setText("00000000"); // cep do fornecedor
             camp_DDDSupplier.setText("00"); // DDD do fornecedor
             camp_ContactSupplier.setText("000000000"); // contato do fornecedor
-            camp_CNPJ.setText("0000000000000"); // CNPJ do fornecedor
+            camp_CNPJ.setText("00000000000000"); // CNPJ do fornecedor
             camp_cpfSupplier.setText("00000000000"); // CPF do fornecedor
             camp_BairroSupplier.setText("");// Bairro do fornecedor
             camp_NumbleHouseSupplier.setText("00000000"); // Numero da Casa ou loja do fornecedor
@@ -1024,7 +1379,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
     }
 
-    private void RegisterPerson() {
+    private void RegisterClient() {
 
         Conexao banco = new Conexao();
 
@@ -1035,6 +1390,8 @@ public class RegistrationScreen extends javax.swing.JPanel {
             Long cpf = Long.parseLong(field_cpf.getText().replace(".", "").replace(".", "").replace("-", ""));
             cliente.setCpf(cpf);
             cliente.setEmail(filed_Email.getText());
+            cliente.setStatus(true);
+            cliente.setClienteDesde(new Date()); // DATA QUE O CLIENTE FOI CADASTRADO;
 //            cliente.setDataNascimento(new Date(field_date.getText()));  NAO ESQUECER DE ARRUMAR ESSA LINHA DE CODIGO
 
 // ---------- ENDEREÇO -----------------
@@ -1064,7 +1421,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             cliente.setNumeroContatos(listContato);
             cliente.getNumeroContatos().add(contact);
 
-            /*          NÃO A NECESSIDADE DE SALVAR O ENDERECO E NEM "CONTATO", POIS A CLASSE ESTÁ MAPEADA COMO CASCADE, ENTAO SÓ PRECISA
+            /*NÃO A NECESSIDADE DE SALVAR O ENDERECO E NEM "CONTATO", POIS A CLASSE ESTÁ MAPEADA COMO CASCADE, ENTAO SÓ PRECISA
             SALVAR A CLASS PAI QUE AUTOMATICAMENTO SALVA A CLASSE FILHO */
             banco.save(cliente);
 
@@ -1074,7 +1431,6 @@ public class RegistrationScreen extends javax.swing.JPanel {
             field_cpf.setText("000.000.000-00");
             filed_Email.setText("");
             field_date.setText("");
-            field_homePage.setText("");
             // contato
             field_DDD.setText("00");
             field_contact.setText("000000000");
@@ -1092,7 +1448,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         }
     }
 
-    private void preencherTable() {
+    private void preencherTableSupplier() {
 
         String pesquisa = fieldSearch.getText();
         List<Fornecedor> forne = new ArrayList<>();
@@ -1116,7 +1472,76 @@ public class RegistrationScreen extends javax.swing.JPanel {
         }
     }
 
-    private void loadingField() {
+    private void preencherTableClient() {
+
+        Conexao banco = new Conexao();
+        String pesquisa = fieldSearch1.getText();
+        List<Cliente> client = new ArrayList<Cliente>();
+
+        for (int i = 0; i < banco.list_Cliente().size(); i++) {
+            // VERIFICA SE O NOME COMTEM NA LISTA DE CLIENTES E VERIFICA O STATUS DO CLIENTE;
+            if (banco.list_Cliente().get(i).getNome().contains(pesquisa) && banco.list_Cliente().get(i).isStatus()) {
+                Cliente c = banco.list_Cliente().get(i);
+                client.add(c); // ADICIONA NA LISTA CLIENT;
+            }
+        }
+
+        DefaultTableModel tabela = (DefaultTableModel) tableClient.getModel();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
+        try {
+            tabela.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR;
+            // PEGA TODOS OS CLIENTES QUE SÃO ADICIONADO NA LISTA CLIENT;
+            // E ADICIONA NA TABELA 
+            for (Cliente c : client) {
+                tabela.addRow(new Object[]{c.getIdpessoa(), c.getNome(), formato.format(c.getClienteDesde())});
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Erro no Codigo");
+        }
+    }
+
+    private void loadingFieldClient() {
+
+        Conexao banco = new Conexao(); // abre conexao com o banco de dados;
+        DefaultTableModel tabela = (DefaultTableModel) tableClient.getModel();
+        int linha = tableClient.getSelectedRow();// pega a posição da linha que esta selecionada;
+
+        for (int i = 0; i < banco.list_Cliente().size(); i++) {
+            if (banco.list_Cliente().get(i).getIdpessoa().equals(tabela.getValueAt(linha, 0))) { // VERIFICA SE O ID DO OBJETO CONTEM NA LISTA DE FORNECEDORES DO BANCO DE DADOS
+                cliente = banco.list_Cliente().get(i);
+
+                DefaultListModel listContato = new DefaultListModel();
+//              PERCORRE TODA A LISTA DE CONTATO DE FORNECEDOR E ADICIONA EM UMA jList
+                for (NumeroContato contato : cliente.getNumeroContatos()) {
+                    listContato.addElement(contato.getFone());
+                    jListContatoClient.setModel(listContato);
+                }
+
+                camp_ClientName.setText(cliente.getNome());
+                camp_EmailClient.setText(cliente.getEmail());
+                camp_cpfClient.setText(cliente.getCpf().toString());
+                camp_DDDClient.setText(String.valueOf(cliente.getNumeroContatos().get(0).getDdd()));    // CORRIGIR ESSA LINHA NAO ESQUECER;
+
+//              CONVERTE OS VALORES DO TIPO INTEIRO PRA STRING;
+                String cep = String.valueOf(cliente.getEndereco().getCep());
+                String numbleHouse = String.valueOf(cliente.getEndereco().getNumeroCasa());
+
+//              ENDERECO;                
+                camp_AddressRuaClient.setText(cliente.getEndereco().getRua());
+                camp_CEPClient.setText(cep);
+                camp_CityClient.setText(cliente.getEndereco().getCidade());
+                camp_StateClient.setText(cliente.getEndereco().getEstadoUf());
+                camp_BairroClient.setText(cliente.getEndereco().getBairro());
+                camp_NumbleHouseClient.setText(numbleHouse);
+                camp_ComplementClient.setText(cliente.getEndereco().getComplemento());
+
+            }
+        }
+
+    }
+
+    private void loadingFieldSupplier() {
 
         jpanelSupplier.setVisible(true); // deixa visivel os campos;
         Conexao banco = new Conexao(); // abre conexao com o banco de dados;
@@ -1159,13 +1584,16 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
     }
 
-    private void habilitarcampos() {
+    private void habilitarcamposSupplier() {
 
         camp_SupplierName1.setEnabled(true);
         camp_EmailSupplier1.setEnabled(true);
         camp_HomePageSupplier1.setEnabled(true);
         camp_CNPJ1.setEnabled(true);
         camp_cpfSupplier1.setEnabled(true);
+
+        camp_DDDSupplier1.setEnabled(true);
+        jListContato.setEnabled(true);
 //                camp_DDDSupplier1.setEnabled(true);
 //              ENDERECO;                
         camp_AddressRuaSupplier1.setEnabled(true);
@@ -1181,14 +1609,16 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
     }
 
-    private void desabilitarCampos() {
+    private void desableFieldSupplier() {
 
         camp_SupplierName1.setEnabled(false);
         camp_EmailSupplier1.setEnabled(false);
         camp_HomePageSupplier1.setEnabled(false);
         camp_CNPJ1.setEnabled(false);
         camp_cpfSupplier1.setEnabled(false);
-//                camp_DDDSupplier1.setEnabled(true);
+        camp_DDDSupplier1.setEnabled(false);
+        jListContato.setEnabled(false);
+        
 //              ENDERECO;                
         camp_AddressRuaSupplier1.setEnabled(false);
         camp_CEPSupplier1.setEnabled(false);
@@ -1198,9 +1628,54 @@ public class RegistrationScreen extends javax.swing.JPanel {
         camp_NumbleHouseSupplier1.setEnabled(false);
         camp_ComplementSupplier1.setEnabled(false);
         btn_save.setEnabled(false);
+        btn_cancelar.setEnabled(false);
     }
 
-    private void update() {
+    private void habilitarcamposClient() {
+
+        camp_ClientName.setEnabled(true);
+        camp_EmailClient.setEnabled(true);
+        camp_cpfClient.setEnabled(true);
+
+        camp_DDDClient.setEnabled(true);
+        jListContatoClient.setEnabled(true);
+//                camp_DDDSupplier1.setEnabled(true);
+//              ENDERECO;                
+        camp_AddressRuaClient.setEnabled(true);
+        camp_CEPClient.setEnabled(true);
+        camp_CityClient.setEnabled(true);
+        camp_StateClient.setEnabled(true);
+        camp_BairroClient.setEnabled(true);
+        camp_NumbleHouseClient.setEnabled(true);
+        camp_ComplementClient.setEnabled(true);
+
+        btn_save1.setEnabled(true);
+        btn_cancelar1.setEnabled(true);
+
+    }
+
+    private void desabilitarfieldClient() {
+
+        camp_ClientName.setEnabled(false);
+        camp_EmailClient.setEnabled(false);
+        camp_cpfClient.setEnabled(false);
+        camp_DDDClient.setEnabled(false);
+        jListContatoClient.setEnabled(false);
+
+//              ENDERECO;                
+        camp_AddressRuaClient.setEnabled(false);
+        camp_CEPClient.setEnabled(false);
+        camp_CityClient.setEnabled(false);
+        camp_StateClient.setEnabled(false);
+        camp_BairroClient.setEnabled(false);
+        camp_NumbleHouseClient.setEnabled(false);
+        camp_ComplementClient.setEnabled(false);
+        btn_save1.setEnabled(false);
+        btn_cancelar1.setEnabled(false);
+
+    }
+
+    private void updateSupplier() {
 
         int confirmacao = JOptionPane.showConfirmDialog(null, "Você Deseja Realmente alterar *OS DADOS DO FORNECEDOR*?", "Salvar?", JOptionPane.YES_NO_OPTION);
 
@@ -1222,6 +1697,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             f.setCpf(cpf);
 
             //--------------------------------- numero de contato -----------------------------------//
+            /*NAO ESQUECER DE ACRECENTAR ESSA PARTE DO CODIGO, ELABORAR UMA FORMA DE EDITAR OS CONTATOS;*/
             //--------------------------------- Endereço -----------------------------------//
             int cep = 0;
             int numbleHouse = 0;
@@ -1237,14 +1713,98 @@ public class RegistrationScreen extends javax.swing.JPanel {
             f.getEndereco().setNumeroCasa(numbleHouse);
             f.getEndereco().setBairro(camp_BairroSupplier1.getText());
             f.getEndereco().setEstadoUf(camp_StateSupplier1.getText());
+            f.getEndereco().setCidade(camp_CitySupplier1.getText());
             f.getEndereco().setComplemento(camp_ComplementSupplier1.getText());
 
             Conexao connectbanco = new Conexao(); // abre conexao com o banco;
             connectbanco.update(f); // salva e atualiza classe Pai
-        }else{
-            
+            JOptionPane.showMessageDialog(null, "Dados Alterado com Sucesso!");
         }
-        JOptionPane.showMessageDialog(null, "Dados Alterado com Sucesso!");
+
+    }
+
+    private void updateClient() {
+
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Você Deseja Realmente alterar *OS DADOS DO CLIENTE*?", "Salvar?", JOptionPane.YES_NO_OPTION);
+
+        //--------------------------------- Dados Fornecedor ------------------------------------//
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            long cpf = 0;
+            try {
+                cpf = Long.parseLong(camp_cpfClient.getText().replace(".", "").replace(".", "").replace("-", ""));
+            } catch (Exception e) {
+                System.out.println("Campo CPF não podem estár vazios");
+            }
+
+            cliente.setNome(camp_ClientName.getText());
+            cliente.setEmail(camp_EmailClient.getText());
+            cliente.setCpf(cpf);
+
+            //--------------------------------- numero de contato -----------------------------------//
+            /*NAO ESQUECER DE ACRECENTAR ESSA PARTE DO CODIGO, ELABORAR UMA FORMA DE EDITAR OS CONTATOS;*/
+            //--------------------------------- Endereço -----------------------------------//
+            int cep = 0;
+            int numbleHouse = 0;
+            try {
+                cep = Integer.parseInt(camp_CEPClient.getText().replaceAll("-", ""));
+                numbleHouse = Integer.parseInt(camp_NumbleHouseClient.getText());
+            } catch (Exception e) {
+                System.out.println("Os Campos CEP  e 'Numero da Casa' não podem está vazios!");
+            }
+
+            cliente.getEndereco().setRua(camp_AddressRuaClient.getText());
+            cliente.getEndereco().setCep(cep);
+            cliente.getEndereco().setNumeroCasa(numbleHouse);
+            cliente.getEndereco().setBairro(camp_BairroClient.getText());
+            cliente.getEndereco().setEstadoUf(camp_StateClient.getText());
+            cliente.getEndereco().setCidade(camp_CityClient.getText());
+            cliente.getEndereco().setComplemento(camp_ComplementClient.getText());
+
+            Conexao connectbanco = new Conexao(); // abre conexao com o banco;
+            connectbanco.update(cliente); // salva e atualiza classe Pai
+            JOptionPane.showMessageDialog(null, "Dados Alterado com Sucesso!");
+        }
+
+    }
+
+    private void CleanFieldClient() {
+                //            LIMPA OS CAMPOS DO FORMULARIO
+        // pessoa
+        camp_ClientName.setText("");
+        camp_cpfClient.setText("00000000000");
+        camp_EmailClient.setText("");
+
+        // contato
+        camp_DDDClient.setText("00");
+        jListContatoClient.removeAll();
+
+        // endereco
+        camp_AddressRuaClient.setText("");
+        camp_CEPClient.setText("00000000");
+        camp_BairroClient.setText("");
+        camp_NumbleHouseClient.setText("00000000");
+        camp_CityClient.setText("");
+        camp_StateClient.setText("");
+        camp_ComplementClient.setText("");
+    }
+
+    private void CleanFieldSupplier() {
+        
+        camp_SupplierName1.setText(""); // name do fornecedor
+        camp_AddressRuaSupplier1.setText(""); // rua do fornecedor
+        camp_EmailSupplier1.setText(""); // email do fornecedor
+        camp_HomePageSupplier1.setText(""); // home page do fornecedor
+        camp_CEPSupplier1.setText("00000000"); // cep do fornecedor
+        camp_DDDSupplier1.setText("00"); // DDD do fornecedor
+        jListContato.removeAll(); // contato do fornecedor
+        camp_CNPJ1.setText("00000000000000"); // CNPJ do fornecedor
+        camp_cpfSupplier1.setText("00000000000"); // CPF do fornecedor
+        camp_BairroSupplier1.setText("");// Bairro do fornecedor
+        camp_NumbleHouseSupplier1.setText("00000000"); // Numero da Casa ou loja do fornecedor
+        camp_StateSupplier1.setText(""); // Estado UF do fornecedor
+        camp_CitySupplier1.setText(""); // cidade do forncedor
+        camp_ComplementSupplier1.setText(""); // complemento do fornecedor 
+        
     }
 
 }

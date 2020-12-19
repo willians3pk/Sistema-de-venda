@@ -24,7 +24,7 @@ public class Pessoa {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Cod_Pessoa", unique = true, nullable = false)
-    private int idpessoa;
+    private Integer idpessoa;
     
     @OneToOne(fetch = FetchType.EAGER)
     @Cascade({CascadeType.SAVE_UPDATE, CascadeType.PERSIST})
@@ -42,7 +42,7 @@ public class Pessoa {
     public Pessoa() {
     }
 
-    public Pessoa(int idpessoa, Endereco endereco, String nome, Long cpf, String email, boolean status, Date dataNascimento, List<NumeroContato> numeroContatos) {
+    public Pessoa(Integer idpessoa, Endereco endereco, String nome, Long cpf, String email, boolean status, Date dataNascimento, List<NumeroContato> numeroContatos) {
         this.idpessoa = idpessoa;
         this.endereco = endereco;
         this.nome = nome;
@@ -53,11 +53,11 @@ public class Pessoa {
         this.numeroContatos = numeroContatos;
     }
 
-    public int getIdpessoa() {
+    public Integer getIdpessoa() {
         return idpessoa;
     }
 
-    public void setIdpessoa(int idpessoa) {
+    public void setIdpessoa(Integer idpessoa) {
         this.idpessoa = idpessoa;
     }
 

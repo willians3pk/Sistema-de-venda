@@ -260,4 +260,23 @@ public class Conexao {
         return null;
     }
 
+        public List<Cliente> list_Cliente() {
+
+        this.session = NewHibernateUtil.getSessionFactory().openSession();
+        this.tx = session.beginTransaction();
+        List<Cliente> list = null;
+        String sql = "from Pessoa where DTYPE = 'Cliente'";
+        try {
+            list = (List<Cliente>) session.createQuery(sql).list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!");
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+    
 }
