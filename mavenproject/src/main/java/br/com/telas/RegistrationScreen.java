@@ -1127,10 +1127,14 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
     private void fieldSearch1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldSearch1KeyReleased
         preencherTableClient();
+        desabilitarfieldClient();
+        btn_edit1.setEnabled(false);
     }//GEN-LAST:event_fieldSearch1KeyReleased
 
     private void fieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldSearchKeyReleased
         preencherTableSupplier();
+        desableFieldSupplier();
+        btn_edit.setEnabled(false);
     }//GEN-LAST:event_fieldSearchKeyReleased
 
 

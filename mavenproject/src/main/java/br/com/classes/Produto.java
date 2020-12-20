@@ -25,41 +25,17 @@ public class Produto {
     private Integer idProduto;
 
     @OneToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "Cod_Fornecedor")
     private Fornecedor fornecedor;
-
-//    @Column(name = "item", length = 45)
     private String nome;
-
-//    @Column(name = "valor_compra", precision = 10, scale = 0)
-    private Long valor_compra;
-
-//    @Column(name = "valor_venda", precision = 10, scale = 0)
-    private Long valor_venda;
-
-//    @Column(name = "valor_total", precision = 10, scale = 0)
-    private Long valor_total;
-
-//    @Column(name = "Status", nullable = false)
+    private float valor_compra;
+    private float valor_venda;
+    private float valor_total;
     private boolean status;
-
-//    @Column(name = "Excluido", nullable = false)
     private boolean excluido;
-
-//    @Column(name = "Tamanho", length = 45)
     private String tamanho;
-
-//    @Column(name = "CodigoBarra", nullable = false)
     private String apelido;
-
-//    @Column(name = "Qnt")
     private int qnt;
-
-//    @Column(name = "Descricao", length = 200)
     private String descricao;
-
-//    @Temporal(TemporalType.DATE)
-//    @Column(name = "Entrega_Produto", length = 10)
     private Date dataEntrega;
 
     @OneToMany(fetch = FetchType.EAGER)
@@ -68,7 +44,7 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(Integer idProduto, Fornecedor fornecedor, String nome, Long valor_compra, Long valor_venda, Long valor_total, boolean status, boolean excluido, String tamanho, String apelido, int qnt, String descricao, Date dataEntrega, List<ItensVenda> itensVendas) {
+    public Produto(Integer idProduto, Fornecedor fornecedor, String nome, float valor_compra, float valor_venda, float valor_total, boolean status, boolean excluido, String tamanho, String apelido, int qnt, String descricao, Date dataEntrega, List<ItensVenda> itensVendas) {
         this.idProduto = idProduto;
         this.fornecedor = fornecedor;
         this.nome = nome;
@@ -109,23 +85,23 @@ public class Produto {
         this.nome = nome;
     }
 
-    public Long getValor_compra() {
+    public float getValor_compra() {
         return valor_compra;
     }
 
-    public void setValor_compra(Long valor_compra) {
+    public void setValor_compra(float valor_compra) {
         this.valor_compra = valor_compra;
     }
 
-    public Long getValor_venda() {
+    public float getValor_venda() {
         return valor_venda;
     }
 
-    public void setValor_venda(Long valor_venda) {
+    public void setValor_venda(float valor_venda) {
         this.valor_venda = valor_venda;
     }
 
-    public Long getValor_total() {
+    public float getValor_total() {
         return valor_total;
     }
 

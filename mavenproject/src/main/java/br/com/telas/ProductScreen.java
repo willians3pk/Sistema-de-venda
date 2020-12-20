@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.telas;
 
 import br.com.conexao.Conexao;
@@ -15,7 +10,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -88,7 +82,7 @@ public class ProductScreen extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Cod_Produto", "Receb/Produto", "nome", "Preço", "qnt", "fornecedor", "tamanho", "total"
+                "Cod_Produto", "Receb/Produto", "Nome", "Preço", "Quantidade", "Fornecedor", "Tamanho", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -380,16 +374,16 @@ public class ProductScreen extends javax.swing.JPanel {
         for (int i = 0; i < connectbanco.productBook().size(); i++) {
             if (connectbanco.productBook().get(i).getIdProduto().equals(tableDefault.getValueAt(linha, 0))) { // VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
                 Produto item = connectbanco.productBook().get(i);
-                screenEdit.setVisible(true);
-                screenEdit.setProduto(item);
-                screenEdit.loadingCampos();
-                screenEdit.PopularComcobox();
+                screenEdit.setVisible(true); // TORNA VISIVEL A TELA DE EDITAR PRODUTO;
+                screenEdit.setProduto(item); // MANDA O ITEM PRA OUTRA TELA;
+                screenEdit.loadingCampos();  // CARREGA OS CAMPOS DA TELA QUE EDITA OS PRODUTOS;
+                screenEdit.PopularComcobox();// CARREGA A COMBOBOX COM OS FORNECEDORES;
             }
         }
     }//GEN-LAST:event_btn_ToEditActionPerformed
 
     private void btn_NewSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NewSupplierActionPerformed
-
+        ;
     }//GEN-LAST:event_btn_NewSupplierActionPerformed
 
     private void camp_BuypriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_BuypriceKeyReleased
@@ -402,6 +396,8 @@ public class ProductScreen extends javax.swing.JPanel {
 
     private void camp_SearchProductKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_SearchProductKeyReleased
         loadingTableProduct();
+        btn_ToEdit.setEnabled(false);
+        btn_Deactivate.setEnabled(false);
     }//GEN-LAST:event_camp_SearchProductKeyReleased
 
 
@@ -611,13 +607,10 @@ public class ProductScreen extends javax.swing.JPanel {
             tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR PARA NAO HAVER DUPLICAÇÃO DE ITENS;
             for (Produto item : items) {
 
-                float sellprice = Float.parseFloat(item.getValor_venda().toString());
-                float totalprice = Float.parseFloat(item.getValor_total().toString());
-                
-                x = totalprice/100;
+                x = item.getValor_total() / 100;
 
-                tableDefault.addRow(new Object[]{item.getIdProduto(), formato.format(item.getDataEntrega()), item.getNome(), sellprice / 100,
-                    item.getQnt(), item.getFornecedor().getNome(), item.getTamanho(), totalprice / 100});
+                tableDefault.addRow(new Object[]{item.getIdProduto(), formato.format(item.getDataEntrega()), item.getNome(), dinheiro.format((item.getValor_venda() / 100)),
+                    item.getQnt(), item.getFornecedor().getNome(), item.getTamanho(), dinheiro.format(item.getValor_total() / 100)});
 
                 // calculo do valor lucro bruto
                 y = z + x;
