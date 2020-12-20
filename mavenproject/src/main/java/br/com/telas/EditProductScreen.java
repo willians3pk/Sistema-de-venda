@@ -46,18 +46,20 @@ public class EditProductScreen extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        camp_Deliverydate = new javax.swing.JFormattedTextField();
         jLabel10 = new javax.swing.JLabel();
         obrigatorioName = new javax.swing.JLabel();
         obrigatorioPriceBuy = new javax.swing.JLabel();
         obrigatorioPriceSell = new javax.swing.JLabel();
         obrigatorioQnt = new javax.swing.JLabel();
-        obrigatorioDate = new javax.swing.JLabel();
         obrigatorioSupplier = new javax.swing.JLabel();
         btn_save = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btn_cancelar = new javax.swing.JButton();
         camp_Apelido = new javax.swing.JTextField();
         camp_Qnt = new javax.swing.JFormattedTextField();
+        camp_Deliverydate = new com.toedter.calendar.JDateChooser();
+        obrigatorioTamanho = new javax.swing.JLabel();
+        obrigatorioData = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -78,20 +80,10 @@ public class EditProductScreen extends javax.swing.JFrame {
         jScrollPane2.setBounds(20, 240, 380, 110);
 
         camp_Buyprice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        camp_Buyprice.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                camp_BuypriceKeyReleased(evt);
-            }
-        });
         jPanel2.add(camp_Buyprice);
         camp_Buyprice.setBounds(20, 110, 140, 32);
 
         camp_Sellprice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        camp_Sellprice.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                camp_SellpriceKeyReleased(evt);
-            }
-        });
         jPanel2.add(camp_Sellprice);
         camp_Sellprice.setBounds(20, 180, 140, 32);
 
@@ -127,47 +119,34 @@ public class EditProductScreen extends javax.swing.JFrame {
         jPanel2.add(jLabel9);
         jLabel9.setBounds(620, 30, 100, 16);
 
-        try {
-            camp_Deliverydate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jPanel2.add(camp_Deliverydate);
-        camp_Deliverydate.setBounds(390, 180, 120, 32);
-
         jLabel10.setText("Data Entrega:");
         jPanel2.add(jLabel10);
-        jLabel10.setBounds(390, 160, 100, 16);
+        jLabel10.setBounds(430, 160, 100, 16);
 
         obrigatorioName.setForeground(new java.awt.Color(255, 0, 0));
-        obrigatorioName.setText("*");
+        obrigatorioName.setText("* obrigatorio");
         jPanel2.add(obrigatorioName);
-        obrigatorioName.setBounds(120, 30, 40, 16);
+        obrigatorioName.setBounds(120, 30, 90, 16);
 
         obrigatorioPriceBuy.setForeground(new java.awt.Color(255, 0, 0));
-        obrigatorioPriceBuy.setText("*");
+        obrigatorioPriceBuy.setText("* obrigatorio");
         jPanel2.add(obrigatorioPriceBuy);
-        obrigatorioPriceBuy.setBounds(110, 90, 30, 20);
+        obrigatorioPriceBuy.setBounds(110, 90, 90, 20);
 
         obrigatorioPriceSell.setForeground(new java.awt.Color(255, 0, 0));
-        obrigatorioPriceSell.setText("*");
+        obrigatorioPriceSell.setText("* obrigatorio");
         jPanel2.add(obrigatorioPriceSell);
-        obrigatorioPriceSell.setBounds(100, 160, 30, 16);
+        obrigatorioPriceSell.setBounds(100, 160, 90, 16);
 
         obrigatorioQnt.setForeground(new java.awt.Color(255, 0, 0));
-        obrigatorioQnt.setText("*");
+        obrigatorioQnt.setText("* obrigatorio");
         jPanel2.add(obrigatorioQnt);
-        obrigatorioQnt.setBounds(230, 90, 30, 16);
-
-        obrigatorioDate.setForeground(new java.awt.Color(255, 0, 0));
-        obrigatorioDate.setText("*");
-        jPanel2.add(obrigatorioDate);
-        obrigatorioDate.setBounds(930, 110, 30, 16);
+        obrigatorioQnt.setBounds(230, 90, 90, 16);
 
         obrigatorioSupplier.setForeground(new java.awt.Color(255, 0, 0));
-        obrigatorioSupplier.setText("*");
+        obrigatorioSupplier.setText("* obrigatorio");
         jPanel2.add(obrigatorioSupplier);
-        obrigatorioSupplier.setBounds(710, 30, 40, 16);
+        obrigatorioSupplier.setBounds(710, 30, 100, 16);
 
         btn_save.setText("Salvar");
         btn_save.addActionListener(new java.awt.event.ActionListener() {
@@ -178,20 +157,41 @@ public class EditProductScreen extends javax.swing.JFrame {
         jPanel2.add(btn_save);
         btn_save.setBounds(780, 350, 90, 36);
 
-        jButton1.setText("Cancelar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_cancelar.setText("Cancelar");
+        btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_cancelarActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1);
-        jButton1.setBounds(668, 350, 90, 36);
+        jPanel2.add(btn_cancelar);
+        btn_cancelar.setBounds(668, 350, 90, 36);
         jPanel2.add(camp_Apelido);
         camp_Apelido.setBounds(200, 180, 150, 32);
 
         camp_Qnt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         jPanel2.add(camp_Qnt);
         camp_Qnt.setBounds(200, 110, 90, 32);
+        jPanel2.add(camp_Deliverydate);
+        camp_Deliverydate.setBounds(430, 180, 210, 33);
+
+        obrigatorioTamanho.setForeground(new java.awt.Color(255, 0, 0));
+        obrigatorioTamanho.setText("* obrigatorio");
+        jPanel2.add(obrigatorioTamanho);
+        obrigatorioTamanho.setBounds(420, 90, 90, 16);
+
+        obrigatorioData.setForeground(new java.awt.Color(255, 0, 0));
+        obrigatorioData.setText("* obrigatorio");
+        jPanel2.add(obrigatorioData);
+        obrigatorioData.setBounds(540, 160, 90, 16);
+
+        jLabel1.setText("Ajuda?");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel1);
+        jLabel1.setBounds(650, 180, 50, 30);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(10, 10, 890, 400);
@@ -204,17 +204,13 @@ public class EditProductScreen extends javax.swing.JFrame {
         editProduct();
     }//GEN-LAST:event_btn_saveActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
         dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btn_cancelarActionPerformed
 
-    private void camp_BuypriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_BuypriceKeyReleased
-//        buyPrice();
-    }//GEN-LAST:event_camp_BuypriceKeyReleased
-
-    private void camp_SellpriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_SellpriceKeyReleased
-//        sellPrice();
-    }//GEN-LAST:event_camp_SellpriceKeyReleased
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        JOptionPane.showMessageDialog(null, "Data em que o Produto foi recebido do Correio!", "Ajuda!!", HEIGHT);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -252,17 +248,18 @@ public class EditProductScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_save;
     private javax.swing.JTextField camp_Apelido;
     private javax.swing.JFormattedTextField camp_Buyprice;
-    private javax.swing.JFormattedTextField camp_Deliverydate;
+    private com.toedter.calendar.JDateChooser camp_Deliverydate;
     private javax.swing.JTextPane camp_Description;
     private javax.swing.JTextField camp_ProductName;
     private javax.swing.JFormattedTextField camp_Qnt;
     private javax.swing.JFormattedTextField camp_Sellprice;
     private javax.swing.JComboBox<String> comboBox_Size;
     private javax.swing.JComboBox<String> comboBox_Supplier;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -273,12 +270,13 @@ public class EditProductScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel obrigatorioDate;
+    private javax.swing.JLabel obrigatorioData;
     private javax.swing.JLabel obrigatorioName;
     private javax.swing.JLabel obrigatorioPriceBuy;
     private javax.swing.JLabel obrigatorioPriceSell;
     private javax.swing.JLabel obrigatorioQnt;
     private javax.swing.JLabel obrigatorioSupplier;
+    private javax.swing.JLabel obrigatorioTamanho;
     // End of variables declaration//GEN-END:variables
 
     private void editProduct() {
@@ -303,14 +301,30 @@ public class EditProductScreen extends javax.swing.JFrame {
         } else {
             obrigatorioPriceSell.setVisible(true);
         }
+        try {
+            if (!camp_Deliverydate.getDate().equals("")) {
+                obrigatorioData.setVisible(false);
+            } else {
+                obrigatorioData.setVisible(true);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "<html><font color=\"#FF0000\">O CAMPO DATA NAO PODE FICAR EM BRANCO!</font></html>");
+        }
 
-        int confirmacao = JOptionPane.showConfirmDialog(null, "Você Deseja Realmente alterar *OS DADOS DESSE ITEM*?", "Salvar?", JOptionPane.YES_NO_OPTION);
+        if (comboBox_Supplier.getSelectedItem().toString() != "<Selecione o Fornecedor>") {
+            obrigatorioSupplier.setVisible(false);
+        } else {
+            obrigatorioSupplier.setVisible(true);
+        }
+        
+        int confirmacao = JOptionPane.showConfirmDialog(null, "<html>Você Deseja Realmente <html><font color=\"#FF0000\">*ALTERAR OS DADOS DESSE ITEM*?</font></html></html>", "Salvar?", JOptionPane.YES_NO_OPTION);
 
         if ((camp_ProductName.getText().length() > 0)
                 && (camp_Buyprice.getText().length() > 0)
                 && (camp_Qnt.getText().length() > 0)
                 && (camp_Sellprice.getText().length() > 0)
-                && (camp_Deliverydate.getText().length() > 0)
+                && (!camp_Deliverydate.getDate().equals(""))
                 && (comboBox_Supplier.getSelectedItem().toString() != "<Selecione o Fornecedor>")
                 && (confirmacao == JOptionPane.YES_OPTION)) {
 
@@ -336,43 +350,25 @@ public class EditProductScreen extends javax.swing.JFrame {
             produto.setExcluido(false);
             produto.setQnt(qnt);
             produto.setDescricao(camp_Description.getText());
-
-            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
-            Date data = new Date(camp_Deliverydate.getText());
-            produto.setDataEntrega(data);// ADICIONA A DATA;
+            produto.setDataEntrega(camp_Deliverydate.getDate());// ADICIONA A DATA;
             produto.setValor_total(totalvalue); // ADICIONA O VALOR TOTAL;
 
             if (comboBox_Size.getSelectedItem().toString().equals("<selecione>")) {
-                JOptionPane.showMessageDialog(null, "Selecione o Tamanho!!");
+                JOptionPane.showMessageDialog(null, "<html><font color=\"#FF0000\">SELECIONE O TAMENHO!</font></html>");
+                obrigatorioTamanho.setVisible(true);
             } else {
-
+                obrigatorioTamanho.setVisible(false);
                 size = comboBox_Size.getSelectedItem().toString(); // PEGA O TAMANHO DO ITEM NA COMBOBOX;
                 produto.setTamanho(size); // ADICIONA O TAMANHO DO ITEM AO PRODUTO;
                 connectbanco.update(produto);// ATUALIZA O PRODUTO;
-                JOptionPane.showMessageDialog(null, "Produto *ATUALIZADO* Com Sucesso!");
+                JOptionPane.showMessageDialog(null, "<html><font color=\"#0000FF\">PRODUTO ATUALIZADO COM SUCESSO!</font></html>");
                 dispose();
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Confira os campos obrigatorio!");
+            JOptionPane.showMessageDialog(null, "<html><font color=\"#FF0000\">CONFIRA OS CAMPOS OBRIGATORIOS!</font></html>");
         }
 
-    }
-
-    public void buyPrice() {
-        String numero = camp_Buyprice.getText().trim();
-        if (!numero.equals("")) {
-            float preco = Float.parseFloat(numero);
-            camp_Buyprice.setText("R$" + preco);
-        }
-    }
-
-    public void sellPrice() {
-        String numero = camp_Sellprice.getText().trim();
-        if (!numero.equals("")) {
-            float preco = Float.parseFloat(numero);
-            camp_Sellprice.setText("R$" + preco);
-        }
     }
 
     public void loadingCampos() {
@@ -382,18 +378,26 @@ public class EditProductScreen extends javax.swing.JFrame {
         DecimalFormat dinheiro = new DecimalFormat("0.##");
         String pricebuy = dinheiro.format(produto.getValor_compra() / 100); // MOVE A VIRGULA DUAS CASAS DECIMAIS;
         String pricesell = dinheiro.format(produto.getValor_venda() / 100); // MOVE A VIRGULA DUAS CASAS DECIMAIS;
-        
+
         // ACRECENTA A VIRGULA E DUAS CASAS DECIMAIS AOS NUMEROS QUE SÃO INTEIROS;
-        if(pricebuy.contains(",")){camp_Buyprice.setText(pricebuy);}else{camp_Buyprice.setText(pricebuy+",00");}
-        if(pricesell.contains(",")){camp_Sellprice.setText(pricesell);}else{camp_Sellprice.setText(pricesell+",00");}
-        
+        if (pricebuy.contains(",")) {
+            camp_Buyprice.setText(pricebuy);
+        } else {
+            camp_Buyprice.setText(pricebuy + ",00");
+        }
+        if (pricesell.contains(",")) {
+            camp_Sellprice.setText(pricesell);
+        } else {
+            camp_Sellprice.setText(pricesell + ",00");
+        }
+
         // ADICIONA OS ATRIBUTOS DO ITEM NOS CAMPOS PARA SER EDITADOS;
         camp_ProductName.setText(produto.getNome());
         camp_Apelido.setText(produto.getApelido());
 
         camp_Qnt.setText(String.valueOf(produto.getQnt()));
         camp_Description.setText(produto.getDescricao());
-        camp_Deliverydate.setText(formato.format(produto.getDataEntrega()));
+        camp_Deliverydate.setDate(produto.getDataEntrega());
         comboBox_Size.setSelectedItem(produto.getTamanho());
 
         if (comboBox_Supplier.getSelectedItem().toString() == produto.getFornecedor().getNome()) {
