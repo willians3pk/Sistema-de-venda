@@ -130,8 +130,6 @@ public class RegistrationScreen extends javax.swing.JPanel {
         jLabel43 = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
-        camp_DDDSupplier1 = new javax.swing.JFormattedTextField();
-        jLabel46 = new javax.swing.JLabel();
         camp_CEPSupplier1 = new javax.swing.JFormattedTextField();
         jLabel47 = new javax.swing.JLabel();
         camp_StateSupplier1 = new javax.swing.JTextField();
@@ -145,13 +143,13 @@ public class RegistrationScreen extends javax.swing.JPanel {
         camp_BairroSupplier1 = new javax.swing.JTextField();
         jLabel52 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jListContato = new javax.swing.JList<>();
         jScrollPane5 = new javax.swing.JScrollPane();
         camp_ComplementSupplier1 = new javax.swing.JTextPane();
         btn_edit = new javax.swing.JButton();
         btn_save = new javax.swing.JButton();
         btn_cancelar = new javax.swing.JButton();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        tabelaContato = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel5 = new javax.swing.JPanel();
         jInternalFrame2 = new javax.swing.JInternalFrame();
@@ -584,7 +582,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel10.setLayout(null);
 
-        jpanelSupplier.setBorder(javax.swing.BorderFactory.createTitledBorder("Fornecedor"));
+        jpanelSupplier.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados do Fornecedor", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
         jpanelSupplier.setLayout(null);
 
         camp_SupplierName1.setEnabled(false);
@@ -625,7 +623,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
         jLabel41.setText("Contato:");
         jpanelSupplier.add(jLabel41);
-        jLabel41.setBounds(240, 220, 110, 16);
+        jLabel41.setBounds(20, 210, 110, 16);
 
         jLabel42.setText("CPF:");
         jpanelSupplier.add(jLabel42);
@@ -642,20 +640,6 @@ public class RegistrationScreen extends javax.swing.JPanel {
         jLabel45.setText("Home Page:");
         jpanelSupplier.add(jLabel45);
         jLabel45.setBounds(240, 90, 110, 20);
-
-        try {
-            camp_DDDSupplier1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        camp_DDDSupplier1.setText("00");
-        camp_DDDSupplier1.setEnabled(false);
-        jpanelSupplier.add(camp_DDDSupplier1);
-        camp_DDDSupplier1.setBounds(20, 240, 60, 32);
-
-        jLabel46.setText("DDD:");
-        jpanelSupplier.add(jLabel46);
-        jLabel46.setBounds(20, 220, 60, 16);
 
         try {
             camp_CEPSupplier1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -717,12 +701,6 @@ public class RegistrationScreen extends javax.swing.JPanel {
         jpanelSupplier.add(jSeparator4);
         jSeparator4.setBounds(430, 20, 10, 270);
 
-        jListContato.setEnabled(false);
-        jScrollPane4.setViewportView(jListContato);
-
-        jpanelSupplier.add(jScrollPane4);
-        jScrollPane4.setBounds(240, 240, 140, 50);
-
         camp_ComplementSupplier1.setBorder(javax.swing.BorderFactory.createTitledBorder("Complemento:"));
         camp_ComplementSupplier1.setEnabled(false);
         jScrollPane5.setViewportView(camp_ComplementSupplier1);
@@ -756,6 +734,24 @@ public class RegistrationScreen extends javax.swing.JPanel {
         });
         jpanelSupplier.add(btn_cancelar);
         btn_cancelar.setBounds(840, 260, 90, 36);
+
+        tabelaContato.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "DDD", "Numero"
+            }
+        ));
+        tabelaContato.setColumnSelectionAllowed(true);
+        jScrollPane9.setViewportView(tabelaContato);
+        tabelaContato.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
+        jpanelSupplier.add(jScrollPane9);
+        jScrollPane9.setBounds(20, 230, 260, 70);
 
         jPanel10.add(jpanelSupplier);
         jpanelSupplier.setBounds(10, 10, 1060, 310);
@@ -839,7 +835,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel12.setLayout(null);
 
-        jpanelSupplier1.setBorder(javax.swing.BorderFactory.createTitledBorder("Fornecedor"));
+        jpanelSupplier1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados do Cliente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
         jpanelSupplier1.setLayout(null);
 
         camp_ClientName.setEnabled(false);
@@ -1082,8 +1078,10 @@ public class RegistrationScreen extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_editActionPerformed
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
-        loadingFieldSupplier(); // carrega os campos com as informações de antes;
+//        loadingFieldSupplier(); // carrega os campos com as informações de antes;
         desableFieldSupplier(); // desabilita dos campos novamente;
+        CleanFieldSupplier();
+        preencherTableSupplier();
         btn_cancelar.setEnabled(false); // desabilita o botao cancelar;
     }//GEN-LAST:event_btn_cancelarActionPerformed
 
@@ -1121,19 +1119,23 @@ public class RegistrationScreen extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_save1ActionPerformed
 
     private void btn_cancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelar1ActionPerformed
+        preencherTableClient();
         desabilitarfieldClient();
+        CleanFieldClient();
         btn_cancelar1.setEnabled(false);
     }//GEN-LAST:event_btn_cancelar1ActionPerformed
 
     private void fieldSearch1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldSearch1KeyReleased
         preencherTableClient();
         desabilitarfieldClient();
+        CleanFieldClient();
         btn_edit1.setEnabled(false);
     }//GEN-LAST:event_fieldSearch1KeyReleased
 
     private void fieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldSearchKeyReleased
         preencherTableSupplier();
         desableFieldSupplier();
+        CleanFieldSupplier();
         btn_edit.setEnabled(false);
     }//GEN-LAST:event_fieldSearchKeyReleased
 
@@ -1171,7 +1173,6 @@ public class RegistrationScreen extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField camp_ContactSupplier;
     private javax.swing.JFormattedTextField camp_DDDClient;
     private javax.swing.JFormattedTextField camp_DDDSupplier;
-    private javax.swing.JFormattedTextField camp_DDDSupplier1;
     private javax.swing.JTextField camp_EmailClient;
     private javax.swing.JTextField camp_EmailSupplier;
     private javax.swing.JTextField camp_EmailSupplier1;
@@ -1240,7 +1241,6 @@ public class RegistrationScreen extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
@@ -1258,7 +1258,6 @@ public class RegistrationScreen extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
-    private javax.swing.JList<String> jListContato;
     private javax.swing.JList<String> jListContatoClient;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -1275,11 +1274,11 @@ public class RegistrationScreen extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -1290,6 +1289,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
     private javax.swing.JPanel jpanelSupplier;
     private javax.swing.JPanel jpanelSupplier1;
     private javax.swing.JLabel obrigatorioName;
+    private javax.swing.JTable tabelaContato;
     private javax.swing.JTable tableClient;
     private javax.swing.JTable tableSupplier;
     // End of variables declaration//GEN-END:variables
@@ -1378,7 +1378,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             camp_ComplementSupplier.setText(""); // complemento do fornecedor
 
         } else {
-            JOptionPane.showMessageDialog(null, "Preencha as Informações Obrigatorias");
+            JOptionPane.showMessageDialog(null, "<html><font color=\"#FF0000\">*PREENCHA AS INFORMAÇÕES OBRIGATORIAS*</font></html>");
         }
 
     }
@@ -1448,7 +1448,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             field_complement.setText("");
 
         } else {
-            JOptionPane.showMessageDialog(null, "Preencha as Informações relevantes");
+            JOptionPane.showMessageDialog(null, "<html><font color=\"#FF0000\">*PREENCHA AS INFORMAÇÕES RELEVANTES*</font></html>");
         }
     }
 
@@ -1556,11 +1556,16 @@ public class RegistrationScreen extends javax.swing.JPanel {
             if (banco.list_Fornecedores().get(i).getIdFornecedor().equals(tabela.getValueAt(linha, 0))) { // VERIFICA SE O ID DO OBJETO CONTEM NA LISTA DE FORNECEDORES DO BANCO DE DADOS
                 f = banco.list_Fornecedores().get(i);
 
-                DefaultListModel listContato = new DefaultListModel();
-//              PERCORRE TODA A LISTA DE CONTATO DE FORNECEDOR E ADICIONA EM UMA jList
-                for (NumeroContato contato : f.getContatos()) {
-                    listContato.addElement(contato.getFone());
-                    jListContato.setModel(listContato);
+                DefaultTableModel tabela1 = (DefaultTableModel) tabelaContato.getModel();
+//              PERCORRE TODA A LISTA DE CONTATO DE FORNECEDOR E ADICIONA EM UMA jTable
+                try {
+                    tabela1.setNumRows(0); // LIMPA OS CONTATOS ENTERIOR;
+                    for (NumeroContato contato : f.getContatos()) { // PEGA OS CONTATOS DO FORNECEDOR;
+                        tabela1.addRow(new Object[]{contato.getDdd(), contato.getFone()}); // E ADICIONA NA TABELA 
+                    }
+                } catch (Exception e) {
+                    System.out.println(e);
+                    JOptionPane.showMessageDialog(null, "Erro no Codigo");
                 }
 
                 camp_SupplierName1.setText(f.getNome());
@@ -1595,9 +1600,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         camp_HomePageSupplier1.setEnabled(true);
         camp_CNPJ1.setEnabled(true);
         camp_cpfSupplier1.setEnabled(true);
-
-        camp_DDDSupplier1.setEnabled(true);
-        jListContato.setEnabled(true);
+        tabelaContato.setEnabled(true);
 //                camp_DDDSupplier1.setEnabled(true);
 //              ENDERECO;                
         camp_AddressRuaSupplier1.setEnabled(true);
@@ -1620,9 +1623,8 @@ public class RegistrationScreen extends javax.swing.JPanel {
         camp_HomePageSupplier1.setEnabled(false);
         camp_CNPJ1.setEnabled(false);
         camp_cpfSupplier1.setEnabled(false);
-        camp_DDDSupplier1.setEnabled(false);
-        jListContato.setEnabled(false);
-        
+        tabelaContato.setEnabled(false);
+
 //              ENDERECO;                
         camp_AddressRuaSupplier1.setEnabled(false);
         camp_CEPSupplier1.setEnabled(false);
@@ -1681,7 +1683,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
     private void updateSupplier() {
 
-        int confirmacao = JOptionPane.showConfirmDialog(null, "Você Deseja Realmente alterar *OS DADOS DO FORNECEDOR*?", "Salvar?", JOptionPane.YES_NO_OPTION);
+        int confirmacao = JOptionPane.showConfirmDialog(null, "<html>Você Deseja Realmente <html><font color=\"#FF0000\">*ALTERAR OS DADOS DO FORNECEDOR*?</font></html></html>", "Salvar?", JOptionPane.YES_NO_OPTION);
 
         //--------------------------------- Dados Fornecedor ------------------------------------//
         if (confirmacao == JOptionPane.YES_OPTION) {
@@ -1729,7 +1731,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
     private void updateClient() {
 
-        int confirmacao = JOptionPane.showConfirmDialog(null, "Você Deseja Realmente alterar *OS DADOS DO CLIENTE*?", "Salvar?", JOptionPane.YES_NO_OPTION);
+        int confirmacao = JOptionPane.showConfirmDialog(null, "<html>Você Deseja Realmente <html><font color=\"#FF0000\">*ALTERAR OS DADOS DO CLIENTE*?</font></html></html>", "Salvar?", JOptionPane.YES_NO_OPTION);
 
         //--------------------------------- Dados Fornecedor ------------------------------------//
         if (confirmacao == JOptionPane.YES_OPTION) {
@@ -1766,13 +1768,13 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
             Conexao connectbanco = new Conexao(); // abre conexao com o banco;
             connectbanco.update(cliente); // salva e atualiza classe Pai
-            JOptionPane.showMessageDialog(null, "Dados Alterado com Sucesso!");
+            JOptionPane.showMessageDialog(null, "<html><font color=\"#0000FF\">DADOS ALTERADO COM SUCESSO!</font></html>");
         }
 
     }
 
     private void CleanFieldClient() {
-                //            LIMPA OS CAMPOS DO FORMULARIO
+        //            LIMPA OS CAMPOS DO FORMULARIO
         // pessoa
         camp_ClientName.setText("");
         camp_cpfClient.setText("00000000000");
@@ -1793,14 +1795,14 @@ public class RegistrationScreen extends javax.swing.JPanel {
     }
 
     private void CleanFieldSupplier() {
-        
+
         camp_SupplierName1.setText(""); // name do fornecedor
         camp_AddressRuaSupplier1.setText(""); // rua do fornecedor
         camp_EmailSupplier1.setText(""); // email do fornecedor
         camp_HomePageSupplier1.setText(""); // home page do fornecedor
         camp_CEPSupplier1.setText("00000000"); // cep do fornecedor
-        camp_DDDSupplier1.setText("00"); // DDD do fornecedor
-        jListContato.removeAll(); // contato do fornecedor
+        DefaultTableModel tabela1 = (DefaultTableModel) tabelaContato.getModel();
+        tabela1.setNumRows(0); // contato do fornecedor
         camp_CNPJ1.setText("00000000000000"); // CNPJ do fornecedor
         camp_cpfSupplier1.setText("00000000000"); // CPF do fornecedor
         camp_BairroSupplier1.setText("");// Bairro do fornecedor
@@ -1808,7 +1810,6 @@ public class RegistrationScreen extends javax.swing.JPanel {
         camp_StateSupplier1.setText(""); // Estado UF do fornecedor
         camp_CitySupplier1.setText(""); // cidade do forncedor
         camp_ComplementSupplier1.setText(""); // complemento do fornecedor 
-        
-    }
 
+    }
 }

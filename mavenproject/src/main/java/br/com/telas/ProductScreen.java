@@ -67,6 +67,7 @@ public class ProductScreen extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         camp_Deliverydate = new com.toedter.calendar.JDateChooser();
         obrigatorioDate = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
 
         setLayout(null);
@@ -305,6 +306,15 @@ public class ProductScreen extends javax.swing.JPanel {
         jPanel2.add(obrigatorioDate);
         obrigatorioDate.setBounds(740, 160, 100, 16);
 
+        jLabel11.setText("Ajuda?");
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel11);
+        jLabel11.setBounds(830, 180, 50, 20);
+
         add(jPanel2);
         jPanel2.setBounds(10, 10, 1120, 290);
         add(jSeparator1);
@@ -377,7 +387,7 @@ public class ProductScreen extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_ToEditActionPerformed
 
     private void btn_NewSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NewSupplierActionPerformed
-        ;
+
     }//GEN-LAST:event_btn_NewSupplierActionPerformed
 
     private void camp_BuypriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_BuypriceKeyReleased
@@ -393,6 +403,10 @@ public class ProductScreen extends javax.swing.JPanel {
         btn_ToEdit.setEnabled(false);
         btn_Deactivate.setEnabled(false);
     }//GEN-LAST:event_camp_SearchProductKeyReleased
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        JOptionPane.showMessageDialog(null, "Data em que o Produto foi recebido do Correio!", "Ajuda!!", HEIGHT);
+    }//GEN-LAST:event_jLabel11MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -417,6 +431,7 @@ public class ProductScreen extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> comboBox_Supplier;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
