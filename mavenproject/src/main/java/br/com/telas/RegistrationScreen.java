@@ -19,7 +19,8 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
     Fornecedor f = null;
     Cliente cliente = null;
-
+    
+    
     public RegistrationScreen() {
         initComponents();
         preencherTableSupplier();
@@ -90,8 +91,8 @@ public class RegistrationScreen extends javax.swing.JPanel {
         jLabel18 = new javax.swing.JLabel();
         field_DDD = new javax.swing.JFormattedTextField();
         jLabel20 = new javax.swing.JLabel();
-        field_date = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
+        field_date = new com.toedter.calendar.JDateChooser();
         jPanel7 = new javax.swing.JPanel();
         field_Rua = new javax.swing.JTextField();
         field_cep = new javax.swing.JFormattedTextField();
@@ -168,8 +169,6 @@ public class RegistrationScreen extends javax.swing.JPanel {
         jLabel54 = new javax.swing.JLabel();
         jLabel55 = new javax.swing.JLabel();
         jLabel57 = new javax.swing.JLabel();
-        camp_DDDClient = new javax.swing.JFormattedTextField();
-        jLabel59 = new javax.swing.JLabel();
         camp_CEPClient = new javax.swing.JFormattedTextField();
         jLabel60 = new javax.swing.JLabel();
         camp_StateClient = new javax.swing.JTextField();
@@ -183,13 +182,15 @@ public class RegistrationScreen extends javax.swing.JPanel {
         camp_BairroClient = new javax.swing.JTextField();
         jLabel65 = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        jListContatoClient = new javax.swing.JList<>();
         jScrollPane8 = new javax.swing.JScrollPane();
         camp_ComplementClient = new javax.swing.JTextPane();
         btn_edit1 = new javax.swing.JButton();
         btn_save1 = new javax.swing.JButton();
         btn_cancelar1 = new javax.swing.JButton();
+        camp_DataNascimento = new com.toedter.calendar.JDateChooser();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jtableContato = new javax.swing.JTable();
         jSeparator6 = new javax.swing.JSeparator();
 
         setLayout(null);
@@ -199,7 +200,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Fornecedor"));
         jPanel8.setLayout(null);
         jPanel8.add(camp_SupplierName);
-        camp_SupplierName.setBounds(20, 50, 830, 32);
+        camp_SupplierName.setBounds(20, 50, 830, 28);
 
         try {
             camp_CNPJ.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
@@ -208,7 +209,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         }
         camp_CNPJ.setText("00.000.000/0000-00");
         jPanel8.add(camp_CNPJ);
-        camp_CNPJ.setBounds(630, 170, 250, 32);
+        camp_CNPJ.setBounds(630, 170, 250, 28);
 
         try {
             camp_cpfSupplier.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -217,11 +218,11 @@ public class RegistrationScreen extends javax.swing.JPanel {
         }
         camp_cpfSupplier.setText("000.000.000-00");
         jPanel8.add(camp_cpfSupplier);
-        camp_cpfSupplier.setBounds(360, 170, 250, 32);
+        camp_cpfSupplier.setBounds(360, 170, 250, 28);
         jPanel8.add(camp_EmailSupplier);
-        camp_EmailSupplier.setBounds(20, 110, 280, 32);
+        camp_EmailSupplier.setBounds(20, 110, 280, 28);
         jPanel8.add(camp_HomePageSupplier);
-        camp_HomePageSupplier.setBounds(20, 170, 280, 32);
+        camp_HomePageSupplier.setBounds(20, 170, 280, 28);
 
         try {
             camp_ContactSupplier.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#########")));
@@ -230,7 +231,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         }
         camp_ContactSupplier.setText("000000000");
         jPanel8.add(camp_ContactSupplier);
-        camp_ContactSupplier.setBounds(440, 110, 130, 32);
+        camp_ContactSupplier.setBounds(440, 110, 130, 28);
 
         jLabel27.setText("Nome:");
         jPanel8.add(jLabel27);
@@ -263,7 +264,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         }
         camp_DDDSupplier.setText("00");
         jPanel8.add(camp_DDDSupplier);
-        camp_DDDSupplier.setBounds(360, 110, 60, 32);
+        camp_DDDSupplier.setBounds(360, 110, 60, 28);
 
         jLabel33.setText("DDD:");
         jPanel8.add(jLabel33);
@@ -282,7 +283,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Endereço:"));
         jPanel9.setLayout(null);
         jPanel9.add(camp_AddressRuaSupplier);
-        camp_AddressRuaSupplier.setBounds(20, 40, 490, 32);
+        camp_AddressRuaSupplier.setBounds(20, 40, 490, 28);
 
         try {
             camp_CEPSupplier.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -291,18 +292,18 @@ public class RegistrationScreen extends javax.swing.JPanel {
         }
         camp_CEPSupplier.setText("00000-000");
         jPanel9.add(camp_CEPSupplier);
-        camp_CEPSupplier.setBounds(540, 40, 150, 32);
+        camp_CEPSupplier.setBounds(540, 40, 150, 28);
         jPanel9.add(camp_CitySupplier);
-        camp_CitySupplier.setBounds(20, 110, 220, 32);
+        camp_CitySupplier.setBounds(20, 110, 220, 28);
         jPanel9.add(camp_StateSupplier);
-        camp_StateSupplier.setBounds(330, 110, 100, 32);
+        camp_StateSupplier.setBounds(330, 110, 100, 28);
         jPanel9.add(camp_BairroSupplier);
-        camp_BairroSupplier.setBounds(20, 180, 270, 32);
+        camp_BairroSupplier.setBounds(20, 180, 270, 28);
 
         camp_NumbleHouseSupplier.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         camp_NumbleHouseSupplier.setText("00000000");
         jPanel9.add(camp_NumbleHouseSupplier);
-        camp_NumbleHouseSupplier.setBounds(330, 180, 100, 32);
+        camp_NumbleHouseSupplier.setBounds(330, 180, 100, 28);
 
         jLabel34.setText("Rua:");
         jPanel9.add(jLabel34);
@@ -344,7 +345,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btn_Register);
-        btn_Register.setBounds(988, 550, 110, 36);
+        btn_Register.setBounds(988, 550, 110, 30);
 
         btn_limpall.setText("Limpar Tudo");
         btn_limpall.addActionListener(new java.awt.event.ActionListener() {
@@ -353,7 +354,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btn_limpall);
-        btn_limpall.setBounds(848, 550, 110, 36);
+        btn_limpall.setBounds(848, 550, 110, 30);
 
         jTabbedPane1.addTab("Fornecedor:", jPanel1);
 
@@ -364,7 +365,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Pessoa"));
         jPanel6.setLayout(null);
         jPanel6.add(field_Name);
-        field_Name.setBounds(20, 50, 830, 32);
+        field_Name.setBounds(20, 50, 830, 28);
 
         try {
             field_cpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -373,9 +374,9 @@ public class RegistrationScreen extends javax.swing.JPanel {
         }
         field_cpf.setText("000.000.000-00");
         jPanel6.add(field_cpf);
-        field_cpf.setBounds(320, 110, 250, 32);
+        field_cpf.setBounds(320, 110, 250, 28);
         jPanel6.add(filed_Email);
-        filed_Email.setBounds(20, 110, 280, 32);
+        filed_Email.setBounds(20, 110, 280, 28);
 
         try {
             field_contact.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#########")));
@@ -384,7 +385,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         }
         field_contact.setText("000000000");
         jPanel6.add(field_contact);
-        field_contact.setBounds(100, 170, 130, 32);
+        field_contact.setBounds(100, 170, 130, 28);
 
         jLabel14.setText("Nome:");
         jPanel6.add(jLabel14);
@@ -413,24 +414,18 @@ public class RegistrationScreen extends javax.swing.JPanel {
         }
         field_DDD.setText("00");
         jPanel6.add(field_DDD);
-        field_DDD.setBounds(20, 170, 60, 32);
+        field_DDD.setBounds(20, 170, 60, 28);
 
         jLabel20.setText("DDD:");
         jPanel6.add(jLabel20);
         jLabel20.setBounds(20, 150, 60, 16);
 
-        try {
-            field_date.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jPanel6.add(field_date);
-        field_date.setBounds(590, 110, 100, 32);
-
         jLabel2.setForeground(new java.awt.Color(255, 0, 0));
         jLabel2.setText("* obrigatorio");
         jPanel6.add(jLabel2);
         jLabel2.setBounds(70, 30, 90, 16);
+        jPanel6.add(field_date);
+        field_date.setBounds(590, 110, 151, 28);
 
         jPanel2.add(jPanel6);
         jPanel6.setBounds(10, 10, 1090, 220);
@@ -438,7 +433,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Endereço:"));
         jPanel7.setLayout(null);
         jPanel7.add(field_Rua);
-        field_Rua.setBounds(20, 40, 490, 32);
+        field_Rua.setBounds(20, 40, 490, 28);
 
         try {
             field_cep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -447,18 +442,18 @@ public class RegistrationScreen extends javax.swing.JPanel {
         }
         field_cep.setText("00000-000");
         jPanel7.add(field_cep);
-        field_cep.setBounds(540, 40, 150, 32);
+        field_cep.setBounds(540, 40, 150, 28);
         jPanel7.add(field_cidade);
-        field_cidade.setBounds(20, 110, 220, 32);
+        field_cidade.setBounds(20, 110, 220, 28);
         jPanel7.add(field_estado);
-        field_estado.setBounds(330, 110, 100, 32);
+        field_estado.setBounds(330, 110, 100, 28);
         jPanel7.add(field_bairro);
-        field_bairro.setBounds(20, 180, 270, 32);
+        field_bairro.setBounds(20, 180, 270, 28);
 
         field_numeroCasa.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         field_numeroCasa.setText("00000000");
         jPanel7.add(field_numeroCasa);
-        field_numeroCasa.setBounds(330, 180, 100, 32);
+        field_numeroCasa.setBounds(330, 180, 100, 28);
 
         jLabel21.setText("Rua:");
         jPanel7.add(jLabel21);
@@ -500,7 +495,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             }
         });
         jPanel2.add(jButton2);
-        jButton2.setBounds(988, 550, 110, 36);
+        jButton2.setBounds(988, 550, 110, 30);
 
         btn_limpAll.setText("Limpar Tudo");
         btn_limpAll.addActionListener(new java.awt.event.ActionListener() {
@@ -509,7 +504,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             }
         });
         jPanel2.add(btn_limpAll);
-        btn_limpAll.setBounds(848, 550, 110, 36);
+        btn_limpAll.setBounds(848, 550, 110, 30);
 
         jTabbedPane1.addTab("Cliente", jPanel2);
 
@@ -561,7 +556,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             }
         });
         jPanel4.add(fieldSearch);
-        fieldSearch.setBounds(20, 50, 680, 32);
+        fieldSearch.setBounds(20, 50, 680, 28);
 
         jLabel1.setText("Nome:");
         jPanel4.add(jLabel1);
@@ -574,7 +569,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             }
         });
         jPanel4.add(btn_update);
-        btn_update.setBounds(720, 50, 90, 36);
+        btn_update.setBounds(720, 50, 90, 30);
 
         jInternalFrame1.getContentPane().add(jPanel4);
         jPanel4.setBounds(10, 0, 1080, 210);
@@ -587,7 +582,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
         camp_SupplierName1.setEnabled(false);
         jpanelSupplier.add(camp_SupplierName1);
-        camp_SupplierName1.setBounds(20, 50, 380, 32);
+        camp_SupplierName1.setBounds(20, 50, 380, 28);
 
         try {
             camp_CNPJ1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
@@ -597,7 +592,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         camp_CNPJ1.setText("00.000.000/0000-00");
         camp_CNPJ1.setEnabled(false);
         jpanelSupplier.add(camp_CNPJ1);
-        camp_CNPJ1.setBounds(20, 170, 190, 32);
+        camp_CNPJ1.setBounds(20, 170, 190, 28);
 
         try {
             camp_cpfSupplier1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -607,15 +602,15 @@ public class RegistrationScreen extends javax.swing.JPanel {
         camp_cpfSupplier1.setText("000.000.000-00");
         camp_cpfSupplier1.setEnabled(false);
         jpanelSupplier.add(camp_cpfSupplier1);
-        camp_cpfSupplier1.setBounds(240, 170, 160, 32);
+        camp_cpfSupplier1.setBounds(240, 170, 160, 28);
 
         camp_EmailSupplier1.setEnabled(false);
         jpanelSupplier.add(camp_EmailSupplier1);
-        camp_EmailSupplier1.setBounds(20, 110, 190, 32);
+        camp_EmailSupplier1.setBounds(20, 110, 190, 28);
 
         camp_HomePageSupplier1.setEnabled(false);
         jpanelSupplier.add(camp_HomePageSupplier1);
-        camp_HomePageSupplier1.setBounds(240, 110, 160, 32);
+        camp_HomePageSupplier1.setBounds(240, 110, 160, 28);
 
         jLabel40.setText("Nome:");
         jpanelSupplier.add(jLabel40);
@@ -649,7 +644,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         camp_CEPSupplier1.setText("00000-000");
         camp_CEPSupplier1.setEnabled(false);
         jpanelSupplier.add(camp_CEPSupplier1);
-        camp_CEPSupplier1.setBounds(760, 40, 120, 32);
+        camp_CEPSupplier1.setBounds(760, 40, 120, 28);
 
         jLabel47.setText("CEP:");
         jpanelSupplier.add(jLabel47);
@@ -657,13 +652,13 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
         camp_StateSupplier1.setEnabled(false);
         jpanelSupplier.add(camp_StateSupplier1);
-        camp_StateSupplier1.setBounds(690, 100, 100, 32);
+        camp_StateSupplier1.setBounds(690, 100, 100, 28);
 
         camp_NumbleHouseSupplier1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         camp_NumbleHouseSupplier1.setText("0000");
         camp_NumbleHouseSupplier1.setEnabled(false);
         jpanelSupplier.add(camp_NumbleHouseSupplier1);
-        camp_NumbleHouseSupplier1.setBounds(900, 40, 100, 32);
+        camp_NumbleHouseSupplier1.setBounds(900, 40, 100, 28);
 
         jLabel48.setText("Numero da Casa:");
         jpanelSupplier.add(jLabel48);
@@ -675,7 +670,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
         camp_AddressRuaSupplier1.setEnabled(false);
         jpanelSupplier.add(camp_AddressRuaSupplier1);
-        camp_AddressRuaSupplier1.setBounds(450, 40, 290, 32);
+        camp_AddressRuaSupplier1.setBounds(450, 40, 290, 28);
 
         jLabel50.setText("Rua:");
         jpanelSupplier.add(jLabel50);
@@ -687,11 +682,11 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
         camp_CitySupplier1.setEnabled(false);
         jpanelSupplier.add(camp_CitySupplier1);
-        camp_CitySupplier1.setBounds(450, 100, 220, 32);
+        camp_CitySupplier1.setBounds(450, 100, 220, 28);
 
         camp_BairroSupplier1.setEnabled(false);
         jpanelSupplier.add(camp_BairroSupplier1);
-        camp_BairroSupplier1.setBounds(810, 100, 220, 32);
+        camp_BairroSupplier1.setBounds(810, 100, 220, 28);
 
         jLabel52.setText("Bairro:");
         jpanelSupplier.add(jLabel52);
@@ -715,7 +710,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             }
         });
         jpanelSupplier.add(btn_edit);
-        btn_edit.setBounds(950, 260, 90, 36);
+        btn_edit.setBounds(950, 260, 90, 30);
 
         btn_save.setText("Salvar");
         btn_save.addActionListener(new java.awt.event.ActionListener() {
@@ -724,7 +719,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             }
         });
         jpanelSupplier.add(btn_save);
-        btn_save.setBounds(730, 260, 90, 36);
+        btn_save.setBounds(730, 260, 90, 30);
 
         btn_cancelar.setText("Cancelar");
         btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -733,7 +728,9 @@ public class RegistrationScreen extends javax.swing.JPanel {
             }
         });
         jpanelSupplier.add(btn_cancelar);
-        btn_cancelar.setBounds(840, 260, 90, 36);
+        btn_cancelar.setBounds(840, 260, 90, 30);
+
+        jScrollPane9.setEnabled(false);
 
         tabelaContato.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -747,6 +744,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             }
         ));
         tabelaContato.setColumnSelectionAllowed(true);
+        tabelaContato.setEnabled(false);
         jScrollPane9.setViewportView(tabelaContato);
         tabelaContato.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
@@ -814,7 +812,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             }
         });
         jPanel11.add(fieldSearch1);
-        fieldSearch1.setBounds(20, 50, 680, 32);
+        fieldSearch1.setBounds(20, 50, 680, 28);
 
         jLabel3.setText("Nome:");
         jPanel11.add(jLabel3);
@@ -827,7 +825,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             }
         });
         jPanel11.add(btn_update1);
-        btn_update1.setBounds(720, 50, 90, 36);
+        btn_update1.setBounds(720, 50, 90, 30);
 
         jInternalFrame2.getContentPane().add(jPanel11);
         jPanel11.setBounds(10, 0, 1080, 210);
@@ -840,7 +838,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
         camp_ClientName.setEnabled(false);
         jpanelSupplier1.add(camp_ClientName);
-        camp_ClientName.setBounds(20, 50, 380, 32);
+        camp_ClientName.setBounds(20, 50, 380, 28);
 
         try {
             camp_cpfClient.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -850,11 +848,11 @@ public class RegistrationScreen extends javax.swing.JPanel {
         camp_cpfClient.setText("000.000.000-00");
         camp_cpfClient.setEnabled(false);
         jpanelSupplier1.add(camp_cpfClient);
-        camp_cpfClient.setBounds(240, 110, 160, 32);
+        camp_cpfClient.setBounds(20, 170, 160, 28);
 
         camp_EmailClient.setEnabled(false);
         jpanelSupplier1.add(camp_EmailClient);
-        camp_EmailClient.setBounds(20, 110, 190, 32);
+        camp_EmailClient.setBounds(20, 110, 190, 28);
 
         jLabel53.setText("Nome:");
         jpanelSupplier1.add(jLabel53);
@@ -862,29 +860,15 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
         jLabel54.setText("Contato:");
         jpanelSupplier1.add(jLabel54);
-        jLabel54.setBounds(250, 160, 110, 20);
+        jLabel54.setBounds(210, 150, 110, 20);
 
         jLabel55.setText("CPF:");
         jpanelSupplier1.add(jLabel55);
-        jLabel55.setBounds(240, 90, 70, 16);
+        jLabel55.setBounds(20, 150, 70, 16);
 
         jLabel57.setText("E-mail:");
         jpanelSupplier1.add(jLabel57);
         jLabel57.setBounds(20, 90, 80, 16);
-
-        try {
-            camp_DDDClient.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        camp_DDDClient.setText("00");
-        camp_DDDClient.setEnabled(false);
-        jpanelSupplier1.add(camp_DDDClient);
-        camp_DDDClient.setBounds(20, 180, 60, 32);
-
-        jLabel59.setText("DDD:");
-        jpanelSupplier1.add(jLabel59);
-        jLabel59.setBounds(20, 160, 60, 16);
 
         try {
             camp_CEPClient.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -894,7 +878,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         camp_CEPClient.setText("00000-000");
         camp_CEPClient.setEnabled(false);
         jpanelSupplier1.add(camp_CEPClient);
-        camp_CEPClient.setBounds(760, 40, 120, 32);
+        camp_CEPClient.setBounds(760, 40, 120, 28);
 
         jLabel60.setText("CEP:");
         jpanelSupplier1.add(jLabel60);
@@ -902,13 +886,13 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
         camp_StateClient.setEnabled(false);
         jpanelSupplier1.add(camp_StateClient);
-        camp_StateClient.setBounds(690, 100, 100, 32);
+        camp_StateClient.setBounds(690, 100, 100, 28);
 
         camp_NumbleHouseClient.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         camp_NumbleHouseClient.setText("0000");
         camp_NumbleHouseClient.setEnabled(false);
         jpanelSupplier1.add(camp_NumbleHouseClient);
-        camp_NumbleHouseClient.setBounds(900, 40, 100, 32);
+        camp_NumbleHouseClient.setBounds(900, 40, 100, 28);
 
         jLabel61.setText("Numero da Casa:");
         jpanelSupplier1.add(jLabel61);
@@ -920,7 +904,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
         camp_AddressRuaClient.setEnabled(false);
         jpanelSupplier1.add(camp_AddressRuaClient);
-        camp_AddressRuaClient.setBounds(450, 40, 290, 32);
+        camp_AddressRuaClient.setBounds(450, 40, 290, 28);
 
         jLabel63.setText("Rua:");
         jpanelSupplier1.add(jLabel63);
@@ -932,11 +916,11 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
         camp_CityClient.setEnabled(false);
         jpanelSupplier1.add(camp_CityClient);
-        camp_CityClient.setBounds(450, 100, 220, 32);
+        camp_CityClient.setBounds(450, 100, 220, 28);
 
         camp_BairroClient.setEnabled(false);
         jpanelSupplier1.add(camp_BairroClient);
-        camp_BairroClient.setBounds(810, 100, 220, 32);
+        camp_BairroClient.setBounds(810, 100, 220, 28);
 
         jLabel65.setText("Bairro:");
         jpanelSupplier1.add(jLabel65);
@@ -945,12 +929,6 @@ public class RegistrationScreen extends javax.swing.JPanel {
         jSeparator5.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jpanelSupplier1.add(jSeparator5);
         jSeparator5.setBounds(430, 20, 10, 270);
-
-        jListContatoClient.setEnabled(false);
-        jScrollPane7.setViewportView(jListContatoClient);
-
-        jpanelSupplier1.add(jScrollPane7);
-        jScrollPane7.setBounds(250, 180, 140, 80);
 
         camp_ComplementClient.setBorder(javax.swing.BorderFactory.createTitledBorder("Complemento:"));
         camp_ComplementClient.setEnabled(false);
@@ -966,7 +944,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             }
         });
         jpanelSupplier1.add(btn_edit1);
-        btn_edit1.setBounds(950, 260, 90, 36);
+        btn_edit1.setBounds(950, 260, 90, 30);
 
         btn_save1.setText("Salvar");
         btn_save1.addActionListener(new java.awt.event.ActionListener() {
@@ -975,7 +953,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             }
         });
         jpanelSupplier1.add(btn_save1);
-        btn_save1.setBounds(730, 260, 90, 36);
+        btn_save1.setBounds(730, 260, 90, 30);
 
         btn_cancelar1.setText("Cancelar");
         btn_cancelar1.addActionListener(new java.awt.event.ActionListener() {
@@ -984,7 +962,32 @@ public class RegistrationScreen extends javax.swing.JPanel {
             }
         });
         jpanelSupplier1.add(btn_cancelar1);
-        btn_cancelar1.setBounds(840, 260, 90, 36);
+        btn_cancelar1.setBounds(840, 260, 90, 30);
+
+        camp_DataNascimento.setEnabled(false);
+        jpanelSupplier1.add(camp_DataNascimento);
+        camp_DataNascimento.setBounds(240, 110, 160, 28);
+
+        jLabel4.setText("Data Nascimento:");
+        jpanelSupplier1.add(jLabel4);
+        jLabel4.setBounds(240, 90, 130, 16);
+
+        jtableContato.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "DDD", "Contato"
+            }
+        ));
+        jtableContato.setEnabled(false);
+        jScrollPane4.setViewportView(jtableContato);
+
+        jpanelSupplier1.add(jScrollPane4);
+        jScrollPane4.setBounds(210, 170, 210, 80);
 
         jPanel12.add(jpanelSupplier1);
         jpanelSupplier1.setBounds(10, 10, 1060, 310);
@@ -1017,7 +1020,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         field_Name.setText("");
         field_cpf.setText("000.000.000-00");
         filed_Email.setText("");
-        field_date.setText("");
+//        field_date.setName("");
 
         // contato
         field_DDD.setText("00");
@@ -1078,7 +1081,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_editActionPerformed
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
-//        loadingFieldSupplier(); // carrega os campos com as informações de antes;
+        loadingFieldSupplier(); // carrega os campos com as informações de antes;
         desableFieldSupplier(); // desabilita dos campos novamente;
         CleanFieldSupplier();
         preencherTableSupplier();
@@ -1171,8 +1174,8 @@ public class RegistrationScreen extends javax.swing.JPanel {
     private javax.swing.JTextPane camp_ComplementSupplier;
     private javax.swing.JTextPane camp_ComplementSupplier1;
     private javax.swing.JFormattedTextField camp_ContactSupplier;
-    private javax.swing.JFormattedTextField camp_DDDClient;
     private javax.swing.JFormattedTextField camp_DDDSupplier;
+    private com.toedter.calendar.JDateChooser camp_DataNascimento;
     private javax.swing.JTextField camp_EmailClient;
     private javax.swing.JTextField camp_EmailSupplier;
     private javax.swing.JTextField camp_EmailSupplier1;
@@ -1200,7 +1203,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
     private javax.swing.JTextPane field_complement;
     private javax.swing.JFormattedTextField field_contact;
     private javax.swing.JFormattedTextField field_cpf;
-    private javax.swing.JFormattedTextField field_date;
+    private com.toedter.calendar.JDateChooser field_date;
     private javax.swing.JTextField field_estado;
     private javax.swing.JFormattedTextField field_numeroCasa;
     private javax.swing.JTextField filed_Email;
@@ -1235,6 +1238,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
@@ -1251,14 +1255,12 @@ public class RegistrationScreen extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel57;
-    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
-    private javax.swing.JList<String> jListContatoClient;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1274,9 +1276,9 @@ public class RegistrationScreen extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
@@ -1288,6 +1290,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel jpanelSupplier;
     private javax.swing.JPanel jpanelSupplier1;
+    private javax.swing.JTable jtableContato;
     private javax.swing.JLabel obrigatorioName;
     private javax.swing.JTable tabelaContato;
     private javax.swing.JTable tableClient;
@@ -1396,7 +1399,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             cliente.setEmail(filed_Email.getText());
             cliente.setStatus(true);
             cliente.setClienteDesde(new Date()); // DATA QUE O CLIENTE FOI CADASTRADO;
-//            cliente.setDataNascimento(new Date(field_date.getText()));  NAO ESQUECER DE ARRUMAR ESSA LINHA DE CODIGO
+            cliente.setDataNascimento(field_date.getDate());
 
 // ---------- ENDEREÇO -----------------
             Endereco end = new Endereco();
@@ -1434,7 +1437,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             field_Name.setText("");
             field_cpf.setText("000.000.000-00");
             filed_Email.setText("");
-            field_date.setText("");
+//            field_date.setName("");
             // contato
             field_DDD.setText("00");
             field_contact.setText("000000000");
@@ -1514,18 +1517,23 @@ public class RegistrationScreen extends javax.swing.JPanel {
         for (int i = 0; i < banco.list_Cliente().size(); i++) {
             if (banco.list_Cliente().get(i).getIdpessoa().equals(tabela.getValueAt(linha, 0))) { // VERIFICA SE O ID DO OBJETO CONTEM NA LISTA DE FORNECEDORES DO BANCO DE DADOS
                 cliente = banco.list_Cliente().get(i);
-
-                DefaultListModel listContato = new DefaultListModel();
-//              PERCORRE TODA A LISTA DE CONTATO DE FORNECEDOR E ADICIONA EM UMA jList
-                for (NumeroContato contato : cliente.getNumeroContatos()) {
-                    listContato.addElement(contato.getFone());
-                    jListContatoClient.setModel(listContato);
+                
+                DefaultTableModel tabela2 = (DefaultTableModel) jtableContato.getModel();
+//              PERCORRE TODA A LISTA DE CONTATO DO CLIENTE E ADICIONA EM UMA jTable
+                try {
+                    tabela2.setNumRows(0); // LIMPA OS CONTATOS ENTERIOR;
+                    for (NumeroContato contato : cliente.getNumeroContatos()) { // PEGA OS CONTATOS DO CLIENTE;
+                        tabela2.addRow(new Object[]{contato.getDdd(), contato.getFone()}); // E ADICIONA NA TABELA 
+                    }
+                } catch (Exception e) {
+                    System.out.println(e);
+                    JOptionPane.showMessageDialog(null, "Erro no Codigo");
                 }
 
                 camp_ClientName.setText(cliente.getNome());
                 camp_EmailClient.setText(cliente.getEmail());
                 camp_cpfClient.setText(cliente.getCpf().toString());
-                camp_DDDClient.setText(String.valueOf(cliente.getNumeroContatos().get(0).getDdd()));    // CORRIGIR ESSA LINHA NAO ESQUECER;
+                camp_DataNascimento.setDate(cliente.getDataNascimento());
 
 //              CONVERTE OS VALORES DO TIPO INTEIRO PRA STRING;
                 String cep = String.valueOf(cliente.getEndereco().getCep());
@@ -1643,9 +1651,8 @@ public class RegistrationScreen extends javax.swing.JPanel {
         camp_EmailClient.setEnabled(true);
         camp_cpfClient.setEnabled(true);
 
-        camp_DDDClient.setEnabled(true);
-        jListContatoClient.setEnabled(true);
-//                camp_DDDSupplier1.setEnabled(true);
+        jtableContato.setEnabled(true);
+
 //              ENDERECO;                
         camp_AddressRuaClient.setEnabled(true);
         camp_CEPClient.setEnabled(true);
@@ -1665,8 +1672,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         camp_ClientName.setEnabled(false);
         camp_EmailClient.setEnabled(false);
         camp_cpfClient.setEnabled(false);
-        camp_DDDClient.setEnabled(false);
-        jListContatoClient.setEnabled(false);
+        jtableContato.setEnabled(false);
 
 //              ENDERECO;                
         camp_AddressRuaClient.setEnabled(false);
@@ -1781,8 +1787,8 @@ public class RegistrationScreen extends javax.swing.JPanel {
         camp_EmailClient.setText("");
 
         // contato
-        camp_DDDClient.setText("00");
-        jListContatoClient.removeAll();
+        DefaultTableModel tabela1 = (DefaultTableModel) tabelaContato.getModel();
+        tabela1.setNumRows(0); // contato do CLIENTE
 
         // endereco
         camp_AddressRuaClient.setText("");
