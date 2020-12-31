@@ -65,9 +65,10 @@ public class ProductScreen extends javax.swing.JPanel {
         obrigatorioQnt = new javax.swing.JLabel();
         obrigatorioSupplier = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        camp_Deliverydate = new com.toedter.calendar.JDateChooser();
         obrigatorioDate = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        camp_Deliverydate = new com.toedter.calendar.JDateChooser();
+        btn_cleanAll = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
 
         setLayout(null);
@@ -110,7 +111,7 @@ public class ProductScreen extends javax.swing.JPanel {
             }
         });
         jPanel1.add(camp_SearchProduct);
-        camp_SearchProduct.setBounds(10, 90, 470, 32);
+        camp_SearchProduct.setBounds(10, 90, 470, 28);
 
         btn_update.setText("Atualizar");
         btn_update.addActionListener(new java.awt.event.ActionListener() {
@@ -119,7 +120,7 @@ public class ProductScreen extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btn_update);
-        btn_update.setBounds(510, 90, 100, 36);
+        btn_update.setBounds(510, 90, 100, 30);
 
         jLabel1.setText("Pesquisar:");
         jPanel1.add(jLabel1);
@@ -132,7 +133,7 @@ public class ProductScreen extends javax.swing.JPanel {
             }
         });
         jPanel1.add(box_Size);
-        box_Size.setBounds(120, 60, 81, 24);
+        box_Size.setBounds(120, 60, 81, 23);
 
         box_Price.setText("Preço");
         box_Price.addActionListener(new java.awt.event.ActionListener() {
@@ -141,7 +142,7 @@ public class ProductScreen extends javax.swing.JPanel {
             }
         });
         jPanel1.add(box_Price);
-        box_Price.setBounds(230, 60, 62, 24);
+        box_Price.setBounds(230, 60, 62, 23);
 
         box_Qnt.setText("Quantidade");
         box_Qnt.addActionListener(new java.awt.event.ActionListener() {
@@ -150,7 +151,7 @@ public class ProductScreen extends javax.swing.JPanel {
             }
         });
         jPanel1.add(box_Qnt);
-        box_Qnt.setBounds(350, 60, 97, 24);
+        box_Qnt.setBounds(350, 60, 97, 23);
 
         btn_ToEdit.setText("Editar");
         btn_ToEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -159,7 +160,7 @@ public class ProductScreen extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btn_ToEdit);
-        btn_ToEdit.setBounds(640, 90, 100, 36);
+        btn_ToEdit.setBounds(640, 90, 100, 30);
 
         btn_Deactivate.setText("Desativa");
         btn_Deactivate.addActionListener(new java.awt.event.ActionListener() {
@@ -168,11 +169,11 @@ public class ProductScreen extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btn_Deactivate);
-        btn_Deactivate.setBounds(770, 90, 100, 36);
+        btn_Deactivate.setBounds(770, 90, 100, 30);
 
         camp_Profitmargin.setEnabled(false);
         jPanel1.add(camp_Profitmargin);
-        camp_Profitmargin.setBounds(990, 60, 110, 32);
+        camp_Profitmargin.setBounds(990, 60, 110, 28);
 
         jLabel8.setText("Margem de Lucro Bruto:");
         jPanel1.add(jLabel8);
@@ -184,15 +185,15 @@ public class ProductScreen extends javax.swing.JPanel {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro Produto"));
         jPanel2.setLayout(null);
         jPanel2.add(camp_ProductName);
-        camp_ProductName.setBounds(20, 50, 560, 32);
+        camp_ProductName.setBounds(20, 50, 560, 28);
 
         camp_Qnt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         jPanel2.add(camp_Qnt);
-        camp_Qnt.setBounds(200, 110, 90, 32);
+        camp_Qnt.setBounds(200, 110, 90, 28);
 
         comboBox_Supplier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione o Fornecedor>" }));
         jPanel2.add(comboBox_Supplier);
-        comboBox_Supplier.setBounds(650, 50, 370, 32);
+        comboBox_Supplier.setBounds(650, 50, 370, 28);
 
         camp_Description.setBorder(javax.swing.BorderFactory.createTitledBorder("Descrição"));
         jScrollPane2.setViewportView(camp_Description);
@@ -207,7 +208,7 @@ public class ProductScreen extends javax.swing.JPanel {
             }
         });
         jPanel2.add(camp_Buyprice);
-        camp_Buyprice.setBounds(20, 110, 140, 32);
+        camp_Buyprice.setBounds(20, 110, 140, 28);
 
         camp_Sellprice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         camp_Sellprice.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -216,7 +217,7 @@ public class ProductScreen extends javax.swing.JPanel {
             }
         });
         jPanel2.add(camp_Sellprice);
-        camp_Sellprice.setBounds(20, 180, 140, 32);
+        camp_Sellprice.setBounds(20, 180, 140, 28);
 
         jLabel2.setText("Nome Produto:");
         jPanel2.add(jLabel2);
@@ -236,7 +237,7 @@ public class ProductScreen extends javax.swing.JPanel {
 
         comboBox_Size.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecione>", "P", "M", "G", "GG" }));
         jPanel2.add(comboBox_Size);
-        comboBox_Size.setBounds(350, 110, 230, 32);
+        comboBox_Size.setBounds(350, 110, 230, 28);
 
         jLabel6.setText("Tamanho:");
         jPanel2.add(jLabel6);
@@ -249,9 +250,9 @@ public class ProductScreen extends javax.swing.JPanel {
             }
         });
         jPanel2.add(btn_Register);
-        btn_Register.setBounds(1010, 240, 90, 36);
+        btn_Register.setBounds(1010, 240, 90, 30);
         jPanel2.add(camp_apelido);
-        camp_apelido.setBounds(650, 110, 157, 32);
+        camp_apelido.setBounds(650, 110, 157, 28);
 
         jLabel7.setText("Apelido:");
         jPanel2.add(jLabel7);
@@ -268,7 +269,7 @@ public class ProductScreen extends javax.swing.JPanel {
             }
         });
         jPanel2.add(btn_NewSupplier);
-        btn_NewSupplier.setBounds(1030, 50, 80, 36);
+        btn_NewSupplier.setBounds(1030, 50, 80, 30);
 
         obrigatorioName.setForeground(new java.awt.Color(255, 0, 0));
         obrigatorioName.setText("* obrigatorio");
@@ -298,8 +299,6 @@ public class ProductScreen extends javax.swing.JPanel {
         jLabel10.setText("Data Entrega:");
         jPanel2.add(jLabel10);
         jLabel10.setBounds(650, 160, 100, 16);
-        jPanel2.add(camp_Deliverydate);
-        camp_Deliverydate.setBounds(650, 180, 169, 33);
 
         obrigatorioDate.setForeground(new java.awt.Color(255, 0, 0));
         obrigatorioDate.setText("* obrigatorio");
@@ -314,6 +313,17 @@ public class ProductScreen extends javax.swing.JPanel {
         });
         jPanel2.add(jLabel11);
         jLabel11.setBounds(830, 180, 50, 20);
+        jPanel2.add(camp_Deliverydate);
+        camp_Deliverydate.setBounds(650, 180, 160, 28);
+
+        btn_cleanAll.setText("Limpar Tudo");
+        btn_cleanAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cleanAllActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btn_cleanAll);
+        btn_cleanAll.setBounds(856, 240, 130, 30);
 
         add(jPanel2);
         jPanel2.setBounds(10, 10, 1120, 290);
@@ -408,6 +418,16 @@ public class ProductScreen extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(null, "Data em que o Produto foi recebido do Correio!", "Ajuda!!", HEIGHT);
     }//GEN-LAST:event_jLabel11MouseClicked
 
+    private void btn_cleanAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cleanAllActionPerformed
+        camp_ProductName.setText("");
+        camp_apelido.setText("");
+        camp_Buyprice.setText("");
+        camp_Sellprice.setText("");
+        camp_Qnt.setText("");
+        camp_Description.setText("");
+        comboBox_Size.setSelectedIndex(0);
+    }//GEN-LAST:event_btn_cleanAllActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox box_Price;
@@ -417,6 +437,7 @@ public class ProductScreen extends javax.swing.JPanel {
     private javax.swing.JButton btn_NewSupplier;
     private javax.swing.JButton btn_Register;
     public javax.swing.JButton btn_ToEdit;
+    private javax.swing.JButton btn_cleanAll;
     private javax.swing.JButton btn_update;
     private javax.swing.JFormattedTextField camp_Buyprice;
     private com.toedter.calendar.JDateChooser camp_Deliverydate;
@@ -548,7 +569,7 @@ public class ProductScreen extends javax.swing.JPanel {
                     camp_Description.setText("");
                     comboBox_Size.setSelectedIndex(0);
 
-                    loadingTableProduct();
+                    loadingTableProduct(); // carrega os dados na tabela de produtos
                     JOptionPane.showMessageDialog(null, "<html><font color=\"#0000FF\">PRODUTO SALVO COM SUCESSO!</font></html>");
                 }
             } catch (Exception e) {
