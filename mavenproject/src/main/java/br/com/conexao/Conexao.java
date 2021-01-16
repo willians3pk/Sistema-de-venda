@@ -170,9 +170,9 @@ public class Conexao {
         this.session = NewHibernateUtil.getSessionFactory().openSession();
         this.tx = session.beginTransaction();
         List<Fornecedor> list = null;
-
+        String sql = "FROM Fornecedor upper";
         try {
-            list = (List<Fornecedor>) session.createQuery("from Fornecedor").list();
+            list = (List<Fornecedor>) session.createQuery(sql).list();
             tx.commit();
             return list;
         } catch (Exception e) {
