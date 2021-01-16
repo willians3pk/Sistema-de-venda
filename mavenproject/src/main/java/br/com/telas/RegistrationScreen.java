@@ -1652,7 +1652,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         camp_cpfClient.setEnabled(true);
 
         jtableContato.setEnabled(true);
-
+        camp_DataNascimento.setEnabled(true);
 //              ENDERECO;                
         camp_AddressRuaClient.setEnabled(true);
         camp_CEPClient.setEnabled(true);
@@ -1673,7 +1673,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         camp_EmailClient.setEnabled(false);
         camp_cpfClient.setEnabled(false);
         jtableContato.setEnabled(false);
-
+        camp_DataNascimento.setEnabled(false);
 //              ENDERECO;                
         camp_AddressRuaClient.setEnabled(false);
         camp_CEPClient.setEnabled(false);
@@ -1751,7 +1751,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             cliente.setNome(camp_ClientName.getText());
             cliente.setEmail(camp_EmailClient.getText());
             cliente.setCpf(cpf);
-
+            cliente.setDataNascimento(camp_DataNascimento.getDate());
             //--------------------------------- numero de contato -----------------------------------//
             /*NAO ESQUECER DE ACRECENTAR ESSA PARTE DO CODIGO, ELABORAR UMA FORMA DE EDITAR OS CONTATOS;*/
             //--------------------------------- Endereço -----------------------------------//
@@ -1771,7 +1771,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             cliente.getEndereco().setEstadoUf(camp_StateClient.getText());
             cliente.getEndereco().setCidade(camp_CityClient.getText());
             cliente.getEndereco().setComplemento(camp_ComplementClient.getText());
-
+            
             Conexao connectbanco = new Conexao(); // abre conexao com o banco;
             connectbanco.update(cliente); // salva e atualiza classe Pai
             JOptionPane.showMessageDialog(null, "<html><font color=\"#0000FF\">DADOS ALTERADO COM SUCESSO!</font></html>");
