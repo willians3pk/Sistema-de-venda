@@ -27,19 +27,200 @@ public class ScreenSell extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1140, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 650, Short.MAX_VALUE)
-        );
+        jPanel3 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jTextField3 = new javax.swing.JTextField();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jFormattedTextField2 = new javax.swing.JFormattedTextField();
+        jFormattedTextField3 = new javax.swing.JFormattedTextField();
+        jFormattedTextField4 = new javax.swing.JFormattedTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jTextField4 = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+
+        setLayout(null);
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.setLayout(null);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setLayout(null);
+        jPanel1.add(jTextField2);
+        jTextField2.setBounds(20, 30, 200, 26);
+
+        jLabel2.setText("Vendedor:");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(20, 10, 90, 16);
+
+        jPanel3.add(jPanel1);
+        jPanel1.setBounds(380, 20, 340, 80);
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.setLayout(null);
+        jPanel2.add(jTextField1);
+        jTextField1.setBounds(20, 30, 200, 26);
+
+        jLabel1.setText("Cliente:");
+        jPanel2.add(jLabel1);
+        jLabel1.setBounds(20, 10, 70, 16);
+
+        jPanel3.add(jPanel2);
+        jPanel2.setBounds(10, 20, 340, 80);
+
+        jScrollPane1.setViewportView(jTextPane1);
+
+        jPanel3.add(jScrollPane1);
+        jScrollPane1.setBounds(10, 110, 710, 390);
+
+        add(jPanel3);
+        jPanel3.setBounds(10, 10, 730, 510);
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel4.setLayout(null);
+
+        jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 28)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("TOTAL DA VENDA R$");
+        jLabel3.setToolTipText("");
+        jPanel4.add(jLabel3);
+        jLabel3.setBounds(20, 20, 330, 60);
+
+        jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 28)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("0,00");
+        jPanel4.add(jLabel4);
+        jLabel4.setBounds(130, 90, 130, 30);
+
+        add(jPanel4);
+        jPanel4.setBounds(750, 10, 380, 150);
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel5.setLayout(null);
+        jPanel5.add(jTextField3);
+        jTextField3.setBounds(10, 90, 360, 40);
+        jPanel5.add(jFormattedTextField1);
+        jFormattedTextField1.setBounds(10, 180, 120, 40);
+        jPanel5.add(jFormattedTextField2);
+        jFormattedTextField2.setBounds(140, 180, 110, 40);
+        jPanel5.add(jFormattedTextField3);
+        jFormattedTextField3.setBounds(260, 180, 110, 40);
+
+        jFormattedTextField4.setEditable(false);
+        jPanel5.add(jFormattedTextField4);
+        jFormattedTextField4.setBounds(10, 270, 360, 40);
+
+        jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel5.setText("Produto:");
+        jPanel5.add(jLabel5);
+        jLabel5.setBounds(10, 70, 110, 20);
+
+        jLabel6.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel6.setText("Qnt:");
+        jPanel5.add(jLabel6);
+        jLabel6.setBounds(10, 160, 100, 20);
+
+        jLabel7.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel7.setText("Preço:");
+        jPanel5.add(jLabel7);
+        jLabel7.setBounds(140, 160, 100, 20);
+
+        jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel8.setText("Desc.:");
+        jPanel5.add(jLabel8);
+        jLabel8.setBounds(260, 160, 100, 20);
+
+        jLabel9.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel9.setText("Total:");
+        jPanel5.add(jLabel9);
+        jLabel9.setBounds(20, 250, 100, 20);
+
+        jButton1.setText("buscar");
+        jPanel5.add(jButton1);
+        jButton1.setBounds(274, 50, 90, 30);
+
+        add(jPanel5);
+        jPanel5.setBounds(750, 170, 380, 350);
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel6.setLayout(null);
+
+        jLabel10.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel10.setText("Observações:");
+        jPanel6.add(jLabel10);
+        jLabel10.setBounds(10, 10, 130, 21);
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
+
+        jPanel6.add(jScrollPane2);
+        jScrollPane2.setBounds(130, 10, 590, 90);
+
+        jTextField4.setEditable(false);
+        jPanel6.add(jTextField4);
+        jTextField4.setBounds(979, 56, 130, 40);
+
+        jLabel11.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel11.setText("Itens / Qnt.:");
+        jPanel6.add(jLabel11);
+        jLabel11.setBounds(860, 60, 110, 30);
+
+        add(jPanel6);
+        jPanel6.setBounds(10, 530, 1120, 110);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JFormattedTextField jFormattedTextField2;
+    private javax.swing.JFormattedTextField jFormattedTextField3;
+    private javax.swing.JFormattedTextField jFormattedTextField4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextPane jTextPane1;
     // End of variables declaration//GEN-END:variables
 }
