@@ -17,6 +17,7 @@ public class MainScreen extends javax.swing.JFrame {
 
     ProductScreen p = new ProductScreen();
     RegistrationScreen r = new RegistrationScreen();
+    ScreenSell s = new ScreenSell();
     
     public MainScreen() {
         initComponents();
@@ -90,7 +91,7 @@ public class MainScreen extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("jLabel1");
+        jLabel3.setText("Venda");
         jLabel3.setToolTipText("");
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -152,7 +153,7 @@ public class MainScreen extends javax.swing.JFrame {
         menuLateral.add(jSeparator3);
         jSeparator3.setBounds(10, 220, 200, 10);
         menuLateral.add(jSeparator4);
-        jSeparator4.setBounds(10, 270, 200, 20);
+        jSeparator4.setBounds(10, 270, 200, 10);
 
         getContentPane().add(menuLateral);
         menuLateral.setBounds(0, 50, 220, 650);
@@ -212,7 +213,11 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-
+        jDesktopPane1.removeAll();
+        s.setLocation(0, 0);
+        s.setSize(1140, 650);
+        s.setVisible(true);
+        jDesktopPane1.add(s);
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
