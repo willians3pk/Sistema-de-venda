@@ -175,8 +175,8 @@ public class Produto {
 
     @Override
     public String toString() {
-        return "--------------------------------------------------------------------------------------"
-                + "\nDescrição:      " + "    Codigo:       " + "     Qnt:     " + "    valor unitario:\n"
+        return "------------------------------------------------------------------------------------------------"
+                + "\nDescrição:      " + "    Apelido:       " + "     Qnt:     " + "    valor unitario:\n"
                 + this.nome + "            " + this.apelido + "                   " + this.qnt + "            " + this.valor_venda / 100;
 
     }
