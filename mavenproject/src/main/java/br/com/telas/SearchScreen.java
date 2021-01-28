@@ -23,7 +23,17 @@ import javax.swing.table.DefaultTableModel;
 public class SearchScreen extends javax.swing.JFrame {
 
     Conexao banco = new Conexao();
+    List<Produto> lista;
+    ScreenSell telaVenda;    
 
+    public List<Produto> getLista() {
+        return lista;
+    }
+
+    public void setLista(List<Produto> lista) {
+        this.lista = lista;
+    }
+    
     public SearchScreen() {
         initComponents();
     }
@@ -97,9 +107,17 @@ public class SearchScreen extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "codigo_item", "nome", "valor", "qnt_estoque"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tabela_busca.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabela_buscaMouseClicked(evt);
@@ -141,10 +159,21 @@ public class SearchScreen extends javax.swing.JFrame {
 
     private void btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BuscarActionPerformed
         carregaCampos();
+        btn_selecionar.setEnabled(false);
     }//GEN-LAST:event_btn_BuscarActionPerformed
 
     private void btn_selecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_selecionarActionPerformed
-        
+        DefaultTableModel tableDefault = (DefaultTableModel) tabela_busca.getModel();
+        int linha = tabela_busca.getSelectedRow();
+        for (int i = 0; i < banco.productBook().size(); i++) {
+            if (banco.productBook().get(i).getIdProduto().equals(tableDefault.getValueAt(linha, 0))) {// VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
+                Produto item = banco.productBook().get(i);
+                item.setQnt(0);
+                lista.add(item);
+                telaVenda.adicionarItens();
+                dispose();
+            }
+        }
     }//GEN-LAST:event_btn_selecionarActionPerformed
 
     /**
