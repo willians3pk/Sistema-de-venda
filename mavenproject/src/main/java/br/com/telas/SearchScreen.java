@@ -24,7 +24,7 @@ public class SearchScreen extends javax.swing.JFrame {
 
     Conexao banco = new Conexao();
     List<Produto> lista;
-    ScreenSell telaVenda;    
+    ScreenSell telaVenda;
 
     public List<Produto> getLista() {
         return lista;
@@ -33,7 +33,7 @@ public class SearchScreen extends javax.swing.JFrame {
     public void setLista(List<Produto> lista) {
         this.lista = lista;
     }
-    
+
     public SearchScreen() {
         initComponents();
     }
@@ -167,11 +167,28 @@ public class SearchScreen extends javax.swing.JFrame {
         int linha = tabela_busca.getSelectedRow();
         for (int i = 0; i < banco.productBook().size(); i++) {
             if (banco.productBook().get(i).getIdProduto().equals(tableDefault.getValueAt(linha, 0))) {// VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
-                Produto item = banco.productBook().get(i);
-                item.setQnt(0);
-                lista.add(item);
-                telaVenda.adicionarItens();
-                dispose();
+                Produto item = banco.productBook().get(i); // pega o produto da lista;
+                item.setQnt(1);
+                if (lista.size() > 0) {
+                    for (int j = 0; j < lista.size(); j++) {
+                        if (lista.get(j).getIdProduto().equals(item.getIdProduto())) {
+                            int qnt = lista.get(j).getQnt();
+                            qnt = qnt++; // adiciona mais um produto;
+                            lista.get(j).setQnt(qnt);
+                            System.out.println("produto contem na lista");
+                            System.out.println(lista.get(j).getNome());
+                            telaVenda.field_ItensQnt.setText(String.valueOf(lista.size()));
+                            telaVenda.adicionarItens();
+                            dispose();
+                        }
+                    }
+                } else {
+                    lista.add(item);
+                    telaVenda.field_ItensQnt.setText(String.valueOf(lista.size()));
+                    telaVenda.adicionarItens();
+                    dispose();
+                }
+
             }
         }
     }//GEN-LAST:event_btn_selecionarActionPerformed

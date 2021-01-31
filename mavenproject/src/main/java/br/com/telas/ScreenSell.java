@@ -33,7 +33,7 @@ public class ScreenSell extends javax.swing.JPanel {
         field_client = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable_produto = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jlabel_totalVenda = new javax.swing.JLabel();
@@ -41,13 +41,13 @@ public class ScreenSell extends javax.swing.JPanel {
         field_qnt = new javax.swing.JFormattedTextField();
         field_preco = new javax.swing.JFormattedTextField();
         field_desconto = new javax.swing.JFormattedTextField();
-        field_total = new javax.swing.JFormattedTextField();
+        camp_total = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        btn_buscar = new javax.swing.JButton();
+        btn_buscarProduto = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         btn_removerItem = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
@@ -86,7 +86,7 @@ public class ScreenSell extends javax.swing.JPanel {
         jPanel3.add(jPanel2);
         jPanel2.setBounds(10, 20, 340, 80);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_produto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -105,7 +105,17 @@ public class ScreenSell extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable1);
+        jTable_produto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_produtoMouseClicked(evt);
+            }
+        });
+        jTable_produto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTable_produtoKeyReleased(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jTable_produto);
 
         jPanel3.add(jScrollPane3);
         jScrollPane3.setBounds(10, 110, 710, 390);
@@ -149,9 +159,9 @@ public class ScreenSell extends javax.swing.JPanel {
         jPanel5.add(field_desconto);
         field_desconto.setBounds(260, 140, 110, 40);
 
-        field_total.setEditable(false);
-        jPanel5.add(field_total);
-        field_total.setBounds(10, 230, 360, 40);
+        camp_total.setEditable(false);
+        jPanel5.add(camp_total);
+        camp_total.setBounds(10, 230, 360, 40);
 
         jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel5.setText("Produto:");
@@ -178,13 +188,15 @@ public class ScreenSell extends javax.swing.JPanel {
         jPanel5.add(jLabel9);
         jLabel9.setBounds(20, 210, 100, 20);
 
-        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
+        btn_buscarProduto.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        btn_buscarProduto.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btn_buscarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_buscarActionPerformed(evt);
+                btn_buscarProdutoActionPerformed(evt);
             }
         });
-        jPanel5.add(btn_buscar);
-        btn_buscar.setBounds(10, 60, 360, 40);
+        jPanel5.add(btn_buscarProduto);
+        btn_buscarProduto.setBounds(10, 60, 360, 40);
 
         jButton1.setText("Finalizar Venda");
         jPanel5.add(jButton1);
@@ -231,15 +243,10 @@ public class ScreenSell extends javax.swing.JPanel {
         jPanel6.setBounds(10, 530, 1120, 110);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
-        s.setLista(produtos);
-        s.setVisible(true);
-    }//GEN-LAST:event_btn_buscarActionPerformed
-
     private void btn_removerItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removerItemActionPerformed
-        DefaultTableModel tableDefault = (DefaultTableModel) jTable1.getModel();
-        int posicao = jTable1.getSelectedRow(); // pegar a posição na linha selecionada;
-        
+        DefaultTableModel tableDefault = (DefaultTableModel) jTable_produto.getModel();
+        int posicao = jTable_produto.getSelectedRow(); // pegar a posição na linha selecionada;
+
         for (int i = 0; i < produtos.size(); i++) {
             if (produtos.get(i).getIdProduto().equals(tableDefault.getValueAt(posicao, 0))) {// VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
                 produtos.remove(produtos.get(i)); // remove o item;
@@ -248,17 +255,30 @@ public class ScreenSell extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btn_removerItemActionPerformed
 
+    private void jTable_produtoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_produtoKeyReleased
+        carregaCampo();
+    }//GEN-LAST:event_jTable_produtoKeyReleased
+
+    private void jTable_produtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_produtoMouseClicked
+        carregaCampo();
+    }//GEN-LAST:event_jTable_produtoMouseClicked
+
+    private void btn_buscarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarProdutoActionPerformed
+        s.setLista(produtos);
+        s.setVisible(true);
+    }//GEN-LAST:event_btn_buscarProdutoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_buscar;
+    private javax.swing.JButton btn_buscarProduto;
     private javax.swing.JButton btn_removerItem;
-    private javax.swing.JTextField field_ItensQnt;
+    public static javax.swing.JFormattedTextField camp_total;
+    public static javax.swing.JTextField field_ItensQnt;
     private javax.swing.JTextField field_client;
     private javax.swing.JFormattedTextField field_desconto;
     private javax.swing.JTextArea field_observacao;
     public static javax.swing.JFormattedTextField field_preco;
     private javax.swing.JFormattedTextField field_qnt;
-    private javax.swing.JFormattedTextField field_total;
     private javax.swing.JTextField field_vendedor;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -279,24 +299,40 @@ public class ScreenSell extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    public static javax.swing.JTable jTable1;
-    private javax.swing.JLabel jlabel_totalVenda;
+    public static javax.swing.JTable jTable_produto;
+    public static javax.swing.JLabel jlabel_totalVenda;
     // End of variables declaration//GEN-END:variables
 
     public static void adicionarItens() {
-        DefaultTableModel tableDefault = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel tableDefault = (DefaultTableModel) jTable_produto.getModel();
+        
         try {
             Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
             NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
 
+            float x = 0;
             tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
             for (Produto produto : produtos) {
+                x = produto.getValor_venda() / 100;
                 tableDefault.addRow(new Object[]{produto.getIdProduto(), produto.getNome(), dinheiro.format(produto.getValor_venda() / 100), produto.getQnt()});
-                field_preco.setText(String.valueOf(dinheiro.format(produto.getValor_venda()/100)));// colocar o valor do item no campo preco;
+                field_preco.setText(String.valueOf(dinheiro.format(produto.getValor_venda() / 100)));// colocar o valor do item no campo preco;
+                
             }
+            
+            jlabel_totalVenda.setText(dinheiro.format(x));
+            
         } catch (Exception e) {
             Logger.getGlobal();
         }
+
+    }
+
+    private void carregaCampo() {
+        DefaultTableModel tableDefault = (DefaultTableModel) jTable_produto.getModel();
+        int posicao = jTable_produto.getSelectedRow(); // pegar a posição na linha selecionada;
+
+        btn_buscarProduto.setText(tableDefault.getValueAt(posicao, 1).toString()); //Nome do produto
+        field_preco.setText(tableDefault.getValueAt(posicao, 2).toString()); // preco do produto
 
     }
 
