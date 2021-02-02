@@ -523,10 +523,12 @@ public class ProductScreen extends javax.swing.JPanel {
             Produto newProduct = new Produto(); // cria um novo produto;
             String size = null;
 
-            Long priceBuy = Long.parseLong(camp_Buyprice.getText().replaceAll(",", "").replace(".", "").replace("R$", ""));//remove a virgula e adiciona apenas os numeros decimais
-            Long priceSell = Long.parseLong(camp_Sellprice.getText().replaceAll(",", "").replace(".", "").replace("R$", "")); //remove a virgula e adiciona apenas os numeros decimais
+//            Float priceBuy = Float.parseFloat(camp_Buyprice.getText());//remove a virgula e adiciona apenas os numeros decimais
+//            Float priceSell = Float.parseFloat(camp_Sellprice.getText()); //remove a virgula e adiciona apenas os numeros decimais
+            
+            float priceSell = Long.parseLong(camp_Sellprice.getText().replaceAll(",", "").replace(".", "").replace("R$", "")); //remove a virgula e adiciona apenas os numeros decimais
             int qnt = Integer.parseInt(camp_Qnt.getText());
-            Long totalvalue = (priceSell * qnt);
+            Float totalvalue = (priceSell * qnt);
 
             try {
 
@@ -542,8 +544,8 @@ public class ProductScreen extends javax.swing.JPanel {
                 // adiciona os valores dos campos, nos atributos do novo produto;
                 newProduct.setFornecedor(forne);
                 newProduct.setNome(camp_ProductName.getText());
-                newProduct.setValor_compra(priceBuy);
-                newProduct.setValor_venda(priceSell);
+                newProduct.setValor_compra(Float.parseFloat(camp_Buyprice.getText().replaceAll(",", "").replace(".", "")));
+                newProduct.setValor_venda(Float.parseFloat(camp_Sellprice.getText().replaceAll(",", "").replace(".", "")));
                 newProduct.setApelido(camp_apelido.getText());
                 newProduct.setStatus(true);
                 newProduct.setExcluido(false);

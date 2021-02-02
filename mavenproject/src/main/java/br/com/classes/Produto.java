@@ -27,9 +27,9 @@ public class Produto {
     @OneToOne(fetch = FetchType.EAGER)
     private Fornecedor fornecedor;
     private String nome;
-    private float valor_compra;
-    private float valor_venda;
-    private float valor_total;
+    private Float valor_compra;
+    private Float valor_venda;
+    private Float valor_total;
     private boolean status;
     private boolean excluido;
     private String tamanho;
@@ -44,7 +44,7 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(Integer idProduto, Fornecedor fornecedor, String nome, float valor_compra, float valor_venda, float valor_total, boolean status, boolean excluido, String tamanho, String apelido, int qnt, String descricao, Date dataEntrega, List<ItensVenda> itensVendas) {
+    public Produto(Integer idProduto, Fornecedor fornecedor, String nome, Float valor_compra, Float valor_venda, Float valor_total, boolean status, boolean excluido, String tamanho, String apelido, int qnt, String descricao, Date dataEntrega, List<ItensVenda> itensVendas) {
         this.idProduto = idProduto;
         this.fornecedor = fornecedor;
         this.nome = nome;
@@ -85,27 +85,27 @@ public class Produto {
         this.nome = nome;
     }
 
-    public float getValor_compra() {
+    public Float getValor_compra() {
         return valor_compra;
     }
 
-    public void setValor_compra(float valor_compra) {
+    public void setValor_compra(Float valor_compra) {
         this.valor_compra = valor_compra;
     }
 
-    public float getValor_venda() {
+    public Float getValor_venda() {
         return valor_venda;
     }
 
-    public void setValor_venda(float valor_venda) {
+    public void setValor_venda(Float valor_venda) {
         this.valor_venda = valor_venda;
     }
 
-    public float getValor_total() {
+    public Float getValor_total() {
         return valor_total;
     }
 
-    public void setValor_total(Long valor_total) {
+    public void setValor_total(Float valor_total) {
         this.valor_total = valor_total;
     }
 

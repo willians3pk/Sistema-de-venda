@@ -330,10 +330,10 @@ public class EditProductScreen extends javax.swing.JFrame {
 
             String size = null;
 
-            Long priceBuy = Long.parseLong(camp_Buyprice.getText().replaceAll(",", "").replace(".", "").replace("R$", "").trim());//remove a virgula e adiciona apenas os numeros decimais
-            Long priceSell = Long.parseLong(camp_Sellprice.getText().replaceAll(",", "").replace(".", "").replace("R$", "").trim()); //remove a virgula e adiciona apenas os numeros decimais
+            Float priceBuy = Float.parseFloat(camp_Buyprice.getText().replaceAll(",", "").replace(".", "").replace("R$", "").trim());//remove a virgula e adiciona apenas os numeros decimais
+            Float priceSell = Float.parseFloat(camp_Sellprice.getText().replaceAll(",", "").replace(".", "").replace("R$", "").trim()); //remove a virgula e adiciona apenas os numeros decimais
             int qnt = Integer.parseInt(camp_Qnt.getText());
-            Long totalvalue = (priceSell * qnt);
+            Float totalvalue = (priceSell * qnt);
 
             // PEGA O FORNECEDOR DA COMBOBOX;
             Fornecedor forne = null;

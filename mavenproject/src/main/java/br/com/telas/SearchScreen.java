@@ -50,7 +50,6 @@ public class SearchScreen extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         field_nome = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jCheckBox_Apelido = new javax.swing.JCheckBox();
         btn_Buscar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -79,10 +78,6 @@ public class SearchScreen extends javax.swing.JFrame {
         jLabel1.setText("Nome:");
         jPanel1.add(jLabel1);
         jLabel1.setBounds(10, 10, 60, 20);
-
-        jCheckBox_Apelido.setText("Apelido:");
-        jPanel1.add(jCheckBox_Apelido);
-        jCheckBox_Apelido.setBounds(370, 10, 90, 22);
 
         btn_Buscar.setText("Buscar");
         btn_Buscar.addActionListener(new java.awt.event.ActionListener() {
@@ -169,25 +164,10 @@ public class SearchScreen extends javax.swing.JFrame {
             if (banco.productBook().get(i).getIdProduto().equals(tableDefault.getValueAt(linha, 0))) {// VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
                 Produto item = banco.productBook().get(i); // pega o produto da lista;
                 item.setQnt(1);
-                if (lista.size() > 0) {
-                    for (int j = 0; j < lista.size(); j++) {
-                        if (lista.get(j).getIdProduto().equals(item.getIdProduto())) {
-                            int qnt = lista.get(j).getQnt();
-                            qnt = qnt++; // adiciona mais um produto;
-                            lista.get(j).setQnt(qnt);
-                            System.out.println("produto contem na lista");
-                            System.out.println(lista.get(j).getNome());
-                            telaVenda.field_ItensQnt.setText(String.valueOf(lista.size()));
-                            telaVenda.adicionarItens();
-                            dispose();
-                        }
-                    }
-                } else {
-                    lista.add(item);
-                    telaVenda.field_ItensQnt.setText(String.valueOf(lista.size()));
-                    telaVenda.adicionarItens();
-                    dispose();
-                }
+                lista.add(item);
+                telaVenda.field_ItensQnt.setText(String.valueOf(lista.size()));
+                telaVenda.adicionarItens();
+                dispose();
 
             }
         }
@@ -232,7 +212,6 @@ public class SearchScreen extends javax.swing.JFrame {
     private javax.swing.JButton btn_Buscar;
     private javax.swing.JButton btn_selecionar;
     private javax.swing.JTextField field_nome;
-    private javax.swing.JCheckBox jCheckBox_Apelido;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

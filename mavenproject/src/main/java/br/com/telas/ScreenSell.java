@@ -41,7 +41,6 @@ public class ScreenSell extends javax.swing.JPanel {
         field_qnt = new javax.swing.JFormattedTextField();
         field_preco = new javax.swing.JFormattedTextField();
         field_desconto = new javax.swing.JFormattedTextField();
-        camp_total = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -50,6 +49,7 @@ public class ScreenSell extends javax.swing.JPanel {
         btn_buscarProduto = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         btn_removerItem = new javax.swing.JButton();
+        camp_total = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -159,10 +159,6 @@ public class ScreenSell extends javax.swing.JPanel {
         jPanel5.add(field_desconto);
         field_desconto.setBounds(260, 140, 110, 40);
 
-        camp_total.setEditable(false);
-        jPanel5.add(camp_total);
-        camp_total.setBounds(10, 230, 360, 40);
-
         jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel5.setText("Produto:");
         jPanel5.add(jLabel5);
@@ -210,6 +206,10 @@ public class ScreenSell extends javax.swing.JPanel {
         });
         jPanel5.add(btn_removerItem);
         btn_removerItem.setBounds(20, 300, 130, 40);
+
+        camp_total.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        jPanel5.add(camp_total);
+        camp_total.setBounds(10, 230, 360, 40);
 
         add(jPanel5);
         jPanel5.setBounds(750, 170, 380, 350);
@@ -272,7 +272,7 @@ public class ScreenSell extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_buscarProduto;
     private javax.swing.JButton btn_removerItem;
-    public static javax.swing.JFormattedTextField camp_total;
+    public static javax.swing.JTextField camp_total;
     public static javax.swing.JTextField field_ItensQnt;
     private javax.swing.JTextField field_client;
     private javax.swing.JFormattedTextField field_desconto;
@@ -305,26 +305,38 @@ public class ScreenSell extends javax.swing.JPanel {
 
     public static void adicionarItens() {
         DefaultTableModel tableDefault = (DefaultTableModel) jTable_produto.getModel();
-        
+
         try {
             Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
             NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
 
-            float x = 0;
             tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
             for (Produto produto : produtos) {
-                x = produto.getValor_venda() / 100;
                 tableDefault.addRow(new Object[]{produto.getIdProduto(), produto.getNome(), dinheiro.format(produto.getValor_venda() / 100), produto.getQnt()});
-                field_preco.setText(String.valueOf(dinheiro.format(produto.getValor_venda() / 100)));// colocar o valor do item no campo preco;
+                field_preco.setText(String.valueOf(dinheiro.format(produto.getValor_venda() / 100)));// colocar o valor do item no campo preco;             
                 
             }
-            
-            jlabel_totalVenda.setText(dinheiro.format(x));
-            
+            calculoValorTotal();
+
         } catch (Exception e) {
-            Logger.getGlobal();
+            System.out.println(e);
         }
 
+    }
+
+    public static void calculoValorTotal() {
+        float y = 0;
+        float x = 0;
+        float z = 0;
+        for (int i = 0; i < produtos.size(); i++) {
+            x = produtos.get(i).getValor_venda();
+            y = z + x;
+            z = y;
+        }
+        Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
+        NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
+        camp_total.setText(dinheiro.format(z / 100));
+        jlabel_totalVenda.setText(dinheiro.format(z / 100));
     }
 
     private void carregaCampo() {
