@@ -162,7 +162,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="btn_selecionar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Selecionar"/>
+        <Property name="text" type="java.lang.String" value="OK"/>
         <Property name="selected" type="boolean" value="true"/>
       </Properties>
       <Events>

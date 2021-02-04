@@ -15,10 +15,12 @@ import javax.swing.table.DefaultTableModel;
 
 public class ProductScreen extends javax.swing.JPanel {
 
-    Conexao connectbanco = new Conexao();
-
+    public static Conexao connectbanco = new Conexao();
+    ScreenCadFornecedor f = new ScreenCadFornecedor();
+    
     public ProductScreen() {
         initComponents();
+        loadingCampos();
         btn_ToEdit.setEnabled(false);
         btn_Deactivate.setEnabled(false);
     }
@@ -111,7 +113,7 @@ public class ProductScreen extends javax.swing.JPanel {
             }
         });
         jPanel1.add(camp_SearchProduct);
-        camp_SearchProduct.setBounds(10, 90, 470, 28);
+        camp_SearchProduct.setBounds(10, 90, 470, 26);
 
         btn_update.setText("Atualizar");
         btn_update.addActionListener(new java.awt.event.ActionListener() {
@@ -133,7 +135,7 @@ public class ProductScreen extends javax.swing.JPanel {
             }
         });
         jPanel1.add(box_Size);
-        box_Size.setBounds(120, 60, 81, 23);
+        box_Size.setBounds(120, 60, 79, 22);
 
         box_Price.setText("Preço");
         box_Price.addActionListener(new java.awt.event.ActionListener() {
@@ -142,7 +144,7 @@ public class ProductScreen extends javax.swing.JPanel {
             }
         });
         jPanel1.add(box_Price);
-        box_Price.setBounds(230, 60, 62, 23);
+        box_Price.setBounds(230, 60, 60, 22);
 
         box_Qnt.setText("Quantidade");
         box_Qnt.addActionListener(new java.awt.event.ActionListener() {
@@ -151,7 +153,7 @@ public class ProductScreen extends javax.swing.JPanel {
             }
         });
         jPanel1.add(box_Qnt);
-        box_Qnt.setBounds(350, 60, 97, 23);
+        box_Qnt.setBounds(350, 60, 95, 22);
 
         btn_ToEdit.setText("Editar");
         btn_ToEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -173,7 +175,7 @@ public class ProductScreen extends javax.swing.JPanel {
 
         camp_Profitmargin.setEnabled(false);
         jPanel1.add(camp_Profitmargin);
-        camp_Profitmargin.setBounds(990, 60, 110, 28);
+        camp_Profitmargin.setBounds(990, 60, 110, 26);
 
         jLabel8.setText("Margem de Lucro Bruto:");
         jPanel1.add(jLabel8);
@@ -185,15 +187,15 @@ public class ProductScreen extends javax.swing.JPanel {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro Produto"));
         jPanel2.setLayout(null);
         jPanel2.add(camp_ProductName);
-        camp_ProductName.setBounds(20, 50, 560, 28);
+        camp_ProductName.setBounds(20, 50, 560, 26);
 
         camp_Qnt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         jPanel2.add(camp_Qnt);
-        camp_Qnt.setBounds(200, 110, 90, 28);
+        camp_Qnt.setBounds(200, 110, 90, 26);
 
         comboBox_Supplier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione o Fornecedor>" }));
         jPanel2.add(comboBox_Supplier);
-        comboBox_Supplier.setBounds(650, 50, 370, 28);
+        comboBox_Supplier.setBounds(650, 50, 370, 26);
 
         camp_Description.setBorder(javax.swing.BorderFactory.createTitledBorder("Descrição"));
         jScrollPane2.setViewportView(camp_Description);
@@ -208,7 +210,7 @@ public class ProductScreen extends javax.swing.JPanel {
             }
         });
         jPanel2.add(camp_Buyprice);
-        camp_Buyprice.setBounds(20, 110, 140, 28);
+        camp_Buyprice.setBounds(20, 110, 140, 26);
 
         camp_Sellprice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         camp_Sellprice.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -217,7 +219,7 @@ public class ProductScreen extends javax.swing.JPanel {
             }
         });
         jPanel2.add(camp_Sellprice);
-        camp_Sellprice.setBounds(20, 180, 140, 28);
+        camp_Sellprice.setBounds(20, 180, 140, 26);
 
         jLabel2.setText("Nome Produto:");
         jPanel2.add(jLabel2);
@@ -237,7 +239,7 @@ public class ProductScreen extends javax.swing.JPanel {
 
         comboBox_Size.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecione>", "P", "M", "G", "GG" }));
         jPanel2.add(comboBox_Size);
-        comboBox_Size.setBounds(350, 110, 230, 28);
+        comboBox_Size.setBounds(350, 110, 230, 26);
 
         jLabel6.setText("Tamanho:");
         jPanel2.add(jLabel6);
@@ -252,7 +254,7 @@ public class ProductScreen extends javax.swing.JPanel {
         jPanel2.add(btn_Register);
         btn_Register.setBounds(1010, 240, 90, 30);
         jPanel2.add(camp_apelido);
-        camp_apelido.setBounds(650, 110, 157, 28);
+        camp_apelido.setBounds(650, 110, 157, 26);
 
         jLabel7.setText("Apelido:");
         jPanel2.add(jLabel7);
@@ -314,7 +316,7 @@ public class ProductScreen extends javax.swing.JPanel {
         jPanel2.add(jLabel11);
         jLabel11.setBounds(830, 180, 50, 20);
         jPanel2.add(camp_Deliverydate);
-        camp_Deliverydate.setBounds(650, 180, 160, 28);
+        camp_Deliverydate.setBounds(650, 180, 160, 27);
 
         btn_cleanAll.setText("Limpar Tudo");
         btn_cleanAll.addActionListener(new java.awt.event.ActionListener() {
@@ -397,7 +399,7 @@ public class ProductScreen extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_ToEditActionPerformed
 
     private void btn_NewSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NewSupplierActionPerformed
-
+        f.setVisible(true);
     }//GEN-LAST:event_btn_NewSupplierActionPerformed
 
     private void camp_BuypriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_BuypriceKeyReleased
@@ -449,7 +451,7 @@ public class ProductScreen extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField camp_Sellprice;
     private javax.swing.JFormattedTextField camp_apelido;
     private javax.swing.JComboBox<String> comboBox_Size;
-    private javax.swing.JComboBox<String> comboBox_Supplier;
+    public static javax.swing.JComboBox<String> comboBox_Supplier;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -704,7 +706,7 @@ public class ProductScreen extends javax.swing.JPanel {
         }
     }
 
-    public void loadingCampos() {
+    public static void loadingCampos() {
 
         Thread t = new Thread() {
             public void run() {
@@ -713,7 +715,7 @@ public class ProductScreen extends javax.swing.JPanel {
                     comboBox.addElement(fornecedor.getNome());
                     comboBox_Supplier.setModel(comboBox);           // ADICIONA OS FORNECEDORES NA COMBOBOX;
                 }
-                loadingTableProduct();
+//                loadingTableProduct();
             }
         };
         t.start();

@@ -56,10 +56,14 @@ public class Venda {
 //    @Column(name = "ValorTotal", precision = 10, scale = 0)
     private Long valorTotal;
 
+    private String faturas;
+    
+    private double taxa_juros;
+    
     public Venda() {
     }
 
-    public Venda(int idvenda, Cliente cliente, List<FormaPagamento> formaPagamento, Usuario usuario, Date dataVenda, int codigoVenda, String descricao, boolean status, Long valorTotal) {
+    public Venda(int idvenda, Cliente cliente, List<FormaPagamento> formaPagamento, Usuario usuario, Date dataVenda, int codigoVenda, String descricao, boolean status, Long valorTotal, String faturas, double taxa_juros) {
         this.idvenda = idvenda;
         this.cliente = cliente;
         this.formaPagamento = formaPagamento;
@@ -69,7 +73,10 @@ public class Venda {
         this.descricao = descricao;
         this.status = status;
         this.valorTotal = valorTotal;
+        this.faturas = faturas;
+        this.taxa_juros = taxa_juros;
     }
+
 
     public int getIdvenda() {
         return idvenda;
@@ -143,4 +150,21 @@ public class Venda {
         this.valorTotal = valorTotal;
     }
 
+    public String getFaturas() {
+        return faturas;
+    }
+
+    public void setFaturas(String faturas) {
+        this.faturas = faturas;
+    }
+
+    public double getTaxa_juros() {
+        return taxa_juros;
+    }
+
+    public void setTaxa_juros(double taxa_juros) {
+        this.taxa_juros = taxa_juros;
+    }
+
+    
 }

@@ -126,7 +126,7 @@ public class SearchScreen extends javax.swing.JFrame {
         getContentPane().add(jPanel2);
         jPanel2.setBounds(10, 100, 590, 180);
 
-        btn_selecionar.setText("Selecionar");
+        btn_selecionar.setText("OK");
         btn_selecionar.setSelected(true);
         btn_selecionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

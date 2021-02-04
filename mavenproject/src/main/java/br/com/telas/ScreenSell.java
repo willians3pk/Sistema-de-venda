@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 public class ScreenSell extends javax.swing.JPanel {
 
     SearchScreen s = new SearchScreen();
+    ScreenFinalizarVenda f = new ScreenFinalizarVenda();
     Conexao banco = new Conexao();
     public static List<Produto> produtos = new ArrayList<>();
 
@@ -64,6 +65,8 @@ public class ScreenSell extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(null);
+
+        field_vendedor.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         jPanel1.add(field_vendedor);
         field_vendedor.setBounds(20, 30, 200, 40);
 
@@ -76,6 +79,8 @@ public class ScreenSell extends javax.swing.JPanel {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.setLayout(null);
+
+        field_client.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         jPanel2.add(field_client);
         field_client.setBounds(20, 30, 200, 40);
 
@@ -194,11 +199,17 @@ public class ScreenSell extends javax.swing.JPanel {
         jPanel5.add(btn_buscarProduto);
         btn_buscarProduto.setBounds(10, 60, 360, 40);
 
-        jButton1.setText("Finalizar Venda");
+        jButton1.setText("OK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel5.add(jButton1);
         jButton1.setBounds(234, 300, 130, 40);
 
-        btn_removerItem.setText("Remover item");
+        btn_removerItem.setText("Remover ");
+        btn_removerItem.setEnabled(false);
         btn_removerItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_removerItemActionPerformed(evt);
@@ -207,6 +218,7 @@ public class ScreenSell extends javax.swing.JPanel {
         jPanel5.add(btn_removerItem);
         btn_removerItem.setBounds(20, 300, 130, 40);
 
+        camp_total.setEditable(false);
         camp_total.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         jPanel5.add(camp_total);
         camp_total.setBounds(10, 230, 360, 40);
@@ -223,7 +235,7 @@ public class ScreenSell extends javax.swing.JPanel {
         jLabel10.setBounds(10, 10, 130, 21);
 
         field_observacao.setColumns(20);
-        field_observacao.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        field_observacao.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         field_observacao.setRows(5);
         jScrollPane2.setViewportView(field_observacao);
 
@@ -261,12 +273,18 @@ public class ScreenSell extends javax.swing.JPanel {
 
     private void jTable_produtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_produtoMouseClicked
         carregaCampo();
+        btn_removerItem.setEnabled(true);
     }//GEN-LAST:event_jTable_produtoMouseClicked
 
     private void btn_buscarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarProdutoActionPerformed
         s.setLista(produtos);
         s.setVisible(true);
     }//GEN-LAST:event_btn_buscarProdutoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        btn_removerItem.setEnabled(false);
+        f.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
