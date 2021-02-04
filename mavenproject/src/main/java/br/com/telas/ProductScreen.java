@@ -20,7 +20,6 @@ public class ProductScreen extends javax.swing.JPanel {
     
     public ProductScreen() {
         initComponents();
-        loadingCampos();
         btn_ToEdit.setEnabled(false);
         btn_Deactivate.setEnabled(false);
     }

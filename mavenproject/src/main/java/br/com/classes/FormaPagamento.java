@@ -26,17 +26,17 @@ public class FormaPagamento {
 //    @Column(name = "Descricao", length = 45)
     private String descricao;
     
-    @ManyToMany(fetch = FetchType.LAZY)
+//    @ManyToMany(fetch = FetchType.LAZY)
 //    @Cascade({CascadeType.ALL})
-    private List<Venda> vendas;
+//    private List<Venda> vendas;
 
     public FormaPagamento() {
+        
     }
 
-    public FormaPagamento(int idformaPagamento, String descricao, List<Venda> vendas) {
+    public FormaPagamento(int idformaPagamento, String descricao) {
         this.idformaPagamento = idformaPagamento;
         this.descricao = descricao;
-        this.vendas = vendas;
     }
 
     public int getIdformaPagamento() {
@@ -53,14 +53,6 @@ public class FormaPagamento {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public List<Venda> getVendas() {
-        return vendas;
-    }
-
-    public void setVendas(List<Venda> vendas) {
-        this.vendas = vendas;
     }
 
 }

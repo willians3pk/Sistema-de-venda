@@ -5,15 +5,30 @@
  */
 package br.com.telas;
 
+import br.com.classes.Produto;
+import static br.com.telas.ScreenSell.camp_total;
+import static br.com.telas.ScreenSell.jlabel_totalVenda;
+import static br.com.telas.ScreenSell.produtos;
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
+
 /**
  *
  * @author user
  */
 public class ScreenFinalizarVenda extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ScreenFinalizarVenda
-     */
+    List<Produto> lista;
+
+    public List<Produto> getLista() {
+        return lista;
+    }
+
+    public void setLista(List<Produto> lista) {
+        this.lista = lista;
+    }
+
     public ScreenFinalizarVenda() {
         initComponents();
     }
@@ -28,16 +43,18 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
-        jFormattedTextField3 = new javax.swing.JFormattedTextField();
+        campTroco = new javax.swing.JFormattedTextField();
+        campvalorPago = new javax.swing.JFormattedTextField();
+        btn_cancelarVenda = new javax.swing.JButton();
+        btn_finalizarvenda = new javax.swing.JButton();
+        camptotal = new javax.swing.JTextField();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboBOX_FormaPagamento = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -46,41 +63,43 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(null);
 
-        jToggleButton1.setText("FINALIZAR VENDA");
-        jPanel1.add(jToggleButton1);
-        jToggleButton1.setBounds(480, 120, 160, 40);
-
-        jToggleButton2.setText("CANCELAR VENDA");
-        jPanel1.add(jToggleButton2);
-        jToggleButton2.setBounds(480, 180, 160, 40);
-
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel1.setText("TROCO");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(10, 190, 150, 30);
+        jLabel1.setBounds(10, 170, 150, 30);
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel2.setText("TOTAL");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(20, 60, 120, 30);
+        jLabel2.setBounds(20, 20, 120, 30);
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel3.setText("VALOR PAGO");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(10, 130, 180, 30);
+        jLabel3.setBounds(10, 110, 180, 30);
+        jPanel1.add(campTroco);
+        campTroco.setBounds(200, 170, 210, 40);
+        jPanel1.add(campvalorPago);
+        campvalorPago.setBounds(200, 110, 210, 40);
 
-        jFormattedTextField1.setText("jFormattedTextField1");
-        jPanel1.add(jFormattedTextField1);
-        jFormattedTextField1.setBounds(200, 180, 210, 40);
+        btn_cancelarVenda.setText("CANCELAR VENDA");
+        jPanel1.add(btn_cancelarVenda);
+        btn_cancelarVenda.setBounds(470, 180, 160, 40);
 
-        jFormattedTextField2.setEditable(false);
-        jFormattedTextField2.setText("jFormattedTextField1");
-        jPanel1.add(jFormattedTextField2);
-        jFormattedTextField2.setBounds(200, 60, 210, 40);
+        btn_finalizarvenda.setText("FINALIZAR VENDA");
+        jPanel1.add(btn_finalizarvenda);
+        btn_finalizarvenda.setBounds(470, 120, 160, 40);
 
-        jFormattedTextField3.setText("jFormattedTextField1");
-        jPanel1.add(jFormattedTextField3);
-        jFormattedTextField3.setBounds(200, 120, 210, 40);
+        camptotal.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        jPanel1.add(camptotal);
+        camptotal.setBounds(200, 20, 210, 40);
+        jPanel1.add(jDateChooser1);
+        jDateChooser1.setBounds(470, 50, 150, 40);
+
+        jLabel5.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel5.setText("DATA DA VENDA:");
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(470, 20, 170, 29);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(11, 124, 660, 260);
@@ -88,9 +107,9 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.setLayout(null);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel2.add(jComboBox1);
-        jComboBox1.setBounds(340, 50, 300, 40);
+        comboBOX_FormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel2.add(comboBOX_FormaPagamento);
+        comboBOX_FormaPagamento.setBounds(340, 50, 300, 40);
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel4.setText("FORMA DE PAGAMENTO:");
@@ -140,17 +159,34 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
-    private javax.swing.JFormattedTextField jFormattedTextField3;
+    private javax.swing.JButton btn_cancelarVenda;
+    private javax.swing.JButton btn_finalizarvenda;
+    private javax.swing.JFormattedTextField campTroco;
+    private javax.swing.JTextField camptotal;
+    private javax.swing.JFormattedTextField campvalorPago;
+    private javax.swing.JComboBox<String> comboBOX_FormaPagamento;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
     // End of variables declaration//GEN-END:variables
+
+    public void valorTotal() {
+        float y = 0;
+        float x = 0;
+        float z = 0;
+        for (int i = 0; i < produtos.size(); i++) {
+            x = produtos.get(i).getValor_venda();
+            y = z + x;
+            z = y;
+        }
+        Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
+        NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
+        camptotal.setText(dinheiro.format(z / 100));
+    }
+
 }
