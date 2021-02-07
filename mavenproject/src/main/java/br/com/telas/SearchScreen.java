@@ -36,6 +36,7 @@ public class SearchScreen extends javax.swing.JFrame {
 
     public SearchScreen() {
         initComponents();
+        btn_ok.setEnabled(true);
     }
 
     /**
@@ -54,7 +55,7 @@ public class SearchScreen extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela_busca = new javax.swing.JTable();
-        btn_selecionar = new javax.swing.JButton();
+        btn_ok = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -94,12 +95,10 @@ public class SearchScreen extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(177, 177, 177)));
         jPanel2.setLayout(null);
 
+        tabela_busca.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         tabela_busca.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "codigo_item", "nome", "valor", "qnt_estoque"
@@ -126,15 +125,14 @@ public class SearchScreen extends javax.swing.JFrame {
         getContentPane().add(jPanel2);
         jPanel2.setBounds(10, 100, 590, 180);
 
-        btn_selecionar.setText("OK");
-        btn_selecionar.setSelected(true);
-        btn_selecionar.addActionListener(new java.awt.event.ActionListener() {
+        btn_ok.setText("OK");
+        btn_ok.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_selecionarActionPerformed(evt);
+                btn_okActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_selecionar);
-        btn_selecionar.setBounds(474, 290, 120, 40);
+        getContentPane().add(btn_ok);
+        btn_ok.setBounds(474, 290, 120, 40);
 
         setSize(new java.awt.Dimension(624, 368));
         setLocationRelativeTo(null);
@@ -145,19 +143,19 @@ public class SearchScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_field_nomeKeyReleased
 
     private void tabela_buscaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabela_buscaMouseClicked
-        btn_selecionar.setEnabled(true);
+        btn_ok.setEnabled(true);
     }//GEN-LAST:event_tabela_buscaMouseClicked
 
     private void field_nomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_field_nomeMouseClicked
-        btn_selecionar.setEnabled(false);
+        btn_ok.setEnabled(false);
     }//GEN-LAST:event_field_nomeMouseClicked
 
     private void btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BuscarActionPerformed
         carregaCampos();
-        btn_selecionar.setEnabled(false);
+        btn_ok.setEnabled(false);
     }//GEN-LAST:event_btn_BuscarActionPerformed
 
-    private void btn_selecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_selecionarActionPerformed
+    private void btn_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_okActionPerformed
         DefaultTableModel tableDefault = (DefaultTableModel) tabela_busca.getModel();
         int linha = tabela_busca.getSelectedRow();
         for (int i = 0; i < banco.productBook().size(); i++) {
@@ -171,7 +169,7 @@ public class SearchScreen extends javax.swing.JFrame {
 
             }
         }
-    }//GEN-LAST:event_btn_selecionarActionPerformed
+    }//GEN-LAST:event_btn_okActionPerformed
 
     /**
      * @param args the command line arguments
@@ -210,7 +208,7 @@ public class SearchScreen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_Buscar;
-    private javax.swing.JButton btn_selecionar;
+    private javax.swing.JButton btn_ok;
     private javax.swing.JTextField field_nome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

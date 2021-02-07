@@ -93,10 +93,7 @@ public class ScreenSell extends javax.swing.JPanel {
 
         jTable_produto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "codigo_item", "nome", "valor", "quantidade"
@@ -139,6 +136,7 @@ public class ScreenSell extends javax.swing.JPanel {
         jLabel3.setBounds(20, 20, 330, 60);
 
         jlabel_totalVenda.setFont(new java.awt.Font("Ubuntu", 0, 28)); // NOI18N
+        jlabel_totalVenda.setForeground(new java.awt.Color(255, 0, 0));
         jlabel_totalVenda.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlabel_totalVenda.setText("0,00");
         jPanel4.add(jlabel_totalVenda);
@@ -243,13 +241,14 @@ public class ScreenSell extends javax.swing.JPanel {
         jScrollPane2.setBounds(130, 10, 590, 90);
 
         field_ItensQnt.setEditable(false);
+        field_ItensQnt.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jPanel6.add(field_ItensQnt);
         field_ItensQnt.setBounds(979, 56, 130, 40);
 
-        jLabel11.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel11.setText("Itens / Qnt.:");
         jPanel6.add(jLabel11);
-        jLabel11.setBounds(860, 60, 110, 30);
+        jLabel11.setBounds(810, 60, 160, 30);
 
         add(jPanel6);
         jPanel6.setBounds(10, 530, 1120, 110);
@@ -263,6 +262,7 @@ public class ScreenSell extends javax.swing.JPanel {
             if (produtos.get(i).getIdProduto().equals(tableDefault.getValueAt(posicao, 0))) {// VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
                 produtos.remove(produtos.get(i)); // remove o item;
                 adicionarItens();
+                btn_buscarProduto.setText("");
             }
         }
     }//GEN-LAST:event_btn_removerItemActionPerformed
