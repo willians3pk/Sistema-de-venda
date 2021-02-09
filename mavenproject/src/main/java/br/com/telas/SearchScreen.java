@@ -180,7 +180,7 @@ public class SearchScreen extends javax.swing.JFrame {
                     
                     item.setQnt(quantidadeItems.getValue());
                     lista.add(item);
-                    telaVenda.adicionarItens();
+                    telaVenda.adicionarItens(); // adiciona os itens na tabela de itens na tela vendas;
                     dispose();
                     
                 }

@@ -222,7 +222,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         for (Produto produto : lista) {
             itensdaVenda.setStatus(true);
             itensdaVenda.setItems(produto);
-//            itensdaVenda.setQnt(WIDTH);
+            itensdaVenda.setQnt(produto.getQnt());
             itensdaVenda.setVenda(venda);
         }
         
