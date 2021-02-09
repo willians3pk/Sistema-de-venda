@@ -36,7 +36,8 @@ public class SearchScreen extends javax.swing.JFrame {
 
     public SearchScreen() {
         initComponents();
-        btn_ok.setEnabled(true);
+        btn_ok.setEnabled(false);
+        quantidadeItems.setEnabled(false);
     }
 
     /**
@@ -52,6 +53,8 @@ public class SearchScreen extends javax.swing.JFrame {
         field_nome = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btn_Buscar = new javax.swing.JButton();
+        quantidadeItems = new com.toedter.components.JSpinField();
+        jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela_busca = new javax.swing.JTable();
@@ -74,7 +77,7 @@ public class SearchScreen extends javax.swing.JFrame {
             }
         });
         jPanel1.add(field_nome);
-        field_nome.setBounds(10, 30, 450, 40);
+        field_nome.setBounds(10, 30, 320, 40);
 
         jLabel1.setText("Nome:");
         jPanel1.add(jLabel1);
@@ -88,6 +91,12 @@ public class SearchScreen extends javax.swing.JFrame {
         });
         jPanel1.add(btn_Buscar);
         btn_Buscar.setBounds(480, 30, 90, 40);
+        jPanel1.add(quantidadeItems);
+        quantidadeItems.setBounds(360, 30, 60, 40);
+
+        jLabel2.setText("Qnt:");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(360, 10, 26, 16);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(10, 10, 590, 80);
@@ -144,15 +153,18 @@ public class SearchScreen extends javax.swing.JFrame {
 
     private void tabela_buscaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabela_buscaMouseClicked
         btn_ok.setEnabled(true);
+        quantidadeItems.setEnabled(true);
     }//GEN-LAST:event_tabela_buscaMouseClicked
 
     private void field_nomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_field_nomeMouseClicked
         btn_ok.setEnabled(false);
+        quantidadeItems.setEnabled(false);
     }//GEN-LAST:event_field_nomeMouseClicked
 
     private void btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BuscarActionPerformed
         carregaCampos();
         btn_ok.setEnabled(false);
+        quantidadeItems.setEnabled(false);
     }//GEN-LAST:event_btn_BuscarActionPerformed
 
     private void btn_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_okActionPerformed
@@ -161,12 +173,17 @@ public class SearchScreen extends javax.swing.JFrame {
         for (int i = 0; i < banco.productBook().size(); i++) {
             if (banco.productBook().get(i).getIdProduto().equals(tableDefault.getValueAt(linha, 0))) {// VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
                 Produto item = banco.productBook().get(i); // pega o produto da lista;
-                item.setQnt(1);
-                lista.add(item);
-                telaVenda.field_ItensQnt.setText(String.valueOf(lista.size()));
-                telaVenda.adicionarItens();
-                dispose();
 
+                if (quantidadeItems.getValue() > item.getQnt() || quantidadeItems.getValue() == 0) {
+                    JOptionPane.showMessageDialog(null, "Produto só contém " + item.getQnt() + " em estoque!");
+                } else {
+                    
+                    item.setQnt(quantidadeItems.getValue());
+                    lista.add(item);
+                    telaVenda.adicionarItens();
+                    dispose();
+                    
+                }
             }
         }
     }//GEN-LAST:event_btn_okActionPerformed
@@ -211,9 +228,11 @@ public class SearchScreen extends javax.swing.JFrame {
     private javax.swing.JButton btn_ok;
     private javax.swing.JTextField field_nome;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    public com.toedter.components.JSpinField quantidadeItems;
     private javax.swing.JTable tabela_busca;
     // End of variables declaration//GEN-END:variables
 
@@ -239,7 +258,7 @@ public class SearchScreen extends javax.swing.JFrame {
             // PEGA TODOS OS PRODUTOS QUE SÃO ADICIONADO NA LISTA CLIENT;
             // E ADICIONA NA TABELA 
             for (Produto p : produto) {
-                tabela.addRow(new Object[]{p.getIdProduto(), p.getNome(), dinheiro.format(p.getValor_venda() / 100), p.getQnt()});
+                tabela.addRow(new Object[]{p.getIdProduto(), p.getNome(), dinheiro.format(p.getValor_venda()), p.getQnt()});
             }
         } catch (Exception e) {
             System.out.println(e);

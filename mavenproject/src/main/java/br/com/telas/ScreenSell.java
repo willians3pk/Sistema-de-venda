@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -41,11 +42,9 @@ public class ScreenSell extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         field_qnt = new javax.swing.JFormattedTextField();
         field_preco = new javax.swing.JFormattedTextField();
-        field_desconto = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         btn_buscarProduto = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -55,8 +54,8 @@ public class ScreenSell extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         field_observacao = new javax.swing.JTextArea();
-        field_ItensQnt = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
+        field_itensQnt = new javax.swing.JTextField();
 
         setLayout(null);
 
@@ -133,59 +132,55 @@ public class ScreenSell extends javax.swing.JPanel {
         jLabel3.setText("TOTAL DA VENDA R$");
         jLabel3.setToolTipText("");
         jPanel4.add(jLabel3);
-        jLabel3.setBounds(20, 20, 330, 60);
+        jLabel3.setBounds(20, 0, 330, 60);
 
         jlabel_totalVenda.setFont(new java.awt.Font("Ubuntu", 0, 28)); // NOI18N
         jlabel_totalVenda.setForeground(new java.awt.Color(255, 0, 0));
         jlabel_totalVenda.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlabel_totalVenda.setText("0,00");
         jPanel4.add(jlabel_totalVenda);
-        jlabel_totalVenda.setBounds(130, 90, 130, 30);
+        jlabel_totalVenda.setBounds(60, 60, 260, 30);
 
         add(jPanel4);
-        jPanel4.setBounds(750, 10, 380, 150);
+        jPanel4.setBounds(750, 10, 380, 100);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel5.setLayout(null);
 
         field_qnt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         field_qnt.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        field_qnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                field_qntActionPerformed(evt);
+            }
+        });
         jPanel5.add(field_qnt);
-        field_qnt.setBounds(10, 140, 120, 40);
+        field_qnt.setBounds(140, 190, 120, 40);
 
         field_preco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         field_preco.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         jPanel5.add(field_preco);
-        field_preco.setBounds(140, 140, 110, 40);
-
-        field_desconto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0%"))));
-        jPanel5.add(field_desconto);
-        field_desconto.setBounds(260, 140, 110, 40);
+        field_preco.setBounds(10, 190, 110, 40);
 
         jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel5.setText("Produto:");
         jPanel5.add(jLabel5);
-        jLabel5.setBounds(10, 40, 110, 20);
+        jLabel5.setBounds(10, 90, 110, 20);
 
         jLabel6.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel6.setText("Qnt:");
         jPanel5.add(jLabel6);
-        jLabel6.setBounds(10, 120, 100, 20);
+        jLabel6.setBounds(140, 170, 100, 20);
 
         jLabel7.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel7.setText("Preço:");
         jPanel5.add(jLabel7);
-        jLabel7.setBounds(140, 120, 100, 20);
-
-        jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel8.setText("Desc.:");
-        jPanel5.add(jLabel8);
-        jLabel8.setBounds(260, 120, 100, 20);
+        jLabel7.setBounds(10, 170, 100, 20);
 
         jLabel9.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel9.setText("Total:");
         jPanel5.add(jLabel9);
-        jLabel9.setBounds(20, 210, 100, 20);
+        jLabel9.setBounds(20, 260, 100, 20);
 
         btn_buscarProduto.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         btn_buscarProduto.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
@@ -195,7 +190,7 @@ public class ScreenSell extends javax.swing.JPanel {
             }
         });
         jPanel5.add(btn_buscarProduto);
-        btn_buscarProduto.setBounds(10, 60, 360, 40);
+        btn_buscarProduto.setBounds(10, 110, 360, 40);
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -204,7 +199,7 @@ public class ScreenSell extends javax.swing.JPanel {
             }
         });
         jPanel5.add(jButton1);
-        jButton1.setBounds(234, 300, 130, 40);
+        jButton1.setBounds(230, 350, 130, 40);
 
         btn_removerItem.setText("Remover ");
         btn_removerItem.setEnabled(false);
@@ -214,15 +209,15 @@ public class ScreenSell extends javax.swing.JPanel {
             }
         });
         jPanel5.add(btn_removerItem);
-        btn_removerItem.setBounds(20, 300, 130, 40);
+        btn_removerItem.setBounds(20, 350, 130, 40);
 
         camp_total.setEditable(false);
         camp_total.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         jPanel5.add(camp_total);
-        camp_total.setBounds(10, 230, 360, 40);
+        camp_total.setBounds(10, 280, 360, 40);
 
         add(jPanel5);
-        jPanel5.setBounds(750, 170, 380, 350);
+        jPanel5.setBounds(750, 120, 380, 400);
 
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel6.setLayout(null);
@@ -240,15 +235,15 @@ public class ScreenSell extends javax.swing.JPanel {
         jPanel6.add(jScrollPane2);
         jScrollPane2.setBounds(130, 10, 590, 90);
 
-        field_ItensQnt.setEditable(false);
-        field_ItensQnt.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        jPanel6.add(field_ItensQnt);
-        field_ItensQnt.setBounds(979, 56, 130, 40);
-
         jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel11.setText("Itens / Qnt.:");
         jPanel6.add(jLabel11);
-        jLabel11.setBounds(810, 60, 160, 30);
+        jLabel11.setBounds(810, 50, 160, 30);
+
+        field_itensQnt.setEditable(false);
+        field_itensQnt.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jPanel6.add(field_itensQnt);
+        field_itensQnt.setBounds(960, 46, 130, 40);
 
         add(jPanel6);
         jPanel6.setBounds(10, 530, 1120, 110);
@@ -262,9 +257,13 @@ public class ScreenSell extends javax.swing.JPanel {
             if (produtos.get(i).getIdProduto().equals(tableDefault.getValueAt(posicao, 0))) {// VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
                 produtos.remove(produtos.get(i)); // remove o item;
                 adicionarItens();
+                //limpa os campos
                 btn_buscarProduto.setText("");
+                field_preco.setText("0,00");
+                field_qnt.setText("0");
             }
         }
+        btn_removerItem.setEnabled(false);
     }//GEN-LAST:event_btn_removerItemActionPerformed
 
     private void jTable_produtoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_produtoKeyReleased
@@ -279,6 +278,9 @@ public class ScreenSell extends javax.swing.JPanel {
     private void btn_buscarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarProdutoActionPerformed
         s.setLista(produtos);
         s.setVisible(true);
+        s.quantidadeItems.setValue(0); // toda vez que for buscar um produto a quantidade vai iniciar sempre em zero
+        btn_removerItem.setEnabled(false);
+
     }//GEN-LAST:event_btn_buscarProdutoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -288,17 +290,43 @@ public class ScreenSell extends javax.swing.JPanel {
         f.valorTotal();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void field_qntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_qntActionPerformed
+        DefaultTableModel tableDefault = (DefaultTableModel) jTable_produto.getModel();
+        int posicao = jTable_produto.getSelectedRow(); // pegar a posição na linha selecionada;
+        try {
+            for (int i = 0; i < banco.productBook().size(); i++) {
+                if (banco.productBook().get(i).getIdProduto().equals(tableDefault.getValueAt(posicao, 0))) {// VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
+                    int quantidade = banco.productBook().get(i).getQnt(); // pega quantidade que tem em estoque;
+                    
+                    if(Integer.parseInt(field_qnt.getText()) > quantidade){
+                        field_qnt.setText(String.valueOf(produtos.get(posicao).getQnt()));
+                        JOptionPane.showMessageDialog(null, "<html><font color=\"#FF0000\">ITEM SÓ CONTÉM "+quantidade+ " EM ESTOQUE</font></html>");
+                    }else{
+                        produtos.get(posicao).setQnt(Integer.parseInt(field_qnt.getText()));
+                        adicionarItens();
+                    }
+                    camp_total.requestFocus(); // muda o foco do cursor do mouse
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "SELECIONE O ITEM NA TABELA");
+        }
+
+
+    }//GEN-LAST:event_field_qntActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_buscarProduto;
+    public static javax.swing.JButton btn_buscarProduto;
     private javax.swing.JButton btn_removerItem;
     public static javax.swing.JTextField camp_total;
-    public static javax.swing.JTextField field_ItensQnt;
     private javax.swing.JTextField field_client;
-    private javax.swing.JFormattedTextField field_desconto;
-    private javax.swing.JTextArea field_observacao;
+    public static javax.swing.JTextField field_itensQnt;
+    public static javax.swing.JTextArea field_observacao;
     public static javax.swing.JFormattedTextField field_preco;
-    private javax.swing.JFormattedTextField field_qnt;
+    public static javax.swing.JFormattedTextField field_qnt;
     private javax.swing.JTextField field_vendedor;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -309,7 +337,6 @@ public class ScreenSell extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -329,15 +356,22 @@ public class ScreenSell extends javax.swing.JPanel {
         try {
             Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
             NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
-
+            
+            int y = 0;
+            int x = 0;
+            int z = 0;
             tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
             for (Produto produto : produtos) {
-                tableDefault.addRow(new Object[]{produto.getIdProduto(), produto.getNome(), dinheiro.format(produto.getValor_venda() / 100), produto.getQnt()});
-                field_preco.setText(String.valueOf(dinheiro.format(produto.getValor_venda() / 100)));// colocar o valor do item no campo preco;             
-                
+                x = produto.getQnt();
+                y = z + x;
+                z = y;
+                tableDefault.addRow(new Object[]{produto.getIdProduto(), produto.getNome(), dinheiro.format(produto.getValor_venda()), produto.getQnt()});
+                field_preco.setText(String.valueOf(dinheiro.format(produto.getValor_venda())));// colocar o valor do item no campo preco;             
+                btn_buscarProduto.setText(produto.getNome());
+                field_qnt.setText(String.valueOf(produto.getQnt()));
             }
             calculoValorTotal();
-
+            field_itensQnt.setText(""+z);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -345,26 +379,29 @@ public class ScreenSell extends javax.swing.JPanel {
     }
 
     public static void calculoValorTotal() {
-        float y = 0;
-        float x = 0;
-        float z = 0;
+        double y = 0;
+        double x = 0;
+        double z = 0;
         for (int i = 0; i < produtos.size(); i++) {
-            x = produtos.get(i).getValor_venda();
+            x = produtos.get(i).getValor_venda() * produtos.get(i).getQnt();
             y = z + x;
             z = y;
         }
         Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
         NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
-        camp_total.setText(dinheiro.format(z / 100));
-        jlabel_totalVenda.setText(dinheiro.format(z / 100));
+        camp_total.setText(dinheiro.format(z)); //valor total dos itens
+        jlabel_totalVenda.setText(dinheiro.format(z)); //valor total dos itens
+
     }
 
-    private void carregaCampo() {
+    public static void carregaCampo() {
+
         DefaultTableModel tableDefault = (DefaultTableModel) jTable_produto.getModel();
         int posicao = jTable_produto.getSelectedRow(); // pegar a posição na linha selecionada;
 
         btn_buscarProduto.setText(tableDefault.getValueAt(posicao, 1).toString()); //Nome do produto
         field_preco.setText(tableDefault.getValueAt(posicao, 2).toString()); // preco do produto
+        field_qnt.setText(tableDefault.getValueAt(posicao, 3).toString()); //quantidade do item
 
     }
 

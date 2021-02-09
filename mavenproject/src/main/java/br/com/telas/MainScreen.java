@@ -6,6 +6,8 @@
 package br.com.telas;
 
 import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -18,10 +20,11 @@ public class MainScreen extends javax.swing.JFrame {
     ProductScreen p = new ProductScreen();
     RegistrationScreen r = new RegistrationScreen();
     ScreenSell s = new ScreenSell();
-    
+
     public MainScreen() {
         initComponents();
         standardColor = new Color(240, 240, 240);
+        data();
     }
 
     /**
@@ -35,6 +38,7 @@ public class MainScreen extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        horariodoSystema = new javax.swing.JLabel();
         menuLateral = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -60,6 +64,11 @@ public class MainScreen extends javax.swing.JFrame {
         jLabel5.setText("Configuração");
         jPanel1.add(jLabel5);
         jLabel5.setBounds(1270, 30, 90, 16);
+
+        horariodoSystema.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        horariodoSystema.setText("jLabel6");
+        jPanel1.add(horariodoSystema);
+        horariodoSystema.setBounds(1250, 0, 110, 20);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1360, 50);
@@ -261,6 +270,7 @@ public class MainScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel horariodoSystema;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -278,4 +288,12 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JPanel menuLateral;
     // End of variables declaration//GEN-END:variables
+
+    public void data() {
+        //-------------Data----------------\\
+        Date dataSistema = new Date();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        horariodoSystema.setText(formato.format(dataSistema));
+    }
+
 }

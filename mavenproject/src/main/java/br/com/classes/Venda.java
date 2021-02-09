@@ -35,35 +35,30 @@ public class Venda {
     @ManyToMany(fetch = FetchType.LAZY)
     @Cascade({CascadeType.ALL})
     private List<FormaPagamento> formaPagamento;
-
     @OneToOne(fetch = FetchType.EAGER)
 //    @JoinColumn(name = "Cod_Usuario")
     private Usuario usuario;
-
 //    @Temporal(TemporalType.TIMESTAMP)
 //    @Column(name = "Data_Venda", length = 19)
     private Date dataVenda;
-    
 //    @Column(name = "Codigo_Venda", nullable = false)
     private int codigoVenda;
-    
 //    @Column(name = "Descricao", length = 200)
     private String descricao;
-    
 //    @Column(name = "Status")
     private boolean status;
-    
 //    @Column(name = "ValorTotal", precision = 10, scale = 0)
-    private Long valorTotal;
-
+    private double valorTotal;
     private String faturas;
-    
     private double taxa_juros;
-    
+    private double valor_pago;
+    private double troco;
+            
     public Venda() {
+        
     }
 
-    public Venda(int idvenda, Cliente cliente, List<FormaPagamento> formaPagamento, Usuario usuario, Date dataVenda, int codigoVenda, String descricao, boolean status, Long valorTotal, String faturas, double taxa_juros) {
+    public Venda(int idvenda, Cliente cliente, List<FormaPagamento> formaPagamento, Usuario usuario, Date dataVenda, int codigoVenda, String descricao, boolean status, double valorTotal, String faturas, double taxa_juros) {
         this.idvenda = idvenda;
         this.cliente = cliente;
         this.formaPagamento = formaPagamento;
@@ -142,11 +137,11 @@ public class Venda {
         this.status = status;
     }
 
-    public Long getValorTotal() {
+    public double getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(Long valorTotal) {
+    public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
     }
 
@@ -164,6 +159,22 @@ public class Venda {
 
     public void setTaxa_juros(double taxa_juros) {
         this.taxa_juros = taxa_juros;
+    }
+
+    public double getValor_pago() {
+        return valor_pago;
+    }
+
+    public void setValor_pago(double valor_pago) {
+        this.valor_pago = valor_pago;
+    }
+
+    public double getTroco() {
+        return troco;
+    }
+
+    public void setTroco(double troco) {
+        this.troco = troco;
     }
 
     

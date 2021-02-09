@@ -330,10 +330,10 @@ public class EditProductScreen extends javax.swing.JFrame {
 
             String size = null;
 
-            Float priceBuy = Float.parseFloat(camp_Buyprice.getText().replaceAll(",", "").replace(".", "").replace("R$", "").trim());//remove a virgula e adiciona apenas os numeros decimais
-            Float priceSell = Float.parseFloat(camp_Sellprice.getText().replaceAll(",", "").replace(".", "").replace("R$", "").trim()); //remove a virgula e adiciona apenas os numeros decimais
+            double priceBuy = Double.parseDouble(camp_Buyprice.getText().replace(",", "."));//remove a virgula e adiciona apenas os numeros decimais
+            double priceSell = Double.parseDouble(camp_Sellprice.getText().replace(",", ".")); //remove a virgula e adiciona apenas os numeros decimais
             int qnt = Integer.parseInt(camp_Qnt.getText());
-            Float totalvalue = (priceSell * qnt);
+            double totalvalue = (priceSell * qnt);
 
             // PEGA O FORNECEDOR DA COMBOBOX;
             Fornecedor forne = null;
@@ -343,8 +343,8 @@ public class EditProductScreen extends javax.swing.JFrame {
             // ADICIONA AS INFORMAÇÕES DO PRODUTO;
             produto.setFornecedor(forne);
             produto.setNome(camp_ProductName.getText());
-            produto.setValor_compra(priceBuy);
-            produto.setValor_venda(priceSell);
+            produto.setValor_compra(Double.parseDouble(camp_Buyprice.getText().replace(",", ".")));
+            produto.setValor_venda(Double.parseDouble(camp_Sellprice.getText().replace(",", ".")));
             produto.setApelido(camp_Apelido.getText());
             produto.setStatus(true);
             produto.setExcluido(false);
@@ -376,8 +376,8 @@ public class EditProductScreen extends javax.swing.JFrame {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
 
         DecimalFormat dinheiro = new DecimalFormat("0.##");
-        String pricebuy = dinheiro.format(produto.getValor_compra() / 100); // MOVE A VIRGULA DUAS CASAS DECIMAIS;
-        String pricesell = dinheiro.format(produto.getValor_venda() / 100); // MOVE A VIRGULA DUAS CASAS DECIMAIS;
+        String pricebuy = dinheiro.format(produto.getValor_compra()); // MOVE A VIRGULA DUAS CASAS DECIMAIS;
+        String pricesell = dinheiro.format(produto.getValor_venda()); // MOVE A VIRGULA DUAS CASAS DECIMAIS;
 
         // ACRECENTA A VIRGULA E DUAS CASAS DECIMAIS AOS NUMEROS QUE SÃO INTEIROS;
         if (pricebuy.contains(",")) {

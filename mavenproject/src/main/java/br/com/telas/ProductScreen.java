@@ -79,10 +79,7 @@ public class ProductScreen extends javax.swing.JPanel {
 
         table_Product.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Cod_Produto", "Receb/Produto", "Nome", "Preço", "Quantidade", "Fornecedor", "Tamanho", "Total"
@@ -104,7 +101,7 @@ public class ProductScreen extends javax.swing.JPanel {
         jScrollPane1.setViewportView(table_Product);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 160, 1090, 130);
+        jScrollPane1.setBounds(10, 160, 1090, 140);
 
         camp_SearchProduct.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -112,7 +109,7 @@ public class ProductScreen extends javax.swing.JPanel {
             }
         });
         jPanel1.add(camp_SearchProduct);
-        camp_SearchProduct.setBounds(10, 90, 470, 26);
+        camp_SearchProduct.setBounds(10, 90, 470, 30);
 
         btn_update.setText("Atualizar");
         btn_update.addActionListener(new java.awt.event.ActionListener() {
@@ -134,7 +131,7 @@ public class ProductScreen extends javax.swing.JPanel {
             }
         });
         jPanel1.add(box_Size);
-        box_Size.setBounds(120, 60, 79, 22);
+        box_Size.setBounds(120, 60, 100, 22);
 
         box_Price.setText("Preço");
         box_Price.addActionListener(new java.awt.event.ActionListener() {
@@ -172,13 +169,15 @@ public class ProductScreen extends javax.swing.JPanel {
         jPanel1.add(btn_Deactivate);
         btn_Deactivate.setBounds(770, 90, 100, 30);
 
+        camp_Profitmargin.setForeground(new java.awt.Color(255, 0, 39));
         camp_Profitmargin.setEnabled(false);
         jPanel1.add(camp_Profitmargin);
         camp_Profitmargin.setBounds(990, 60, 110, 26);
 
+        jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         jLabel8.setText("Margem de Lucro Bruto:");
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(940, 40, 160, 16);
+        jLabel8.setBounds(930, 30, 170, 30);
 
         add(jPanel1);
         jPanel1.setBounds(10, 320, 1120, 320);
@@ -313,9 +312,9 @@ public class ProductScreen extends javax.swing.JPanel {
             }
         });
         jPanel2.add(jLabel11);
-        jLabel11.setBounds(830, 180, 50, 20);
+        jLabel11.setBounds(850, 180, 50, 20);
         jPanel2.add(camp_Deliverydate);
-        camp_Deliverydate.setBounds(650, 180, 160, 27);
+        camp_Deliverydate.setBounds(650, 180, 180, 27);
 
         btn_cleanAll.setText("Limpar Tudo");
         btn_cleanAll.addActionListener(new java.awt.event.ActionListener() {
@@ -545,8 +544,8 @@ public class ProductScreen extends javax.swing.JPanel {
                 // adiciona os valores dos campos, nos atributos do novo produto;
                 newProduct.setFornecedor(forne);
                 newProduct.setNome(camp_ProductName.getText());
-                newProduct.setValor_compra(Float.parseFloat(camp_Buyprice.getText().replaceAll(",", "").replace(".", "")));
-                newProduct.setValor_venda(Float.parseFloat(camp_Sellprice.getText().replaceAll(",", "").replace(".", "")));
+                newProduct.setValor_compra(Double.parseDouble(camp_Buyprice.getText().replace(",", ".")));
+                newProduct.setValor_venda(Double.parseDouble(camp_Sellprice.getText().replace(",", ".")));
                 newProduct.setApelido(camp_apelido.getText());
                 newProduct.setStatus(true);
                 newProduct.setExcluido(false);
@@ -640,9 +639,9 @@ public class ProductScreen extends javax.swing.JPanel {
 
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
 
-        float y = 0;
-        float x = 0;
-        float z = 0;
+        double y = 0;
+        double x = 0;
+        double z = 0;
 
         DefaultTableModel tableDefault = (DefaultTableModel) table_Product.getModel();
         try {
@@ -651,8 +650,8 @@ public class ProductScreen extends javax.swing.JPanel {
 
                 x = item.getValor_total() / 100;
 
-                tableDefault.addRow(new Object[]{item.getIdProduto(), formato.format(item.getDataEntrega()), item.getNome(), dinheiro.format((item.getValor_venda() / 100)),
-                    item.getQnt(), item.getFornecedor().getNome(), item.getTamanho(), dinheiro.format(item.getValor_total() / 100)});
+                tableDefault.addRow(new Object[]{item.getIdProduto(), formato.format(item.getDataEntrega()), item.getNome(), dinheiro.format((item.getValor_venda())),
+                    item.getQnt(), item.getFornecedor().getNome(), item.getTamanho(), dinheiro.format(item.getValor_total())});
 
                 // calculo do valor lucro bruto
                 y = z + x;
