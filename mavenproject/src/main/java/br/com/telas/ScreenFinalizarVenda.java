@@ -76,6 +76,11 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         campvalorPago.setBounds(180, 80, 210, 40);
 
         btn_cancelarVenda.setText("CANCELAR VENDA");
+        btn_cancelarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancelarVendaActionPerformed(evt);
+            }
+        });
         jPanel1.add(btn_cancelarVenda);
         btn_cancelarVenda.setBounds(480, 210, 160, 40);
 
@@ -139,6 +144,10 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         finalizarVenda();
     }//GEN-LAST:event_btn_finalizarvendaActionPerformed
 
+    private void btn_cancelarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarVendaActionPerformed
+        dispose();
+    }//GEN-LAST:event_btn_cancelarVendaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -200,7 +209,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         double x = 0;
         double z = 0;
         for (int i = 0; i < produtos.size(); i++) {
-            x = produtos.get(i).getValor_venda();
+            x = produtos.get(i).getValor_venda() * produtos.get(i).getQnt();
             y = z + x;
             z = y;
         }
@@ -222,10 +231,11 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             itensdaVenda.setItems(produto);
             itensdaVenda.setQnt(produto.getQnt());
             itensdaVenda.setVenda(venda);
+            bancoMariaDB.save(itensdaVenda); // salva os itens da venda;
         }
 
-        bancoMariaDB.save(venda);
-        bancoMariaDB.save(itensdaVenda);
+        bancoMariaDB.save(venda); // apois salvar todos os itens da venda, salva a venda;
+        
         
         // ATUALIZAR O ESTOQUE DE PRODUTO NO BANCO DE DADOS
         for (int i = 0; i < bancoMariaDB.productBook().size(); i++) {
@@ -235,10 +245,11 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
                     int qnt_Atualizada = item.getQnt() - produto.getQnt(); // subtrair a quantidade do produto que foi vendido;
                     item.setQnt(qnt_Atualizada); // adicionar a subtração;
                     bancoMariaDB.update(item); // atualiza a quantidade do produto no banco;
+                    
                 }
             }
         }
-
+        dispose();
     }
 
 }

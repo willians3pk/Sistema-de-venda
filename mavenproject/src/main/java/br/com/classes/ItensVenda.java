@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name = "itensvenda")
@@ -25,6 +27,7 @@ public class ItensVenda {
     private Produto items;
     
     @ManyToOne(fetch = FetchType.EAGER)
+    @Cascade({CascadeType.ALL})
 //    @JoinColumn(name="Cod_Venda")
     private Venda venda;
     

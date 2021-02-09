@@ -278,6 +278,7 @@ public class ScreenSell extends javax.swing.JPanel {
     private void btn_buscarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarProdutoActionPerformed
         s.setLista(produtos);
         s.setVisible(true);
+        s.carregaCampos();
         s.quantidadeItems.setValue(0); // toda vez que for buscar um produto a quantidade vai iniciar sempre em zero
         btn_removerItem.setEnabled(false);
 
@@ -362,6 +363,7 @@ public class ScreenSell extends javax.swing.JPanel {
             int z = 0;
             tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
             for (Produto produto : produtos) {
+                // faz o calculo da quantidade de itens;
                 x = produto.getQnt();
                 y = z + x;
                 z = y;
