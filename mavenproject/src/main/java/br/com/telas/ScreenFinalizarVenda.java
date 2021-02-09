@@ -4,16 +4,21 @@ import br.com.classes.ItensVenda;
 import br.com.classes.Produto;
 import br.com.classes.Venda;
 import br.com.conexao.Conexao;
+import static br.com.telas.ScreenSell.btn_buscarProduto;
 import static br.com.telas.ScreenSell.camp_total;
+import static br.com.telas.ScreenSell.field_preco;
+import static br.com.telas.ScreenSell.field_qnt;
 import static br.com.telas.ScreenSell.jlabel_totalVenda;
 import static br.com.telas.ScreenSell.produtos;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
+import javax.swing.JOptionPane;
 
 public class ScreenFinalizarVenda extends javax.swing.JFrame {
 
     List<Produto> lista;
+    ScreenSell telaVenda;
 
     public List<Produto> getLista() {
         return lista;
@@ -35,7 +40,6 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        campTroco = new javax.swing.JFormattedTextField();
         campvalorPago = new javax.swing.JFormattedTextField();
         btn_cancelarVenda = new javax.swing.JButton();
         btn_finalizarvenda = new javax.swing.JButton();
@@ -44,6 +48,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
+        campTroco = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         comboBOX_FormaPagamento = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
@@ -62,6 +67,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jLabel1.setBounds(10, 200, 150, 30);
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
         jLabel2.setText("TOTAL");
         jPanel1.add(jLabel2);
         jLabel2.setBounds(20, 20, 120, 30);
@@ -70,8 +76,13 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jLabel3.setText("VALOR PAGO");
         jPanel1.add(jLabel3);
         jLabel3.setBounds(10, 80, 180, 30);
-        jPanel1.add(campTroco);
-        campTroco.setBounds(180, 200, 210, 40);
+
+        campvalorPago.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        campvalorPago.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campvalorPagoKeyReleased(evt);
+            }
+        });
         jPanel1.add(campvalorPago);
         campvalorPago.setBounds(180, 80, 210, 40);
 
@@ -93,7 +104,9 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jPanel1.add(btn_finalizarvenda);
         btn_finalizarvenda.setBounds(480, 160, 160, 40);
 
+        camptotal.setEditable(false);
         camptotal.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        camptotal.setForeground(new java.awt.Color(255, 0, 0));
         jPanel1.add(camptotal);
         camptotal.setBounds(180, 20, 210, 40);
         jPanel1.add(dataVenda);
@@ -110,6 +123,11 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jLabel6.setText("DESCONTO");
         jPanel1.add(jLabel6);
         jLabel6.setBounds(10, 140, 140, 30);
+
+        campTroco.setEditable(false);
+        campTroco.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jPanel1.add(campTroco);
+        campTroco.setBounds(180, 200, 210, 40);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(11, 124, 660, 260);
@@ -141,12 +159,28 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_finalizarvendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarvendaActionPerformed
-        finalizarVenda();
+        try {
+            if (campvalorPago.getText().length() > 0 & !dataVenda.getDate().equals("")) {
+                finalizarVenda();
+            } else {
+                JOptionPane.showMessageDialog(null, "Digite Valor Pago");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Digite data da Venda!");
+        }
+
     }//GEN-LAST:event_btn_finalizarvendaActionPerformed
 
     private void btn_cancelarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarVendaActionPerformed
         dispose();
     }//GEN-LAST:event_btn_cancelarVendaActionPerformed
+
+    private void campvalorPagoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campvalorPagoKeyReleased
+        double valortotal = Double.parseDouble(camptotal.getText().replace("R$", ""));
+        double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", "."));
+        double troco = valorPago - valortotal;
+        campTroco.setText(String.valueOf(troco));
+    }//GEN-LAST:event_campvalorPagoKeyReleased
 
     /**
      * @param args the command line arguments
@@ -186,7 +220,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cancelarVenda;
     private javax.swing.JButton btn_finalizarvenda;
-    private javax.swing.JFormattedTextField campTroco;
+    private javax.swing.JTextField campTroco;
     private javax.swing.JTextField camptotal;
     private javax.swing.JFormattedTextField campvalorPago;
     private javax.swing.JComboBox<String> comboBOX_FormaPagamento;
@@ -221,10 +255,16 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         ItensVenda itensdaVenda = new ItensVenda();
         Conexao bancoMariaDB = new Conexao();
 
+        double valortotal = Double.parseDouble(camptotal.getText().replace("R$", ""));
+        double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", "."));
+        double troco = valortotal - valorPago;
+
         venda.setStatus(true);
         venda.setDataVenda(dataVenda.getDate()); // data da venda
         venda.setValorTotal(Double.parseDouble(camptotal.getText().replace("R$", "").trim())); // valor total da venda
         venda.setDescricao(ScreenSell.field_observacao.getText()); // observação da venda
+        venda.setValor_pago(Double.valueOf(campvalorPago.getText().replace(",", ".")));
+        venda.setTroco(troco);
 
         for (Produto produto : lista) {
             itensdaVenda.setStatus(true);
@@ -235,8 +275,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         }
 
         bancoMariaDB.save(venda); // apois salvar todos os itens da venda, salva a venda;
-        
-        
+
         // ATUALIZAR O ESTOQUE DE PRODUTO NO BANCO DE DADOS
         for (int i = 0; i < bancoMariaDB.productBook().size(); i++) {
             for (Produto produto : lista) {
@@ -245,10 +284,17 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
                     int qnt_Atualizada = item.getQnt() - produto.getQnt(); // subtrair a quantidade do produto que foi vendido;
                     item.setQnt(qnt_Atualizada); // adicionar a subtração;
                     bancoMariaDB.update(item); // atualiza a quantidade do produto no banco;
-                    
+
                 }
             }
         }
+
+        lista.clear(); // limpa a lista;
+        telaVenda.adicionarItens();
+        btn_buscarProduto.setText("");
+        field_preco.setText("0,00");
+        field_qnt.setText("0");
+        
         dispose();
     }
 
