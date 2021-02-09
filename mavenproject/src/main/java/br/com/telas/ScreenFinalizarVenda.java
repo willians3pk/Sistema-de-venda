@@ -1,4 +1,3 @@
-
 package br.com.telas;
 
 import br.com.classes.ItensVenda;
@@ -11,7 +10,6 @@ import static br.com.telas.ScreenSell.produtos;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
-
 
 public class ScreenFinalizarVenda extends javax.swing.JFrame {
 
@@ -28,7 +26,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     public ScreenFinalizarVenda() {
         initComponents();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -206,31 +204,41 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             y = z + x;
             z = y;
         }
-        camptotal.setText("R$ "+z);
+        camptotal.setText("R$ " + z);
     }
 
-    private void finalizarVenda(){
+    private void finalizarVenda() {
         Venda venda = new Venda();
         ItensVenda itensdaVenda = new ItensVenda();
         Conexao bancoMariaDB = new Conexao();
-        
+
         venda.setStatus(true);
         venda.setDataVenda(dataVenda.getDate()); // data da venda
         venda.setValorTotal(Double.parseDouble(camptotal.getText().replace("R$", "").trim())); // valor total da venda
         venda.setDescricao(ScreenSell.field_observacao.getText()); // observação da venda
-        
+
         for (Produto produto : lista) {
             itensdaVenda.setStatus(true);
             itensdaVenda.setItems(produto);
             itensdaVenda.setQnt(produto.getQnt());
             itensdaVenda.setVenda(venda);
         }
-        
+
         bancoMariaDB.save(venda);
         bancoMariaDB.save(itensdaVenda);
         
-        
-        
+        // ATUALIZAR O ESTOQUE DE PRODUTO NO BANCO DE DADOS
+        for (int i = 0; i < bancoMariaDB.productBook().size(); i++) {
+            for (Produto produto : lista) {
+                if (bancoMariaDB.productBook().get(i).getIdProduto().equals(produto.getIdProduto())) {
+                    Produto item = bancoMariaDB.productBook().get(i); // pega o produto do banco de dados
+                    int qnt_Atualizada = item.getQnt() - produto.getQnt(); // subtrair a quantidade do produto que foi vendido;
+                    item.setQnt(qnt_Atualizada); // adicionar a subtração;
+                    bancoMariaDB.update(item); // atualiza a quantidade do produto no banco;
+                }
+            }
+        }
+
     }
-    
+
 }
