@@ -9,6 +9,7 @@ import br.com.classes.Fornecedor;
 import br.com.classes.Produto;
 import br.com.classes.Cliente;
 import br.com.classes.Endereco;
+import br.com.classes.FormaPagamento;
 import br.com.classes.ItensVenda;
 import br.com.classes.NumeroContato;
 import br.com.classes.Pessoa;
@@ -260,7 +261,7 @@ public class Conexao {
         return null;
     }
 
-        public List<Cliente> list_Cliente() {
+    public List<Cliente> list_Cliente() {
 
         this.session = NewHibernateUtil.getSessionFactory().openSession();
         this.tx = session.beginTransaction();
@@ -278,5 +279,24 @@ public class Conexao {
         }
         return null;
     }
-    
+
+    public List<FormaPagamento> listFormPagamento() {
+        
+        this.session = NewHibernateUtil.getSessionFactory().openSession();
+        this.tx = session.beginTransaction();
+        List<FormaPagamento> list = null;
+        String sql = "from FormaPagamento";
+        try {
+            list = (List<FormaPagamento>) session.createQuery(sql).list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!");
+        } finally {
+            session.close();
+        }
+        return null;
+
+    }
 }

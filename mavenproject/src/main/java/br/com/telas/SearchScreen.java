@@ -175,7 +175,8 @@ public class SearchScreen extends javax.swing.JFrame {
                 Produto item = banco.productBook().get(i); // pega o produto da lista;
 
                 if (quantidadeItems.getValue() > item.getQnt() || quantidadeItems.getValue() == 0) {
-                    JOptionPane.showMessageDialog(null, "Produto só contém " + item.getQnt() + " em estoque!");
+                    JOptionPane.showMessageDialog(null, "Produto só contém " + item.getQnt() + " em estoque!\nPor favor selecione a quantidade");
+                   
                 } else {
                     
                     item.setQnt(quantidadeItems.getValue());
@@ -241,7 +242,8 @@ public class SearchScreen extends javax.swing.JFrame {
         Conexao banco = new Conexao();
         String pesquisa = field_nome.getText();
         List<Produto> produto = new ArrayList<Produto>();
-
+        quantidadeItems.setEnabled(false);
+        btn_ok.setEnabled(false);
         for (int i = 0; i < banco.productBook().size(); i++) {
             // VERIFICA SE O NOME COMTEM NA LISTA DE produto E VERIFICA O STATUS DO produto;
             if (banco.productBook().get(i).getNome().contains(pesquisa) && banco.productBook().get(i).isStatus()) {
@@ -255,7 +257,7 @@ public class SearchScreen extends javax.swing.JFrame {
         NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
         try {
             tabela.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR;
-            // PEGA TODOS OS PRODUTOS QUE SÃO ADICIONADO NA LISTA CLIENT;
+            // PEGA TODOS OS PRODUTOS QUE SÃO ADICIONADO NA LISTA;
             // E ADICIONA NA TABELA 
             for (Produto p : produto) {
                 tabela.addRow(new Object[]{p.getIdProduto(), p.getNome(), dinheiro.format(p.getValor_venda()), p.getQnt()});

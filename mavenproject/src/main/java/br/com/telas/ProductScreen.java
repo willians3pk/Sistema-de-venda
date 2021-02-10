@@ -12,6 +12,7 @@ import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 public class ProductScreen extends javax.swing.JPanel {
 
@@ -644,6 +645,23 @@ public class ProductScreen extends javax.swing.JPanel {
         double z = 0;
 
         DefaultTableModel tableDefault = (DefaultTableModel) table_Product.getModel();
+        
+        TableColumn colCodigo = table_Product.getColumnModel().getColumn(0);
+        TableColumn colDataProduto = table_Product.getColumnModel().getColumn(1);
+        TableColumn colNome = table_Product.getColumnModel().getColumn(2);
+        TableColumn colPreço = table_Product.getColumnModel().getColumn(3);
+        TableColumn colQuantidade = table_Product.getColumnModel().getColumn(4);
+        TableColumn colFornecedor = table_Product.getColumnModel().getColumn(5);
+        TableColumn colTamanho = table_Product.getColumnModel().getColumn(6);
+        
+        colCodigo.setPreferredWidth(5);
+//        colDataProduto.setPreferredWidth(30);
+        colNome.setPreferredWidth(200);
+        colPreço.setPreferredWidth(15);
+        colQuantidade.setPreferredWidth(5);
+        colFornecedor.setPreferredWidth(200);
+        colTamanho.setPreferredWidth(2);
+        
         try {
             tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR PARA NAO HAVER DUPLICAÇÃO DE ITENS;
             for (Produto item : items) {

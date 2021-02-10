@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 public class ScreenSell extends javax.swing.JPanel {
 
@@ -251,6 +252,7 @@ public class ScreenSell extends javax.swing.JPanel {
 
     private void btn_removerItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removerItemActionPerformed
         DefaultTableModel tableDefault = (DefaultTableModel) jTable_produto.getModel();
+
         int posicao = jTable_produto.getSelectedRow(); // pegar a posição na linha selecionada;
 
         for (int i = 0; i < produtos.size(); i++) {
@@ -289,6 +291,7 @@ public class ScreenSell extends javax.swing.JPanel {
         f.setVisible(true);
         f.setLista(produtos);
         f.valorTotal();
+        f.carregarComboBox();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void field_qntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_qntActionPerformed
@@ -298,11 +301,11 @@ public class ScreenSell extends javax.swing.JPanel {
             for (int i = 0; i < banco.productBook().size(); i++) {
                 if (banco.productBook().get(i).getIdProduto().equals(tableDefault.getValueAt(posicao, 0))) {// VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
                     int quantidade = banco.productBook().get(i).getQnt(); // pega quantidade que tem em estoque;
-                    
-                    if(Integer.parseInt(field_qnt.getText()) > quantidade){
+
+                    if (Integer.parseInt(field_qnt.getText()) > quantidade) {
                         field_qnt.setText(String.valueOf(produtos.get(posicao).getQnt()));
-                        JOptionPane.showMessageDialog(null, "<html><font color=\"#FF0000\">ITEM SÓ CONTÉM "+quantidade+ " EM ESTOQUE</font></html>");
-                    }else{
+                        JOptionPane.showMessageDialog(null, "<html><font color=\"#FF0000\">ITEM SÓ CONTÉM " + quantidade + " EM ESTOQUE</font></html>");
+                    } else {
                         produtos.get(posicao).setQnt(Integer.parseInt(field_qnt.getText()));
                         adicionarItens();
                     }
@@ -353,11 +356,19 @@ public class ScreenSell extends javax.swing.JPanel {
 
     public static void adicionarItens() {
         DefaultTableModel tableDefault = (DefaultTableModel) jTable_produto.getModel();
+        TableColumn colCodigo = jTable_produto.getColumnModel().getColumn(0);
+        TableColumn colNome = jTable_produto.getColumnModel().getColumn(1);
+        TableColumn colPreço = jTable_produto.getColumnModel().getColumn(2);
+        TableColumn colQuant = jTable_produto.getColumnModel().getColumn(3);
 
+        colCodigo.setPreferredWidth(5);
+        colNome.setPreferredWidth(200);
+        colPreço.setPreferredWidth(10);
+        colQuant.setPreferredWidth(15);
         try {
             Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
             NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
-            
+
             int y = 0;
             int x = 0;
             int z = 0;
@@ -373,7 +384,7 @@ public class ScreenSell extends javax.swing.JPanel {
                 field_qnt.setText(String.valueOf(produto.getQnt()));
             }
             calculoValorTotal();
-            field_itensQnt.setText(""+z);
+            field_itensQnt.setText("" + z);
         } catch (Exception e) {
             System.out.println(e);
         }

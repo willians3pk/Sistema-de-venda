@@ -1,24 +1,24 @@
 package br.com.telas;
 
+import br.com.classes.FormaPagamento;
 import br.com.classes.ItensVenda;
 import br.com.classes.Produto;
 import br.com.classes.Venda;
 import br.com.conexao.Conexao;
 import static br.com.telas.ScreenSell.btn_buscarProduto;
-import static br.com.telas.ScreenSell.camp_total;
 import static br.com.telas.ScreenSell.field_preco;
 import static br.com.telas.ScreenSell.field_qnt;
-import static br.com.telas.ScreenSell.jlabel_totalVenda;
 import static br.com.telas.ScreenSell.produtos;
-import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 public class ScreenFinalizarVenda extends javax.swing.JFrame {
 
     List<Produto> lista;
     ScreenSell telaVenda;
+    Conexao bancoMariaDB = new Conexao();
 
     public List<Produto> getLista() {
         return lista;
@@ -30,6 +30,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
 
     public ScreenFinalizarVenda() {
         initComponents();
+        carregarComboBox();
     }
 
     @SuppressWarnings("unchecked")
@@ -135,6 +136,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.setLayout(null);
 
+        comboBOX_FormaPagamento.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         comboBOX_FormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel2.add(comboBOX_FormaPagamento);
         comboBOX_FormaPagamento.setBounds(340, 50, 290, 40);
@@ -253,7 +255,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     private void finalizarVenda() {
         Venda venda = new Venda();
         ItensVenda itensdaVenda = new ItensVenda();
-        Conexao bancoMariaDB = new Conexao();
+        List<FormaPagamento> listaPagamento = new ArrayList<>();
 
         double valortotal = Double.parseDouble(camptotal.getText().replace("R$", ""));
         double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", "."));
@@ -265,6 +267,8 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         venda.setDescricao(ScreenSell.field_observacao.getText()); // observação da venda
         venda.setValor_pago(Double.valueOf(campvalorPago.getText().replace(",", ".")));
         venda.setTroco(troco);
+        venda.setFormaPagamento(listaPagamento);
+        venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));
 
         for (Produto produto : lista) {
             itensdaVenda.setStatus(true);
@@ -273,8 +277,6 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             itensdaVenda.setVenda(venda);
             bancoMariaDB.save(itensdaVenda); // salva os itens da venda;
         }
-
-        bancoMariaDB.save(venda); // apois salvar todos os itens da venda, salva a venda;
 
         // ATUALIZAR O ESTOQUE DE PRODUTO NO BANCO DE DADOS
         for (int i = 0; i < bancoMariaDB.productBook().size(); i++) {
@@ -294,8 +296,21 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         btn_buscarProduto.setText("");
         field_preco.setText("0,00");
         field_qnt.setText("0");
-        
+
         dispose();
+    }
+
+    public void carregarComboBox() {
+
+        DefaultComboBoxModel comboBox = new DefaultComboBoxModel();
+        List<FormaPagamento> listaPagamento;
+        listaPagamento = bancoMariaDB.listFormPagamento();
+        
+        for (FormaPagamento formPagamento : listaPagamento) { // PEGA OS FORMAPAGAMENTO CADASTRADOS NO BANCO DE DADOS;
+            comboBox.addElement(formPagamento.getDescricao());
+            comboBOX_FormaPagamento.setModel(comboBox);           // ADICIONA OS FORMAPAGAMENTO NA COMBOBOX;
+        }
+
     }
 
 }
