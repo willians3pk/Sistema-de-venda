@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -172,19 +173,47 @@ public class SearchScreen extends javax.swing.JFrame {
         int linha = tabela_busca.getSelectedRow();
         for (int i = 0; i < banco.productBook().size(); i++) {
             if (banco.productBook().get(i).getIdProduto().equals(tableDefault.getValueAt(linha, 0))) {// VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
-                Produto item = banco.productBook().get(i); // pega o produto da lista;
+                Produto item = banco.productBook().get(i); // pega o produto da lista do banco de dados;
 
+                // verifica se a quantidade de itens selecionado é maior que a quantidade que tem em estoque;
                 if (quantidadeItems.getValue() > item.getQnt() || quantidadeItems.getValue() == 0) {
-                    JOptionPane.showMessageDialog(null, "Produto só contém " + item.getQnt() + " em estoque!\nPor favor selecione a quantidade");
-                   
+                    JOptionPane.showMessageDialog(null, "Produto só contém " + item.getQnt() + " em estoque, Por favor selecione a quantidade");
+
                 } else {
-                    
-                    item.setQnt(quantidadeItems.getValue());
-                    lista.add(item);
-                    telaVenda.adicionarItens(); // adiciona os itens na tabela de itens na tela vendas;
-                    dispose();
-                    
+                    // faz a comparação do item se ja tem na lista, e só atualiza a quantidade de item;
+                    try {
+                        if (lista.size() == 0) {
+                            item.setQnt(quantidadeItems.getValue());
+                            lista.add(item); // adicionar o item na lista;
+                            telaVenda.adicionarItens(); // adiciona os itens na tabela de itens na tela vendas;
+                            dispose();
+                        } else {
+                            for (Produto produto : lista) {
+                                if (produto.getIdProduto() == item.getIdProduto()) {
+                                    System.out.println("Item contém na lista!");
+                                    produto.setQnt(quantidadeItems.getValue() + produto.getQnt()); // adiciona o produto + a quantidade que ele ja tinha;
+                                    telaVenda.adicionarItens(); // adiciona os itens na tabela de itens na tela vendas;
+//                                    lista.remove(item.getIdProduto());
+                                    dispose();
+                                    break;
+                                }
+
+                            }
+
+                            item.setQnt(quantidadeItems.getValue());
+                            lista.add(item); // adicionar o item na lista;
+                            telaVenda.adicionarItens(); // adiciona os itens na tabela de itens na tela vendas;
+                            dispose();
+
+                        }
+
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+
+                    }
+
                 }
+
             }
         }
     }//GEN-LAST:event_btn_okActionPerformed
@@ -203,16 +232,21 @@ public class SearchScreen extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SearchScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchScreen.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SearchScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchScreen.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SearchScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchScreen.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SearchScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchScreen.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
