@@ -150,6 +150,11 @@ public class ScreenSell extends javax.swing.JPanel {
 
         field_qnt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         field_qnt.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        field_qnt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                field_qntMouseClicked(evt);
+            }
+        });
         field_qnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 field_qntActionPerformed(evt);
@@ -321,6 +326,10 @@ public class ScreenSell extends javax.swing.JPanel {
 
 
     }//GEN-LAST:event_field_qntActionPerformed
+
+    private void field_qntMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_field_qntMouseClicked
+        btn_removerItem.setEnabled(false);
+    }//GEN-LAST:event_field_qntMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
