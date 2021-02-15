@@ -5,15 +5,12 @@
  */
 package br.com.telas;
 
-import br.com.classes.Cliente;
 import br.com.classes.Produto;
 import br.com.conexao.Conexao;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,6 +23,7 @@ public class SearchScreen extends javax.swing.JFrame {
     Conexao banco = new Conexao();
     List<Produto> lista;
     ScreenSell telaVenda;
+    boolean tt = true;
 
     public List<Produto> getLista() {
         return lista;
@@ -62,6 +60,7 @@ public class SearchScreen extends javax.swing.JFrame {
         btn_ok = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("buscar produto");
         getContentPane().setLayout(null);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(177, 177, 177)));
@@ -169,53 +168,7 @@ public class SearchScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_BuscarActionPerformed
 
     private void btn_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_okActionPerformed
-        DefaultTableModel tableDefault = (DefaultTableModel) tabela_busca.getModel();
-        int linha = tabela_busca.getSelectedRow();
-        for (int i = 0; i < banco.productBook().size(); i++) {
-            if (banco.productBook().get(i).getIdProduto().equals(tableDefault.getValueAt(linha, 0))) {// VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
-                Produto item = banco.productBook().get(i); // pega o produto da lista do banco de dados;
-
-                // verifica se a quantidade de itens selecionado é maior que a quantidade que tem em estoque;
-                if (quantidadeItems.getValue() > item.getQnt() || quantidadeItems.getValue() == 0) {
-                    JOptionPane.showMessageDialog(null, "Produto só contém " + item.getQnt() + " em estoque, Por favor selecione a quantidade");
-
-                } else {
-                    // faz a comparação do item se ja tem na lista, e só atualiza a quantidade de item;
-                    try {
-                        if (lista.size() == 0) {
-                            item.setQnt(quantidadeItems.getValue());
-                            lista.add(item); // adicionar o item na lista;
-                            telaVenda.adicionarItens(); // adiciona os itens na tabela de itens na tela vendas;
-                            dispose();
-                        } else {
-                            for (Produto produto : lista) {
-                                if (produto.getIdProduto() == item.getIdProduto()) {
-                                    System.out.println("Item contém na lista!");
-                                    produto.setQnt(quantidadeItems.getValue() + produto.getQnt()); // adiciona o produto + a quantidade que ele ja tinha;
-                                    telaVenda.adicionarItens(); // adiciona os itens na tabela de itens na tela vendas;
-//                                    lista.remove(item.getIdProduto());
-                                    dispose();
-                                    break;
-                                }
-
-                            }
-
-                            item.setQnt(quantidadeItems.getValue());
-                            lista.add(item); // adicionar o item na lista;
-                            telaVenda.adicionarItens(); // adiciona os itens na tabela de itens na tela vendas;
-                            dispose();
-
-                        }
-
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-
-                    }
-
-                }
-
-            }
-        }
+        adicionaNaTable();
     }//GEN-LAST:event_btn_okActionPerformed
 
     /**
@@ -302,4 +255,59 @@ public class SearchScreen extends javax.swing.JFrame {
         }
     }
 
+    private void adicionaNaTable() {
+        DefaultTableModel tableDefault = (DefaultTableModel) tabela_busca.getModel();
+        int linha = tabela_busca.getSelectedRow();
+        for (int i = 0; i < banco.productBook().size(); i++) {
+            if (banco.productBook().get(i).getIdProduto().equals(tableDefault.getValueAt(linha, 0))) {// VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
+                Produto item = banco.productBook().get(i); // pega o produto da lista do banco de dados;
+
+                // verifica se a quantidade de itens selecionado é maior que a quantidade que tem em estoque;
+                if (quantidadeItems.getValue() > item.getQnt() || quantidadeItems.getValue() == 0) {
+                    JOptionPane.showMessageDialog(null, "Produto só contém " + item.getQnt() + " em estoque, Por favor selecione a quantidade");
+
+                } else {
+                    // faz a comparação do item se ja tem na lista, e só atualiza a quantidade de item;
+                    try {
+
+                        if (lista.size() <= 0) {
+                            item.setQnt(quantidadeItems.getValue());
+                            lista.add(item); // adicionar o item na lista;
+                            telaVenda.adicionarItens(); // adiciona os itens na tabela de itens na tela vendas;
+                            dispose();
+                        } else {
+
+                            for (Produto produto : lista) {
+                                System.out.println(item.getNome());
+                                System.out.println(produto.getNome());
+
+                                if (produto.getNome().equals(item.getNome())) {
+
+                                    produto.setQnt(quantidadeItems.getValue() + produto.getQnt()); // adiciona o produto + a quantidade que ele ja tinha;
+                                    telaVenda.adicionarItens(); // adiciona os itens na tabela de itens na tela vendas;
+                                    System.out.println(produto.getNome());
+                                    tt = false;
+                                    dispose();
+                                    break;
+                                }
+
+                            }
+                            if (tt) {
+                                item.setQnt(quantidadeItems.getValue());
+                                lista.add(item); // adicionar o item na lista;
+                                telaVenda.adicionarItens(); // adiciona os itens na tabela de itens na tela vendas;
+                                dispose();
+                            }
+                            tt = true;
+                        }
+
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+
+                }
+
+            }
+        }
+    }
 }

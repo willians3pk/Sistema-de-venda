@@ -263,6 +263,7 @@ public class ScreenSell extends javax.swing.JPanel {
                 btn_buscarProduto.setText("");
                 field_preco.setText("0,00");
                 field_qnt.setText("0");
+                break;
             }
         }
         btn_removerItem.setEnabled(false);
