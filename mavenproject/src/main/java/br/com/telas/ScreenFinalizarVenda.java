@@ -1,5 +1,6 @@
 package br.com.telas;
 
+import br.com.classes.Cliente;
 import br.com.classes.FormaPagamento;
 import br.com.classes.ItensVenda;
 import br.com.classes.Produto;
@@ -12,6 +13,7 @@ import static br.com.telas.ScreenSell.produtos;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 public class ScreenFinalizarVenda extends javax.swing.JFrame {
@@ -31,6 +33,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     public ScreenFinalizarVenda() {
         initComponents();
         carregarComboBox();
+        jListpesquisaClientes.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -51,18 +54,21 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         campTroco = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jListCliente = new javax.swing.JList<>();
         jLabel10 = new javax.swing.JLabel();
         comboBOX_FormaPagamento = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        camp_cliente = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        jLabelQuantidadeItens = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jListpesquisaClientes = new javax.swing.JList<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabelValorTotal = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel11 = new javax.swing.JLabel();
-        jLabelQuantidadeItens = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel13 = new javax.swing.JLabel();
 
@@ -75,12 +81,12 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel1.setText("TROCO");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(20, 340, 150, 30);
+        jLabel1.setBounds(10, 390, 150, 30);
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel3.setText("VALOR PAGO");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(20, 220, 180, 30);
+        jLabel3.setBounds(10, 270, 180, 30);
 
         campvalorPago.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         campvalorPago.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -89,7 +95,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             }
         });
         jPanel1.add(campvalorPago);
-        campvalorPago.setBounds(190, 220, 210, 40);
+        campvalorPago.setBounds(180, 270, 210, 40);
 
         btn_cancelarVenda.setText("CANCELAR VENDA");
         btn_cancelarVenda.addActionListener(new java.awt.event.ActionListener() {
@@ -113,47 +119,48 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         camptotal.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
         camptotal.setForeground(new java.awt.Color(255, 0, 0));
         jPanel1.add(camptotal);
-        camptotal.setBounds(190, 160, 210, 40);
+        camptotal.setBounds(180, 210, 210, 40);
         jPanel1.add(dataVenda);
-        dataVenda.setBounds(430, 160, 190, 40);
+        dataVenda.setBounds(430, 210, 190, 40);
 
         jLabel5.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel5.setText("DATA DA VENDA:");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(430, 130, 170, 29);
+        jLabel5.setBounds(430, 180, 170, 29);
         jPanel1.add(jFormattedTextField1);
-        jFormattedTextField1.setBounds(190, 280, 210, 40);
+        jFormattedTextField1.setBounds(180, 330, 210, 40);
 
         jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel6.setText("DESCONTO");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(20, 280, 140, 30);
+        jLabel6.setBounds(10, 330, 140, 30);
 
         campTroco.setEditable(false);
         campTroco.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jPanel1.add(campTroco);
-        campTroco.setBounds(190, 340, 210, 40);
+        campTroco.setBounds(180, 390, 210, 40);
 
         jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 0, 0));
         jLabel9.setText("TOTAL");
         jPanel1.add(jLabel9);
-        jLabel9.setBounds(30, 160, 120, 30);
+        jLabel9.setBounds(10, 210, 120, 30);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        jListCliente.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jListCliente.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(jListCliente);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(720, 60, 330, 250);
+        jScrollPane1.setBounds(830, 60, 220, 250);
 
         jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel10.setText("Selecione o Cliente:");
         jPanel1.add(jLabel10);
-        jLabel10.setBounds(720, 30, 270, 30);
+        jLabel10.setBounds(820, 30, 270, 30);
 
         comboBOX_FormaPagamento.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         comboBOX_FormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -164,13 +171,50 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jLabel4.setText("FORMA DE PAGAMENTO:");
         jPanel1.add(jLabel4);
         jLabel4.setBounds(20, 20, 310, 30);
-        jPanel1.add(jTextField1);
-        jTextField1.setBounds(390, 50, 250, 40);
+
+        camp_cliente.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        camp_cliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                camp_clienteKeyReleased(evt);
+            }
+        });
+        jPanel1.add(camp_cliente);
+        camp_cliente.setBounds(330, 50, 310, 40);
 
         jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel7.setText("CLIENTE:");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(390, 20, 140, 30);
+        jLabel7.setBounds(330, 20, 140, 30);
+
+        jButton1.setText("NOVO");
+        jPanel1.add(jButton1);
+        jButton1.setBounds(650, 50, 70, 40);
+
+        jLabel11.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        jLabel11.setText("Quantidade itens Venda:");
+        jPanel1.add(jLabel11);
+        jLabel11.setBounds(10, 150, 310, 50);
+
+        jLabelQuantidadeItens.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        jLabelQuantidadeItens.setText("0");
+        jPanel1.add(jLabelQuantidadeItens);
+        jLabelQuantidadeItens.setBounds(300, 150, 70, 50);
+
+        jListpesquisaClientes.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jListpesquisaClientes.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jListpesquisaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListpesquisaClientesMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jListpesquisaClientes);
+
+        jPanel1.add(jScrollPane2);
+        jScrollPane2.setBounds(330, 90, 310, 100);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(11, 124, 1060, 440);
@@ -182,9 +226,9 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 0, 0));
         jLabel2.setText("TOTAL:");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(670, 20, 190, 70);
+        jLabel2.setBounds(660, 20, 190, 70);
 
-        jLabelValorTotal.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        jLabelValorTotal.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
         jLabelValorTotal.setForeground(new java.awt.Color(255, 0, 0));
         jLabelValorTotal.setText("TOTAL");
         jPanel2.add(jLabelValorTotal);
@@ -192,24 +236,14 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jPanel2.add(jSeparator1);
         jSeparator1.setBounds(680, 80, 360, 10);
 
-        jLabel11.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        jLabel11.setText("Quantidade itens Venda:");
-        jPanel2.add(jLabel11);
-        jLabel11.setBounds(20, 50, 310, 50);
-
-        jLabelQuantidadeItens.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        jLabelQuantidadeItens.setText("jLabel12");
-        jPanel2.add(jLabelQuantidadeItens);
-        jLabelQuantidadeItens.setBounds(310, 50, 100, 50);
-
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel2.add(jSeparator2);
         jSeparator2.setBounds(650, 10, 20, 80);
 
         jLabel13.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
-        jLabel13.setText("Finalizar venda");
+        jLabel13.setText("Tela Finalizar venda");
         jPanel2.add(jLabel13);
-        jLabel13.setBounds(20, 10, 270, 30);
+        jLabel13.setBounds(20, 10, 340, 30);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(10, 10, 1060, 100);
@@ -241,6 +275,33 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         double troco = valorPago - valortotal;
         campTroco.setText(String.valueOf(troco));
     }//GEN-LAST:event_campvalorPagoKeyReleased
+
+    private void camp_clienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_clienteKeyReleased
+        
+        String pesquisa = camp_cliente.getText();
+        List<Cliente> listaClientes = new ArrayList<>();
+        
+        for (int i = 0; i < bancoMariaDB.list_Cliente().size(); i++) {
+            // VERIFICA SE O NOME COMTEM NA LISTA DE CLIENTE E VERIFICA O STATUS DO CLIENTE;
+            if (bancoMariaDB.list_Cliente().get(i).getNome().contains(pesquisa) && bancoMariaDB.list_Cliente().get(i).isStatus()) {
+                Cliente c = bancoMariaDB.list_Cliente().get(i);
+                listaClientes.add(c); // ADICIONA NA LISTA CLIENTE;
+            }
+        }
+        
+        DefaultListModel jlista = new DefaultListModel();
+        jlista.removeAllElements();
+        for (Cliente cliente : listaClientes) {
+            jlista.addElement(cliente.getNome());
+            jListpesquisaClientes.setModel(jlista);
+            jListpesquisaClientes.setVisible(true);
+        }
+    }//GEN-LAST:event_camp_clienteKeyReleased
+
+    private void jListpesquisaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListpesquisaClientesMouseClicked
+        camp_cliente.setText(jListpesquisaClientes.getSelectedValue());
+        jListpesquisaClientes.setVisible(false);
+    }//GEN-LAST:event_jListpesquisaClientesMouseClicked
 
     /**
      * @param args the command line arguments
@@ -281,10 +342,12 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     private javax.swing.JButton btn_cancelarVenda;
     private javax.swing.JButton btn_finalizarvenda;
     private javax.swing.JTextField campTroco;
+    private javax.swing.JTextField camp_cliente;
     private javax.swing.JTextField camptotal;
     private javax.swing.JFormattedTextField campvalorPago;
     private javax.swing.JComboBox<String> comboBOX_FormaPagamento;
     private com.toedter.calendar.JDateChooser dataVenda;
+    private javax.swing.JButton jButton1;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -299,13 +362,14 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     public static javax.swing.JLabel jLabelQuantidadeItens;
     private javax.swing.JLabel jLabelValorTotal;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jListCliente;
+    private javax.swing.JList<String> jListpesquisaClientes;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
     public void valorTotal() {
@@ -318,7 +382,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             z = y;
         }
         camptotal.setText("R$ " + z);
-        jLabelValorTotal.setText("R$ "+ z);
+        jLabelValorTotal.setText("R$ " + z);
     }
 
     private void finalizarVenda() {
@@ -374,12 +438,20 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         DefaultComboBoxModel comboBox = new DefaultComboBoxModel();
         List<FormaPagamento> listaPagamento;
         listaPagamento = bancoMariaDB.listFormPagamento();
-        
+
         for (FormaPagamento formPagamento : listaPagamento) { // PEGA OS FORMAPAGAMENTO CADASTRADOS NO BANCO DE DADOS;
             comboBox.addElement(formPagamento.getDescricao());
             comboBOX_FormaPagamento.setModel(comboBox);           // ADICIONA OS FORMAPAGAMENTO NA COMBOBOX;
         }
-        
+
+        DefaultListModel jlista = new DefaultListModel();
+        List<Cliente> listaClientes;
+        listaClientes = bancoMariaDB.list_Cliente();
+        for (Cliente cliente : listaClientes) {
+            jlista.addElement(cliente.getNome());
+            jListCliente.setModel(jlista);
+        }
+
     }
 
 }
