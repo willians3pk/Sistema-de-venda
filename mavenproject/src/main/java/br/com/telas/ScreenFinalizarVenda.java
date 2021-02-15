@@ -39,7 +39,6 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         campvalorPago = new javax.swing.JFormattedTextField();
         btn_cancelarVenda = new javax.swing.JButton();
@@ -50,11 +49,22 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
         campTroco = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jLabel10 = new javax.swing.JLabel();
         comboBOX_FormaPagamento = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabelValorTotal = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel11 = new javax.swing.JLabel();
+        jLabelQuantidadeItens = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -65,18 +75,12 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel1.setText("TROCO");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(10, 200, 150, 30);
-
-        jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel2.setText("TOTAL");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(20, 20, 120, 30);
+        jLabel1.setBounds(20, 340, 150, 30);
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel3.setText("VALOR PAGO");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(10, 80, 180, 30);
+        jLabel3.setBounds(20, 220, 180, 30);
 
         campvalorPago.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         campvalorPago.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -85,7 +89,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             }
         });
         jPanel1.add(campvalorPago);
-        campvalorPago.setBounds(180, 80, 210, 40);
+        campvalorPago.setBounds(190, 220, 210, 40);
 
         btn_cancelarVenda.setText("CANCELAR VENDA");
         btn_cancelarVenda.addActionListener(new java.awt.event.ActionListener() {
@@ -94,7 +98,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btn_cancelarVenda);
-        btn_cancelarVenda.setBounds(480, 210, 160, 40);
+        btn_cancelarVenda.setBounds(720, 390, 160, 40);
 
         btn_finalizarvenda.setText("FINALIZAR VENDA");
         btn_finalizarvenda.addActionListener(new java.awt.event.ActionListener() {
@@ -103,60 +107,114 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btn_finalizarvenda);
-        btn_finalizarvenda.setBounds(480, 160, 160, 40);
+        btn_finalizarvenda.setBounds(890, 390, 160, 40);
 
         camptotal.setEditable(false);
         camptotal.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
         camptotal.setForeground(new java.awt.Color(255, 0, 0));
         jPanel1.add(camptotal);
-        camptotal.setBounds(180, 20, 210, 40);
+        camptotal.setBounds(190, 160, 210, 40);
         jPanel1.add(dataVenda);
-        dataVenda.setBounds(440, 40, 190, 40);
+        dataVenda.setBounds(430, 160, 190, 40);
 
         jLabel5.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel5.setText("DATA DA VENDA:");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(440, 10, 170, 29);
+        jLabel5.setBounds(430, 130, 170, 29);
         jPanel1.add(jFormattedTextField1);
-        jFormattedTextField1.setBounds(180, 140, 210, 40);
+        jFormattedTextField1.setBounds(190, 280, 210, 40);
 
         jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel6.setText("DESCONTO");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(10, 140, 140, 30);
+        jLabel6.setBounds(20, 280, 140, 30);
 
         campTroco.setEditable(false);
         campTroco.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jPanel1.add(campTroco);
-        campTroco.setBounds(180, 200, 210, 40);
+        campTroco.setBounds(190, 340, 210, 40);
+
+        jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel9.setText("TOTAL");
+        jPanel1.add(jLabel9);
+        jLabel9.setBounds(30, 160, 120, 30);
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
+
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(720, 60, 330, 250);
+
+        jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel10.setText("Selecione o Cliente:");
+        jPanel1.add(jLabel10);
+        jLabel10.setBounds(720, 30, 270, 30);
+
+        comboBOX_FormaPagamento.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        comboBOX_FormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(comboBOX_FormaPagamento);
+        comboBOX_FormaPagamento.setBounds(20, 50, 290, 40);
+
+        jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel4.setText("FORMA DE PAGAMENTO:");
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(20, 20, 310, 30);
+        jPanel1.add(jTextField1);
+        jTextField1.setBounds(390, 50, 250, 40);
+
+        jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel7.setText("CLIENTE:");
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(390, 20, 140, 30);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(11, 124, 660, 260);
+        jPanel1.setBounds(11, 124, 1060, 440);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.setLayout(null);
 
-        comboBOX_FormaPagamento.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        comboBOX_FormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel2.add(comboBOX_FormaPagamento);
-        comboBOX_FormaPagamento.setBounds(340, 50, 290, 40);
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel2.setText("TOTAL:");
+        jPanel2.add(jLabel2);
+        jLabel2.setBounds(670, 20, 190, 70);
 
-        jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        jLabel4.setText("FORMA DE PAGAMENTO:");
-        jPanel2.add(jLabel4);
-        jLabel4.setBounds(340, 20, 310, 30);
-        jPanel2.add(jTextField1);
-        jTextField1.setBounds(10, 46, 250, 40);
+        jLabelValorTotal.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        jLabelValorTotal.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelValorTotal.setText("TOTAL");
+        jPanel2.add(jLabelValorTotal);
+        jLabelValorTotal.setBounds(850, 30, 200, 50);
+        jPanel2.add(jSeparator1);
+        jSeparator1.setBounds(680, 80, 360, 10);
 
-        jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        jLabel7.setText("CLIENTE:");
-        jPanel2.add(jLabel7);
-        jLabel7.setBounds(10, 10, 140, 30);
+        jLabel11.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        jLabel11.setText("Quantidade itens Venda:");
+        jPanel2.add(jLabel11);
+        jLabel11.setBounds(20, 50, 310, 50);
+
+        jLabelQuantidadeItens.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        jLabelQuantidadeItens.setText("jLabel12");
+        jPanel2.add(jLabelQuantidadeItens);
+        jLabelQuantidadeItens.setBounds(310, 50, 100, 50);
+
+        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jPanel2.add(jSeparator2);
+        jSeparator2.setBounds(650, 10, 20, 80);
+
+        jLabel13.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        jLabel13.setText("Finalizar venda");
+        jPanel2.add(jLabel13);
+        jLabel13.setBounds(20, 10, 270, 30);
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(10, 10, 660, 100);
+        jPanel2.setBounds(10, 10, 1060, 100);
 
-        setSize(new java.awt.Dimension(693, 427));
+        setSize(new java.awt.Dimension(1090, 603));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -229,14 +287,24 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser dataVenda;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
+    public static javax.swing.JLabel jLabelQuantidadeItens;
+    private javax.swing.JLabel jLabelValorTotal;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
@@ -250,6 +318,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             z = y;
         }
         camptotal.setText("R$ " + z);
+        jLabelValorTotal.setText("R$ "+ z);
     }
 
     private void finalizarVenda() {
@@ -310,7 +379,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             comboBox.addElement(formPagamento.getDescricao());
             comboBOX_FormaPagamento.setModel(comboBox);           // ADICIONA OS FORMAPAGAMENTO NA COMBOBOX;
         }
-
+        
     }
 
 }
