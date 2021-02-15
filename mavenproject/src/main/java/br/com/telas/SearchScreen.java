@@ -286,7 +286,7 @@ public class SearchScreen extends javax.swing.JFrame {
                                     produto.setQnt(quantidadeItems.getValue() + produto.getQnt()); // adiciona o produto + a quantidade que ele ja tinha;
                                     telaVenda.adicionarItens(); // adiciona os itens na tabela de itens na tela vendas;
                                     System.out.println(produto.getNome());
-                                    tt = false;
+                                    tt = false; // impedi de repetir o item na tebela;
                                     dispose();
                                     break;
                                 }

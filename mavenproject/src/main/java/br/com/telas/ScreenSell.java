@@ -2,13 +2,12 @@ package br.com.telas;
 
 import br.com.classes.Produto;
 import br.com.conexao.Conexao;
+import static br.com.telas.ScreenFinalizarVenda.jLabelQuantidadeItens;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JTextPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -47,8 +46,8 @@ public class ScreenSell extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        btn_buscarProduto = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        btn_buscarProduto = new javax.swing.JButton();
         btn_removerItem = new javax.swing.JButton();
         camp_total = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
@@ -188,6 +187,15 @@ public class ScreenSell extends javax.swing.JPanel {
         jPanel5.add(jLabel9);
         jLabel9.setBounds(20, 260, 100, 20);
 
+        jButton1.setText("OK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButton1);
+        jButton1.setBounds(230, 350, 130, 40);
+
         btn_buscarProduto.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         btn_buscarProduto.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btn_buscarProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -197,15 +205,6 @@ public class ScreenSell extends javax.swing.JPanel {
         });
         jPanel5.add(btn_buscarProduto);
         btn_buscarProduto.setBounds(10, 110, 360, 40);
-
-        jButton1.setText("OK");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel5.add(jButton1);
-        jButton1.setBounds(230, 350, 130, 40);
 
         btn_removerItem.setText("Remover ");
         btn_removerItem.setEnabled(false);
@@ -395,6 +394,7 @@ public class ScreenSell extends javax.swing.JPanel {
             }
             calculoValorTotal();
             field_itensQnt.setText("" + z);
+            jLabelQuantidadeItens.setText(""+z);
         } catch (Exception e) {
             System.out.println(e);
         }
