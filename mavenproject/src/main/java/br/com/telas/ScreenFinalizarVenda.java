@@ -162,10 +162,10 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
 
     private void btn_finalizarvendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarvendaActionPerformed
         try {
-            if (campvalorPago.getText().length() > 0 & !dataVenda.getDate().equals("")) {
+            if (campvalorPago.getText().length() > 0 & !dataVenda.getDate().equals("") & lista.size() > 0) {
                 finalizarVenda();
             } else {
-                JOptionPane.showMessageDialog(null, "Digite Valor Pago");
+                JOptionPane.showMessageDialog(null, "Digite Valor Pago!");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Digite data da Venda!");
