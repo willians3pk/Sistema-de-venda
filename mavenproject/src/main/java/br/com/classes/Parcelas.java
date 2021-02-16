@@ -29,6 +29,7 @@ public class Parcelas {
     private Venda venda;
     private int parcela;
     private double valor;
+    private String Pago;
     private boolean status;
     private Date data;
 
@@ -74,6 +75,14 @@ public class Parcelas {
 
     public void setValor(double valor) {
         this.valor = valor;
+    }
+
+    public String getPago() {
+        return Pago;
+    }
+
+    public void setPago(String Pago) {
+        this.Pago = Pago;
     }
 
     public boolean isStatus() {

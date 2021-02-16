@@ -35,7 +35,6 @@ public class Conexao {
         try {
             session.save(objeto);
             tx.commit();
-            JOptionPane.showMessageDialog(null, "Salvo com Sucesso!");
         } catch (Exception e) {
             System.out.println("Erro " + e);
             JOptionPane.showMessageDialog(null, "Erro ao Salvar na Base de Dados!");
@@ -52,7 +51,6 @@ public class Conexao {
         try {
             session.persist(obj);
             tx.commit();
-            JOptionPane.showMessageDialog(null, "Atualizado com Sucesso! ao persistir");
         } catch (Exception e) {
             System.out.println("Erro ao persistir" + e);
             JOptionPane.showMessageDialog(null, "-----Erro!----");
@@ -86,7 +84,6 @@ public class Conexao {
         try {
             session.saveOrUpdate(obj);
             tx.commit();
-            JOptionPane.showMessageDialog(null, "Atualizado com Sucesso!");
         } catch (Exception e) {
             System.out.println("Erro " + e);
             JOptionPane.showMessageDialog(null, "Erro!");
@@ -104,7 +101,6 @@ public class Conexao {
 
             session.delete(obj);
             tx.commit();
-            JOptionPane.showMessageDialog(null, "Atualizado com Sucesso!");
         } catch (Exception e) {
             System.out.println("Erro " + e);
             JOptionPane.showMessageDialog(null, "Erro!");
@@ -121,7 +117,6 @@ public class Conexao {
         try {
             session.merge(obj);
             tx.commit();
-            JOptionPane.showMessageDialog(null, "Atualizado com Sucesso!");
         } catch (Exception e) {
             System.out.println("Erro " + e);
             JOptionPane.showMessageDialog(null, "Erro!");
@@ -138,7 +133,6 @@ public class Conexao {
         try {
             session.refresh(obj);
             tx.commit();
-            JOptionPane.showMessageDialog(null, "Atualizado com Sucesso!");
         } catch (Exception e) {
             System.out.println("Erro " + e);
             JOptionPane.showMessageDialog(null, "Erro!");

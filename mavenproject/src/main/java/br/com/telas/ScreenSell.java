@@ -310,8 +310,9 @@ public class ScreenSell extends javax.swing.JPanel {
         f.setVisible(true);
         f.setLista(produtos);
         f.valorTotal();
-        f.campvalorPago.setText("");
         f.dataVenda.setDate(new Date());
+        f.camp_qtdeParcelas.setVisible(false);
+        f.camp_valorParcelas.setVisible(false);
         f.carregarComboBox();
     }//GEN-LAST:event_jButton1ActionPerformed
 
