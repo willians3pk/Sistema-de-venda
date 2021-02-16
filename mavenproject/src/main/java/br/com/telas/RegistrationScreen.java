@@ -1379,6 +1379,8 @@ public class RegistrationScreen extends javax.swing.JPanel {
             camp_StateSupplier.setText(""); // Estado UF do fornecedor
             camp_CitySupplier.setText(""); // cidade do forncedor
             camp_ComplementSupplier.setText(""); // complemento do fornecedor
+            
+            JOptionPane.showMessageDialog(null, "Fornecedor Registrado Com Sucesso!");
 
         } else {
             JOptionPane.showMessageDialog(null, "<html><font color=\"#FF0000\">*PREENCHA AS INFORMAÇÕES OBRIGATORIAS*</font></html>");
@@ -1449,7 +1451,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             field_cidade.setText("");
             field_estado.setText("");
             field_complement.setText("");
-
+            JOptionPane.showMessageDialog(null, "Cliente Registrado com Sucesso!");
         } else {
             JOptionPane.showMessageDialog(null, "<html><font color=\"#FF0000\">*PREENCHA AS INFORMAÇÕES RELEVANTES*</font></html>");
         }

@@ -7,10 +7,8 @@ import br.com.classes.Parcelas;
 import br.com.classes.Produto;
 import br.com.classes.Venda;
 import br.com.conexao.Conexao;
-import static br.com.telas.ScreenSell.btn_buscarProduto;
-import static br.com.telas.ScreenSell.field_preco;
-import static br.com.telas.ScreenSell.field_qnt;
 import static br.com.telas.ScreenSell.produtos;
+import static br.com.telas.ScreenSell.camp_cliente;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,6 +24,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     List<Produto> lista;
     ScreenSell telaVenda;
     Conexao bancoMariaDB = new Conexao();
+    Cliente cliente;
 
     public List<Produto> getLista() {
         return lista;
@@ -33,6 +32,14 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
 
     public void setLista(List<Produto> lista) {
         this.lista = lista;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public ScreenFinalizarVenda() {
@@ -88,7 +95,6 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jPanel1.setLayout(null);
 
         comboBOX_FormaPagamento.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        comboBOX_FormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboBOX_FormaPagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBOX_FormaPagamentoActionPerformed(evt);
@@ -166,11 +172,6 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jPanel4.add(jLabel8);
         jLabel8.setBounds(10, 120, 150, 30);
 
-        jListdatasparceladas.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(jListdatasparceladas);
 
         jPanel4.add(jScrollPane1);
@@ -318,7 +319,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         double total = Double.parseDouble(camptotal.getText().replace("R$", ""));
         double valorParcela = total / qtdeParce;
         camp_valorParcelas.setText("" + valorParcela);
-        campvalorPago.setText(""+valorParcela);
+        campvalorPago.setText("" + valorParcela);
     }//GEN-LAST:event_camp_qtdeParcelasKeyReleased
 
     private void comboBOX_FormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBOX_FormaPagamentoActionPerformed
@@ -456,7 +457,8 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         Venda venda = new Venda();
         ItensVenda itensdaVenda = new ItensVenda();
         List<FormaPagamento> listaPagamento = new ArrayList<>();
-
+        List<Venda> vendas = new ArrayList<>();
+        
         double valortotal = Double.parseDouble(camptotal.getText().replace("R$", ""));
         double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", "."));
         double troco = valortotal - valorPago;
@@ -469,6 +471,9 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         venda.setTroco(troco);
         venda.setFormaPagamento(listaPagamento);
         venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));
+        venda.setCliente(cliente);
+        cliente.setVendas(vendas);
+        cliente.getVendas().add(venda);
 
         for (Produto produto : lista) {
             itensdaVenda.setStatus(true);
@@ -493,6 +498,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
 
         lista.clear(); // limpa a lista;
         DefaultListModel datasparcelas = new DefaultListModel();
+        camp_cliente.setText("");
         jListdatasparceladas.setModel(datasparcelas);
         camp_valorParcelas.setText("0,00");
         camp_qtdeParcelas.setVisible(false);
@@ -512,6 +518,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         ItensVenda itensdaVenda = new ItensVenda();
         List<FormaPagamento> listaPagamento = new ArrayList<>();
         List<Parcelas> listaParcelas = new ArrayList<>();
+        List<Venda> vendas = new ArrayList<>();
 
         double valortotal = Double.parseDouble(camptotal.getText().replace("R$", ""));
         double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", "."));
@@ -526,6 +533,8 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         venda.setFormaPagamento(listaPagamento);
         venda.setParcelas(listaParcelas);
         venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));
+        cliente.setVendas(vendas);
+        cliente.getVendas().add(venda);
 
         // ITENS DA VENDA
         for (Produto produto : lista) {
@@ -573,6 +582,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         }
 
         lista.clear(); // limpa a lista;
+        camp_cliente.setText("");
         DefaultListModel datasparcelas = new DefaultListModel();
         jListdatasparceladas.setModel(datasparcelas);
         camp_valorParcelas.setText("0,00");
@@ -591,7 +601,8 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         Venda venda = new Venda();
         ItensVenda itensdaVenda = new ItensVenda();
         List<FormaPagamento> listaPagamento = new ArrayList<>();
-
+        List<Venda> vendas = new ArrayList<>();
+        
         double valortotal = Double.parseDouble(camptotal.getText().replace("R$", ""));
         double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", "."));
         double troco = valortotal - valorPago;
@@ -605,6 +616,8 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         venda.setFormaPagamento(listaPagamento);
         venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));
         venda.setPrazo(dataVenda.getDate());
+        cliente.setVendas(vendas);
+        cliente.getVendas().add(venda);
 
         // ITENS DA VENDA
         for (Produto produto : lista) {
@@ -629,6 +642,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         }
 
         lista.clear(); // limpa a lista;
+        camp_cliente.setText("");
         DefaultListModel datasparcelas = new DefaultListModel();
         jListdatasparceladas.setModel(datasparcelas);
         camp_valorParcelas.setText("0,00");

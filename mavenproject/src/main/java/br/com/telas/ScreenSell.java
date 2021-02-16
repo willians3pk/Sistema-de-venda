@@ -20,7 +20,8 @@ public class ScreenSell extends javax.swing.JPanel {
     ScreenFinalizarVenda f = new ScreenFinalizarVenda();
     Conexao bancoMariaDB = new Conexao();
     public static List<Produto> produtos = new ArrayList<>();
-
+    Cliente client;
+    
     public ScreenSell() {
         initComponents();
         field_preco.setEnabled(false);
@@ -66,11 +67,6 @@ public class ScreenSell extends javax.swing.JPanel {
         jPanel3.setLayout(null);
 
         jListpesquisaClientes.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jListpesquisaClientes.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jListpesquisaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jListpesquisaClientesMouseClicked(evt);
@@ -310,7 +306,8 @@ public class ScreenSell extends javax.swing.JPanel {
         f.setVisible(true);
         f.setLista(produtos);
         f.valorTotal();
-        f.dataVenda.setDate(new Date());
+        f.setCliente(client);
+        f.dataVenda.setDate(new Date()); // sempre adiciona a data atual
         f.camp_qtdeParcelas.setVisible(false);
         f.camp_valorParcelas.setVisible(false);
         f.carregarComboBox();
@@ -349,6 +346,7 @@ public class ScreenSell extends javax.swing.JPanel {
 
     private void jListpesquisaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListpesquisaClientesMouseClicked
         camp_cliente.setText(jListpesquisaClientes.getSelectedValue());
+        client = bancoMariaDB.list_Cliente().get(jListpesquisaClientes.getSelectedIndex());
         jListpesquisaClientes.setVisible(false);
     }//GEN-LAST:event_jListpesquisaClientesMouseClicked
 
@@ -376,7 +374,7 @@ public class ScreenSell extends javax.swing.JPanel {
 
     private void camp_clienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_camp_clienteFocusLost
         camp_cliente.setText(jListpesquisaClientes.getSelectedValue());
-        jListpesquisaClientes.setVisible(false);
+        client = bancoMariaDB.list_Cliente().get(jListpesquisaClientes.getSelectedIndex()); // pega o cliente do banco de dados;
         jListpesquisaClientes.setVisible(false);
     }//GEN-LAST:event_camp_clienteFocusLost
 
@@ -384,7 +382,7 @@ public class ScreenSell extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btn_buscarProduto;
     private javax.swing.JButton btn_removerItem;
-    private javax.swing.JTextField camp_cliente;
+    public static javax.swing.JTextField camp_cliente;
     public static javax.swing.JTextField camp_total;
     public static javax.swing.JTextField field_itensQnt;
     public static javax.swing.JTextArea field_observacao;
