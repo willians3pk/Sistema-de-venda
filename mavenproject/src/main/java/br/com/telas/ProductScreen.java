@@ -83,7 +83,7 @@ public class ProductScreen extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Cod_Produto", "Receb/Produto", "Nome", "Preço", "Quantidade", "Fornecedor", "Tamanho", "Total"
+                "Cod_Produto:", "Receb/Produto:", "Nome", "Preço", "Qtde:", "Fornecedor:", "Tamanho:", "Total:"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -102,7 +102,7 @@ public class ProductScreen extends javax.swing.JPanel {
         jScrollPane1.setViewportView(table_Product);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 160, 1090, 140);
+        jScrollPane1.setBounds(10, 160, 1090, 150);
 
         camp_SearchProduct.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -236,7 +236,7 @@ public class ProductScreen extends javax.swing.JPanel {
         jPanel2.add(jLabel5);
         jLabel5.setBounds(200, 90, 44, 16);
 
-        comboBox_Size.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecione>", "P", "M", "G", "GG" }));
+        comboBox_Size.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecione>", "P", "M", "G", "GG", "TAM. UNICO" }));
         jPanel2.add(comboBox_Size);
         comboBox_Size.setBounds(350, 110, 230, 26);
 
@@ -527,9 +527,9 @@ public class ProductScreen extends javax.swing.JPanel {
 //            Float priceBuy = Float.parseFloat(camp_Buyprice.getText());//remove a virgula e adiciona apenas os numeros decimais
 //            Float priceSell = Float.parseFloat(camp_Sellprice.getText()); //remove a virgula e adiciona apenas os numeros decimais
             
-            float priceSell = Long.parseLong(camp_Sellprice.getText().replaceAll(",", "").replace(".", "").replace("R$", "")); //remove a virgula e adiciona apenas os numeros decimais
+            double priceSell = Double.parseDouble(camp_Sellprice.getText().replaceAll(",", ".").replace("R$", "")); //remove a virgula e adiciona apenas os numeros decimais
             int qnt = Integer.parseInt(camp_Qnt.getText());
-            Float totalvalue = (priceSell * qnt);
+            Double totalvalue = (priceSell * qnt);
 
             try {
 
@@ -640,12 +640,10 @@ public class ProductScreen extends javax.swing.JPanel {
 
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
 
-        double y = 0;
-        double x = 0;
-        double z = 0;
+        
 
         DefaultTableModel tableDefault = (DefaultTableModel) table_Product.getModel();
-        
+        // modifica a largura das colunas da tabela.
         TableColumn colCodigo = table_Product.getColumnModel().getColumn(0);
         TableColumn colDataProduto = table_Product.getColumnModel().getColumn(1);
         TableColumn colNome = table_Product.getColumnModel().getColumn(2);
@@ -656,17 +654,21 @@ public class ProductScreen extends javax.swing.JPanel {
         
         colCodigo.setPreferredWidth(5);
 //        colDataProduto.setPreferredWidth(30);
-        colNome.setPreferredWidth(200);
-        colPreço.setPreferredWidth(15);
+        colNome.setPreferredWidth(250);
+        colPreço.setPreferredWidth(25);
         colQuantidade.setPreferredWidth(5);
-        colFornecedor.setPreferredWidth(200);
+        colFornecedor.setPreferredWidth(250);
         colTamanho.setPreferredWidth(2);
+        
+        double y = 0;
+        double x = 0;
+        double z = 0;
         
         try {
             tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR PARA NAO HAVER DUPLICAÇÃO DE ITENS;
             for (Produto item : items) {
 
-                x = item.getValor_total() / 100;
+                x = item.getValor_total();
 
                 tableDefault.addRow(new Object[]{item.getIdProduto(), formato.format(item.getDataEntrega()), item.getNome(), dinheiro.format((item.getValor_venda())),
                     item.getQnt(), item.getFornecedor().getNome(), item.getTamanho(), dinheiro.format(item.getValor_total())});

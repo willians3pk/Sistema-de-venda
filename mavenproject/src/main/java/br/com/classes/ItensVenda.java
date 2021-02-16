@@ -6,9 +6,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -21,20 +19,14 @@ public class ItensVenda {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="Cod_ItensVenda", unique=true, nullable=false)
     private int iditensVenda;
-    
     @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name="Cod_Produto")
-    private Produto items;
-    
+    private Produto items;    
     @ManyToOne(fetch = FetchType.EAGER)
     @Cascade({CascadeType.ALL})
-//    @JoinColumn(name="Cod_Venda")
     private Venda venda;
     
-//    @Column(name="Qnt")
     private int qnt;
     
-//    @Column(name="Status")
     private boolean status;
 
     public ItensVenda() {

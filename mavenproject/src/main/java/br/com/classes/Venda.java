@@ -8,14 +8,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -29,49 +26,46 @@ public class Venda {
     private int idvenda;
 
     @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "Cod_Cliente")
     private Cliente cliente;
-
+    @OneToOne(fetch = FetchType.EAGER)
+    private Usuario usuario;
     @ManyToMany(fetch = FetchType.LAZY)
     @Cascade({CascadeType.ALL})
     private List<FormaPagamento> formaPagamento;
-    @OneToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "Cod_Usuario")
-    private Usuario usuario;
-//    @Temporal(TemporalType.TIMESTAMP)
-//    @Column(name = "Data_Venda", length = 19)
-    private Date dataVenda;
-//    @Column(name = "Codigo_Venda", nullable = false)
+    
     private int codigoVenda;
-//    @Column(name = "Descricao", length = 200)
-    private String descricao;
-//    @Column(name = "Status")
+    private Date dataVenda;
     private boolean status;
-//    @Column(name = "ValorTotal", precision = 10, scale = 0)
-    private double valorTotal;
-    private String faturas;
     private double taxa_juros;
     private double valor_pago;
+    private double valorTotal;
+    @OneToMany(fetch = FetchType.EAGER)
+    @Cascade({CascadeType.ALL})
+    private List<Parcelas> parcelas;
+    private Date prazo;
+    private String descricao;
+
     private double troco;
-            
+
     public Venda() {
-        
+
     }
 
-    public Venda(int idvenda, Cliente cliente, List<FormaPagamento> formaPagamento, Usuario usuario, Date dataVenda, int codigoVenda, String descricao, boolean status, double valorTotal, String faturas, double taxa_juros) {
+    public Venda(int idvenda, Cliente cliente, Usuario usuario, List<FormaPagamento> formaPagamento, int codigoVenda, Date dataVenda, boolean status, double taxa_juros, double valor_pago, double valorTotal, List<Parcelas> parcelas, String descricao, double troco) {
         this.idvenda = idvenda;
         this.cliente = cliente;
-        this.formaPagamento = formaPagamento;
         this.usuario = usuario;
-        this.dataVenda = dataVenda;
+        this.formaPagamento = formaPagamento;
         this.codigoVenda = codigoVenda;
-        this.descricao = descricao;
+        this.dataVenda = dataVenda;
         this.status = status;
-        this.valorTotal = valorTotal;
-        this.faturas = faturas;
         this.taxa_juros = taxa_juros;
+        this.valor_pago = valor_pago;
+        this.valorTotal = valorTotal;
+        this.parcelas = parcelas;
+        this.descricao = descricao;
+        this.troco = troco;
     }
-
 
     public int getIdvenda() {
         return idvenda;
@@ -89,14 +83,6 @@ public class Venda {
         this.cliente = cliente;
     }
 
-    public List<FormaPagamento> getFormaPagamento() {
-        return formaPagamento;
-    }
-
-    public void setFormaPagamento(List<FormaPagamento> formaPagamento) {
-        this.formaPagamento = formaPagamento;
-    }
-
     public Usuario getUsuario() {
         return usuario;
     }
@@ -105,12 +91,12 @@ public class Venda {
         this.usuario = usuario;
     }
 
-    public Date getDataVenda() {
-        return dataVenda;
+    public List<FormaPagamento> getFormaPagamento() {
+        return formaPagamento;
     }
 
-    public void setDataVenda(Date dataVenda) {
-        this.dataVenda = dataVenda;
+    public void setFormaPagamento(List<FormaPagamento> formaPagamento) {
+        this.formaPagamento = formaPagamento;
     }
 
     public int getCodigoVenda() {
@@ -121,12 +107,12 @@ public class Venda {
         this.codigoVenda = codigoVenda;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public Date getDataVenda() {
+        return dataVenda;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDataVenda(Date dataVenda) {
+        this.dataVenda = dataVenda;
     }
 
     public boolean isStatus() {
@@ -135,22 +121,6 @@ public class Venda {
 
     public void setStatus(boolean status) {
         this.status = status;
-    }
-
-    public double getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(double valorTotal) {
-        this.valorTotal = valorTotal;
-    }
-
-    public String getFaturas() {
-        return faturas;
-    }
-
-    public void setFaturas(String faturas) {
-        this.faturas = faturas;
     }
 
     public double getTaxa_juros() {
@@ -169,6 +139,38 @@ public class Venda {
         this.valor_pago = valor_pago;
     }
 
+    public double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public List<Parcelas> getParcelas() {
+        return parcelas;
+    }
+
+    public void setParcelas(List<Parcelas> parcelas) {
+        this.parcelas = parcelas;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Date getPrazo() {
+        return prazo;
+    }
+
+    public void setPrazo(Date prazo) {
+        this.prazo = prazo;
+    }
+
     public double getTroco() {
         return troco;
     }
@@ -177,5 +179,4 @@ public class Venda {
         this.troco = troco;
     }
 
-    
 }

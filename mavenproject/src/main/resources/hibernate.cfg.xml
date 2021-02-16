@@ -59,6 +59,7 @@ Contributor(s):
         <mapping class="br.com.classes.Produto"/>
         <mapping class="br.com.classes.Usuario"/>
         <mapping class="br.com.classes.Venda"/>
+        <mapping class="br.com.classes.Parcelas"/>
         
     </session-factory>
 </hibernate-configuration>

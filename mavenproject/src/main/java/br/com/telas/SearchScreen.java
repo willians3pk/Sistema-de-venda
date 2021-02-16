@@ -214,7 +214,7 @@ public class SearchScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_Buscar;
     private javax.swing.JButton btn_ok;
-    private javax.swing.JTextField field_nome;
+    public javax.swing.JTextField field_nome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

@@ -1,12 +1,15 @@
 package br.com.telas;
 
+import br.com.classes.Cliente;
 import br.com.classes.Produto;
 import br.com.conexao.Conexao;
 import static br.com.telas.ScreenFinalizarVenda.jLabelQuantidadeItens;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -15,12 +18,14 @@ public class ScreenSell extends javax.swing.JPanel {
 
     SearchScreen s = new SearchScreen();
     ScreenFinalizarVenda f = new ScreenFinalizarVenda();
-    Conexao banco = new Conexao();
+    Conexao bancoMariaDB = new Conexao();
     public static List<Produto> produtos = new ArrayList<>();
 
     public ScreenSell() {
         initComponents();
         field_preco.setEnabled(false);
+        field_qnt.setEnabled(false);
+        jListpesquisaClientes.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -28,14 +33,12 @@ public class ScreenSell extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        field_vendedor = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        field_client = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        jListpesquisaClientes = new javax.swing.JList<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable_produto = new javax.swing.JTable();
+        camp_cliente = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jlabel_totalVenda = new javax.swing.JLabel();
@@ -62,33 +65,19 @@ public class ScreenSell extends javax.swing.JPanel {
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel3.setLayout(null);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.setLayout(null);
-
-        field_vendedor.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        jPanel1.add(field_vendedor);
-        field_vendedor.setBounds(20, 30, 200, 40);
-
-        jLabel2.setText("Vendedor:");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(20, 10, 90, 16);
-
-        jPanel3.add(jPanel1);
-        jPanel1.setBounds(380, 20, 340, 80);
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.setLayout(null);
-
-        field_client.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        jPanel2.add(field_client);
-        field_client.setBounds(20, 30, 200, 40);
-
-        jLabel1.setText("Cliente:");
-        jPanel2.add(jLabel1);
-        jLabel1.setBounds(20, 10, 70, 16);
-
-        jPanel3.add(jPanel2);
-        jPanel2.setBounds(10, 20, 340, 80);
+        jListpesquisaClientes.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jListpesquisaClientes.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jListpesquisaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListpesquisaClientesMouseClicked(evt);
+            }
+        });
+        jPanel3.add(jListpesquisaClientes);
+        jListpesquisaClientes.setBounds(10, 80, 310, 90);
 
         jTable_produto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -120,6 +109,29 @@ public class ScreenSell extends javax.swing.JPanel {
 
         jPanel3.add(jScrollPane3);
         jScrollPane3.setBounds(10, 110, 710, 390);
+
+        camp_cliente.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        camp_cliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                camp_clienteFocusLost(evt);
+            }
+        });
+        camp_cliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                camp_clienteKeyReleased(evt);
+            }
+        });
+        jPanel3.add(camp_cliente);
+        camp_cliente.setBounds(10, 40, 310, 40);
+
+        jButton3.setText("NOVO");
+        jPanel3.add(jButton3);
+        jButton3.setBounds(320, 40, 70, 40);
+
+        jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel8.setText("CLIENTE:");
+        jPanel3.add(jLabel8);
+        jLabel8.setBounds(10, 10, 140, 30);
 
         add(jPanel3);
         jPanel3.setBounds(10, 10, 730, 510);
@@ -280,6 +292,7 @@ public class ScreenSell extends javax.swing.JPanel {
     private void jTable_produtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_produtoMouseClicked
         carregaCampo();
         btn_removerItem.setEnabled(true);
+        field_qnt.setEnabled(true);
     }//GEN-LAST:event_jTable_produtoMouseClicked
 
     private void btn_buscarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarProdutoActionPerformed
@@ -287,6 +300,7 @@ public class ScreenSell extends javax.swing.JPanel {
         s.setVisible(true);
         s.carregaCampos();
         s.quantidadeItems.setValue(0); // toda vez que for buscar um produto a quantidade vai iniciar sempre em zero
+        s.field_nome.setText("");
         btn_removerItem.setEnabled(false);
 
     }//GEN-LAST:event_btn_buscarProdutoActionPerformed
@@ -296,6 +310,8 @@ public class ScreenSell extends javax.swing.JPanel {
         f.setVisible(true);
         f.setLista(produtos);
         f.valorTotal();
+        f.campvalorPago.setText("");
+        f.dataVenda.setDate(new Date());
         f.carregarComboBox();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -303,9 +319,9 @@ public class ScreenSell extends javax.swing.JPanel {
         DefaultTableModel tableDefault = (DefaultTableModel) jTable_produto.getModel();
         int posicao = jTable_produto.getSelectedRow(); // pegar a posição na linha selecionada;
         try {
-            for (int i = 0; i < banco.productBook().size(); i++) {
-                if (banco.productBook().get(i).getIdProduto().equals(tableDefault.getValueAt(posicao, 0))) {// VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
-                    int quantidade = banco.productBook().get(i).getQnt(); // pega quantidade que tem em estoque;
+            for (int i = 0; i < bancoMariaDB.productBook().size(); i++) {
+                if (bancoMariaDB.productBook().get(i).getIdProduto().equals(tableDefault.getValueAt(posicao, 0))) {// VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
+                    int quantidade = bancoMariaDB.productBook().get(i).getQnt(); // pega quantidade que tem em estoque;
 
                     if (Integer.parseInt(field_qnt.getText()) > quantidade) {
                         field_qnt.setText(String.valueOf(produtos.get(posicao).getQnt()));
@@ -330,29 +346,60 @@ public class ScreenSell extends javax.swing.JPanel {
         btn_removerItem.setEnabled(false);
     }//GEN-LAST:event_field_qntMouseClicked
 
+    private void jListpesquisaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListpesquisaClientesMouseClicked
+        camp_cliente.setText(jListpesquisaClientes.getSelectedValue());
+        jListpesquisaClientes.setVisible(false);
+    }//GEN-LAST:event_jListpesquisaClientesMouseClicked
+
+    private void camp_clienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_clienteKeyReleased
+
+        String pesquisa = camp_cliente.getText();
+        List<Cliente> listaClientes = new ArrayList<>();
+
+        for (int i = 0; i < bancoMariaDB.list_Cliente().size(); i++) {
+            // VERIFICA SE O NOME COMTEM NA LISTA DE CLIENTE E VERIFICA O STATUS DO CLIENTE;
+            if (bancoMariaDB.list_Cliente().get(i).getNome().contains(pesquisa) && bancoMariaDB.list_Cliente().get(i).isStatus()) {
+                Cliente c = bancoMariaDB.list_Cliente().get(i);
+                listaClientes.add(c); // ADICIONA NA LISTA CLIENTE;
+            }
+        }
+
+        DefaultListModel jlista = new DefaultListModel();
+        jlista.removeAllElements();
+        for (Cliente cliente : listaClientes) {
+            jlista.addElement(cliente.getNome());
+            jListpesquisaClientes.setModel(jlista);
+            jListpesquisaClientes.setVisible(true);
+        }
+    }//GEN-LAST:event_camp_clienteKeyReleased
+
+    private void camp_clienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_camp_clienteFocusLost
+        camp_cliente.setText(jListpesquisaClientes.getSelectedValue());
+        jListpesquisaClientes.setVisible(false);
+        jListpesquisaClientes.setVisible(false);
+    }//GEN-LAST:event_camp_clienteFocusLost
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btn_buscarProduto;
     private javax.swing.JButton btn_removerItem;
+    private javax.swing.JTextField camp_cliente;
     public static javax.swing.JTextField camp_total;
-    private javax.swing.JTextField field_client;
     public static javax.swing.JTextField field_itensQnt;
     public static javax.swing.JTextArea field_observacao;
     public static javax.swing.JFormattedTextField field_preco;
     public static javax.swing.JFormattedTextField field_qnt;
-    private javax.swing.JTextField field_vendedor;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JList<String> jListpesquisaClientes;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -428,4 +475,26 @@ public class ScreenSell extends javax.swing.JPanel {
 
     }
 
+    public void buscaCliente(){
+        
+        String pesquisa = camp_cliente.getText();
+        List<Cliente> listaClientes = new ArrayList<>();
+
+        for (int i = 0; i < bancoMariaDB.list_Cliente().size(); i++) {
+            // VERIFICA SE O NOME COMTEM NA LISTA DE CLIENTE E VERIFICA O STATUS DO CLIENTE;
+            if (bancoMariaDB.list_Cliente().get(i).getNome().contains(pesquisa) && bancoMariaDB.list_Cliente().get(i).isStatus()) {
+                Cliente c = bancoMariaDB.list_Cliente().get(i);
+                listaClientes.add(c); // ADICIONA NA LISTA CLIENTE;
+            }
+        }
+
+        DefaultListModel jlista = new DefaultListModel();
+        jlista.removeAllElements();
+        for (Cliente cliente : listaClientes) {
+            jlista.addElement(cliente.getNome());
+            jListpesquisaClientes.setModel(jlista);
+            jListpesquisaClientes.setVisible(true);
+        }
+    }
+    
 }
