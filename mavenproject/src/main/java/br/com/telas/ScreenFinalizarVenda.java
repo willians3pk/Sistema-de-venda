@@ -48,7 +48,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         camp_valorParcelas.setVisible(false);
         btn_gerarDatas.setVisible(false);
         jListdatasparceladas.setVisible(false);
-        jListpesquisaClientes.setVisible(false);
+//        jListpesquisaClientes.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -83,9 +83,6 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         camp_cliente = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jListpesquisaClientes = new javax.swing.JList<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabelValorTotal = new javax.swing.JLabel();
@@ -178,7 +175,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jListdatasparceladas);
 
         jPanel4.add(jScrollPane1);
-        jScrollPane1.setBounds(350, 40, 130, 140);
+        jScrollPane1.setBounds(240, 80, 130, 70);
 
         btn_gerarDatas.setText("Gerar datas");
         btn_gerarDatas.addActionListener(new java.awt.event.ActionListener() {
@@ -187,10 +184,10 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             }
         });
         jPanel4.add(btn_gerarDatas);
-        btn_gerarDatas.setBounds(220, 40, 100, 30);
+        btn_gerarDatas.setBounds(220, 30, 120, 40);
 
         jPanel1.add(jPanel4);
-        jPanel4.setBounds(340, 190, 490, 190);
+        jPanel4.setBounds(340, 190, 390, 190);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel5.setLayout(null);
@@ -236,12 +233,17 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jPanel1.add(jPanel5);
         jPanel5.setBounds(10, 390, 980, 80);
         jPanel1.add(jSeparator3);
-        jSeparator3.setBounds(10, 170, 820, 10);
+        jSeparator3.setBounds(10, 170, 970, 10);
 
         camp_cliente.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         camp_cliente.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 camp_clienteFocusLost(evt);
+            }
+        });
+        camp_cliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                camp_clienteActionPerformed(evt);
             }
         });
         camp_cliente.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -250,21 +252,12 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             }
         });
         jPanel1.add(camp_cliente);
-        camp_cliente.setBounds(400, 60, 310, 40);
+        camp_cliente.setBounds(360, 60, 310, 40);
 
         jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel10.setText("CLIENTE:");
         jPanel1.add(jLabel10);
-        jLabel10.setBounds(400, 30, 140, 30);
-
-        jButton3.setText("NOVO");
-        jPanel1.add(jButton3);
-        jButton3.setBounds(710, 60, 70, 40);
-
-        jScrollPane2.setViewportView(jListpesquisaClientes);
-
-        jPanel1.add(jScrollPane2);
-        jScrollPane2.setBounds(400, 100, 310, 70);
+        jLabel10.setBounds(360, 30, 140, 30);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(10, 90, 1000, 480);
@@ -304,6 +297,8 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
                 vendaParcelada();
             } else if (comboBOX_FormaPagamento.getSelectedIndex() == 3 & lista.size() > 0) {
                 vendaAprazo();
+            } else if (campvalorPago.getText().length() > 0 & !dataVenda.getDate().equals("") & lista.size() > 0 & comboBOX_FormaPagamento.getSelectedIndex() == 4) {
+                finalizarVenda();
             } else {
                 JOptionPane.showMessageDialog(null, "Preencha os Campos relevantes a Forma de Pagamento!");
             }
@@ -354,11 +349,12 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             jLabeldatavenda.setText("DATA DA VENDA:");
             campvalorPago.setEnabled(true);
         }
-        if (comboBOX_FormaPagamento.getSelectedIndex() <= 4) {
+        if (comboBOX_FormaPagamento.getSelectedIndex() <= 2) {
             camp_qtdeParcelas.setVisible(false);
             camp_valorParcelas.setVisible(false);
             btn_gerarDatas.setVisible(false);
             jListdatasparceladas.setVisible(false);
+            valorTotal();
             jLabeldatavenda.setText("DATA DA VENDA:");
             campvalorPago.setEnabled(true);
         }
@@ -366,6 +362,15 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             jLabeldatavenda.setText("DATA DO PAGAMENTO:");
             campvalorPago.setText("0,00");
             campvalorPago.setEnabled(false);
+        }
+        if (comboBOX_FormaPagamento.getSelectedIndex() == 4) {
+            camp_qtdeParcelas.setVisible(false);
+            camp_valorParcelas.setVisible(false);
+            btn_gerarDatas.setVisible(false);
+            jListdatasparceladas.setVisible(false);
+            valorTotal();
+            jLabeldatavenda.setText("DATA DA VENDA:");
+            campvalorPago.setEnabled(true);
         }
     }//GEN-LAST:event_comboBOX_FormaPagamentoActionPerformed
 
@@ -387,13 +392,13 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
 
     private void camp_clienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_camp_clienteFocusLost
         try {
-            client = bancoMariaDB.list_Cliente().get(jListpesquisaClientes.getSelectedIndex());
+//            client = bancoMariaDB.list_Cliente().get(jListpesquisaClientes.getSelectedIndex());
             System.out.println(client.getNome() + " " + client.getIdpessoa());
-            camp_cliente.setText(client.getNome());
-            jListpesquisaClientes.setVisible(false);
+//            camp_cliente.setText(client.getNome());
+//            jListpesquisaClientes.setVisible(false);
         } catch (Exception e) {
             System.out.println(e);
-            jListpesquisaClientes.setVisible(false);
+//            jListpesquisaClientes.setVisible(false);
         }
 
     }//GEN-LAST:event_camp_clienteFocusLost
@@ -406,6 +411,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             // VERIFICA SE O NOME COMTEM NA LISTA DE CLIENTE E VERIFICA O STATUS DO CLIENTE;
             if (bancoMariaDB.list_Cliente().get(i).getNome().contains(pesquisa) && bancoMariaDB.list_Cliente().get(i).isStatus()) {
                 Cliente c = bancoMariaDB.list_Cliente().get(i);
+                client = bancoMariaDB.list_Cliente().get(i);
                 listaClientes.add(c); // ADICIONA NA LISTA CLIENTE;
             }
         }
@@ -413,10 +419,32 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         DefaultListModel jlista = new DefaultListModel();
         for (Cliente cliente : listaClientes) {
             jlista.addElement(cliente.getNome());
-            jListpesquisaClientes.setModel(jlista);
-            jListpesquisaClientes.setVisible(true);
+//            jListpesquisaClientes.setModel(jlista);
+//            jListpesquisaClientes.setVisible(true);
         }
     }//GEN-LAST:event_camp_clienteKeyReleased
+
+    private void camp_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camp_clienteActionPerformed
+        String pesquisa = camp_cliente.getText();
+        List<Cliente> listaClientes = new ArrayList<>();
+        for (int i = 0; i < bancoMariaDB.list_Cliente().size(); i++) {
+            // VERIFICA SE O NOME COMTEM NA LISTA DE CLIENTE E VERIFICA O STATUS DO CLIENTE;
+            if (bancoMariaDB.list_Cliente().get(i).getNome().contains(pesquisa) && bancoMariaDB.list_Cliente().get(i).isStatus()) {
+                Cliente c = bancoMariaDB.list_Cliente().get(i);
+                client = bancoMariaDB.list_Cliente().get(i);
+                listaClientes.add(c); // ADICIONA NA LISTA CLIENTE;
+            }
+        }
+
+        DefaultListModel jlista = new DefaultListModel();
+        for (Cliente cliente : listaClientes) {
+            jlista.addElement(cliente.getNome());
+//            jListpesquisaClientes.setModel(jlista);
+//            jListpesquisaClientes.setVisible(true);
+        }
+        camp_cliente.setText(client.getNome());
+//        jListpesquisaClientes.setVisible(false);
+    }//GEN-LAST:event_camp_clienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -465,7 +493,6 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     public javax.swing.JFormattedTextField campvalorPago;
     private javax.swing.JComboBox<String> comboBOX_FormaPagamento;
     public com.toedter.calendar.JDateChooser dataVenda;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -480,14 +507,12 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelValorTotal;
     private javax.swing.JLabel jLabeldatavenda;
     private javax.swing.JList<String> jListdatasparceladas;
-    private javax.swing.JList<String> jListpesquisaClientes;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator3;
     // End of variables declaration//GEN-END:variables
 
@@ -533,7 +558,6 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
 
         if (camp_cliente.getText().length() > 0) {
             venda.setCliente(client); // adiciona o cliente na venda;
-//            client.setVendas(vendas); // adiciona uma lista de vendas para o cliente;
             client.getVendas().add(venda); // adiciona a venda na lista de cliente;
             bancoMariaDB.update(client);
         } else {
@@ -674,7 +698,6 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         Venda venda = new Venda();
         ItensVenda itensdaVenda = new ItensVenda();
         List<FormaPagamento> listaPagamento = new ArrayList<>();
-        
 
         double valortotal = Double.parseDouble(camptotal.getText().replace("R$", ""));
         double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", "."));
