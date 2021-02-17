@@ -26,10 +26,9 @@ public class Venda {
     private int idvenda;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @Cascade({CascadeType.ALL})
     private Cliente cliente;
     @OneToOne(fetch = FetchType.EAGER)
-    @Cascade({CascadeType.ALL})
+    @Cascade({CascadeType.SAVE_UPDATE})
     private Usuario usuario;
     @ManyToMany(fetch = FetchType.LAZY)
     @Cascade({CascadeType.ALL})

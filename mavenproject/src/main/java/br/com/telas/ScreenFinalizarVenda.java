@@ -8,7 +8,6 @@ import br.com.classes.Produto;
 import br.com.classes.Venda;
 import br.com.conexao.Conexao;
 import static br.com.telas.ScreenSell.produtos;
-import static br.com.telas.ScreenSell.camp_cliente;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     List<Produto> lista;
     ScreenSell telaVenda;
     Conexao bancoMariaDB = new Conexao();
-    Cliente cliente;
+    Cliente client;
 
     public List<Produto> getLista() {
         return lista;
@@ -35,11 +34,11 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     }
 
     public Cliente getCliente() {
-        return cliente;
+        return client;
     }
 
     public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+        this.client = cliente;
     }
 
     public ScreenFinalizarVenda() {
@@ -49,6 +48,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         camp_valorParcelas.setVisible(false);
         btn_gerarDatas.setVisible(false);
         jListdatasparceladas.setVisible(false);
+        jListpesquisaClientes.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -81,12 +81,15 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         campTroco = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
-        jLabelValorTotal = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
+        camp_cliente = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jListpesquisaClientes = new javax.swing.JList<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
+        jLabelValorTotal = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -137,7 +140,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jLabel9.setBounds(10, 70, 120, 30);
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(10, 130, 320, 190);
+        jPanel3.setBounds(10, 190, 320, 190);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel4.setLayout(null);
@@ -187,7 +190,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         btn_gerarDatas.setBounds(220, 40, 100, 30);
 
         jPanel1.add(jPanel4);
-        jPanel4.setBounds(340, 130, 490, 190);
+        jPanel4.setBounds(340, 190, 490, 190);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel5.setLayout(null);
@@ -199,7 +202,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             }
         });
         jPanel5.add(btn_finalizarvenda);
-        btn_finalizarvenda.setBounds(650, 30, 160, 40);
+        btn_finalizarvenda.setBounds(810, 30, 160, 40);
 
         btn_cancelarVenda.setText("CANCELAR VENDA");
         btn_cancelarVenda.addActionListener(new java.awt.event.ActionListener() {
@@ -208,7 +211,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             }
         });
         jPanel5.add(btn_cancelarVenda);
-        btn_cancelarVenda.setBounds(480, 30, 160, 40);
+        btn_cancelarVenda.setBounds(640, 30, 160, 40);
 
         jLabelQuantidadeItens.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         jLabelQuantidadeItens.setText("0");
@@ -231,29 +234,40 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jLabel1.setBounds(10, 40, 120, 30);
 
         jPanel1.add(jPanel5);
-        jPanel5.setBounds(10, 330, 820, 80);
+        jPanel5.setBounds(10, 390, 980, 80);
         jPanel1.add(jSeparator3);
-        jSeparator3.setBounds(20, 110, 770, 10);
+        jSeparator3.setBounds(10, 170, 820, 10);
 
-        jLabelValorTotal.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
-        jLabelValorTotal.setForeground(new java.awt.Color(255, 0, 0));
-        jLabelValorTotal.setText("TOTAL");
-        jPanel1.add(jLabelValorTotal);
-        jLabelValorTotal.setBounds(530, 40, 210, 50);
+        camp_cliente.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        camp_cliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                camp_clienteFocusLost(evt);
+            }
+        });
+        camp_cliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                camp_clienteKeyReleased(evt);
+            }
+        });
+        jPanel1.add(camp_cliente);
+        camp_cliente.setBounds(400, 60, 310, 40);
 
-        jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        jLabel2.setText("TOTAL DA VENDA:");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(440, 10, 390, 40);
-        jPanel1.add(jSeparator1);
-        jSeparator1.setBounds(430, 90, 360, 10);
+        jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel10.setText("CLIENTE:");
+        jPanel1.add(jLabel10);
+        jLabel10.setBounds(400, 30, 140, 30);
 
-        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel1.add(jSeparator2);
-        jSeparator2.setBounds(390, 20, 20, 80);
+        jButton3.setText("NOVO");
+        jPanel1.add(jButton3);
+        jButton3.setBounds(710, 60, 70, 40);
+
+        jScrollPane2.setViewportView(jListpesquisaClientes);
+
+        jPanel1.add(jScrollPane2);
+        jScrollPane2.setBounds(400, 100, 310, 70);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(10, 90, 840, 420);
+        jPanel1.setBounds(10, 90, 1000, 480);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.setLayout(null);
@@ -263,10 +277,21 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jPanel2.add(jLabel13);
         jLabel13.setBounds(260, 20, 340, 30);
 
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(10, 10, 840, 70);
+        jLabelValorTotal.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
+        jLabelValorTotal.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelValorTotal.setText("TOTAL");
+        jPanel2.add(jLabelValorTotal);
+        jLabelValorTotal.setBounds(740, 30, 210, 40);
 
-        setSize(new java.awt.Dimension(872, 552));
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        jLabel2.setText("TOTAL DA VENDA:");
+        jPanel2.add(jLabel2);
+        jLabel2.setBounds(660, 0, 330, 30);
+
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(10, 10, 1000, 70);
+
+        setSize(new java.awt.Dimension(1033, 608));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -275,13 +300,10 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         try {
             if (campvalorPago.getText().length() > 0 & !dataVenda.getDate().equals("") & lista.size() > 0 & comboBOX_FormaPagamento.getSelectedIndex() <= 2) {
                 finalizarVenda();
-                JOptionPane.showMessageDialog(null, "Venda Registrada com sucesso!");
             } else if (comboBOX_FormaPagamento.getSelectedIndex() == 5 & camp_qtdeParcelas.getText().length() > 0 & lista.size() > 0) {
                 vendaParcelada();
-                JOptionPane.showMessageDialog(null, "Venda Registrada com sucesso!");
             } else if (comboBOX_FormaPagamento.getSelectedIndex() == 3 & lista.size() > 0) {
                 vendaAprazo();
-                JOptionPane.showMessageDialog(null, "Venda Registrada com sucesso!");
             } else {
                 JOptionPane.showMessageDialog(null, "Preencha os Campos relevantes a Forma de Pagamento!");
             }
@@ -302,6 +324,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jListdatasparceladas.setVisible(false);
         telaVenda.adicionarItens();
         telaVenda.btn_buscarProduto.setText("");
+        camp_cliente.setText("");
         telaVenda.field_preco.setText("0,00");
         telaVenda.field_qnt.setText("0");
         dispose();
@@ -362,6 +385,39 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btn_gerarDatasActionPerformed
 
+    private void camp_clienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_camp_clienteFocusLost
+        try {
+            client = bancoMariaDB.list_Cliente().get(jListpesquisaClientes.getSelectedIndex());
+            System.out.println(client.getNome() + " " + client.getIdpessoa());
+            camp_cliente.setText(client.getNome());
+            jListpesquisaClientes.setVisible(false);
+        } catch (Exception e) {
+            System.out.println(e);
+            jListpesquisaClientes.setVisible(false);
+        }
+
+    }//GEN-LAST:event_camp_clienteFocusLost
+
+    private void camp_clienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_clienteKeyReleased
+
+        String pesquisa = camp_cliente.getText();
+        List<Cliente> listaClientes = new ArrayList<>();
+        for (int i = 0; i < bancoMariaDB.list_Cliente().size(); i++) {
+            // VERIFICA SE O NOME COMTEM NA LISTA DE CLIENTE E VERIFICA O STATUS DO CLIENTE;
+            if (bancoMariaDB.list_Cliente().get(i).getNome().contains(pesquisa) && bancoMariaDB.list_Cliente().get(i).isStatus()) {
+                Cliente c = bancoMariaDB.list_Cliente().get(i);
+                listaClientes.add(c); // ADICIONA NA LISTA CLIENTE;
+            }
+        }
+
+        DefaultListModel jlista = new DefaultListModel();
+        for (Cliente cliente : listaClientes) {
+            jlista.addElement(cliente.getNome());
+            jListpesquisaClientes.setModel(jlista);
+            jListpesquisaClientes.setVisible(true);
+        }
+    }//GEN-LAST:event_camp_clienteKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -402,13 +458,16 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     private javax.swing.JButton btn_finalizarvenda;
     private javax.swing.JButton btn_gerarDatas;
     private javax.swing.JTextField campTroco;
+    public static javax.swing.JTextField camp_cliente;
     public javax.swing.JFormattedTextField camp_qtdeParcelas;
     public javax.swing.JTextField camp_valorParcelas;
     private javax.swing.JTextField camptotal;
     public javax.swing.JFormattedTextField campvalorPago;
     private javax.swing.JComboBox<String> comboBOX_FormaPagamento;
     public com.toedter.calendar.JDateChooser dataVenda;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
@@ -421,14 +480,14 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelValorTotal;
     private javax.swing.JLabel jLabeldatavenda;
     private javax.swing.JList<String> jListdatasparceladas;
+    private javax.swing.JList<String> jListpesquisaClientes;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator3;
     // End of variables declaration//GEN-END:variables
 
@@ -454,26 +513,32 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     }
 
     private void finalizarVenda() {
-        Venda venda = new Venda();
-        ItensVenda itensdaVenda = new ItensVenda();
-        List<FormaPagamento> listaPagamento = new ArrayList<>();
-        List<Venda> vendas = new ArrayList<>();
-        
+        Venda venda = new Venda(); // cria uma nova venda;
+        ItensVenda itensdaVenda = new ItensVenda(); // cria novo item venda;
+        List<FormaPagamento> listaPagamento = new ArrayList<>(); // cria uma nova lista de pagamento;
+
         double valortotal = Double.parseDouble(camptotal.getText().replace("R$", ""));
         double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", "."));
         double troco = valortotal - valorPago;
 
+        System.out.println("Cliente: " + client.getNome());
         venda.setStatus(true);
         venda.setDataVenda(dataVenda.getDate()); // data da venda
         venda.setValorTotal(Double.parseDouble(camptotal.getText().replace("R$", "").trim())); // valor total da venda
         venda.setDescricao(ScreenSell.field_observacao.getText()); // observação da venda
-        venda.setValor_pago(Double.valueOf(campvalorPago.getText().replace(",", ".")));
-        venda.setTroco(troco);
-        venda.setFormaPagamento(listaPagamento);
-        venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));
-        venda.setCliente(cliente);
-        cliente.setVendas(vendas);
-        cliente.getVendas().add(venda);
+        venda.setValor_pago(Double.valueOf(campvalorPago.getText().replace(",", "."))); // valor que foi pago na venda;
+        venda.setTroco(troco); // troco da venda;
+        venda.setFormaPagamento(listaPagamento); // adiciona a lista de pagamento na venda;
+        venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));// pega a forma de pagamento da venda;
+
+        if (camp_cliente.getText().length() > 0) {
+            venda.setCliente(client); // adiciona o cliente na venda;
+//            client.setVendas(vendas); // adiciona uma lista de vendas para o cliente;
+            client.getVendas().add(venda); // adiciona a venda na lista de cliente;
+            bancoMariaDB.update(client);
+        } else {
+            JOptionPane.showMessageDialog(null, "Venda sem Cliente");
+        }
 
         for (Produto produto : lista) {
             itensdaVenda.setStatus(true);
@@ -510,6 +575,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         telaVenda.field_preco.setText("0,00");
         telaVenda.field_qnt.setText("0");
         dispose();
+        JOptionPane.showMessageDialog(null, "Venda Registrada com sucesso!");
     }
 
     public void vendaParcelada() {
@@ -518,7 +584,6 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         ItensVenda itensdaVenda = new ItensVenda();
         List<FormaPagamento> listaPagamento = new ArrayList<>();
         List<Parcelas> listaParcelas = new ArrayList<>();
-        List<Venda> vendas = new ArrayList<>();
 
         double valortotal = Double.parseDouble(camptotal.getText().replace("R$", ""));
         double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", "."));
@@ -533,76 +598,84 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         venda.setFormaPagamento(listaPagamento);
         venda.setParcelas(listaParcelas);
         venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));
-        cliente.setVendas(vendas);
-        cliente.getVendas().add(venda);
 
-        // ITENS DA VENDA
-        for (Produto produto : lista) {
-            itensdaVenda.setStatus(true);
-            itensdaVenda.setItems(produto);
-            itensdaVenda.setQnt(produto.getQnt());
-            itensdaVenda.setVenda(venda);
-            bancoMariaDB.save(itensdaVenda); // salva os itens da venda;
-        }
+        if (camp_cliente.getText().length() > 0) {
+            venda.setCliente(client); // adiciona o cliente na venda;
+//            client.setVendas(vendas); // adiciona uma lista de vendas para o cliente;
+            client.getVendas().add(venda); // adiciona a venda na lista de cliente;
+            bancoMariaDB.update(client);
 
-        // https://www.guj.com.br/t/duvida-gerar-parcelas-com-data-resolvido/134893/2 forum que ajudou a criar as datas da parcela;
-        int numeroParcela = 1;
-        GregorianCalendar gc = new GregorianCalendar();
-        int numPar = Integer.parseInt(camp_qtdeParcelas.getText());
-        Date diaAtual = new Date();
-
-        // PARCELAS DA VENDA
-        for (int i = 0; i < Integer.parseInt(camp_qtdeParcelas.getText()); i++) {
-            Parcelas parcela = new Parcelas();// FAZ COM QUE REGISTRA UMA NOVA PARCELA NO BANCO;
-
-            gc.setTime(diaAtual);
-            gc.roll(GregorianCalendar.MONTH, i);
-            Date d = gc.getTime();
-
-            venda.getParcelas().add(parcela);// ADICIONA AS PARCELAS
-            parcela.setVenda(venda);
-            parcela.setValor(Double.parseDouble(camp_valorParcelas.getText()));
-            parcela.setParcela(numeroParcela + i);//  NUMERO DAS PARCELAS;
-            parcela.setData(d);
-            parcela.setStatus(true);
-            bancoMariaDB.save(parcela); //SALVA A PARCELA NO BANCO DE DADOS;
-        }
-
-        // ATUALIZAR O ESTOQUE DE PRODUTO NO BANCO DE DADOS
-        for (int i = 0; i < bancoMariaDB.productBook().size(); i++) {
+            // ITENS DA VENDA
             for (Produto produto : lista) {
-                if (bancoMariaDB.productBook().get(i).getIdProduto().equals(produto.getIdProduto())) {
-                    Produto item = bancoMariaDB.productBook().get(i); // pega o produto do banco de dados
-                    int qnt_Atualizada = item.getQnt() - produto.getQnt(); // subtrair a quantidade do produto que foi vendido;
-                    item.setQnt(qnt_Atualizada); // adicionar a subtração;
-                    bancoMariaDB.update(item); // atualiza a quantidade do produto no banco;
+                itensdaVenda.setStatus(true);
+                itensdaVenda.setItems(produto);
+                itensdaVenda.setQnt(produto.getQnt());
+                itensdaVenda.setVenda(venda);
+                bancoMariaDB.save(itensdaVenda); // salva os itens da venda;
+            }
 
+            // https://www.guj.com.br/t/duvida-gerar-parcelas-com-data-resolvido/134893/2 forum que ajudou a criar as datas da parcela;
+            int numeroParcela = 1;
+            GregorianCalendar gc = new GregorianCalendar();
+            int numPar = Integer.parseInt(camp_qtdeParcelas.getText());
+            Date diaAtual = new Date();
+
+            // PARCELAS DA VENDA
+            for (int i = 0; i < Integer.parseInt(camp_qtdeParcelas.getText()); i++) {
+                Parcelas parcela = new Parcelas();// FAZ COM QUE REGISTRA UMA NOVA PARCELA NO BANCO;
+
+                gc.setTime(diaAtual);
+                gc.roll(GregorianCalendar.MONTH, i);
+                Date d = gc.getTime();
+
+                venda.getParcelas().add(parcela);// ADICIONA AS PARCELAS
+                parcela.setVenda(venda);
+                parcela.setValor(Double.parseDouble(camp_valorParcelas.getText()));
+                parcela.setParcela(numeroParcela + i);//  NUMERO DAS PARCELAS;
+                parcela.setData(d);
+                parcela.setStatus(true);
+                bancoMariaDB.save(parcela); //SALVA A PARCELA NO BANCO DE DADOS;
+            }
+
+            // ATUALIZAR O ESTOQUE DE PRODUTO NO BANCO DE DADOS
+            for (int i = 0; i < bancoMariaDB.productBook().size(); i++) {
+                for (Produto produto : lista) {
+                    if (bancoMariaDB.productBook().get(i).getIdProduto().equals(produto.getIdProduto())) {
+                        Produto item = bancoMariaDB.productBook().get(i); // pega o produto do banco de dados
+                        int qnt_Atualizada = item.getQnt() - produto.getQnt(); // subtrair a quantidade do produto que foi vendido;
+                        item.setQnt(qnt_Atualizada); // adicionar a subtração;
+                        bancoMariaDB.update(item); // atualiza a quantidade do produto no banco;
+
+                    }
                 }
             }
-        }
 
-        lista.clear(); // limpa a lista;
-        camp_cliente.setText("");
-        DefaultListModel datasparcelas = new DefaultListModel();
-        jListdatasparceladas.setModel(datasparcelas);
-        camp_valorParcelas.setText("0,00");
-        camp_qtdeParcelas.setVisible(false);
-        camp_valorParcelas.setVisible(false);
-        btn_gerarDatas.setVisible(false);
-        jListdatasparceladas.setVisible(false);
-        telaVenda.adicionarItens();
-        telaVenda.btn_buscarProduto.setText("");
-        telaVenda.field_preco.setText("0,00");
-        telaVenda.field_qnt.setText("0");
-        dispose();
+            lista.clear(); // limpa a lista;
+            camp_cliente.setText("");
+            DefaultListModel datasparcelas = new DefaultListModel();
+            jListdatasparceladas.setModel(datasparcelas);
+            camp_valorParcelas.setText("0,00");
+            camp_qtdeParcelas.setVisible(false);
+            camp_valorParcelas.setVisible(false);
+            btn_gerarDatas.setVisible(false);
+            jListdatasparceladas.setVisible(false);
+            telaVenda.adicionarItens();
+            telaVenda.btn_buscarProduto.setText("");
+            telaVenda.field_preco.setText("0,00");
+            telaVenda.field_qnt.setText("0");
+            dispose();
+            JOptionPane.showMessageDialog(null, "Venda Registrada com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(null, "ATENÇÃO vendas Parceladas precisa de um cliente cadastrado.");
+        }
     }
 
     public void vendaAprazo() {
         Venda venda = new Venda();
         ItensVenda itensdaVenda = new ItensVenda();
         List<FormaPagamento> listaPagamento = new ArrayList<>();
-        List<Venda> vendas = new ArrayList<>();
         
+
         double valortotal = Double.parseDouble(camptotal.getText().replace("R$", ""));
         double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", "."));
         double troco = valortotal - valorPago;
@@ -616,46 +689,53 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         venda.setFormaPagamento(listaPagamento);
         venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));
         venda.setPrazo(dataVenda.getDate());
-        cliente.setVendas(vendas);
-        cliente.getVendas().add(venda);
 
-        // ITENS DA VENDA
-        for (Produto produto : lista) {
-            itensdaVenda.setStatus(true);
-            itensdaVenda.setItems(produto);
-            itensdaVenda.setQnt(produto.getQnt());
-            itensdaVenda.setVenda(venda);
-            bancoMariaDB.save(itensdaVenda); // salva os itens da venda;
-        }
+        if (camp_cliente.getText().length() > 0) {
+            venda.setCliente(client); // adiciona o cliente na venda;
+//            client.setVendas(vendas); // adiciona uma lista de vendas para o cliente;
+            client.getVendas().add(venda); // adiciona a venda na lista de cliente;
+            bancoMariaDB.save_update(client);
 
-        // ATUALIZAR O ESTOQUE DE PRODUTO NO BANCO DE DADOS
-        for (int i = 0; i < bancoMariaDB.productBook().size(); i++) {
+            // ITENS DA VENDA
             for (Produto produto : lista) {
-                if (bancoMariaDB.productBook().get(i).getIdProduto().equals(produto.getIdProduto())) {
-                    Produto item = bancoMariaDB.productBook().get(i); // pega o produto do banco de dados
-                    int qnt_Atualizada = item.getQnt() - produto.getQnt(); // subtrair a quantidade do produto que foi vendido;
-                    item.setQnt(qnt_Atualizada); // adicionar a subtração;
-                    bancoMariaDB.update(item); // atualiza a quantidade do produto no banco;
+                itensdaVenda.setStatus(true);
+                itensdaVenda.setItems(produto);
+                itensdaVenda.setQnt(produto.getQnt());
+                itensdaVenda.setVenda(venda);
+                bancoMariaDB.save(itensdaVenda); // salva os itens da venda e automaticamente salva a venda;
+            }
 
+            // ATUALIZAR O ESTOQUE DE PRODUTO NO BANCO DE DADOS
+            for (int i = 0; i < bancoMariaDB.productBook().size(); i++) {
+                for (Produto produto : lista) {
+                    if (bancoMariaDB.productBook().get(i).getIdProduto().equals(produto.getIdProduto())) {
+                        Produto item = bancoMariaDB.productBook().get(i); // pega o produto do banco de dados
+                        int qnt_Atualizada = item.getQnt() - produto.getQnt(); // subtrair a quantidade do produto que foi vendido;
+                        item.setQnt(qnt_Atualizada); // adicionar a subtração;
+                        bancoMariaDB.update(item); // atualiza a quantidade do produto no banco;
+
+                    }
                 }
             }
+
+            lista.clear(); // limpa a lista;
+            camp_cliente.setText("");
+            DefaultListModel datasparcelas = new DefaultListModel();
+            jListdatasparceladas.setModel(datasparcelas);
+            camp_valorParcelas.setText("0,00");
+            camp_qtdeParcelas.setVisible(false);
+            camp_valorParcelas.setVisible(false);
+            btn_gerarDatas.setVisible(false);
+            jListdatasparceladas.setVisible(false);
+            telaVenda.adicionarItens();
+            telaVenda.btn_buscarProduto.setText("");
+            telaVenda.field_preco.setText("0,00");
+            telaVenda.field_qnt.setText("0");
+            dispose();
+            JOptionPane.showMessageDialog(null, "Venda Registrada com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(null, "ATENÇÃO vendas A PRAZO precisa de um cliente cadastrado.");
         }
-
-        lista.clear(); // limpa a lista;
-        camp_cliente.setText("");
-        DefaultListModel datasparcelas = new DefaultListModel();
-        jListdatasparceladas.setModel(datasparcelas);
-        camp_valorParcelas.setText("0,00");
-        camp_qtdeParcelas.setVisible(false);
-        camp_valorParcelas.setVisible(false);
-        btn_gerarDatas.setVisible(false);
-        jListdatasparceladas.setVisible(false);
-        telaVenda.adicionarItens();
-        telaVenda.btn_buscarProduto.setText("");
-        telaVenda.field_preco.setText("0,00");
-        telaVenda.field_qnt.setText("0");
-        dispose();
-
     }
 
     public void carregarComboBox() {

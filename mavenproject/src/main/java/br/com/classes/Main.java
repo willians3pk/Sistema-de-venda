@@ -32,7 +32,42 @@ public class Main {
             FormaPagamento formapagamento5 = new FormaPagamento();
             formapagamento5.setDescricao("PARCELADO");
             connect.save(formapagamento5);
-            
+//            
+//            Cliente c0 = new Cliente();
+//            Endereco e0 =  new Endereco();
+//            c0.setNome("willian silva de almeida");
+//            c0.setStatus(true);
+//            c0.setEndereco(e0);
+//            connect.save(c0);
+//            
+//            Cliente c1 = new Cliente();
+//            Endereco e1 =  new Endereco();
+//            c1.setNome("Pamela marinho da silva");
+//            c1.setStatus(true);
+//            c1.setEndereco(e1);
+//            connect.save(c1);
+//            
+//            Cliente c2 = new Cliente();
+//            Endereco e2 =  new Endereco();
+//            c2.setNome("Marcones dos santos");
+//            c2.setStatus(true);
+//            c2.setEndereco(e2);
+//            connect.save(c2);
+//            
+//            Cliente c3 = new Cliente();
+//            Endereco e3 =  new Endereco();
+//            c3.setNome("Maria Oliveira");
+//            c3.setStatus(true);
+//            c3.setEndereco(e3);
+//            connect.save(c3);
+//            
+//            Cliente c4 = new Cliente();
+//            Endereco e4 =  new Endereco();
+//            c4.setNome("jeremias");
+//            c4.setStatus(true);
+//            c4.setEndereco(e4);
+//            connect.save(c4);
+//            
             new MainScreen().setVisible(true);
         
     }

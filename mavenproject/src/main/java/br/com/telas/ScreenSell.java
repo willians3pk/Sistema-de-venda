@@ -20,13 +20,12 @@ public class ScreenSell extends javax.swing.JPanel {
     ScreenFinalizarVenda f = new ScreenFinalizarVenda();
     Conexao bancoMariaDB = new Conexao();
     public static List<Produto> produtos = new ArrayList<>();
-    Cliente client;
-    
+    Cliente client = new Cliente();
+
     public ScreenSell() {
         initComponents();
         field_preco.setEnabled(false);
         field_qnt.setEnabled(false);
-        jListpesquisaClientes.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -34,12 +33,8 @@ public class ScreenSell extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
-        jListpesquisaClientes = new javax.swing.JList<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable_produto = new javax.swing.JTable();
-        camp_cliente = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jlabel_totalVenda = new javax.swing.JLabel();
@@ -65,15 +60,6 @@ public class ScreenSell extends javax.swing.JPanel {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel3.setLayout(null);
-
-        jListpesquisaClientes.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jListpesquisaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jListpesquisaClientesMouseClicked(evt);
-            }
-        });
-        jPanel3.add(jListpesquisaClientes);
-        jListpesquisaClientes.setBounds(10, 80, 310, 90);
 
         jTable_produto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -105,29 +91,6 @@ public class ScreenSell extends javax.swing.JPanel {
 
         jPanel3.add(jScrollPane3);
         jScrollPane3.setBounds(10, 110, 710, 390);
-
-        camp_cliente.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        camp_cliente.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                camp_clienteFocusLost(evt);
-            }
-        });
-        camp_cliente.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                camp_clienteKeyReleased(evt);
-            }
-        });
-        jPanel3.add(camp_cliente);
-        camp_cliente.setBounds(10, 40, 310, 40);
-
-        jButton3.setText("NOVO");
-        jPanel3.add(jButton3);
-        jButton3.setBounds(320, 40, 70, 40);
-
-        jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        jLabel8.setText("CLIENTE:");
-        jPanel3.add(jLabel8);
-        jLabel8.setBounds(10, 10, 140, 30);
 
         add(jPanel3);
         jPanel3.setBounds(10, 10, 730, 510);
@@ -302,6 +265,7 @@ public class ScreenSell extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_buscarProdutoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
         btn_removerItem.setEnabled(false);
         f.setVisible(true);
         f.setLista(produtos);
@@ -311,6 +275,8 @@ public class ScreenSell extends javax.swing.JPanel {
         f.camp_qtdeParcelas.setVisible(false);
         f.camp_valorParcelas.setVisible(false);
         f.carregarComboBox();
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void field_qntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_qntActionPerformed
@@ -344,61 +310,23 @@ public class ScreenSell extends javax.swing.JPanel {
         btn_removerItem.setEnabled(false);
     }//GEN-LAST:event_field_qntMouseClicked
 
-    private void jListpesquisaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListpesquisaClientesMouseClicked
-        camp_cliente.setText(jListpesquisaClientes.getSelectedValue());
-        client = bancoMariaDB.list_Cliente().get(jListpesquisaClientes.getSelectedIndex());
-        jListpesquisaClientes.setVisible(false);
-    }//GEN-LAST:event_jListpesquisaClientesMouseClicked
-
-    private void camp_clienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_clienteKeyReleased
-
-        String pesquisa = camp_cliente.getText();
-        List<Cliente> listaClientes = new ArrayList<>();
-
-        for (int i = 0; i < bancoMariaDB.list_Cliente().size(); i++) {
-            // VERIFICA SE O NOME COMTEM NA LISTA DE CLIENTE E VERIFICA O STATUS DO CLIENTE;
-            if (bancoMariaDB.list_Cliente().get(i).getNome().contains(pesquisa) && bancoMariaDB.list_Cliente().get(i).isStatus()) {
-                Cliente c = bancoMariaDB.list_Cliente().get(i);
-                listaClientes.add(c); // ADICIONA NA LISTA CLIENTE;
-            }
-        }
-
-        DefaultListModel jlista = new DefaultListModel();
-        jlista.removeAllElements();
-        for (Cliente cliente : listaClientes) {
-            jlista.addElement(cliente.getNome());
-            jListpesquisaClientes.setModel(jlista);
-            jListpesquisaClientes.setVisible(true);
-        }
-    }//GEN-LAST:event_camp_clienteKeyReleased
-
-    private void camp_clienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_camp_clienteFocusLost
-        camp_cliente.setText(jListpesquisaClientes.getSelectedValue());
-        client = bancoMariaDB.list_Cliente().get(jListpesquisaClientes.getSelectedIndex()); // pega o cliente do banco de dados;
-        jListpesquisaClientes.setVisible(false);
-    }//GEN-LAST:event_camp_clienteFocusLost
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btn_buscarProduto;
     private javax.swing.JButton btn_removerItem;
-    public static javax.swing.JTextField camp_cliente;
     public static javax.swing.JTextField camp_total;
     public static javax.swing.JTextField field_itensQnt;
     public static javax.swing.JTextArea field_observacao;
     public static javax.swing.JFormattedTextField field_preco;
     public static javax.swing.JFormattedTextField field_qnt;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jListpesquisaClientes;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -440,7 +368,7 @@ public class ScreenSell extends javax.swing.JPanel {
             }
             calculoValorTotal();
             field_itensQnt.setText("" + z);
-            jLabelQuantidadeItens.setText(""+z);
+            jLabelQuantidadeItens.setText("" + z);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -474,26 +402,4 @@ public class ScreenSell extends javax.swing.JPanel {
 
     }
 
-    public void buscaCliente(){
-        
-        String pesquisa = camp_cliente.getText();
-        List<Cliente> listaClientes = new ArrayList<>();
-
-        for (int i = 0; i < bancoMariaDB.list_Cliente().size(); i++) {
-            // VERIFICA SE O NOME COMTEM NA LISTA DE CLIENTE E VERIFICA O STATUS DO CLIENTE;
-            if (bancoMariaDB.list_Cliente().get(i).getNome().contains(pesquisa) && bancoMariaDB.list_Cliente().get(i).isStatus()) {
-                Cliente c = bancoMariaDB.list_Cliente().get(i);
-                listaClientes.add(c); // ADICIONA NA LISTA CLIENTE;
-            }
-        }
-
-        DefaultListModel jlista = new DefaultListModel();
-        jlista.removeAllElements();
-        for (Cliente cliente : listaClientes) {
-            jlista.addElement(cliente.getNome());
-            jListpesquisaClientes.setModel(jlista);
-            jListpesquisaClientes.setVisible(true);
-        }
-    }
-    
 }

@@ -6,6 +6,7 @@ import br.com.classes.Endereco;
 import br.com.classes.Fornecedor;
 import br.com.classes.NumeroContato;
 import br.com.classes.Pessoa;
+import br.com.classes.Venda;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,8 +20,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
 
     Fornecedor f = null;
     Cliente cliente = null;
-    
-    
+
     public RegistrationScreen() {
         initComponents();
         preencherTableSupplier();
@@ -1379,7 +1379,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             camp_StateSupplier.setText(""); // Estado UF do fornecedor
             camp_CitySupplier.setText(""); // cidade do forncedor
             camp_ComplementSupplier.setText(""); // complemento do fornecedor
-            
+
             JOptionPane.showMessageDialog(null, "Fornecedor Registrado Com Sucesso!");
 
         } else {
@@ -1391,7 +1391,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
     private void RegisterClient() {
 
         Conexao banco = new Conexao();
-
+        List<Venda> vendas = new ArrayList<>();
         if ((field_Name.getText().length() > 0)) {
 
             Cliente cliente = new Cliente();
@@ -1402,7 +1402,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             cliente.setStatus(true);
             cliente.setClienteDesde(new Date()); // DATA QUE O CLIENTE FOI CADASTRADO;
             cliente.setDataNascimento(field_date.getDate());
-
+            cliente.setVendas(vendas);
 // ---------- ENDEREÇO -----------------
             Endereco end = new Endereco();
 
@@ -1519,7 +1519,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         for (int i = 0; i < banco.list_Cliente().size(); i++) {
             if (banco.list_Cliente().get(i).getIdpessoa().equals(tabela.getValueAt(linha, 0))) { // VERIFICA SE O ID DO OBJETO CONTEM NA LISTA DE FORNECEDORES DO BANCO DE DADOS
                 cliente = banco.list_Cliente().get(i);
-                
+
                 DefaultTableModel tabela2 = (DefaultTableModel) jtableContato.getModel();
 //              PERCORRE TODA A LISTA DE CONTATO DO CLIENTE E ADICIONA EM UMA jTable
                 try {
@@ -1773,7 +1773,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
             cliente.getEndereco().setEstadoUf(camp_StateClient.getText());
             cliente.getEndereco().setCidade(camp_CityClient.getText());
             cliente.getEndereco().setComplemento(camp_ComplementClient.getText());
-            
+
             Conexao connectbanco = new Conexao(); // abre conexao com o banco;
             connectbanco.update(cliente); // salva e atualiza classe Pai
             JOptionPane.showMessageDialog(null, "<html><font color=\"#0000FF\">DADOS ALTERADO COM SUCESSO!</font></html>");
