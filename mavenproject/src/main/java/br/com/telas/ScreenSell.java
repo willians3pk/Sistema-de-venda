@@ -3,6 +3,7 @@ package br.com.telas;
 import br.com.classes.Cliente;
 import br.com.classes.Produto;
 import br.com.conexao.Conexao;
+import static br.com.telas.ScreenFinalizarVenda.camp_cliente;
 import static br.com.telas.ScreenFinalizarVenda.jLabelQuantidadeItens;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -20,7 +21,8 @@ public class ScreenSell extends javax.swing.JPanel {
     ScreenFinalizarVenda f = new ScreenFinalizarVenda();
     Conexao bancoMariaDB = new Conexao();
     public static List<Produto> produtos = new ArrayList<>();
-    Cliente client = new Cliente();
+    public static Produto produto;
+    boolean tt = true;
 
     public ScreenSell() {
         initComponents();
@@ -35,6 +37,10 @@ public class ScreenSell extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable_produto = new javax.swing.JTable();
+        camp_total = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        btn_finalizar = new javax.swing.JButton();
+        btn_removerItem = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jlabel_totalVenda = new javax.swing.JLabel();
@@ -44,11 +50,14 @@ public class ScreenSell extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         btn_buscarProduto = new javax.swing.JButton();
-        btn_removerItem = new javax.swing.JButton();
-        camp_total = new javax.swing.JTextField();
+        camp_buscarProduto = new javax.swing.JTextField();
+        btn_adcionar = new javax.swing.JButton();
+        camp_apelido = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        camp_tamanho = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        btn_limpa = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -66,7 +75,7 @@ public class ScreenSell extends javax.swing.JPanel {
 
             },
             new String [] {
-                "codigo_item", "nome", "valor", "quantidade"
+                "Codigo_item", "Nome", "Valor", "Qtde:"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -90,7 +99,36 @@ public class ScreenSell extends javax.swing.JPanel {
         jScrollPane3.setViewportView(jTable_produto);
 
         jPanel3.add(jScrollPane3);
-        jScrollPane3.setBounds(10, 110, 710, 390);
+        jScrollPane3.setBounds(220, 110, 500, 190);
+
+        camp_total.setEditable(false);
+        camp_total.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        jPanel3.add(camp_total);
+        camp_total.setBounds(220, 320, 150, 40);
+
+        jLabel9.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel9.setText("Total:");
+        jPanel3.add(jLabel9);
+        jLabel9.setBounds(220, 300, 100, 20);
+
+        btn_finalizar.setText("Finalizar");
+        btn_finalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_finalizarActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btn_finalizar);
+        btn_finalizar.setBounds(590, 320, 130, 40);
+
+        btn_removerItem.setText("Remover ");
+        btn_removerItem.setEnabled(false);
+        btn_removerItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_removerItemActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btn_removerItem);
+        btn_removerItem.setBounds(430, 320, 130, 40);
 
         add(jPanel3);
         jPanel3.setBounds(10, 10, 730, 510);
@@ -131,66 +169,91 @@ public class ScreenSell extends javax.swing.JPanel {
             }
         });
         jPanel5.add(field_qnt);
-        field_qnt.setBounds(140, 190, 120, 40);
+        field_qnt.setBounds(150, 110, 110, 40);
 
         field_preco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         field_preco.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         jPanel5.add(field_preco);
-        field_preco.setBounds(10, 190, 110, 40);
+        field_preco.setBounds(10, 110, 110, 40);
 
         jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel5.setText("Produto:");
+        jLabel5.setText("Localize o produto / serviço abaixo");
         jPanel5.add(jLabel5);
-        jLabel5.setBounds(10, 90, 110, 20);
+        jLabel5.setBounds(10, 10, 350, 20);
 
         jLabel6.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel6.setText("Qnt:");
+        jLabel6.setText("Tamanho:");
         jPanel5.add(jLabel6);
-        jLabel6.setBounds(140, 170, 100, 20);
+        jLabel6.setBounds(190, 170, 100, 20);
 
         jLabel7.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel7.setText("Preço:");
+        jLabel7.setText("Apelido:");
         jPanel5.add(jLabel7);
-        jLabel7.setBounds(10, 170, 100, 20);
-
-        jLabel9.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel9.setText("Total:");
-        jPanel5.add(jLabel9);
-        jLabel9.setBounds(20, 260, 100, 20);
-
-        jButton1.setText("OK");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel5.add(jButton1);
-        jButton1.setBounds(230, 350, 130, 40);
+        jLabel7.setBounds(10, 170, 80, 20);
 
         btn_buscarProduto.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        btn_buscarProduto.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btn_buscarProduto.setText("...");
+        btn_buscarProduto.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        btn_buscarProduto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_buscarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_buscarProdutoActionPerformed(evt);
             }
         });
         jPanel5.add(btn_buscarProduto);
-        btn_buscarProduto.setBounds(10, 110, 360, 40);
+        btn_buscarProduto.setBounds(340, 40, 30, 40);
 
-        btn_removerItem.setText("Remover ");
-        btn_removerItem.setEnabled(false);
-        btn_removerItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_removerItemActionPerformed(evt);
+        camp_buscarProduto.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        camp_buscarProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                camp_buscarProdutoFocusLost(evt);
             }
         });
-        jPanel5.add(btn_removerItem);
-        btn_removerItem.setBounds(20, 350, 130, 40);
+        camp_buscarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                camp_buscarProdutoActionPerformed(evt);
+            }
+        });
+        jPanel5.add(camp_buscarProduto);
+        camp_buscarProduto.setBounds(10, 40, 320, 40);
 
-        camp_total.setEditable(false);
-        camp_total.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        jPanel5.add(camp_total);
-        camp_total.setBounds(10, 280, 360, 40);
+        btn_adcionar.setText("ADICIOINAR ITEM");
+        btn_adcionar.setEnabled(false);
+        btn_adcionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_adcionarActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btn_adcionar);
+        btn_adcionar.setBounds(10, 280, 360, 50);
+
+        camp_apelido.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jPanel5.add(camp_apelido);
+        camp_apelido.setBounds(10, 190, 160, 40);
+
+        jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel8.setText("Preço unitario:");
+        jPanel5.add(jLabel8);
+        jLabel8.setBounds(10, 90, 120, 20);
+
+        camp_tamanho.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jPanel5.add(camp_tamanho);
+        camp_tamanho.setBounds(190, 190, 170, 40);
+
+        jLabel12.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel12.setText("Qnt:");
+        jPanel5.add(jLabel12);
+        jLabel12.setBounds(150, 90, 100, 20);
+
+        btn_limpa.setText("LIMPAR CAMPOS");
+        btn_limpa.setEnabled(false);
+        btn_limpa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_limpaActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btn_limpa);
+        btn_limpa.setBounds(10, 340, 360, 50);
 
         add(jPanel5);
         jPanel5.setBounds(750, 120, 380, 400);
@@ -235,9 +298,11 @@ public class ScreenSell extends javax.swing.JPanel {
                 produtos.remove(produtos.get(i)); // remove o item;
                 adicionarItens();
                 //limpa os campos
+                camp_buscarProduto.setText("");
                 btn_buscarProduto.setText("");
                 field_preco.setText("0,00");
                 field_qnt.setText("0");
+                field_qnt.setEnabled(false);
                 break;
             }
         }
@@ -245,39 +310,38 @@ public class ScreenSell extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_removerItemActionPerformed
 
     private void jTable_produtoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_produtoKeyReleased
-        carregaCampo();
+        carregaCampoSelecionado();
     }//GEN-LAST:event_jTable_produtoKeyReleased
 
     private void jTable_produtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_produtoMouseClicked
-        carregaCampo();
+        carregaCampoSelecionado();
         btn_removerItem.setEnabled(true);
         field_qnt.setEnabled(true);
     }//GEN-LAST:event_jTable_produtoMouseClicked
 
     private void btn_buscarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarProdutoActionPerformed
-        s.setLista(produtos);
+
         s.setVisible(true);
         s.carregaCampos();
-        s.quantidadeItems.setValue(0); // toda vez que for buscar um produto a quantidade vai iniciar sempre em zero
+        s.setVariavelProduto(produto);
         s.field_nome.setText("");
         btn_removerItem.setEnabled(false);
 
     }//GEN-LAST:event_btn_buscarProdutoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarActionPerformed
 
+        camp_cliente.requestFocus();
         btn_removerItem.setEnabled(false);
         f.setVisible(true);
         f.setLista(produtos);
         f.valorTotal();
-        f.setCliente(client);
         f.dataVenda.setDate(new Date()); // sempre adiciona a data atual
         f.camp_qtdeParcelas.setVisible(false);
         f.camp_valorParcelas.setVisible(false);
         f.carregarComboBox();
 
-
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btn_finalizarActionPerformed
 
     private void field_qntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_qntActionPerformed
         DefaultTableModel tableDefault = (DefaultTableModel) jTable_produto.getModel();
@@ -303,29 +367,135 @@ public class ScreenSell extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "SELECIONE O ITEM NA TABELA");
         }
 
-
     }//GEN-LAST:event_field_qntActionPerformed
 
     private void field_qntMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_field_qntMouseClicked
         btn_removerItem.setEnabled(false);
     }//GEN-LAST:event_field_qntMouseClicked
 
+    private void camp_buscarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camp_buscarProdutoActionPerformed
+        String pesquisa = camp_buscarProduto.getText();
+        List<Produto> listaProduto = new ArrayList<>();
+
+        for (int i = 0; i < bancoMariaDB.productBook().size(); i++) {
+            // VERIFICA SE O NOME COMTEM NA LISTA DE PRODUTO E VERIFICA O STATUS DO PRODUTO;
+            if (bancoMariaDB.productBook().get(i).getNome().contains(pesquisa) && bancoMariaDB.productBook().get(i).isStatus()) {
+                produto = bancoMariaDB.productBook().get(i);
+//                listaProduto.add(produto); // ADICIONA NA LISTA PRODUTO;
+            }
+        }
+        camp_buscarProduto.setText(produto.getNome());
+        camp_apelido.setText(produto.getApelido());
+        camp_tamanho.setText(produto.getTamanho());
+        field_preco.setText("" + produto.getValor_venda());
+        field_qnt.setText("" + 1);
+        btn_adcionar.setEnabled(true);
+        field_qnt.setEnabled(true);
+        btn_limpa.setEnabled(true);
+    }//GEN-LAST:event_camp_buscarProdutoActionPerformed
+
+    private void camp_buscarProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_camp_buscarProdutoFocusLost
+        if (camp_buscarProduto.getText().length() <= 0) {
+            camp_apelido.setText("");
+            camp_tamanho.setText("");
+            field_preco.setText("");
+            field_qnt.setText("");
+            btn_adcionar.setEnabled(false);
+            field_qnt.setEnabled(false);
+        }
+    }//GEN-LAST:event_camp_buscarProdutoFocusLost
+
+    private void btn_adcionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adcionarActionPerformed
+        DefaultTableModel tableDefault = (DefaultTableModel) jTable_produto.getModel();
+
+        try {
+            for (int i = 0; i < bancoMariaDB.productBook().size(); i++) {
+                if (bancoMariaDB.productBook().get(i).getIdProduto().equals(produto.getIdProduto())) {// VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
+                    int quantidade = bancoMariaDB.productBook().get(i).getQnt(); // pega quantidade que tem em estoque;
+
+                    if (Integer.parseInt(field_qnt.getText()) > quantidade) {
+                        field_qnt.setText(String.valueOf(produto.getQnt()));
+                        JOptionPane.showMessageDialog(null, "<html><font color=\"#FF0000\">ITEM SÓ CONTÉM " + quantidade + " EM ESTOQUE</font></html>");
+                    } else {
+                        for (Produto produto2 : produtos) {
+                            // faz a comparação do item se ja tem na lista, e só atualiza a quantidade de item;
+                            if (produto2.getIdProduto().equals(produto.getIdProduto()) & (Integer.parseInt(field_qnt.getText()) + produto2.getQnt() <= produto.getQnt())) {
+
+                                produto2.setQnt(Integer.parseInt(field_qnt.getText()) + produto2.getQnt()); // adiciona o produto + a quantidade que ele ja tinha;
+                                adicionarItens(); // adiciona os itens na tabela de itens na tela vendas;
+                                System.out.println(produto2.getNome());
+                                camp_buscarProduto.setText("");
+                                camp_apelido.setText("");
+                                camp_tamanho.setText("");
+                                field_preco.setText("");
+                                field_qnt.setText("");
+                                field_qnt.setEnabled(false);
+                                btn_adcionar.setEnabled(false);
+                                tt = false; // impedi de repetir o item na tebela;
+                                break;
+                            }
+
+                        }
+                        if (tt) {
+                            produto.setQnt(Integer.parseInt(field_qnt.getText()));
+                            produtos.add(produto);
+                            camp_buscarProduto.setText("");
+                            camp_apelido.setText("");
+                            camp_tamanho.setText("");
+                            field_preco.setText("");
+                            field_qnt.setText("");
+                            field_qnt.setEnabled(false);
+                            btn_adcionar.setEnabled(false);
+                            adicionarItens();
+                        }
+                        tt = true;
+                    }
+                    camp_total.requestFocus(); // muda o foco do cursor do mouse
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "SELECIONE O ITEM NA TABELA");
+        }
+
+        adicionarItens();
+    }//GEN-LAST:event_btn_adcionarActionPerformed
+
+    private void btn_limpaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpaActionPerformed
+        camp_buscarProduto.setText("");
+        camp_apelido.setText("");
+        camp_tamanho.setText("");
+        field_preco.setText("");
+        field_qnt.setText("");
+        field_qnt.setEnabled(false);
+        btn_adcionar.setEnabled(false);
+        btn_limpa.setEnabled(false);
+    }//GEN-LAST:event_btn_limpaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JButton btn_adcionar;
     public static javax.swing.JButton btn_buscarProduto;
+    private javax.swing.JButton btn_finalizar;
+    public static javax.swing.JButton btn_limpa;
     private javax.swing.JButton btn_removerItem;
+    public static javax.swing.JTextField camp_apelido;
+    public static javax.swing.JTextField camp_buscarProduto;
+    public static javax.swing.JTextField camp_tamanho;
     public static javax.swing.JTextField camp_total;
     public static javax.swing.JTextField field_itensQnt;
     public static javax.swing.JTextArea field_observacao;
     public static javax.swing.JFormattedTextField field_preco;
     public static javax.swing.JFormattedTextField field_qnt;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -391,15 +561,27 @@ public class ScreenSell extends javax.swing.JPanel {
 
     }
 
-    public static void carregaCampo() {
+    public static void carregaCampoSelecionado() {
 
         DefaultTableModel tableDefault = (DefaultTableModel) jTable_produto.getModel();
         int posicao = jTable_produto.getSelectedRow(); // pegar a posição na linha selecionada;
 
-        btn_buscarProduto.setText(tableDefault.getValueAt(posicao, 1).toString()); //Nome do produto
+        camp_buscarProduto.setText(tableDefault.getValueAt(posicao, 1).toString()); //Nome do produto
         field_preco.setText(tableDefault.getValueAt(posicao, 2).toString()); // preco do produto
         field_qnt.setText(tableDefault.getValueAt(posicao, 3).toString()); //quantidade do item
 
+    }
+
+    public static void carregaCampos(Produto pp) {
+        produto = pp;
+        camp_buscarProduto.setText(produto.getNome());
+        camp_tamanho.setText(produto.getTamanho());
+        camp_apelido.setText(produto.getApelido());
+        field_preco.setText("" + produto.getValor_venda());
+        field_qnt.setText("" + 1);
+        btn_adcionar.setEnabled(true);
+        btn_limpa.setEnabled(true);
+        field_qnt.setEnabled(true);
     }
 
 }

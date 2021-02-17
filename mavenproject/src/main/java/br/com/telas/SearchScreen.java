@@ -21,22 +21,23 @@ import javax.swing.table.DefaultTableModel;
 public class SearchScreen extends javax.swing.JFrame {
 
     Conexao banco = new Conexao();
-    List<Produto> lista;
+    Produto variavelProduto;
     ScreenSell telaVenda;
     boolean tt = true;
 
-    public List<Produto> getLista() {
-        return lista;
+    public Produto getVariavelProduto() {
+        return variavelProduto;
     }
 
-    public void setLista(List<Produto> lista) {
-        this.lista = lista;
+    public void setVariavelProduto(Produto variavelProduto) {
+        this.variavelProduto = variavelProduto;
     }
 
+    
+    
     public SearchScreen() {
         initComponents();
         btn_ok.setEnabled(false);
-        quantidadeItems.setEnabled(false);
     }
 
     /**
@@ -52,12 +53,11 @@ public class SearchScreen extends javax.swing.JFrame {
         field_nome = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btn_Buscar = new javax.swing.JButton();
-        quantidadeItems = new com.toedter.components.JSpinField();
-        jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela_busca = new javax.swing.JTable();
         btn_ok = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("buscar produto");
@@ -77,7 +77,7 @@ public class SearchScreen extends javax.swing.JFrame {
             }
         });
         jPanel1.add(field_nome);
-        field_nome.setBounds(10, 30, 320, 40);
+        field_nome.setBounds(10, 30, 450, 40);
 
         jLabel1.setText("Nome:");
         jPanel1.add(jLabel1);
@@ -91,12 +91,6 @@ public class SearchScreen extends javax.swing.JFrame {
         });
         jPanel1.add(btn_Buscar);
         btn_Buscar.setBounds(480, 30, 90, 40);
-        jPanel1.add(quantidadeItems);
-        quantidadeItems.setBounds(360, 30, 60, 40);
-
-        jLabel2.setText("Qnt:");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(360, 10, 26, 16);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(10, 10, 590, 80);
@@ -114,7 +108,7 @@ public class SearchScreen extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -129,7 +123,7 @@ public class SearchScreen extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabela_busca);
 
         jPanel2.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 20, 570, 140);
+        jScrollPane1.setBounds(10, 20, 570, 150);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(10, 100, 590, 180);
@@ -143,6 +137,15 @@ public class SearchScreen extends javax.swing.JFrame {
         getContentPane().add(btn_ok);
         btn_ok.setBounds(474, 290, 120, 40);
 
+        jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(340, 290, 120, 40);
+
         setSize(new java.awt.Dimension(624, 368));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -153,23 +156,41 @@ public class SearchScreen extends javax.swing.JFrame {
 
     private void tabela_buscaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabela_buscaMouseClicked
         btn_ok.setEnabled(true);
-        quantidadeItems.setEnabled(true);
     }//GEN-LAST:event_tabela_buscaMouseClicked
 
     private void field_nomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_field_nomeMouseClicked
         btn_ok.setEnabled(false);
-        quantidadeItems.setEnabled(false);
     }//GEN-LAST:event_field_nomeMouseClicked
 
     private void btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BuscarActionPerformed
         carregaCampos();
         btn_ok.setEnabled(false);
-        quantidadeItems.setEnabled(false);
     }//GEN-LAST:event_btn_BuscarActionPerformed
 
     private void btn_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_okActionPerformed
-        adicionaNaTable();
+//        adicionaNaTable();
+        DefaultTableModel tableDefault = (DefaultTableModel) tabela_busca.getModel();
+        int linha = tabela_busca.getSelectedRow();
+        for (int i = 0; i < banco.productBook().size(); i++) {
+            if (banco.productBook().get(i).getIdProduto().equals(tableDefault.getValueAt(linha, 0))) {// VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
+                Produto item = banco.productBook().get(i); // pega o produto da lista do banco de dados;
+
+                // verifica se a quantidade de itens selecionado é maior que a quantidade que tem em estoque;
+                if (item.getQnt()<= 0) {
+                    JOptionPane.showMessageDialog(null, "Produto só contém " + item.getQnt() + " em estoque");
+
+                } else {
+                    variavelProduto = banco.productBook().get(i);
+                    telaVenda.carregaCampos(variavelProduto); // adiciona os itens na tabela de itens na tela vendas;
+                    dispose();
+                }
+            }
+        }
     }//GEN-LAST:event_btn_okActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,12 +236,11 @@ public class SearchScreen extends javax.swing.JFrame {
     private javax.swing.JButton btn_Buscar;
     private javax.swing.JButton btn_ok;
     public javax.swing.JTextField field_nome;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    public com.toedter.components.JSpinField quantidadeItems;
     private javax.swing.JTable tabela_busca;
     // End of variables declaration//GEN-END:variables
 
@@ -229,7 +249,6 @@ public class SearchScreen extends javax.swing.JFrame {
         Conexao banco = new Conexao();
         String pesquisa = field_nome.getText();
         List<Produto> produto = new ArrayList<Produto>();
-        quantidadeItems.setEnabled(false);
         btn_ok.setEnabled(false);
         for (int i = 0; i < banco.productBook().size(); i++) {
             // VERIFICA SE O NOME COMTEM NA LISTA DE produto E VERIFICA O STATUS DO produto;
@@ -255,59 +274,58 @@ public class SearchScreen extends javax.swing.JFrame {
         }
     }
 
-    private void adicionaNaTable() {
-        DefaultTableModel tableDefault = (DefaultTableModel) tabela_busca.getModel();
-        int linha = tabela_busca.getSelectedRow();
-        for (int i = 0; i < banco.productBook().size(); i++) {
-            if (banco.productBook().get(i).getIdProduto().equals(tableDefault.getValueAt(linha, 0))) {// VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
-                Produto item = banco.productBook().get(i); // pega o produto da lista do banco de dados;
-
-                // verifica se a quantidade de itens selecionado é maior que a quantidade que tem em estoque;
-                if (quantidadeItems.getValue() > item.getQnt() || quantidadeItems.getValue() == 0) {
-                    JOptionPane.showMessageDialog(null, "Produto só contém " + item.getQnt() + " em estoque, Por favor selecione a quantidade");
-
-                } else {
-                    // faz a comparação do item se ja tem na lista, e só atualiza a quantidade de item;
-                    try {
-
-                        if (lista.size() <= 0) {
-                            item.setQnt(quantidadeItems.getValue());
-                            lista.add(item); // adicionar o item na lista;
-                            telaVenda.adicionarItens(); // adiciona os itens na tabela de itens na tela vendas;
-                            dispose();
-                        } else {
-
-                            for (Produto produto : lista) {
-                                System.out.println(item.getNome());
-                                System.out.println(produto.getNome());
-
-                                if (produto.getNome().equals(item.getNome())) {
-
-                                    produto.setQnt(quantidadeItems.getValue() + produto.getQnt()); // adiciona o produto + a quantidade que ele ja tinha;
-                                    telaVenda.adicionarItens(); // adiciona os itens na tabela de itens na tela vendas;
-                                    System.out.println(produto.getNome());
-                                    tt = false; // impedi de repetir o item na tebela;
-                                    dispose();
-                                    break;
-                                }
-
-                            }
-                            if (tt) {
-                                item.setQnt(quantidadeItems.getValue());
-                                lista.add(item); // adicionar o item na lista;
-                                telaVenda.adicionarItens(); // adiciona os itens na tabela de itens na tela vendas;
-                                dispose();
-                            }
-                            tt = true;
-                        }
-
-                    } catch (Exception e) {
-                        System.out.println(e);
-                    }
-
-                }
-
-            }
-        }
-    }
+//    private void adicionaNaTable() {
+//        DefaultTableModel tableDefault = (DefaultTableModel) tabela_busca.getModel();
+//        int linha = tabela_busca.getSelectedRow();
+//        for (int i = 0; i < banco.productBook().size(); i++) {
+//            if (banco.productBook().get(i).getIdProduto().equals(tableDefault.getValueAt(linha, 0))) {// VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
+//                Produto item = banco.productBook().get(i); // pega o produto da lista do banco de dados;
+//
+//                // verifica se a quantidade de itens selecionado é maior que a quantidade que tem em estoque;
+//                if (quantidadeItems.getValue() > item.getQnt() || quantidadeItems.getValue() == 0) {
+//                    JOptionPane.showMessageDialog(null, "Produto só contém " + item.getQnt() + " em estoque, Por favor selecione a quantidade");
+//
+//                } else {
+//
+//                    try {
+//
+//                        if (lista.size() <= 0) {
+//                            item.setQnt(quantidadeItems.getValue());
+//                            lista.add(item); // adicionar o item na lista;
+//                            telaVenda.adicionarItens(); // adiciona os itens na tabela de itens na tela vendas;
+//                            dispose();
+//                        } else {
+//
+//                            for (Produto produto : lista) {
+//                                // faz a comparação do item se ja tem na lista, e só atualiza a quantidade de item;
+//                                if (produto.getIdProduto().equals(item.getIdProduto()) & (quantidadeItems.getValue() + produto.getQnt() <= item.getQnt())) { // CORRIGIR A COMPARAÇÃO POR ID;
+//
+//                                    produto.setQnt(quantidadeItems.getValue() + produto.getQnt()); // adiciona o produto + a quantidade que ele ja tinha;
+//                                    telaVenda.adicionarItens(); // adiciona os itens na tabela de itens na tela vendas;
+//                                    System.out.println(produto.getNome());
+//                                    tt = false; // impedi de repetir o item na tebela;
+//                                    dispose();
+//                                    break;
+//                                }
+//
+//                            }
+//                            if (tt) {
+//                                item.setQnt(quantidadeItems.getValue());
+//                                lista.add(item); // adicionar o item na lista;
+//                                telaVenda.adicionarItens(); // adiciona os itens na tabela de itens na tela vendas;
+//                                dispose();
+//                            }
+//
+//                        }
+//                        tt = true;
+//
+//                    } catch (Exception e) {
+//                        System.out.println(e);
+//                    }
+//
+//                }
+//
+//            }
+//        }
+//    }
 }

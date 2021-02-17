@@ -274,7 +274,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jLabelValorTotal.setForeground(new java.awt.Color(255, 0, 0));
         jLabelValorTotal.setText("TOTAL");
         jPanel2.add(jLabelValorTotal);
-        jLabelValorTotal.setBounds(740, 30, 210, 40);
+        jLabelValorTotal.setBounds(710, 30, 270, 40);
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
         jLabel2.setText("TOTAL DA VENDA:");
@@ -291,18 +291,22 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     private void btn_finalizarvendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarvendaActionPerformed
 
         try {
-            if (campvalorPago.getText().length() > 0 & !dataVenda.getDate().equals("") & lista.size() > 0 & comboBOX_FormaPagamento.getSelectedIndex() <= 2) {
-                finalizarVenda();
-            } else if (comboBOX_FormaPagamento.getSelectedIndex() == 5 & camp_qtdeParcelas.getText().length() > 0 & lista.size() > 0) {
-                vendaParcelada();
-            } else if (comboBOX_FormaPagamento.getSelectedIndex() == 3 & lista.size() > 0) {
-                vendaAprazo();
-            } else if (campvalorPago.getText().length() > 0 & !dataVenda.getDate().equals("") & lista.size() > 0 & comboBOX_FormaPagamento.getSelectedIndex() == 4) {
-                finalizarVenda();
-            } else {
-                JOptionPane.showMessageDialog(null, "Preencha os Campos relevantes a Forma de Pagamento!");
+            int confirmacao = JOptionPane.showConfirmDialog(null, "<html>Você Deseja <html><font color=\"#FF0000\">*FINALIZAR A VENDA*?</font></html></html>", "FINALIZAR A VENDA", JOptionPane.YES_NO_OPTION);
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                if (campvalorPago.getText().length() > 0 & !dataVenda.getDate().equals("") & lista.size() > 0 & comboBOX_FormaPagamento.getSelectedIndex() <= 2) {
+                    finalizarVenda();
+                } else if (comboBOX_FormaPagamento.getSelectedIndex() == 5 & camp_qtdeParcelas.getText().length() > 0 & lista.size() > 0) {
+                    vendaParcelada();
+                } else if (comboBOX_FormaPagamento.getSelectedIndex() == 3 & lista.size() > 0) {
+                    vendaAprazo();
+                } else if (campvalorPago.getText().length() > 0 & !dataVenda.getDate().equals("") & lista.size() > 0 & comboBOX_FormaPagamento.getSelectedIndex() == 4) {
+                    finalizarVenda();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Preencha os Campos relevantes a Forma de Pagamento!");
+                }
             }
         } catch (Exception e) {
+            System.out.println(e);
             JOptionPane.showMessageDialog(null, "Preencha os Campos relevantes!");
         }
 
@@ -322,6 +326,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         camp_cliente.setText("");
         telaVenda.field_preco.setText("0,00");
         telaVenda.field_qnt.setText("0");
+        telaVenda.camp_buscarProduto.setText("");
         dispose();
     }//GEN-LAST:event_btn_cancelarVendaActionPerformed
 
@@ -546,7 +551,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", "."));
         double troco = valortotal - valorPago;
 
-        System.out.println("Cliente: " + client.getNome());
+        
         venda.setStatus(true);
         venda.setDataVenda(dataVenda.getDate()); // data da venda
         venda.setValorTotal(Double.parseDouble(camptotal.getText().replace("R$", "").trim())); // valor total da venda
@@ -555,8 +560,9 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         venda.setTroco(troco); // troco da venda;
         venda.setFormaPagamento(listaPagamento); // adiciona a lista de pagamento na venda;
         venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));// pega a forma de pagamento da venda;
-
+        
         if (camp_cliente.getText().length() > 0) {
+            System.out.println("Cliente: " + client.getNome());
             venda.setCliente(client); // adiciona o cliente na venda;
             client.getVendas().add(venda); // adiciona a venda na lista de cliente;
             bancoMariaDB.update(client);
