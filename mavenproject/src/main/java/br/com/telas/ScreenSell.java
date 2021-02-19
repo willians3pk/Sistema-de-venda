@@ -1,8 +1,8 @@
 package br.com.telas;
 
-import br.com.classes.Cliente;
 import br.com.classes.Produto;
 import br.com.conexao.Conexao;
+import static br.com.telas.MainScreen.jDesktopPane1;
 import static br.com.telas.ScreenFinalizarVenda.camp_cliente;
 import static br.com.telas.ScreenFinalizarVenda.jLabelQuantidadeItens;
 import java.text.NumberFormat;
@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -19,6 +18,7 @@ public class ScreenSell extends javax.swing.JPanel {
 
     SearchScreen s = new SearchScreen();
     ScreenFinalizarVenda f = new ScreenFinalizarVenda();
+    ScreenHistorico sH = new ScreenHistorico();
     Conexao bancoMariaDB = new Conexao();
     public static List<Produto> produtos = new ArrayList<>();
     public static Produto produto;
@@ -28,6 +28,7 @@ public class ScreenSell extends javax.swing.JPanel {
         initComponents();
         field_preco.setEnabled(false);
         field_qnt.setEnabled(false);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -41,6 +42,7 @@ public class ScreenSell extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         btn_finalizar = new javax.swing.JButton();
         btn_removerItem = new javax.swing.JButton();
+        btn_historico = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jlabel_totalVenda = new javax.swing.JLabel();
@@ -99,17 +101,17 @@ public class ScreenSell extends javax.swing.JPanel {
         jScrollPane3.setViewportView(jTable_produto);
 
         jPanel3.add(jScrollPane3);
-        jScrollPane3.setBounds(220, 110, 500, 190);
+        jScrollPane3.setBounds(220, 250, 500, 190);
 
         camp_total.setEditable(false);
         camp_total.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         jPanel3.add(camp_total);
-        camp_total.setBounds(220, 320, 150, 40);
+        camp_total.setBounds(220, 460, 150, 40);
 
         jLabel9.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel9.setText("Total:");
         jPanel3.add(jLabel9);
-        jLabel9.setBounds(220, 300, 100, 20);
+        jLabel9.setBounds(220, 440, 100, 20);
 
         btn_finalizar.setText("Finalizar");
         btn_finalizar.addActionListener(new java.awt.event.ActionListener() {
@@ -118,7 +120,7 @@ public class ScreenSell extends javax.swing.JPanel {
             }
         });
         jPanel3.add(btn_finalizar);
-        btn_finalizar.setBounds(590, 320, 130, 40);
+        btn_finalizar.setBounds(590, 460, 130, 40);
 
         btn_removerItem.setText("Remover ");
         btn_removerItem.setEnabled(false);
@@ -128,7 +130,16 @@ public class ScreenSell extends javax.swing.JPanel {
             }
         });
         jPanel3.add(btn_removerItem);
-        btn_removerItem.setBounds(430, 320, 130, 40);
+        btn_removerItem.setBounds(430, 460, 130, 40);
+
+        btn_historico.setText("Historicos");
+        btn_historico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_historicoActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btn_historico);
+        btn_historico.setBounds(560, 10, 160, 40);
 
         add(jPanel3);
         jPanel3.setBounds(10, 10, 730, 510);
@@ -171,6 +182,7 @@ public class ScreenSell extends javax.swing.JPanel {
         jPanel5.add(field_qnt);
         field_qnt.setBounds(150, 110, 110, 40);
 
+        field_preco.setEditable(false);
         field_preco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         field_preco.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         jPanel5.add(field_preco);
@@ -384,14 +396,19 @@ public class ScreenSell extends javax.swing.JPanel {
 //                listaProduto.add(produto); // ADICIONA NA LISTA PRODUTO;
             }
         }
-        camp_buscarProduto.setText(produto.getNome());
-        camp_apelido.setText(produto.getApelido());
-        camp_tamanho.setText(produto.getTamanho());
-        field_preco.setText("" + produto.getValor_venda());
-        field_qnt.setText("" + 1);
-        btn_adcionar.setEnabled(true);
-        field_qnt.setEnabled(true);
-        btn_limpa.setEnabled(true);
+        try {
+            camp_buscarProduto.setText(produto.getNome());
+            camp_apelido.setText(produto.getApelido());
+            camp_tamanho.setText(produto.getTamanho());
+            field_preco.setText("" + produto.getValor_venda());
+            field_qnt.setText("" + 1);
+            btn_adcionar.setEnabled(true);
+            field_qnt.setEnabled(true);
+            btn_limpa.setEnabled(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Item não encontrado!");
+        }
+
     }//GEN-LAST:event_camp_buscarProdutoActionPerformed
 
     private void camp_buscarProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_camp_buscarProdutoFocusLost
@@ -473,11 +490,23 @@ public class ScreenSell extends javax.swing.JPanel {
         btn_limpa.setEnabled(false);
     }//GEN-LAST:event_btn_limpaActionPerformed
 
+    private void btn_historicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_historicoActionPerformed
+
+        jDesktopPane1.removeAll();
+        sH.setLocation(0, 0);
+        sH.setSize(1140, 650);
+        sH.setVisible(true);
+        sH.carregarTabelaVendas();
+        jDesktopPane1.add(sH);
+
+    }//GEN-LAST:event_btn_historicoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btn_adcionar;
     public static javax.swing.JButton btn_buscarProduto;
     private javax.swing.JButton btn_finalizar;
+    private javax.swing.JButton btn_historico;
     public static javax.swing.JButton btn_limpa;
     private javax.swing.JButton btn_removerItem;
     public static javax.swing.JTextField camp_apelido;
@@ -515,9 +544,9 @@ public class ScreenSell extends javax.swing.JPanel {
         TableColumn colQuant = jTable_produto.getColumnModel().getColumn(3);
 
         colCodigo.setPreferredWidth(5);
-        colNome.setPreferredWidth(200);
+        colNome.setPreferredWidth(220);
         colPreço.setPreferredWidth(10);
-        colQuant.setPreferredWidth(15);
+        colQuant.setPreferredWidth(5);
         try {
             Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
             NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);

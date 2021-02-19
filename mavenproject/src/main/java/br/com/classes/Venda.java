@@ -30,9 +30,12 @@ public class Venda {
     @OneToOne(fetch = FetchType.EAGER)
     @Cascade({CascadeType.SAVE_UPDATE})
     private Usuario usuario;
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @Cascade({CascadeType.ALL})
     private List<FormaPagamento> formaPagamento;
+    @OneToMany(fetch = FetchType.EAGER)
+    @Cascade({CascadeType.ALL})
+    private List<Parcelas> parcelas;
     
     private int codigoVenda;
     private Date dataVenda;
@@ -40,9 +43,6 @@ public class Venda {
     private double taxa_juros;
     private double valor_pago;
     private double valorTotal;
-    @OneToMany(fetch = FetchType.EAGER)
-    @Cascade({CascadeType.ALL})
-    private List<Parcelas> parcelas;
     private Date prazo;
     private String descricao;
 
@@ -180,4 +180,17 @@ public class Venda {
         this.troco = troco;
     }
 
+    public String FormaPagamento(){
+        for (FormaPagamento formaPagamento1 : formaPagamento) {
+            return formaPagamento1.getDescricao();
+        }
+        return null;
+    }
+ 
+    public void adicionarItens(List<ItensVenda> itens){
+        for (ItensVenda iten : itens) {
+            
+        }
+    }
+    
 }

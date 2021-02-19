@@ -5,9 +5,17 @@
  */
 package br.com.telas;
 
+import br.com.classes.Cliente;
+import br.com.classes.Endereco;
+import br.com.classes.FormaPagamento;
+import br.com.classes.Pessoa;
+import br.com.classes.Venda;
+import br.com.conexao.Conexao;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -25,6 +33,7 @@ public class MainScreen extends javax.swing.JFrame {
         initComponents();
         standardColor = new Color(240, 240, 240);
         data();
+        
     }
 
     /**
@@ -271,7 +280,7 @@ public class MainScreen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel horariodoSystema;
-    private javax.swing.JDesktopPane jDesktopPane1;
+    public static javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -294,6 +303,45 @@ public class MainScreen extends javax.swing.JFrame {
         Date dataSistema = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         horariodoSystema.setText(formato.format(dataSistema));
+    
+        Conexao bancoDAO = new Conexao();
+        if(bancoDAO.list_Cliente().size() <= 0){
+            Cliente consumidor = new Cliente();
+            List<Venda> vendas = new ArrayList<>();
+            Endereco end = new Endereco();
+            end.setCep(0);
+            end.setNumeroCasa(SOMEBITS);
+            consumidor.setNome("CONSUMIDOR");
+            consumidor.setEndereco(end);
+            consumidor.setStatus(true);
+            consumidor.setCpf(Long.MIN_VALUE);
+            consumidor.setClienteDesde(new Date()); // DATA QUE O CLIENTE FOI CADASTRADO;
+            
+            consumidor.setVendas(vendas);
+            bancoDAO.save(consumidor);
+        }
+        
+        if(bancoDAO.listFormPagamento().size() <= 0){
+            FormaPagamento formapagamento = new FormaPagamento();
+            formapagamento.setDescricao("DINHEIRO A VISTA");
+            bancoDAO.save(formapagamento);
+            FormaPagamento formapagamento1 = new FormaPagamento();
+            formapagamento1.setDescricao("CARTÃO DE DEBITO");
+            bancoDAO.save(formapagamento1);
+            FormaPagamento formapagamento2 = new FormaPagamento();
+            formapagamento2.setDescricao("CARTÃO DE CREDITO");
+            bancoDAO.save(formapagamento2);
+            FormaPagamento formapagamento3 = new FormaPagamento();
+            formapagamento3.setDescricao("A PRAZO");
+            bancoDAO.save(formapagamento3);
+            FormaPagamento formapagamento4 = new FormaPagamento();
+            formapagamento4.setDescricao("TRANSFERENCIA");
+            bancoDAO.save(formapagamento4);
+            FormaPagamento formapagamento5 = new FormaPagamento();
+            formapagamento5.setDescricao("PARCELADO");
+            bancoDAO.save(formapagamento5);
+            
+        }
     }
 
 }

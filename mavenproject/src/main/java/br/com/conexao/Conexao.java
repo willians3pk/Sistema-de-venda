@@ -13,6 +13,7 @@ import br.com.classes.FormaPagamento;
 import br.com.classes.ItensVenda;
 import br.com.classes.NumeroContato;
 import br.com.classes.Pessoa;
+import br.com.classes.Venda;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.Session;
@@ -275,7 +276,7 @@ public class Conexao {
     }
 
     public List<FormaPagamento> listFormPagamento() {
-        
+
         this.session = NewHibernateUtil.getSessionFactory().openSession();
         this.tx = session.beginTransaction();
         List<FormaPagamento> list = null;
@@ -293,4 +294,24 @@ public class Conexao {
         return null;
 
     }
+
+    public List<Venda> lista_Vendas() {
+
+        this.session = NewHibernateUtil.getSessionFactory().openSession();
+        this.tx = session.beginTransaction();
+        List<Venda> list = null;
+
+        try {
+            list = (List<Venda>) session.createQuery("from Venda").list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            System.out.println("Erro ao Pegar lista de Venda Banco de Dados!");
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!");
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
 }

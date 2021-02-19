@@ -67,11 +67,11 @@ public class EditProductScreen extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Edite Produto"));
         jPanel2.setLayout(null);
         jPanel2.add(camp_ProductName);
-        camp_ProductName.setBounds(20, 50, 560, 32);
+        camp_ProductName.setBounds(20, 50, 560, 26);
 
         comboBox_Supplier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel2.add(comboBox_Supplier);
-        comboBox_Supplier.setBounds(620, 50, 230, 32);
+        comboBox_Supplier.setBounds(620, 50, 230, 26);
 
         camp_Description.setBorder(javax.swing.BorderFactory.createTitledBorder("Descrição:"));
         jScrollPane2.setViewportView(camp_Description);
@@ -81,11 +81,11 @@ public class EditProductScreen extends javax.swing.JFrame {
 
         camp_Buyprice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         jPanel2.add(camp_Buyprice);
-        camp_Buyprice.setBounds(20, 110, 140, 32);
+        camp_Buyprice.setBounds(20, 110, 140, 26);
 
         camp_Sellprice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         jPanel2.add(camp_Sellprice);
-        camp_Sellprice.setBounds(20, 180, 140, 32);
+        camp_Sellprice.setBounds(20, 180, 140, 26);
 
         jLabel2.setText("Nome Produto:");
         jPanel2.add(jLabel2);
@@ -103,9 +103,9 @@ public class EditProductScreen extends javax.swing.JFrame {
         jPanel2.add(jLabel5);
         jLabel5.setBounds(200, 90, 44, 16);
 
-        comboBox_Size.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecione>", "P", "M", "G", "GG" }));
+        comboBox_Size.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecione>", "P", "M", "G", "GG", "TAM. UNICO" }));
         jPanel2.add(comboBox_Size);
-        comboBox_Size.setBounds(350, 110, 230, 32);
+        comboBox_Size.setBounds(350, 110, 230, 26);
 
         jLabel6.setText("Tamanho:");
         jPanel2.add(jLabel6);
@@ -155,7 +155,7 @@ public class EditProductScreen extends javax.swing.JFrame {
             }
         });
         jPanel2.add(btn_save);
-        btn_save.setBounds(780, 350, 90, 36);
+        btn_save.setBounds(780, 350, 90, 30);
 
         btn_cancelar.setText("Cancelar");
         btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -164,15 +164,15 @@ public class EditProductScreen extends javax.swing.JFrame {
             }
         });
         jPanel2.add(btn_cancelar);
-        btn_cancelar.setBounds(668, 350, 90, 36);
+        btn_cancelar.setBounds(668, 350, 90, 30);
         jPanel2.add(camp_Apelido);
-        camp_Apelido.setBounds(200, 180, 150, 32);
+        camp_Apelido.setBounds(200, 180, 150, 26);
 
         camp_Qnt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         jPanel2.add(camp_Qnt);
-        camp_Qnt.setBounds(200, 110, 90, 32);
+        camp_Qnt.setBounds(200, 110, 90, 26);
         jPanel2.add(camp_Deliverydate);
-        camp_Deliverydate.setBounds(430, 180, 210, 33);
+        camp_Deliverydate.setBounds(430, 180, 210, 27);
 
         obrigatorioTamanho.setForeground(new java.awt.Color(255, 0, 0));
         obrigatorioTamanho.setText("* obrigatorio");

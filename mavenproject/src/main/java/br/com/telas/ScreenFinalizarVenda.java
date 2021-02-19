@@ -9,11 +9,13 @@ import br.com.classes.Venda;
 import br.com.conexao.Conexao;
 import static br.com.telas.ScreenSell.produtos;
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -367,6 +369,10 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             jLabeldatavenda.setText("DATA DO PAGAMENTO:");
             campvalorPago.setText("0,00");
             campvalorPago.setEnabled(false);
+            camp_qtdeParcelas.setVisible(false);
+            camp_valorParcelas.setVisible(false);
+            btn_gerarDatas.setVisible(false);
+            jListdatasparceladas.setVisible(false);
         }
         if (comboBOX_FormaPagamento.getSelectedIndex() == 4) {
             camp_qtdeParcelas.setVisible(false);
@@ -530,9 +536,10 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             y = z + x;
             z = y;
         }
-
+        Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
+        NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
         camptotal.setText("R$ " + z);
-        jLabelValorTotal.setText("R$ " + z);
+        jLabelValorTotal.setText(dinheiro.format(z));
         campvalorPago.setText("" + z);
 
         double valortotal = Double.parseDouble(camptotal.getText().replace("R$", ""));
@@ -551,7 +558,6 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", "."));
         double troco = valortotal - valorPago;
 
-        
         venda.setStatus(true);
         venda.setDataVenda(dataVenda.getDate()); // data da venda
         venda.setValorTotal(Double.parseDouble(camptotal.getText().replace("R$", "").trim())); // valor total da venda
@@ -560,14 +566,18 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         venda.setTroco(troco); // troco da venda;
         venda.setFormaPagamento(listaPagamento); // adiciona a lista de pagamento na venda;
         venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));// pega a forma de pagamento da venda;
-        
+
+        // verifica se foi adicionado o cliente no campo de texto;
         if (camp_cliente.getText().length() > 0) {
             System.out.println("Cliente: " + client.getNome());
             venda.setCliente(client); // adiciona o cliente na venda;
-            client.getVendas().add(venda); // adiciona a venda na lista de cliente;
+            client.getVendas().add(venda); // adiciona a venda na lista de vendas do cliente;
             bancoMariaDB.update(client);
         } else {
-            JOptionPane.showMessageDialog(null, "Venda sem Cliente");
+            System.out.println("Cliente: " + bancoMariaDB.list_Cliente().get(0));
+            venda.setCliente(bancoMariaDB.list_Cliente().get(0)); // adiciona o cliente na venda;
+            bancoMariaDB.list_Cliente().get(0).getVendas().add(venda); // adiciona a venda na lista de vendas do cliente;
+            bancoMariaDB.update(bancoMariaDB.list_Cliente().get(0));
         }
 
         for (Produto produto : lista) {
@@ -601,7 +611,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         btn_gerarDatas.setVisible(false);
         jListdatasparceladas.setVisible(false);
         telaVenda.adicionarItens();
-        telaVenda.btn_buscarProduto.setText("");
+        telaVenda.camp_buscarProduto.setText("");
         telaVenda.field_preco.setText("0,00");
         telaVenda.field_qnt.setText("0");
         dispose();
@@ -690,7 +700,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             btn_gerarDatas.setVisible(false);
             jListdatasparceladas.setVisible(false);
             telaVenda.adicionarItens();
-            telaVenda.btn_buscarProduto.setText("");
+            telaVenda.camp_buscarProduto.setText("");
             telaVenda.field_preco.setText("0,00");
             telaVenda.field_qnt.setText("0");
             dispose();
@@ -757,7 +767,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             btn_gerarDatas.setVisible(false);
             jListdatasparceladas.setVisible(false);
             telaVenda.adicionarItens();
-            telaVenda.btn_buscarProduto.setText("");
+            telaVenda.camp_buscarProduto.setText("");
             telaVenda.field_preco.setText("0,00");
             telaVenda.field_qnt.setText("0");
             dispose();
