@@ -13,6 +13,7 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -34,6 +35,24 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
     
     public ScreenDetalhesVenda() {
         initComponents();
+        
+        TableColumn colCodigo = jtableVenda.getColumnModel().getColumn(0);
+        TableColumn colNome = jtableVenda.getColumnModel().getColumn(1);
+        TableColumn calQtde = jtableVenda.getColumnModel().getColumn(2);
+        TableColumn colTotal = jtableVenda.getColumnModel().getColumn(3);
+
+        colCodigo.setPreferredWidth(5);
+        colNome.setPreferredWidth(300);
+        calQtde.setPreferredWidth(5);
+        colTotal.setPreferredWidth(5);
+        
+        TableColumn colData = tableAPrazo.getColumnModel().getColumn(0);
+        TableColumn colValor = tableAPrazo.getColumnModel().getColumn(1);
+        TableColumn colStatus = tableAPrazo.getColumnModel().getColumn(2);
+
+        colData.setPreferredWidth(50);
+        colValor.setPreferredWidth(10);
+        colStatus.setPreferredWidth(5);
     }
 
     
@@ -53,6 +72,9 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtableVenda = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tableAPrazo = new javax.swing.JTable();
+        jSeparator3 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         camp_observacao = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
@@ -63,6 +85,8 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
         btn_voltar = new javax.swing.JButton();
         camp_quantidadeVendas = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        camp_CodigoCliente = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
 
         setLayout(null);
 
@@ -95,7 +119,7 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
 
         jLabel3.setText("Codigo Venda:");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(20, 20, 89, 16);
+        jLabel3.setBounds(20, 20, 120, 16);
 
         jLabel4.setText("Data da Venda:");
         jPanel1.add(jLabel4);
@@ -126,10 +150,45 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jtableVenda);
 
         jPanel2.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 10, 820, 110);
+        jScrollPane1.setBounds(10, 10, 740, 110);
+
+        tableAPrazo.setForeground(new java.awt.Color(255, 0, 0));
+        tableAPrazo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Data Pagamen.", "valor", "Status"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableAPrazo.setEnabled(false);
+        jScrollPane3.setViewportView(tableAPrazo);
+        if (tableAPrazo.getColumnModel().getColumnCount() > 0) {
+            tableAPrazo.getColumnModel().getColumn(0).setResizable(false);
+            tableAPrazo.getColumnModel().getColumn(1).setResizable(false);
+            tableAPrazo.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        jPanel2.add(jScrollPane3);
+        jScrollPane3.setBounds(800, 10, 280, 110);
+
+        jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jPanel2.add(jSeparator3);
+        jSeparator3.setBounds(770, 10, 10, 120);
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(20, 310, 840, 150);
+        jPanel2.setBounds(20, 310, 1100, 150);
 
         camp_observacao.setEditable(false);
         camp_observacao.setColumns(20);
@@ -141,11 +200,11 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
 
         jLabel5.setText("Observações da venda:");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(20, 490, 160, 20);
+        jLabel5.setBounds(20, 500, 160, 20);
         jPanel1.add(jSeparator1);
-        jSeparator1.setBounds(20, 80, 1090, 10);
+        jSeparator1.setBounds(20, 80, 1100, 10);
         jPanel1.add(jSeparator2);
-        jSeparator2.setBounds(20, 290, 850, 10);
+        jSeparator2.setBounds(20, 290, 1100, 10);
 
         camp_totalvenda.setEditable(false);
         jPanel1.add(camp_totalvenda);
@@ -171,6 +230,12 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
         jLabel7.setText("Quantidade de Vendas desse cliente:");
         jPanel1.add(jLabel7);
         jLabel7.setBounds(320, 210, 240, 16);
+        jPanel1.add(camp_CodigoCliente);
+        camp_CodigoCliente.setBounds(720, 160, 80, 30);
+
+        jLabel8.setText("Codigo Cliente:");
+        jPanel1.add(jLabel8);
+        jLabel8.setBounds(720, 140, 110, 16);
 
         add(jPanel1);
         jPanel1.setBounds(6, 5, 1130, 640);
@@ -189,6 +254,7 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_voltar;
+    private javax.swing.JTextField camp_CodigoCliente;
     private javax.swing.JTextField camp_codigovenda;
     private javax.swing.JFormattedTextField camp_datavenda;
     private javax.swing.JTextField camp_formaPagamento;
@@ -203,13 +269,17 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTable jtableVenda;
+    private javax.swing.JTable tableAPrazo;
     // End of variables declaration//GEN-END:variables
 
     public void carregarCampos(){
@@ -224,21 +294,27 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
         camp_nome.setText(venda.getCliente().getNome()); // nome do cliente
         camp_observacao.setText(venda.getDescricao()); // descrição da venda;
         camp_formaPagamento.setText(venda.FormaPagamento()); // forma de pagamento da venda;
-        camp_quantidadeVendas.setText(venda.getCliente().quantidadeVenda()+1+""); // quantidade de vendas desse cliente;
+        camp_CodigoCliente.setText(venda.getCliente().getIdpessoa()+"");
         
         DefaultTableModel tabelavenda = (DefaultTableModel) jtableVenda.getModel();
         
         tabelavenda.setNumRows(0);
         for (ItensVenda iten : venda.getItens()) {
             tabelavenda.addRow(new Object[]{
-                venda.getIdvenda(),
+                iten.getItems().getIdProduto(),
                 iten.getItems().getNome(),
                 iten.getQnt(),
                 dinheiro.format(iten.valortotal())
             });
         }
         
-        
+        DefaultTableModel tabelaAprazo = (DefaultTableModel) tableAPrazo.getModel();
+        tabelaAprazo.setNumRows(0);
+        tabelaAprazo.addRow(new Object[]{
+            data.format(venda.getPrazo()),
+            dinheiro.format(venda.getValorTotal()),
+            venda.getPago()
+        });
         
     }
     

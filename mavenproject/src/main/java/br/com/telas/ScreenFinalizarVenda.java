@@ -397,13 +397,18 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_gerarDatasActionPerformed
 
     private void camp_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camp_clienteActionPerformed
-        String pesquisa = camp_cliente.getText();
-        List<Cliente> listaClientes = bancoMariaDB.filtrarPorNome(pesquisa);
-        DefaultListModel jlista = new DefaultListModel();
-        for (Cliente cliente : listaClientes) {
-            client = cliente;
+        try {
+            String pesquisa = camp_cliente.getText();
+            List<Cliente> listaClientes = bancoMariaDB.filtrarPorNome(pesquisa);
+            DefaultListModel jlista = new DefaultListModel();
+            for (Cliente cliente : listaClientes) {
+                client = cliente;
+            }
+            camp_cliente.setText(client.getNome());
+        } catch (Exception e) {
+            System.out.println(e);
         }
-        camp_cliente.setText(client.getNome());
+        
     }//GEN-LAST:event_camp_clienteActionPerformed
 
     /**
@@ -524,7 +529,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             System.out.println("Cliente: " + client.getNome());
             venda.setCliente(client); // adiciona o cliente na venda;
             client.getVendas().add(venda); // adiciona a venda na lista de vendas do cliente;
-            bancoMariaDB.update(client);
+            bancoMariaDB.save_update(client);
         } else {
             System.out.println("Cliente: " + bancoMariaDB.list_Cliente().get(0).getNome());
             venda.setCliente(bancoMariaDB.list_Cliente().get(0)); // adiciona o cliente na venda;
@@ -596,7 +601,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
                 venda.setCliente(client); // adiciona o cliente na venda;
                 client.getVendas().add(venda); // adiciona a venda na lista de cliente;
                 System.out.println("Cliente: "+client.getNome());
-                bancoMariaDB.update(client);
+                bancoMariaDB.save_update(client);
                 venda.adicionarItens(itensdaVenda, lista, venda);// salva os itens da venda;
                 venda.gerarParcelas(Integer.parseInt(camp_qtdeParcelas.getText()), venda, Double.parseDouble(camp_valorParcelas.getText()));
 
@@ -635,6 +640,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     }
 
     public void vendaAprazo() {
+        
         Venda venda = new Venda();
         ItensVenda itensdaVenda = new ItensVenda();
         List<ItensVenda> listaItens = new ArrayList<>(); // cria lista de itens;
@@ -645,7 +651,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         double troco = valortotal - valorPago;
 
         venda.setStatus(true);
-        venda.setDataVenda(dataVenda.getDate()); // data da venda
+        venda.setDataVenda(new Date()); // data da venda
         venda.setValorTotal(Double.parseDouble(camptotal.getText().replace("R$", "").trim())); // valor total da venda
         venda.setDescricao(ScreenSell.field_observacao.getText()); // observação da venda
         venda.setValor_pago(Double.valueOf(campvalorPago.getText().replace(",", "."))); // valor pago na venda;
@@ -660,6 +666,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
 //            client.setVendas(vendas); // adiciona uma lista de vendas para o cliente;
             client.getVendas().add(venda); // adiciona a venda na lista de cliente;
             bancoMariaDB.save_update(client);
+            
             venda.adicionarItens(itensdaVenda, lista, venda); // salva os itens da venda;
             
 

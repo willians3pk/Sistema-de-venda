@@ -50,9 +50,9 @@ public class Venda {
     private double valorTotal;
     private Date prazo;
     private String descricao;
+    private String Pago;
 
     private double troco;
-
     public Venda() {
 
     }
@@ -192,6 +192,15 @@ public class Venda {
     public void setTroco(double troco) {
         this.troco = troco;
     }
+
+    public String getPago() {
+        return Pago;
+    }
+
+    public void setPago(String Pago) {
+        this.Pago = Pago;
+    }
+    
 //--------------------------------------------------------------
 
     public ItensVenda itensvenda() {

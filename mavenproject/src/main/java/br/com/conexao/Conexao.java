@@ -73,7 +73,7 @@ public class Conexao {
 //            JOptionPane.showMessageDialog(null, "Atualizado com Sucesso!");
         } catch (Exception e) {
             System.out.println(e);
-            JOptionPane.showMessageDialog(null, "Erro ao Atualizar na Base de Dados!");
+            System.out.println("Erro ao Atualizar na Base de Dados!");
         } finally {
             session.close();
         }
@@ -89,7 +89,7 @@ public class Conexao {
             tx.commit();
         } catch (Exception e) {
             System.out.println("Erro " + e);
-            JOptionPane.showMessageDialog(null, "Erro!");
+            System.out.println("Erro ao salvar e atualizar!");
         } finally {
             session.close();
         }
@@ -106,7 +106,7 @@ public class Conexao {
             tx.commit();
         } catch (Exception e) {
             System.out.println("Erro " + e);
-            JOptionPane.showMessageDialog(null, "Erro!");
+            System.out.println("Erro ao deletar!");
         } finally {
             session.close();
         }
