@@ -1,18 +1,16 @@
 package br.com.telas;
 
+import br.com.auxiliar.Teclas;
 import br.com.classes.Cliente;
 import br.com.conexao.Conexao;
 import br.com.classes.Endereco;
 import br.com.classes.Fornecedor;
 import br.com.classes.NumeroContato;
-import br.com.classes.Pessoa;
 import br.com.classes.Venda;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -35,6 +33,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         btn_save1.setEnabled(false); // botao editar da tela cliente;
         btn_cancelar1.setEnabled(false); // botao editar da tela cancelar;
 
+        field_Name.setDocument(new Teclas());
     }
 
     @SuppressWarnings("unchecked")

@@ -1,5 +1,6 @@
 package br.com.telas;
 
+import br.com.auxiliar.Teclas;
 import br.com.classes.Cliente;
 import br.com.classes.FormaPagamento;
 import br.com.classes.ItensVenda;
@@ -50,7 +51,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         camp_valorParcelas.setVisible(false);
         btn_gerarDatas.setVisible(false);
         jListdatasparceladas.setVisible(false);
-//        jListpesquisaClientes.setVisible(false);
+        camp_cliente.setDocument(new Teclas());
     }
 
     @SuppressWarnings("unchecked")

@@ -1,5 +1,6 @@
 package br.com.telas;
 
+import br.com.auxiliar.Teclas;
 import br.com.classes.Produto;
 import br.com.conexao.Conexao;
 import static br.com.telas.MainScreen.jDesktopPane1;
@@ -27,6 +28,7 @@ public class ScreenSell extends javax.swing.JPanel {
         initComponents();
         field_preco.setEnabled(false);
         field_qnt.setEnabled(false);
+        camp_buscarProduto.setDocument(new Teclas());
 
     }
 
@@ -386,23 +388,29 @@ public class ScreenSell extends javax.swing.JPanel {
 
     private void camp_buscarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camp_buscarProdutoActionPerformed
         String pesquisa = camp_buscarProduto.getText();
-        List<Produto> listaProduto = new ArrayList<>();
+        List<Produto> listaProduto = bancoMariaDB.filtrarProdutoNome(pesquisa);
 
-        for (int i = 0; i < bancoMariaDB.productBook().size(); i++) {
-            // VERIFICA SE O NOME COMTEM NA LISTA DE PRODUTO E VERIFICA O STATUS DO PRODUTO;
-            if (bancoMariaDB.productBook().get(i).getNome().contains(pesquisa) && bancoMariaDB.productBook().get(i).isStatus()) {
-                produto = bancoMariaDB.productBook().get(i);
-//                listaProduto.add(produto); // ADICIONA NA LISTA PRODUTO;
-            }
+//        for (int i = 0; i < bancoMariaDB.productBook().size(); i++) {
+//            // VERIFICA SE O NOME COMTEM NA LISTA DE PRODUTO E VERIFICA O STATUS DO PRODUTO;
+//            if (bancoMariaDB.productBook().get(i).getNome().contains(pesquisa) && bancoMariaDB.productBook().get(i).isStatus()) {
+//                produto = bancoMariaDB.productBook().get(i);
+////                listaProduto.add(produto); // ADICIONA NA LISTA PRODUTO;
+//            }
+//        }
+
+        for (Produto produto1 : listaProduto) {
+            produto = produto1;
         }
+        
         try {
+            System.out.println(produto.getNome());
             camp_buscarProduto.setText(produto.getNome());
             camp_apelido.setText(produto.getApelido());
             camp_tamanho.setText(produto.getTamanho());
             field_preco.setText("" + produto.getValor_venda());
-            field_qnt.setText("" + 1);
-            btn_adcionar.setEnabled(true);
+            field_qnt.setText(""+1);
             field_qnt.setEnabled(true);
+            btn_adcionar.setEnabled(true);
             btn_limpa.setEnabled(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Item não encontrado!");
@@ -434,8 +442,9 @@ public class ScreenSell extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(null, "<html><font color=\"#FF0000\">ITEM SÓ CONTÉM " + quantidade + " EM ESTOQUE</font></html>");
                     } else {
                         for (Produto produto2 : produtos) {
+                            System.out.println("dentro do for "+produto.getIdProduto()+" : "+ produto2.getIdProduto());
                             // faz a comparação do item se ja tem na lista, e só atualiza a quantidade de item;
-                            if (produto2.getIdProduto().equals(produto.getIdProduto()) & (Integer.parseInt(field_qnt.getText()) + produto2.getQnt() <= produto.getQnt())) {
+                            if (produto2.getIdProduto() == produto.getIdProduto() & (Integer.parseInt(field_qnt.getText()) + produto2.getQnt() <= produto.getQnt())) {
 
                                 produto2.setQnt(Integer.parseInt(field_qnt.getText()) + produto2.getQnt()); // adiciona o produto + a quantidade que ele ja tinha;
                                 adicionarItens(); // adiciona os itens na tabela de itens na tela vendas;
@@ -455,6 +464,7 @@ public class ScreenSell extends javax.swing.JPanel {
                         if (tt) {
                             produto.setQnt(Integer.parseInt(field_qnt.getText()));
                             produtos.add(produto);
+                            Thread.sleep(1000);
                             camp_buscarProduto.setText("");
                             camp_apelido.setText("");
                             camp_tamanho.setText("");
@@ -546,6 +556,7 @@ public class ScreenSell extends javax.swing.JPanel {
         colNome.setPreferredWidth(220);
         colPreço.setPreferredWidth(10);
         colQuant.setPreferredWidth(5);
+        
         try {
             Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
             NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);

@@ -230,6 +230,8 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
         jLabel7.setText("Quantidade de Vendas desse cliente:");
         jPanel1.add(jLabel7);
         jLabel7.setBounds(320, 210, 240, 16);
+
+        camp_CodigoCliente.setEditable(false);
         jPanel1.add(camp_CodigoCliente);
         camp_CodigoCliente.setBounds(720, 160, 80, 30);
 

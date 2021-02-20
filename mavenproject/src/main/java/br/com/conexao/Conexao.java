@@ -333,6 +333,25 @@ public class Conexao {
         }
         return clientesFiltrados;
     }
+    
+    public List<Produto> filtrarProdutoNome(String nome) {
+        // cria nova lista
+        List<Produto> produtosFiltrados = new ArrayList<>();
+        // se o valor do textfield está vazia
+        if (nome.isEmpty()) {
+            // adiciona todos os elementos daquela lista que sugeri para transformar em atributo
+            produtosFiltrados.addAll(this.productBook());
+        } else {
+            for (int i = 0; i < this.productBook().size(); i++) {
+                Produto p = this.productBook().get(i);
+                // se nome do cliente começa com o valor do textfield
+                if (p.getNome().startsWith(nome) && p.isStatus()) {
+                    produtosFiltrados.add(p);
+                }
+            }
+        }
+        return produtosFiltrados;
+    }
 
     public Venda getVenda(int id) {
         //chama o select da venda

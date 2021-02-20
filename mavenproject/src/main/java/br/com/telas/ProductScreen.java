@@ -1,5 +1,6 @@
 package br.com.telas;
 
+import br.com.auxiliar.Teclas;
 import br.com.conexao.Conexao;
 import br.com.classes.Fornecedor;
 import br.com.classes.Produto;
@@ -23,6 +24,7 @@ public class ProductScreen extends javax.swing.JPanel {
         initComponents();
         btn_ToEdit.setEnabled(false);
         btn_Deactivate.setEnabled(false);
+        camp_ProductName.setDocument(new Teclas());
     }
 
     @SuppressWarnings("unchecked")
