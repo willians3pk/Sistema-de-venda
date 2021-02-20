@@ -2,11 +2,13 @@ package br.com.telas;
 
 import br.com.classes.Venda;
 import br.com.conexao.Conexao;
+import static br.com.telas.MainScreen.jDesktopPane1;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -55,6 +57,7 @@ public class ScreenHistorico extends javax.swing.JPanel {
         jSeparator2 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
         jtotalVendas = new javax.swing.JTextField();
+        btn_detalhes = new javax.swing.JButton();
 
         setLayout(null);
 
@@ -78,16 +81,6 @@ public class ScreenHistorico extends javax.swing.JPanel {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
-            }
-        });
-        jtable_vendas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jtable_vendasMouseClicked(evt);
-            }
-        });
-        jtable_vendas.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jtable_vendasKeyReleased(evt);
             }
         });
         jScrollPane3.setViewportView(jtable_vendas);
@@ -162,20 +155,47 @@ public class ScreenHistorico extends javax.swing.JPanel {
         jPanel1.add(jtotalVendas);
         jtotalVendas.setBounds(960, 580, 150, 40);
 
+        btn_detalhes.setText("Vizualizar Detalhes");
+        btn_detalhes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_detalhesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_detalhes);
+        btn_detalhes.setBounds(950, 40, 160, 40);
+
         add(jPanel1);
         jPanel1.setBounds(10, 10, 1120, 630);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtable_vendasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtable_vendasMouseClicked
-
-    }//GEN-LAST:event_jtable_vendasMouseClicked
-
-    private void jtable_vendasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtable_vendasKeyReleased
-
-    }//GEN-LAST:event_jtable_vendasKeyReleased
+    private void btn_detalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_detalhesActionPerformed
+        DefaultTableModel tabelaVendas = (DefaultTableModel) jtable_vendas.getModel();
+        int linha = jtable_vendas.getSelectedRow();
+        List<Venda> vendas = new ArrayList<>();
+        vendas = bancoMariaDB.lista_Vendas();
+        try {
+            for (Venda venda : vendas) {
+                if (venda.getIdvenda().equals(tabelaVendas.getValueAt(linha, 0))) {
+                    ScreenDetalhesVenda dv = new ScreenDetalhesVenda();
+                    jDesktopPane1.removeAll();
+                    dv.setLocation(0, 0);
+                    dv.setSize(1140, 650);
+                    dv.setVisible(true);
+                    dv.setVenda(venda);
+                    dv.carregarCampos();
+                    jDesktopPane1.add(dv);
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Selecione a Venda que voce que visualizar!");
+        }
+        
+        
+    }//GEN-LAST:event_btn_detalhesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_detalhes;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
@@ -215,7 +235,7 @@ public class ScreenHistorico extends javax.swing.JPanel {
         tabela.setNumRows(0);
         for (Venda venda : vendas) {
             x = venda.getValorTotal();
-            
+
             tabela.addRow(new Object[]{
                 venda.getIdvenda(),
                 formato.format(venda.getDataVenda()),

@@ -15,8 +15,7 @@ public class FormaPagamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column(name = "Cod_FormaPagamento", unique = true, nullable = false)
-    private int idformaPagamento;
+    private Integer idformaPagamento;
     
 //    @Column(name = "Descricao", length = 45)
     private String descricao;
@@ -29,16 +28,16 @@ public class FormaPagamento {
         
     }
 
-    public FormaPagamento(int idformaPagamento, String descricao) {
+    public FormaPagamento(Integer idformaPagamento, String descricao) {
         this.idformaPagamento = idformaPagamento;
         this.descricao = descricao;
     }
 
-    public int getIdformaPagamento() {
+    public Integer getIdformaPagamento() {
         return idformaPagamento;
     }
 
-    public void setIdformaPagamento(int idformaPagamento) {
+    public void setIdformaPagamento(Integer idformaPagamento) {
         this.idformaPagamento = idformaPagamento;
     }
 

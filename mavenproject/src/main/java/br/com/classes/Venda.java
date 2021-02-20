@@ -1,7 +1,9 @@
 package br.com.classes;
 
 import br.com.conexao.Conexao;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +26,7 @@ public class Venda {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Cod_Venda", unique = true, nullable = false)
-    private int idvenda;
+    private Integer idvenda;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Cliente cliente;
@@ -37,7 +39,9 @@ public class Venda {
     @OneToMany(fetch = FetchType.EAGER)
     @Cascade({CascadeType.ALL})
     private List<Parcelas> parcelas;
-    
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<ItensVenda> itens;
+
     private int codigoVenda;
     private Date dataVenda;
     private boolean status;
@@ -69,11 +73,11 @@ public class Venda {
         this.troco = troco;
     }
 
-    public int getIdvenda() {
+    public Integer getIdvenda() {
         return idvenda;
     }
 
-    public void setIdvenda(int idvenda) {
+    public void setIdvenda(Integer idvenda) {
         this.idvenda = idvenda;
     }
 
@@ -157,6 +161,14 @@ public class Venda {
         this.parcelas = parcelas;
     }
 
+    public List<ItensVenda> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItensVenda> itens) {
+        this.itens = itens;
+    }
+
     public String getDescricao() {
         return descricao;
     }
@@ -180,16 +192,26 @@ public class Venda {
     public void setTroco(double troco) {
         this.troco = troco;
     }
+//--------------------------------------------------------------
 
-    public String FormaPagamento(){
+    public ItensVenda itensvenda() {
+        for (ItensVenda iten : itens) {
+            return iten;
+        }
+        return null;
+    }
+
+    public String FormaPagamento() {
         for (FormaPagamento formaPagamento1 : formaPagamento) {
             return formaPagamento1.getDescricao();
         }
         return null;
     }
- 
-    public void adicionarItens(ItensVenda itensvenda, List<Produto> lista, Venda venda){
+
+    public void adicionarItens(ItensVenda itensvenda, List<Produto> lista, Venda venda) {
         Conexao bancoDAO = new Conexao();
+        List<ItensVenda> listaitens = new ArrayList<>();
+
         for (Produto produto : lista) {
             itensvenda.setStatus(true);
             itensvenda.setItems(produto);
@@ -197,6 +219,36 @@ public class Venda {
             itensvenda.setVenda(venda);
             bancoDAO.save(itensvenda);
         }
+
+        for (ItensVenda itensVenda : bancoDAO.list_ItemsVenda()) {
+            if (itensVenda.getVenda().getIdvenda().equals(venda.getIdvenda())) {
+                venda.getItens().add(itensVenda);// preenche a lista de itens;
+            }
+        }
+        bancoDAO.update(venda); // atualiza a venda depois de adicionar os itens da venda;
     }
-    
+
+    public void gerarParcelas(int numParcela, Venda venda, double valorParcela) {
+        int numeroParcela = 1; // impede da primeira parcela ser 0 na tabela do banco;
+        Conexao bancoDAO = new Conexao();
+        GregorianCalendar gc = new GregorianCalendar();
+        Date diaAtual = new Date();
+        for (int i = 0; i < numParcela; i++) {
+            Parcelas parcela = new Parcelas();// FAZ COM QUE REGISTRA UMA NOVA PARCELA NO BANCO;
+
+            gc.setTime(diaAtual);
+            gc.roll(GregorianCalendar.MONTH, i);
+            Date d = gc.getTime();
+
+            venda.getParcelas().add(parcela);// ADICIONA AS PARCELAS
+            parcela.setVenda(venda);
+            parcela.setValor(valorParcela);
+            parcela.setParcela(numeroParcela + i);//  NUMERO DAS PARCELAS;
+            parcela.setData(d);
+            parcela.setStatus(true);
+            bancoDAO.save(parcela); //SALVA A PARCELA NO BANCO DE DADOS;
+        }
+        // https://www.guj.com.br/t/duvida-gerar-parcelas-com-data-resolvido/134893/2 forum que ajudou a criar as datas da parcela;
+    }
+
 }

@@ -84,5 +84,7 @@ public class ItensVenda {
 
     //------------------------------------------------
     
-    
+    public double valortotal(){
+        return this.getItems().getValor_venda() * this.getQnt();
+    }
 }

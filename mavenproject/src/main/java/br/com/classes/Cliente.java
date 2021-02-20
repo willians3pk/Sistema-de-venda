@@ -1,5 +1,6 @@
 package br.com.classes;
 
+import br.com.conexao.Conexao;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -59,4 +60,15 @@ public class Cliente extends Pessoa{
         this.vendas = vendas;
     }
 
+    // -------------------------------------
+    
+    public int quantidadeVenda(){
+        return this.getVendas().size();
+    }
+    
+    public void removerVenda(Venda venda){
+        this.getVendas().remove(venda);
+    }
+    
+    
 }

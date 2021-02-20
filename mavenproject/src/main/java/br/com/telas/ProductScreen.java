@@ -554,7 +554,8 @@ public class ProductScreen extends javax.swing.JPanel {
                 newProduct.setDescricao(camp_Description.getText());
                 newProduct.setDataEntrega(camp_Deliverydate.getDate());
                 newProduct.setValor_total(totalvalue);
-
+                newProduct.setDataRegistro(new Date()); // DATA QUE FOI REGISTRADO O PRODUTO;
+                
                 if (comboBox_Size.getSelectedItem().toString().equals("<selecione>")) {
                     JOptionPane.showMessageDialog(null, "<html><font color=\"#FF0000\">SELECIONE O TAMENHO!</font></html>");
                 } else {

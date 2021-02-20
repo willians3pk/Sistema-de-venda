@@ -37,6 +37,7 @@ public class Produto {
     private int qnt;
     private String descricao;
     private Date dataEntrega;
+    private Date dataRegistro;
 
     @OneToMany(fetch = FetchType.EAGER)
     private List<ItensVenda> itensVendas;
@@ -165,6 +166,14 @@ public class Produto {
         this.dataEntrega = dataEntrega;
     }
 
+    public Date getDataRegistro() {
+        return dataRegistro;
+    }
+
+    public void setDataRegistro(Date dataRegistro) {
+        this.dataRegistro = dataRegistro;
+    }
+    
     public List<ItensVenda> getItensVendas() {
         return itensVendas;
     }

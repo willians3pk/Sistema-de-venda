@@ -16,6 +16,7 @@ import br.com.classes.Pessoa;
 import br.com.classes.Venda;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -71,7 +72,7 @@ public class Conexao {
             tx.commit();
 //            JOptionPane.showMessageDialog(null, "Atualizado com Sucesso!");
         } catch (Exception e) {
-            System.out.println("Erro ao Atualizar no Banco de Dados!");
+            System.out.println(e);
             JOptionPane.showMessageDialog(null, "Erro ao Atualizar na Base de Dados!");
         } finally {
             session.close();
@@ -300,10 +301,9 @@ public class Conexao {
 
         this.session = NewHibernateUtil.getSessionFactory().openSession();
         this.tx = session.beginTransaction();
-        List<Venda> list = null;
-
-        try {
-            list = (List<Venda>) session.createQuery("from Venda").list();
+        
+        try { 
+            List<Venda> list = session.createQuery("from Venda").list();
             tx.commit();
             return list;
         } catch (Exception e) {
@@ -332,5 +332,17 @@ public class Conexao {
             }
         }
         return clientesFiltrados;
+    }
+
+    public Venda getVenda(int id) {
+        //chama o select da venda
+        try {
+            Venda venda = (Venda) session.get(Venda.class, id);
+            return venda;
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Venda Não Encontrada!");
+        }
+        return null;
     }
 }

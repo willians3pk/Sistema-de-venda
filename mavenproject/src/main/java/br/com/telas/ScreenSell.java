@@ -18,7 +18,6 @@ public class ScreenSell extends javax.swing.JPanel {
 
     SearchScreen s = new SearchScreen();
     ScreenFinalizarVenda f = new ScreenFinalizarVenda();
-    ScreenHistorico sH = new ScreenHistorico();
     Conexao bancoMariaDB = new Conexao();
     public static List<Produto> produtos = new ArrayList<>();
     public static Produto produto;
@@ -491,7 +490,7 @@ public class ScreenSell extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_limpaActionPerformed
 
     private void btn_historicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_historicoActionPerformed
-
+        ScreenHistorico sH = new ScreenHistorico();
         jDesktopPane1.removeAll();
         sH.setLocation(0, 0);
         sH.setSize(1140, 650);

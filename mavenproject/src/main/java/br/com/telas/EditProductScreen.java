@@ -352,7 +352,8 @@ public class EditProductScreen extends javax.swing.JFrame {
             produto.setDescricao(camp_Description.getText());
             produto.setDataEntrega(camp_Deliverydate.getDate());// ADICIONA A DATA;
             produto.setValor_total(totalvalue); // ADICIONA O VALOR TOTAL;
-
+            produto.setDataRegistro(new Date()); //  DATA QUE FOI ATUALIZADO;
+            
             if (comboBox_Size.getSelectedItem().toString().equals("<selecione>")) {
                 JOptionPane.showMessageDialog(null, "<html><font color=\"#FF0000\">SELECIONE O TAMENHO!</font></html>");
                 obrigatorioTamanho.setVisible(true);
