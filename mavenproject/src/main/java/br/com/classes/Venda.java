@@ -1,5 +1,6 @@
 package br.com.classes;
 
+import br.com.conexao.Conexao;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -187,9 +188,14 @@ public class Venda {
         return null;
     }
  
-    public void adicionarItens(List<ItensVenda> itens){
-        for (ItensVenda iten : itens) {
-            
+    public void adicionarItens(ItensVenda itensvenda, List<Produto> lista, Venda venda){
+        Conexao bancoDAO = new Conexao();
+        for (Produto produto : lista) {
+            itensvenda.setStatus(true);
+            itensvenda.setItems(produto);
+            itensvenda.setQnt(produto.getQnt());
+            itensvenda.setVenda(venda);
+            bancoDAO.save(itensvenda);
         }
     }
     

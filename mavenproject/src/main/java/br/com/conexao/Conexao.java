@@ -14,6 +14,7 @@ import br.com.classes.ItensVenda;
 import br.com.classes.NumeroContato;
 import br.com.classes.Pessoa;
 import br.com.classes.Venda;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.Session;
@@ -314,4 +315,22 @@ public class Conexao {
         return null;
     }
 
+    public List<Cliente> filtrarPorNome(String nome) {
+        // cria nova lista
+        List<Cliente> clientesFiltrados = new ArrayList<>();
+        // se o valor do textfield está vazia
+        if (nome.isEmpty()) {
+            // adiciona todos os elementos daquela lista que sugeri para transformar em atributo
+            clientesFiltrados.addAll(this.list_Cliente());
+        } else {
+            for (int i = 0; i < this.list_Cliente().size(); i++) {
+                Cliente c = this.list_Cliente().get(i);
+                // se nome do cliente começa com o valor do textfield
+                if (c.getNome().startsWith(nome) && c.isStatus()) {
+                    clientesFiltrados.add(c);
+                }
+            }
+        }
+        return clientesFiltrados;
+    }
 }

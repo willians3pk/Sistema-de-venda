@@ -238,11 +238,6 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jSeparator3.setBounds(10, 170, 970, 10);
 
         camp_cliente.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        camp_cliente.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                camp_clienteFocusLost(evt);
-            }
-        });
         camp_cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 camp_clienteActionPerformed(evt);
@@ -401,60 +396,23 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btn_gerarDatasActionPerformed
 
-    private void camp_clienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_camp_clienteFocusLost
-        try {
-//            client = bancoMariaDB.list_Cliente().get(jListpesquisaClientes.getSelectedIndex());
-            System.out.println(client.getNome() + " " + client.getIdpessoa());
-//            camp_cliente.setText(client.getNome());
-//            jListpesquisaClientes.setVisible(false);
-        } catch (Exception e) {
-            System.out.println(e);
-//            jListpesquisaClientes.setVisible(false);
-        }
-
-    }//GEN-LAST:event_camp_clienteFocusLost
-
     private void camp_clienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_clienteKeyReleased
-
         String pesquisa = camp_cliente.getText();
-        List<Cliente> listaClientes = new ArrayList<>();
-        for (int i = 0; i < bancoMariaDB.list_Cliente().size(); i++) {
-            // VERIFICA SE O NOME COMTEM NA LISTA DE CLIENTE E VERIFICA O STATUS DO CLIENTE;
-            if (bancoMariaDB.list_Cliente().get(i).getNome().contains(pesquisa) && bancoMariaDB.list_Cliente().get(i).isStatus()) {
-                Cliente c = bancoMariaDB.list_Cliente().get(i);
-                client = bancoMariaDB.list_Cliente().get(i);
-                listaClientes.add(c); // ADICIONA NA LISTA CLIENTE;
-            }
-        }
-
+        List<Cliente> listaClientes = bancoMariaDB.filtrarPorNome(pesquisa);
         DefaultListModel jlista = new DefaultListModel();
         for (Cliente cliente : listaClientes) {
             jlista.addElement(cliente.getNome());
-//            jListpesquisaClientes.setModel(jlista);
-//            jListpesquisaClientes.setVisible(true);
         }
     }//GEN-LAST:event_camp_clienteKeyReleased
 
     private void camp_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camp_clienteActionPerformed
         String pesquisa = camp_cliente.getText();
-        List<Cliente> listaClientes = new ArrayList<>();
-        for (int i = 0; i < bancoMariaDB.list_Cliente().size(); i++) {
-            // VERIFICA SE O NOME COMTEM NA LISTA DE CLIENTE E VERIFICA O STATUS DO CLIENTE;
-            if (bancoMariaDB.list_Cliente().get(i).getNome().contains(pesquisa) && bancoMariaDB.list_Cliente().get(i).isStatus()) {
-                Cliente c = bancoMariaDB.list_Cliente().get(i);
-                client = bancoMariaDB.list_Cliente().get(i);
-                listaClientes.add(c); // ADICIONA NA LISTA CLIENTE;
-            }
-        }
-
+        List<Cliente> listaClientes = bancoMariaDB.filtrarPorNome(pesquisa);
         DefaultListModel jlista = new DefaultListModel();
         for (Cliente cliente : listaClientes) {
             jlista.addElement(cliente.getNome());
-//            jListpesquisaClientes.setModel(jlista);
-//            jListpesquisaClientes.setVisible(true);
         }
         camp_cliente.setText(client.getNome());
-//        jListpesquisaClientes.setVisible(false);
     }//GEN-LAST:event_camp_clienteActionPerformed
 
     /**
@@ -580,14 +538,8 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             bancoMariaDB.update(bancoMariaDB.list_Cliente().get(0));
         }
 
-        for (Produto produto : lista) {
-            itensdaVenda.setStatus(true);
-            itensdaVenda.setItems(produto);
-            itensdaVenda.setQnt(produto.getQnt());
-            itensdaVenda.setVenda(venda);
-            bancoMariaDB.save(itensdaVenda); // salva os itens da venda;
-        }
-
+        venda.adicionarItens(itensdaVenda, lista, venda); // salva os itens da venda;
+        
         // ATUALIZAR O ESTOQUE DE PRODUTO NO BANCO DE DADOS
         for (int i = 0; i < bancoMariaDB.productBook().size(); i++) {
             for (Produto produto : lista) {
@@ -639,7 +591,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         venda.setParcelas(listaParcelas);
         venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));
 
-        if (camp_cliente.getText().length() > 0) {
+        if (camp_cliente.getText().length() > 0 & !camp_cliente.getText().equals("CONSUMIDOR")) {
             venda.setCliente(client); // adiciona o cliente na venda;
 //            client.setVendas(vendas); // adiciona uma lista de vendas para o cliente;
             client.getVendas().add(venda); // adiciona a venda na lista de cliente;
@@ -729,7 +681,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));
         venda.setPrazo(dataVenda.getDate());
 
-        if (camp_cliente.getText().length() > 0) {
+        if (camp_cliente.getText().length() > 0 & !camp_cliente.getText().equals("CONSUMIDOR")) {
             venda.setCliente(client); // adiciona o cliente na venda;
 //            client.setVendas(vendas); // adiciona uma lista de vendas para o cliente;
             client.getVendas().add(venda); // adiciona a venda na lista de cliente;

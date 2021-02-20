@@ -1,5 +1,7 @@
 package br.com.classes;
 
+import br.com.conexao.Conexao;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -80,4 +82,7 @@ public class ItensVenda {
         this.status = status;
     }
 
+    //------------------------------------------------
+    
+    
 }

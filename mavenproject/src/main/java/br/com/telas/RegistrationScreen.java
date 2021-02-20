@@ -1405,7 +1405,6 @@ public class RegistrationScreen extends javax.swing.JPanel {
             cliente.setVendas(vendas);
 // ---------- ENDEREÇO -----------------
             Endereco end = new Endereco();
-
             end.setRua(field_Rua.getText());
             end.setCidade(field_cidade.getText());
             int cep = Integer.parseInt(field_cep.getText().replace("-", ""));
