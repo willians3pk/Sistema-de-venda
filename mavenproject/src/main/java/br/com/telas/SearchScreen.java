@@ -22,7 +22,7 @@ public class SearchScreen extends javax.swing.JFrame {
 
     Conexao banco = new Conexao();
     Produto variavelProduto;
-    ScreenSell telaVenda;
+    TelaVenda telaVenda;
     boolean tt = true;
 
     public Produto getVariavelProduto() {

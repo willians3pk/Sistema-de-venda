@@ -1,37 +1,39 @@
-
-
 package br.com.classes;
 
 import br.com.conexao.Conexao;
+import br.com.conexao.NewHibernateUtil;
 import br.com.telas.MainScreen;
 import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.mapping.Set;
 
 public class Main {
 
-    
     public static void main(String[] args) {
-       
+//       
         Conexao connect = new Conexao();
-        
-            FormaPagamento formapagamento = new FormaPagamento();
-            formapagamento.setDescricao("DINHEIRO A VISTA");
-            connect.save(formapagamento);
-            FormaPagamento formapagamento1 = new FormaPagamento();
-            formapagamento1.setDescricao("CARTÃO DE DEBITO");
-            connect.save(formapagamento1);
-            FormaPagamento formapagamento2 = new FormaPagamento();
-            formapagamento2.setDescricao("CARTÃO DE CREDITO");
-            connect.save(formapagamento2);
-            FormaPagamento formapagamento3 = new FormaPagamento();
-            formapagamento3.setDescricao("A PRAZO");
-            connect.save(formapagamento3);
-            FormaPagamento formapagamento4 = new FormaPagamento();
-            formapagamento4.setDescricao("TRANSFERENCIA");
-            connect.save(formapagamento4);
-            FormaPagamento formapagamento5 = new FormaPagamento();
-            formapagamento5.setDescricao("PARCELADO");
-            connect.save(formapagamento5);
+//        
+//            FormaPagamento formapagamento = new FormaPagamento();
+//            formapagamento.setDescricao("DINHEIRO A VISTA");
+//            connect.save(formapagamento);
+//            FormaPagamento formapagamento1 = new FormaPagamento();
+//            formapagamento1.setDescricao("CARTÃO DE DEBITO");
+//            connect.save(formapagamento1);
+//            FormaPagamento formapagamento2 = new FormaPagamento();
+//            formapagamento2.setDescricao("CARTÃO DE CREDITO");
+//            connect.save(formapagamento2);
+//            FormaPagamento formapagamento3 = new FormaPagamento();
+//            formapagamento3.setDescricao("A PRAZO");
+//            connect.save(formapagamento3);
+//            FormaPagamento formapagamento4 = new FormaPagamento();
+//            formapagamento4.setDescricao("TRANSFERENCIA");
+//            connect.save(formapagamento4);
+//            FormaPagamento formapagamento5 = new FormaPagamento();
+//            formapagamento5.setDescricao("PARCELADO");
+//            connect.save(formapagamento5);
 //            
 //            Cliente c0 = new Cliente();
 //            Endereco e0 =  new Endereco();
@@ -67,9 +69,30 @@ public class Main {
 //            c4.setStatus(true);
 //            c4.setEndereco(e4);
 //            connect.save(c4);
-//            
-            new MainScreen().setVisible(true);
+////            
+//            new MainScreen().setVisible(true);
+
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+//        
+//        String datainicio = "2021-02-20";
+//        String datafim = "2021-02-21";
+//        String hql = "from Venda where dataVenda BETWEEN ('"+datainicio+"')"+"and"+"('"+datafim+"')";
+//        Query query = session.createQuery(hql);
+//        List<Venda> results = query.list();
+//        
+//        for (Venda result : results) {
+//            System.out.println(result.getDataVenda());
+////        }
+
+        Venda venda = (Venda) session.get(Venda.class, 3);
+
+        for (int i = 0; i < venda.getItens().size(); i++) {
+            System.out.println(venda.getItens().get(i).getIditensVenda());
+        }
         
+        System.out.println(venda.getParcelas().get(1).isStatus());
+        session.close();
     }
-    
+
 }

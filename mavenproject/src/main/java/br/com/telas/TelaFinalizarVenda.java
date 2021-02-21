@@ -8,7 +8,7 @@ import br.com.classes.Parcelas;
 import br.com.classes.Produto;
 import br.com.classes.Venda;
 import br.com.conexao.Conexao;
-import static br.com.telas.ScreenSell.produtos;
+import static br.com.telas.TelaVenda.produtos;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -21,10 +21,10 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
-public class ScreenFinalizarVenda extends javax.swing.JFrame {
+public class TelaFinalizarVenda extends javax.swing.JFrame {
 
     List<Produto> lista;
-    ScreenSell telaVenda;
+    TelaVenda telaVenda;
     Conexao bancoMariaDB = new Conexao();
     Cliente client;
 
@@ -44,12 +44,11 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         this.client = cliente;
     }
 
-    public ScreenFinalizarVenda() {
+    public TelaFinalizarVenda() {
         initComponents();
         carregarComboBox();
         camp_qtdeParcelas.setVisible(false);
         camp_valorParcelas.setVisible(false);
-        btn_gerarDatas.setVisible(false);
         jListdatasparceladas.setVisible(false);
         camp_cliente.setDocument(new Teclas());
     }
@@ -66,6 +65,9 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         campvalorPago = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        campvalorPago1 = new javax.swing.JFormattedTextField();
+        jLabel7 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         dataVenda = new com.toedter.calendar.JDateChooser();
         jLabeldatavenda = new javax.swing.JLabel();
@@ -75,7 +77,6 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jListdatasparceladas = new javax.swing.JList<>();
-        btn_gerarDatas = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         btn_finalizarvenda = new javax.swing.JButton();
         btn_cancelarVenda = new javax.swing.JButton();
@@ -118,7 +119,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         camptotal.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         camptotal.setForeground(new java.awt.Color(255, 0, 0));
         jPanel3.add(camptotal);
-        camptotal.setBounds(180, 70, 130, 30);
+        camptotal.setBounds(180, 20, 130, 30);
 
         campvalorPago.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         campvalorPago.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -127,17 +128,36 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             }
         });
         jPanel3.add(campvalorPago);
-        campvalorPago.setBounds(180, 120, 130, 30);
+        campvalorPago.setBounds(180, 70, 130, 30);
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        jLabel3.setText("VALOR PAGO:");
+        jLabel3.setText("%");
         jPanel3.add(jLabel3);
-        jLabel3.setBounds(10, 120, 180, 30);
+        jLabel3.setBounds(280, 120, 30, 30);
 
         jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel9.setText("TOTAL:");
         jPanel3.add(jLabel9);
-        jLabel9.setBounds(10, 70, 120, 30);
+        jLabel9.setBounds(10, 20, 120, 30);
+
+        jLabel5.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel5.setText("VALOR PAGO:");
+        jPanel3.add(jLabel5);
+        jLabel5.setBounds(10, 70, 180, 30);
+
+        campvalorPago1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        campvalorPago1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campvalorPago1KeyReleased(evt);
+            }
+        });
+        jPanel3.add(campvalorPago1);
+        campvalorPago1.setBounds(180, 120, 90, 30);
+
+        jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel7.setText("DESCONTO:");
+        jPanel3.add(jLabel7);
+        jLabel7.setBounds(10, 120, 170, 30);
 
         jPanel1.add(jPanel3);
         jPanel3.setBounds(10, 190, 320, 190);
@@ -178,16 +198,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jListdatasparceladas);
 
         jPanel4.add(jScrollPane1);
-        jScrollPane1.setBounds(240, 80, 130, 70);
-
-        btn_gerarDatas.setText("Gerar datas");
-        btn_gerarDatas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_gerarDatasActionPerformed(evt);
-            }
-        });
-        jPanel4.add(btn_gerarDatas);
-        btn_gerarDatas.setBounds(220, 30, 120, 40);
+        jScrollPane1.setBounds(250, 80, 110, 70);
 
         jPanel1.add(jPanel4);
         jPanel4.setBounds(340, 190, 390, 190);
@@ -312,7 +323,6 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         camp_valorParcelas.setText("0,00");
         camp_qtdeParcelas.setVisible(false);
         camp_valorParcelas.setVisible(false);
-        btn_gerarDatas.setVisible(false);
         jListdatasparceladas.setVisible(false);
         telaVenda.adicionarItens();
         telaVenda.btn_buscarProduto.setText("");
@@ -324,30 +334,75 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_cancelarVendaActionPerformed
 
     private void campvalorPagoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campvalorPagoKeyReleased
-        double valortotal = Double.parseDouble(camptotal.getText().replace("R$", ""));
-        double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", "."));
-        double troco = valorPago - valortotal;
-        campTroco.setText(String.valueOf(troco));
+//        double valortotal = Double.parseDouble(camptotal.getText().replace("R$", ""));
+//        double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", "."));
+//        double troco = valorPago - valortotal;
+//        campTroco.setText(String.valueOf(troco));
+
+        try {
+            int qtdeParce = Integer.parseInt(camp_qtdeParcelas.getText());
+            double total = Double.parseDouble(camptotal.getText().replace("R$", ""));
+            double valorEntrada = Double.parseDouble(campvalorPago.getText().replace(",", "."));
+
+            double valorRestante = total - valorEntrada;
+            double valorParcela = valorRestante / qtdeParce; // valor da parcela;
+            camp_valorParcelas.setText("" + valorParcela);
+            campTroco.setText(String.valueOf(valorRestante));
+//----------------------------------------------------------------------------
+            // gera as datas da parcela;
+            GregorianCalendar gc = new GregorianCalendar();
+            Date diaAtual = dataVenda.getDate();
+            DefaultListModel datasparcelas = new DefaultListModel();
+            for (int i = 0; i < Integer.parseInt(camp_qtdeParcelas.getText()); i++) {
+                gc.setTime(diaAtual);
+                gc.roll(GregorianCalendar.MONTH, i + 1);
+                Date d = gc.getTime();
+
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                datasparcelas.addElement(df.format(d));
+                jListdatasparceladas.setModel(datasparcelas);
+            }
+        } catch (Exception e) {
+            System.out.println("Campo quantidade parcelas deve ser digitado apenas numeros;");
+        }
+
     }//GEN-LAST:event_campvalorPagoKeyReleased
 
     private void camp_qtdeParcelasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_qtdeParcelasKeyReleased
         try {
             int qtdeParce = Integer.parseInt(camp_qtdeParcelas.getText());
             double total = Double.parseDouble(camptotal.getText().replace("R$", ""));
-            double valorParcela = total / qtdeParce;
+            double valorEntrada = Double.parseDouble(campvalorPago.getText().replace(",", "."));
+
+            double valorRestante = total - valorEntrada;
+            double valorParcela = valorRestante / qtdeParce; // valor da parcela;
             camp_valorParcelas.setText("" + valorParcela);
-            campvalorPago.setText("" + valorParcela);
+//----------------------------------------------------------------------------
+            // gera as datas da parcela;
+            GregorianCalendar gc = new GregorianCalendar();
+            Date diaAtual = dataVenda.getDate();
+            DefaultListModel datasparcelas = new DefaultListModel();
+            for (int i = 0; i < Integer.parseInt(camp_qtdeParcelas.getText()); i++) {
+                gc.setTime(diaAtual);
+                gc.roll(GregorianCalendar.MONTH, i + 1);
+                Date d = gc.getTime();
+
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                datasparcelas.addElement(df.format(d));
+                jListdatasparceladas.setModel(datasparcelas);
+            }
         } catch (Exception e) {
-            System.out.println("campo quantidade parcelas deve ser digitado apenas numeros;");
+            System.out.println("Campo quantidade parcelas deve ser digitado apenas numeros;");
         }
-        
+
     }//GEN-LAST:event_camp_qtdeParcelasKeyReleased
 
     private void comboBOX_FormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBOX_FormaPagamentoActionPerformed
         if (comboBOX_FormaPagamento.getSelectedIndex() == 5) {
             camp_qtdeParcelas.setVisible(true);
+            camp_qtdeParcelas.setText("1");
+            geraParcela();
             camp_valorParcelas.setVisible(true);
-            btn_gerarDatas.setVisible(true);
             jListdatasparceladas.setVisible(true);
             jLabeldatavenda.setText("DATA DA VENDA:");
             campvalorPago.setEnabled(true);
@@ -355,7 +410,6 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         if (comboBOX_FormaPagamento.getSelectedIndex() <= 2) {
             camp_qtdeParcelas.setVisible(false);
             camp_valorParcelas.setVisible(false);
-            btn_gerarDatas.setVisible(false);
             jListdatasparceladas.setVisible(false);
             valorTotal();
             jLabeldatavenda.setText("DATA DA VENDA:");
@@ -367,35 +421,18 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             campvalorPago.setEnabled(false);
             camp_qtdeParcelas.setVisible(false);
             camp_valorParcelas.setVisible(false);
-            btn_gerarDatas.setVisible(false);
+            campTroco.setText("0.0");
             jListdatasparceladas.setVisible(false);
         }
         if (comboBOX_FormaPagamento.getSelectedIndex() == 4) {
             camp_qtdeParcelas.setVisible(false);
             camp_valorParcelas.setVisible(false);
-            btn_gerarDatas.setVisible(false);
             jListdatasparceladas.setVisible(false);
             valorTotal();
             jLabeldatavenda.setText("DATA DA VENDA:");
             campvalorPago.setEnabled(true);
         }
     }//GEN-LAST:event_comboBOX_FormaPagamentoActionPerformed
-
-    private void btn_gerarDatasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_gerarDatasActionPerformed
-        GregorianCalendar gc = new GregorianCalendar();
-        Date diaAtual = dataVenda.getDate();
-        DefaultListModel datasparcelas = new DefaultListModel();
-        for (int i = 0; i < Integer.parseInt(camp_qtdeParcelas.getText()); i++) {
-            gc.setTime(diaAtual);
-            gc.roll(GregorianCalendar.MONTH, i);
-            Date d = gc.getTime();
-            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-            datasparcelas.addElement(df.format(d));
-            jListdatasparceladas.setModel(datasparcelas);
-        }
-
-
-    }//GEN-LAST:event_btn_gerarDatasActionPerformed
 
     private void camp_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camp_clienteActionPerformed
         try {
@@ -409,8 +446,12 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println(e);
         }
-        
+
     }//GEN-LAST:event_camp_clienteActionPerformed
+
+    private void campvalorPago1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campvalorPago1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campvalorPago1KeyReleased
 
     /**
      * @param args the command line arguments
@@ -429,20 +470,21 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ScreenFinalizarVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaFinalizarVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ScreenFinalizarVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaFinalizarVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ScreenFinalizarVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaFinalizarVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ScreenFinalizarVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaFinalizarVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ScreenFinalizarVenda().setVisible(true);
+                new TelaFinalizarVenda().setVisible(true);
             }
         });
     }
@@ -450,13 +492,13 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cancelarVenda;
     private javax.swing.JButton btn_finalizarvenda;
-    private javax.swing.JButton btn_gerarDatas;
     private javax.swing.JTextField campTroco;
     public static javax.swing.JTextField camp_cliente;
     public javax.swing.JFormattedTextField camp_qtdeParcelas;
     public javax.swing.JTextField camp_valorParcelas;
     private javax.swing.JTextField camptotal;
     public javax.swing.JFormattedTextField campvalorPago;
+    public javax.swing.JFormattedTextField campvalorPago1;
     private javax.swing.JComboBox<String> comboBOX_FormaPagamento;
     public com.toedter.calendar.JDateChooser dataVenda;
     private javax.swing.JLabel jLabel1;
@@ -466,7 +508,9 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     public static javax.swing.JLabel jLabelQuantidadeItens;
@@ -507,7 +551,6 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     private void finalizarVenda() {
 
         Venda venda = new Venda(); // cria uma nova venda;
-        ItensVenda itensdaVenda = new ItensVenda(); // cria novo item venda;
         List<ItensVenda> listaItens = new ArrayList<>(); // cria lista de itens;
         List<FormaPagamento> listaPagamento = new ArrayList<>(); // cria uma nova lista de pagamento;
 
@@ -518,7 +561,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         venda.setStatus(true);
         venda.setDataVenda(dataVenda.getDate()); // data da venda
         venda.setValorTotal(Double.parseDouble(camptotal.getText().replace("R$", "").trim())); // valor total da venda
-        venda.setDescricao(ScreenSell.field_observacao.getText()); // observação da venda
+        venda.setDescricao(TelaVenda.field_observacao.getText()); // observação da venda
         venda.setValor_pago(Double.valueOf(campvalorPago.getText().replace(",", "."))); // valor que foi pago na venda;
         venda.setTroco(troco); // troco da venda;
         venda.setFormaPagamento(listaPagamento); // adiciona a lista de pagamento na venda;
@@ -538,8 +581,8 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             bancoMariaDB.update(bancoMariaDB.list_Cliente().get(0));
         }
 
-        venda.adicionarItens(itensdaVenda, lista, venda); // salva os itens da venda;
-        
+        venda.adicionarItens(lista, venda); // salva os itens da venda;
+
         // ATUALIZAR O ESTOQUE DE PRODUTO NO BANCO DE DADOS
         for (int i = 0; i < bancoMariaDB.productBook().size(); i++) {
             for (Produto produto : lista) {
@@ -560,7 +603,6 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         camp_valorParcelas.setText("0,00");
         camp_qtdeParcelas.setVisible(false);
         camp_valorParcelas.setVisible(false);
-        btn_gerarDatas.setVisible(false);
         jListdatasparceladas.setVisible(false);
         telaVenda.adicionarItens();
         telaVenda.camp_buscarProduto.setText("");
@@ -573,21 +615,21 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     public void vendaParcelada() {
 
         Venda venda = new Venda();
-        ItensVenda itensdaVenda = new ItensVenda();
         List<ItensVenda> listaItens = new ArrayList<>(); // cria lista de itens;
         List<FormaPagamento> listaPagamento = new ArrayList<>();
         List<Parcelas> listaParcelas = new ArrayList<>();
 
         double valortotal = Double.parseDouble(camptotal.getText().replace("R$", ""));
-        double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", "."));
-        double troco = valortotal - valorPago;
+        double valorEntrada = Double.parseDouble(campvalorPago.getText().replace(",", "."));
+        double valorRestante = valortotal - valorEntrada;
+        double parcela = valorRestante / Integer.parseInt(camp_qtdeParcelas.getText()); // valor da parcela;
 
         venda.setStatus(true);
         venda.setDataVenda(dataVenda.getDate()); // data da venda
         venda.setValorTotal(Double.parseDouble(camptotal.getText().replace("R$", "").trim())); // valor total da venda
-        venda.setDescricao(ScreenSell.field_observacao.getText()); // observação da venda
+        venda.setDescricao(TelaVenda.field_observacao.getText()); // observação da venda
         venda.setValor_pago(Double.valueOf(campvalorPago.getText().replace(",", "."))); // valor pago na venda;
-        venda.setTroco(troco);
+        venda.setTroco(valorRestante);
         venda.setFormaPagamento(listaPagamento); // adiciona uma lista de forma de pagamento;
         venda.setParcelas(listaParcelas); // adiciona uma lista de parcelas;
         venda.setItens(listaItens); // adiciona uma lista de itens;
@@ -601,10 +643,10 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             } else {
                 venda.setCliente(client); // adiciona o cliente na venda;
                 client.getVendas().add(venda); // adiciona a venda na lista de cliente;
-                System.out.println("Cliente: "+client.getNome());
+                System.out.println("Cliente: " + client.getNome());
                 bancoMariaDB.save_update(client);
-                venda.adicionarItens(itensdaVenda, lista, venda);// salva os itens da venda;
-                venda.gerarParcelas(Integer.parseInt(camp_qtdeParcelas.getText()), venda, Double.parseDouble(camp_valorParcelas.getText()));
+                venda.adicionarItens(lista, venda);// salva os itens da venda;
+                venda.gerarParcelas(Integer.parseInt(camp_qtdeParcelas.getText()), venda, parcela);
 
                 // ATUALIZAR O ESTOQUE DE PRODUTO NO BANCO DE DADOS
                 for (int i = 0; i < bancoMariaDB.productBook().size(); i++) {
@@ -625,7 +667,6 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
                 camp_valorParcelas.setText("0,00");
                 camp_qtdeParcelas.setVisible(false);
                 camp_valorParcelas.setVisible(false);
-                btn_gerarDatas.setVisible(false);
                 jListdatasparceladas.setVisible(false);
                 telaVenda.adicionarItens();
                 telaVenda.camp_buscarProduto.setText("");
@@ -641,9 +682,8 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
     }
 
     public void vendaAprazo() {
-        
+
         Venda venda = new Venda();
-        ItensVenda itensdaVenda = new ItensVenda();
         List<ItensVenda> listaItens = new ArrayList<>(); // cria lista de itens;
         List<FormaPagamento> listaPagamento = new ArrayList<>();
 
@@ -654,7 +694,7 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         venda.setStatus(true);
         venda.setDataVenda(new Date()); // data da venda
         venda.setValorTotal(Double.parseDouble(camptotal.getText().replace("R$", "").trim())); // valor total da venda
-        venda.setDescricao(ScreenSell.field_observacao.getText()); // observação da venda
+        venda.setDescricao(TelaVenda.field_observacao.getText()); // observação da venda
         venda.setValor_pago(Double.valueOf(campvalorPago.getText().replace(",", "."))); // valor pago na venda;
         venda.setTroco(troco);
         venda.setFormaPagamento(listaPagamento);
@@ -667,9 +707,8 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
 //            client.setVendas(vendas); // adiciona uma lista de vendas para o cliente;
             client.getVendas().add(venda); // adiciona a venda na lista de cliente;
             bancoMariaDB.save_update(client);
-            
-            venda.adicionarItens(itensdaVenda, lista, venda); // salva os itens da venda;
-            
+
+            venda.adicionarItens(lista, venda); // salva os itens da venda;
 
             // ATUALIZAR O ESTOQUE DE PRODUTO NO BANCO DE DADOS
             for (int i = 0; i < bancoMariaDB.productBook().size(); i++) {
@@ -691,7 +730,6 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
             camp_valorParcelas.setText("0,00");
             camp_qtdeParcelas.setVisible(false);
             camp_valorParcelas.setVisible(false);
-            btn_gerarDatas.setVisible(false);
             jListdatasparceladas.setVisible(false);
             telaVenda.adicionarItens();
             telaVenda.camp_buscarProduto.setText("");
@@ -718,4 +756,32 @@ public class ScreenFinalizarVenda extends javax.swing.JFrame {
         camp_qtdeParcelas.setText("" + 0);
     }
 
+    public void geraParcela() {
+        try {
+            int qtdeParce = Integer.parseInt(camp_qtdeParcelas.getText());
+            double total = Double.parseDouble(camptotal.getText().replace("R$", ""));
+            double valorEntrada = Double.parseDouble(campvalorPago.getText().replace(",", "."));
+
+            double valorRestante = total - valorEntrada;
+            double valorParcela = valorRestante / qtdeParce; // valor da parcela;
+            camp_valorParcelas.setText("" + valorParcela);
+//----------------------------------------------------------------------------
+            // gera as datas da parcela;
+            GregorianCalendar gc = new GregorianCalendar();
+            Date diaAtual = dataVenda.getDate();
+            DefaultListModel datasparcelas = new DefaultListModel();
+            for (int i = 0; i < Integer.parseInt(camp_qtdeParcelas.getText()); i++) {
+                gc.setTime(diaAtual);
+                gc.roll(GregorianCalendar.MONTH, i + 1);
+                Date d = gc.getTime();
+
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                datasparcelas.addElement(df.format(d));
+                jListdatasparceladas.setModel(datasparcelas);
+            }
+        } catch (Exception e) {
+            System.out.println("Campo quantidade parcelas deve ser digitado apenas numeros;");
+        }
+
+    }
 }

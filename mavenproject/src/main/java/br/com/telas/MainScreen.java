@@ -26,14 +26,14 @@ public class MainScreen extends javax.swing.JFrame {
     Color standardColor;
 
     ProductScreen p = new ProductScreen();
-    RegistrationScreen r = new RegistrationScreen();
-    ScreenSell s = new ScreenSell();
+    TelaFornecedor r = new TelaFornecedor();
+    TelaCadastroCliente cc = new TelaCadastroCliente();
+    TelaVenda s = new TelaVenda();
 
     public MainScreen() {
         initComponents();
         standardColor = new Color(240, 240, 240);
         data();
-        
     }
 
     /**
@@ -89,7 +89,7 @@ public class MainScreen extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("jLabel1");
+        jLabel4.setText("Clientes");
         jLabel4.setToolTipText("");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -129,7 +129,7 @@ public class MainScreen extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Cadastros");
+        jLabel2.setText("Fornecedor");
         jLabel2.setToolTipText("");
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -239,7 +239,11 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-
+        jDesktopPane1.removeAll();
+        cc.setLocation(0, 0);
+        cc.setSize(1140, 650);
+        cc.setVisible(true);
+        jDesktopPane1.add(cc);
     }//GEN-LAST:event_jLabel4MouseClicked
 
     /**

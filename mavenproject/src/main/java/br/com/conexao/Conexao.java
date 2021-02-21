@@ -15,9 +15,11 @@ import br.com.classes.NumeroContato;
 import br.com.classes.Pessoa;
 import br.com.classes.Venda;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import javax.swing.JOptionPane;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -301,8 +303,8 @@ public class Conexao {
 
         this.session = NewHibernateUtil.getSessionFactory().openSession();
         this.tx = session.beginTransaction();
-        
-        try { 
+
+        try {
             List<Venda> list = session.createQuery("from Venda").list();
             tx.commit();
             return list;
@@ -333,7 +335,7 @@ public class Conexao {
         }
         return clientesFiltrados;
     }
-    
+
     public List<Produto> filtrarProdutoNome(String nome) {
         // cria nova lista
         List<Produto> produtosFiltrados = new ArrayList<>();
@@ -353,15 +355,36 @@ public class Conexao {
         return produtosFiltrados;
     }
 
-    public Venda getVenda(int id) {
-        //chama o select da venda
+    public Venda getVenda(Integer id) {
+        this.session = NewHibernateUtil.getSessionFactory().openSession();
+        this.tx = session.beginTransaction();
         try {
             Venda venda = (Venda) session.get(Venda.class, id);
             return venda;
         } catch (Exception e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Venda Não Encontrada!");
+        } finally {
+            session.close();
         }
         return null;
     }
+
+    public List<Venda> filtraDatas(String dataInicio, String dataFim) {
+        try {
+            Session session = NewHibernateUtil.getSessionFactory().openSession();
+            Transaction tx = session.beginTransaction();
+            String hql = "from Venda where dataVenda BETWEEN ('" + dataInicio + "')" + "and" + "('" + dataFim + "')";
+            Query query = session.createQuery(hql);
+            List<Venda> results = query.list();
+            return results;
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Venda Não Encontrada!");
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
 }

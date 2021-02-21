@@ -2,21 +2,26 @@ package br.com.telas;
 
 import br.com.classes.Venda;
 import br.com.conexao.Conexao;
+import br.com.conexao.NewHibernateUtil;
 import static br.com.telas.MainScreen.jDesktopPane1;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-public class ScreenHistorico extends javax.swing.JPanel {
+public class TelaHistorico extends javax.swing.JPanel {
 
     Conexao bancoMariaDB = new Conexao();
 
-    public ScreenHistorico() {
+    public TelaHistorico() {
         initComponents();
 
         TableColumn colCodigo = jtable_vendas.getColumnModel().getColumn(0);
@@ -45,20 +50,23 @@ public class ScreenHistorico extends javax.swing.JPanel {
         jtable_vendas = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btn_pesquisar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jCheckBox2 = new javax.swing.JCheckBox();
         jCheckBox1 = new javax.swing.JCheckBox();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
+        camp_dataInicio = new javax.swing.JFormattedTextField();
+        camp_dataFim = new javax.swing.JFormattedTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
         jtotalVendas = new javax.swing.JTextField();
         btn_detalhes = new javax.swing.JButton();
 
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setLayout(null);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -98,29 +106,18 @@ public class ScreenHistorico extends javax.swing.JPanel {
         jPanel4.add(jLabel1);
         jLabel1.setBounds(270, 10, 80, 20);
 
-        try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jPanel4.add(jFormattedTextField1);
-        jFormattedTextField1.setBounds(270, 30, 180, 30);
-
-        try {
-            jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jPanel4.add(jFormattedTextField2);
-        jFormattedTextField2.setBounds(10, 30, 180, 30);
-
         jLabel2.setText("Data Inicio:");
         jPanel4.add(jLabel2);
         jLabel2.setBounds(10, 10, 80, 20);
 
-        jButton1.setText("Pesquisar");
-        jPanel4.add(jButton1);
-        jButton1.setBounds(470, 30, 90, 30);
+        btn_pesquisar.setText("Pesquisar");
+        btn_pesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_pesquisarActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btn_pesquisar);
+        btn_pesquisar.setBounds(470, 30, 90, 30);
 
         jButton2.setText("Filtrar");
         jPanel4.add(jButton2);
@@ -140,6 +137,30 @@ public class ScreenHistorico extends javax.swing.JPanel {
         jLabel3.setText("até");
         jPanel4.add(jLabel3);
         jLabel3.setBounds(210, 40, 44, 16);
+
+        try {
+            camp_dataInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-##-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jPanel4.add(camp_dataInicio);
+        camp_dataInicio.setBounds(10, 30, 180, 30);
+
+        try {
+            camp_dataFim.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-##-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jPanel4.add(camp_dataFim);
+        camp_dataFim.setBounds(270, 30, 180, 30);
+
+        jLabel4.setText("Ano/Dia/Mes");
+        jPanel4.add(jLabel4);
+        jLabel4.setBounds(370, 10, 80, 16);
+
+        jLabel6.setText("Ano/Mes/Dia:");
+        jPanel4.add(jLabel6);
+        jLabel6.setBounds(110, 10, 90, 16);
 
         jPanel1.add(jPanel4);
         jPanel4.setBounds(10, 90, 1100, 80);
@@ -189,23 +210,63 @@ public class ScreenHistorico extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Selecione a Venda que voce que visualizar!");
         }
-        
-        
+
     }//GEN-LAST:event_btn_detalhesActionPerformed
+
+    private void btn_pesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisarActionPerformed
+        
+        Conexao banco = new Conexao();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx  = session.beginTransaction();
+        String hql = "from Venda where dataVenda BETWEEN ('"+camp_dataInicio.getText()+"')"+"and"+"('"+camp_dataFim.getText()+"')";
+        Query query = session.createQuery(hql);
+        List<Venda> results = query.list();
+        
+        DefaultTableModel tabela = (DefaultTableModel) jtable_vendas.getModel();
+
+        Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
+        NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
+
+        double y = 0;
+        double x = 0;
+        double z = 0;
+
+        tabela.setNumRows(0);
+        for (Venda venda : results) {
+            x = venda.getValorTotal();
+
+            tabela.addRow(new Object[]{
+                venda.getIdvenda(),
+                formato.format(venda.getDataVenda()),
+                venda.getCliente().getNome(),
+                venda.FormaPagamento(), venda.getDescricao(),
+                dinheiro.format(venda.getValorTotal())});
+
+            // soma todos os valores total de cada venda;
+            y = z + x;
+            z = y;
+        }
+        jtotalVendas.setText(dinheiro.format(z));
+
+    }//GEN-LAST:event_btn_pesquisarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_detalhes;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_pesquisar;
+    private javax.swing.JFormattedTextField camp_dataFim;
+    private javax.swing.JFormattedTextField camp_dataInicio;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;

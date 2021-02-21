@@ -6,6 +6,7 @@
 package br.com.telas;
 
 import br.com.classes.ItensVenda;
+import br.com.classes.Parcelas;
 import br.com.classes.Venda;
 import static br.com.telas.MainScreen.jDesktopPane1;
 import java.text.DateFormat;
@@ -21,7 +22,6 @@ import javax.swing.table.TableColumn;
  */
 public class ScreenDetalhesVenda extends javax.swing.JPanel {
 
-    
     Venda venda;
 
     public Venda getVenda() {
@@ -31,11 +31,10 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
     public void setVenda(Venda venda) {
         this.venda = venda;
     }
-    
-    
+
     public ScreenDetalhesVenda() {
         initComponents();
-        
+
         TableColumn colCodigo = jtableVenda.getColumnModel().getColumn(0);
         TableColumn colNome = jtableVenda.getColumnModel().getColumn(1);
         TableColumn calQtde = jtableVenda.getColumnModel().getColumn(2);
@@ -45,7 +44,7 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
         colNome.setPreferredWidth(300);
         calQtde.setPreferredWidth(5);
         colTotal.setPreferredWidth(5);
-        
+
         TableColumn colData = tableAPrazo.getColumnModel().getColumn(0);
         TableColumn colValor = tableAPrazo.getColumnModel().getColumn(1);
         TableColumn colStatus = tableAPrazo.getColumnModel().getColumn(2);
@@ -55,7 +54,6 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
         colStatus.setPreferredWidth(5);
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -83,8 +81,8 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
         camp_totalvenda = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         btn_voltar = new javax.swing.JButton();
-        camp_quantidadeVendas = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
+        camp_valorentrada = new javax.swing.JTextField();
+        jlabelValorPago = new javax.swing.JLabel();
         camp_CodigoCliente = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
 
@@ -147,6 +145,7 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jtableVenda.setEnabled(false);
         jScrollPane1.setViewportView(jtableVenda);
 
         jPanel2.add(jScrollPane1);
@@ -223,13 +222,13 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
         jPanel1.add(btn_voltar);
         btn_voltar.setBounds(1020, 10, 100, 40);
 
-        camp_quantidadeVendas.setEditable(false);
-        jPanel1.add(camp_quantidadeVendas);
-        camp_quantidadeVendas.setBounds(320, 230, 90, 30);
+        camp_valorentrada.setEditable(false);
+        jPanel1.add(camp_valorentrada);
+        camp_valorentrada.setBounds(320, 230, 90, 30);
 
-        jLabel7.setText("Quantidade de Vendas desse cliente:");
-        jPanel1.add(jLabel7);
-        jLabel7.setBounds(320, 210, 240, 16);
+        jlabelValorPago.setText("Valor pago:");
+        jPanel1.add(jlabelValorPago);
+        jlabelValorPago.setBounds(320, 210, 90, 16);
 
         camp_CodigoCliente.setEditable(false);
         jPanel1.add(camp_CodigoCliente);
@@ -244,7 +243,7 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_voltarActionPerformed
-        ScreenHistorico sH = new ScreenHistorico();
+        TelaHistorico sH = new TelaHistorico();
         jDesktopPane1.removeAll();
         sH.setLocation(0, 0);
         sH.setSize(1140, 650);
@@ -262,15 +261,14 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
     private javax.swing.JTextField camp_formaPagamento;
     private javax.swing.JTextField camp_nome;
     private javax.swing.JTextArea camp_observacao;
-    private javax.swing.JTextField camp_quantidadeVendas;
     private javax.swing.JTextField camp_totalvenda;
+    private javax.swing.JTextField camp_valorentrada;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -280,26 +278,27 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JLabel jlabelValorPago;
     private javax.swing.JTable jtableVenda;
     private javax.swing.JTable tableAPrazo;
     // End of variables declaration//GEN-END:variables
 
-    public void carregarCampos(){
-        
+    public void carregarCampos() {
+
         Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
         NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
         DateFormat data = new SimpleDateFormat("dd/MM/yyyy");
-        
-        camp_codigovenda.setText(venda.getIdvenda()+""); // codigo da venda;
-        camp_datavenda.setText(data.format(venda.getDataVenda())+""); // data da venda
-        camp_totalvenda.setText(dinheiro.format(venda.getValorTotal())+""); // valor total da venda;
+
+        camp_codigovenda.setText(venda.getIdvenda() + ""); // codigo da venda;
+        camp_datavenda.setText(data.format(venda.getDataVenda()) + ""); // data da venda
+        camp_totalvenda.setText(dinheiro.format(venda.getValorTotal()) + ""); // valor total da venda;
         camp_nome.setText(venda.getCliente().getNome()); // nome do cliente
         camp_observacao.setText(venda.getDescricao()); // descrição da venda;
         camp_formaPagamento.setText(venda.FormaPagamento()); // forma de pagamento da venda;
-        camp_CodigoCliente.setText(venda.getCliente().getIdpessoa()+"");
-        
+        camp_CodigoCliente.setText(venda.getCliente().getIdpessoa() + "");
+
         DefaultTableModel tabelavenda = (DefaultTableModel) jtableVenda.getModel();
-        
+
         tabelavenda.setNumRows(0);
         for (ItensVenda iten : venda.getItens()) {
             tabelavenda.addRow(new Object[]{
@@ -310,14 +309,38 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
             });
         }
         
-        DefaultTableModel tabelaAprazo = (DefaultTableModel) tableAPrazo.getModel();
-        tabelaAprazo.setNumRows(0);
-        tabelaAprazo.addRow(new Object[]{
-            data.format(venda.getPrazo()),
-            dinheiro.format(venda.getValorTotal()),
-            venda.getPago()
-        });
-        
+        if (venda.FormaPagamento().equals("A PRAZO")) {
+            DefaultTableModel tabelaAprazo = (DefaultTableModel) tableAPrazo.getModel();
+            jlabelValorPago.setText("Valor Pago:");
+            camp_valorentrada.setText(dinheiro.format(venda.getValor_pago())); // valor da entrada;
+
+            tabelaAprazo.setNumRows(0);
+            tabelaAprazo.addRow(new Object[]{
+                data.format(venda.getPrazo()),
+                dinheiro.format(venda.getValorTotal()),
+                venda.getPago()
+            });
+        }
+        if (venda.FormaPagamento().equals("PARCELADO")) {
+            DefaultTableModel tabelaParcelado = (DefaultTableModel) tableAPrazo.getModel();
+            jlabelValorPago.setText("Valor Entrada:");
+            camp_valorentrada.setText(dinheiro.format(venda.getValor_pago())); // valor da entrada;
+
+            tabelaParcelado.setNumRows(0);
+            for (Parcelas parcela : venda.getParcelas()) {
+                if (parcela.isStatus()) {
+                    tabelaParcelado.addRow(new Object[]{
+                        data.format(parcela.getData()),
+                        dinheiro.format(parcela.getValor()),
+                        parcela.getPago()
+                    });
+                }
+
+            }
+
+        } else {
+            jlabelValorPago.setText("Valor Pago:");
+        }
     }
-    
+
 }

@@ -45,7 +45,6 @@ public class Venda {
     private int codigoVenda;
     private Date dataVenda;
     private boolean status;
-    private double taxa_juros;
     private double valor_pago;
     private double valorTotal;
     private Date prazo;
@@ -57,21 +56,25 @@ public class Venda {
 
     }
 
-    public Venda(int idvenda, Cliente cliente, Usuario usuario, List<FormaPagamento> formaPagamento, int codigoVenda, Date dataVenda, boolean status, double taxa_juros, double valor_pago, double valorTotal, List<Parcelas> parcelas, String descricao, double troco) {
+    public Venda(Integer idvenda, Cliente cliente, Usuario usuario, List<FormaPagamento> formaPagamento, List<Parcelas> parcelas, List<ItensVenda> itens, int codigoVenda, Date dataVenda, boolean status, double valor_pago, double valorTotal, Date prazo, String descricao, String Pago, double troco) {
         this.idvenda = idvenda;
         this.cliente = cliente;
         this.usuario = usuario;
         this.formaPagamento = formaPagamento;
+        this.parcelas = parcelas;
+        this.itens = itens;
         this.codigoVenda = codigoVenda;
         this.dataVenda = dataVenda;
         this.status = status;
-        this.taxa_juros = taxa_juros;
         this.valor_pago = valor_pago;
         this.valorTotal = valorTotal;
-        this.parcelas = parcelas;
+        this.prazo = prazo;
         this.descricao = descricao;
+        this.Pago = Pago;
         this.troco = troco;
     }
+
+    
 
     public Integer getIdvenda() {
         return idvenda;
@@ -127,14 +130,6 @@ public class Venda {
 
     public void setStatus(boolean status) {
         this.status = status;
-    }
-
-    public double getTaxa_juros() {
-        return taxa_juros;
-    }
-
-    public void setTaxa_juros(double taxa_juros) {
-        this.taxa_juros = taxa_juros;
     }
 
     public double getValor_pago() {
@@ -217,11 +212,11 @@ public class Venda {
         return null;
     }
 
-    public void adicionarItens(ItensVenda itensvenda, List<Produto> lista, Venda venda) {
+    public void adicionarItens(List<Produto> lista, Venda venda) {
         Conexao bancoDAO = new Conexao();
-        List<ItensVenda> listaitens = new ArrayList<>();
 
         for (Produto produto : lista) {
+            ItensVenda itensvenda = new ItensVenda();
             itensvenda.setStatus(true);
             itensvenda.setItems(produto);
             itensvenda.setQnt(produto.getQnt());
@@ -242,11 +237,12 @@ public class Venda {
         Conexao bancoDAO = new Conexao();
         GregorianCalendar gc = new GregorianCalendar();
         Date diaAtual = new Date();
+        
         for (int i = 0; i < numParcela; i++) {
             Parcelas parcela = new Parcelas();// FAZ COM QUE REGISTRA UMA NOVA PARCELA NO BANCO;
 
             gc.setTime(diaAtual);
-            gc.roll(GregorianCalendar.MONTH, i);
+            gc.roll(GregorianCalendar.MONTH, i+1);
             Date d = gc.getTime();
 
             venda.getParcelas().add(parcela);// ADICIONA AS PARCELAS

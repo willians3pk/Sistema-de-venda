@@ -4,8 +4,8 @@ import br.com.auxiliar.Teclas;
 import br.com.classes.Produto;
 import br.com.conexao.Conexao;
 import static br.com.telas.MainScreen.jDesktopPane1;
-import static br.com.telas.ScreenFinalizarVenda.camp_cliente;
-import static br.com.telas.ScreenFinalizarVenda.jLabelQuantidadeItens;
+import static br.com.telas.TelaFinalizarVenda.camp_cliente;
+import static br.com.telas.TelaFinalizarVenda.jLabelQuantidadeItens;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,16 +15,16 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-public class ScreenSell extends javax.swing.JPanel {
+public class TelaVenda extends javax.swing.JPanel {
 
     SearchScreen s = new SearchScreen();
-    ScreenFinalizarVenda f = new ScreenFinalizarVenda();
+    TelaFinalizarVenda f = new TelaFinalizarVenda();
     Conexao bancoMariaDB = new Conexao();
     public static List<Produto> produtos = new ArrayList<>();
     public static Produto produto;
     boolean tt = true;
 
-    public ScreenSell() {
+    public TelaVenda() {
         initComponents();
         field_preco.setEnabled(false);
         field_qnt.setEnabled(false);
@@ -44,6 +44,7 @@ public class ScreenSell extends javax.swing.JPanel {
         btn_finalizar = new javax.swing.JButton();
         btn_removerItem = new javax.swing.JButton();
         btn_historico = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jlabel_totalVenda = new javax.swing.JLabel();
@@ -68,6 +69,7 @@ public class ScreenSell extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         field_itensQnt = new javax.swing.JTextField();
 
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setLayout(null);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -133,14 +135,25 @@ public class ScreenSell extends javax.swing.JPanel {
         jPanel3.add(btn_removerItem);
         btn_removerItem.setBounds(430, 460, 130, 40);
 
-        btn_historico.setText("Historicos");
+        btn_historico.setText("Vendas");
         btn_historico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_historicoActionPerformed(evt);
             }
         });
         jPanel3.add(btn_historico);
-        btn_historico.setBounds(560, 10, 160, 40);
+        btn_historico.setBounds(630, 10, 90, 40);
+
+        jLabel1.setBackground(new java.awt.Color(64, 157, 197));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Clientes");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        jPanel3.add(jLabel1);
+        jLabel1.setBounds(450, 10, 160, 40);
 
         add(jPanel3);
         jPanel3.setBounds(10, 10, 730, 510);
@@ -442,7 +455,6 @@ public class ScreenSell extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(null, "<html><font color=\"#FF0000\">ITEM SÓ CONTÉM " + quantidade + " EM ESTOQUE</font></html>");
                     } else {
                         for (Produto produto2 : produtos) {
-                            System.out.println("dentro do for "+produto.getIdProduto()+" : "+ produto2.getIdProduto());
                             // faz a comparação do item se ja tem na lista, e só atualiza a quantidade de item;
                             if (produto2.getIdProduto() == produto.getIdProduto() & (Integer.parseInt(field_qnt.getText()) + produto2.getQnt() <= produto.getQnt())) {
 
@@ -464,7 +476,6 @@ public class ScreenSell extends javax.swing.JPanel {
                         if (tt) {
                             produto.setQnt(Integer.parseInt(field_qnt.getText()));
                             produtos.add(produto);
-                            Thread.sleep(1000);
                             camp_buscarProduto.setText("");
                             camp_apelido.setText("");
                             camp_tamanho.setText("");
@@ -500,7 +511,7 @@ public class ScreenSell extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_limpaActionPerformed
 
     private void btn_historicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_historicoActionPerformed
-        ScreenHistorico sH = new ScreenHistorico();
+        TelaHistorico sH = new TelaHistorico();
         jDesktopPane1.removeAll();
         sH.setLocation(0, 0);
         sH.setSize(1140, 650);
@@ -509,6 +520,15 @@ public class ScreenSell extends javax.swing.JPanel {
         jDesktopPane1.add(sH);
 
     }//GEN-LAST:event_btn_historicoActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        TelaCadastroCliente cc = new TelaCadastroCliente();
+        jDesktopPane1.removeAll();
+        cc.setLocation(0, 0);
+        cc.setSize(1140, 650);
+        cc.setVisible(true);
+        jDesktopPane1.add(cc);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -526,6 +546,7 @@ public class ScreenSell extends javax.swing.JPanel {
     public static javax.swing.JTextArea field_observacao;
     public static javax.swing.JFormattedTextField field_preco;
     public static javax.swing.JFormattedTextField field_qnt;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
