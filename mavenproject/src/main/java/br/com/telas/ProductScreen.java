@@ -18,7 +18,7 @@ import javax.swing.table.TableColumn;
 public class ProductScreen extends javax.swing.JPanel {
 
     public static Conexao connectbanco = new Conexao();
-    ScreenCadFornecedor f = new ScreenCadFornecedor();
+    TelaCadastroFornecedor f = new TelaCadastroFornecedor();
     Fornecedor forne = null;
 
     public ProductScreen() {
@@ -74,6 +74,7 @@ public class ProductScreen extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         camp_Deliverydate = new com.toedter.calendar.JDateChooser();
         btn_cleanAll = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
 
         setLayout(null);
@@ -324,6 +325,15 @@ public class ProductScreen extends javax.swing.JPanel {
         jPanel2.add(btn_cleanAll);
         btn_cleanAll.setBounds(856, 240, 130, 30);
 
+        jButton1.setText("Novo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1);
+        jButton1.setBounds(1030, 50, 80, 30);
+
         add(jPanel2);
         jPanel2.setBounds(10, 10, 1120, 290);
         add(jSeparator1);
@@ -481,6 +491,11 @@ public class ProductScreen extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_checkbox_ordenbyActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        TelaCadastroFornecedor fornecedor = new TelaCadastroFornecedor();
+        fornecedor.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox box_Price;
@@ -503,6 +518,7 @@ public class ProductScreen extends javax.swing.JPanel {
     private javax.swing.JCheckBox checkbox_ordenby;
     private javax.swing.JComboBox<String> comboBox_Size;
     public static javax.swing.JComboBox<String> comboBox_Supplier;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -777,7 +793,7 @@ public class ProductScreen extends javax.swing.JPanel {
                     comboBox.addElement(fornecedor.getNome());
                     comboBox_Supplier.setModel(comboBox);           // ADICIONA OS FORNECEDORES NA COMBOBOX;
                 }
-//                loadingTableProduct();
+                
             }
         };
         t.start();

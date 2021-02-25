@@ -18,12 +18,12 @@ import javax.swing.JOptionPane;
  *
  * @author user
  */
-public class ScreenCadFornecedor extends javax.swing.JFrame {
+public class TelaCadastroFornecedor extends javax.swing.JFrame {
 
     /**
      * Creates new form ScreenCadFornecedor
      */
-    public ScreenCadFornecedor() {
+    public TelaCadastroFornecedor() {
         initComponents();
     }
 
@@ -283,20 +283,21 @@ public class ScreenCadFornecedor extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ScreenCadFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ScreenCadFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ScreenCadFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ScreenCadFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ScreenCadFornecedor().setVisible(true);
+                new TelaCadastroFornecedor().setVisible(true);
             }
         });
     }

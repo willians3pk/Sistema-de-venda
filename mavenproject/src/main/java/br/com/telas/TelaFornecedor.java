@@ -787,7 +787,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
                 tabela.addRow(new Object[]{f.getIdFornecedor(), f.getNome(), f.getHomePage(), f.getContatos().get(0).getFone()});
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "<Item não encontrado!!>");
+            JOptionPane.showMessageDialog(null, "<Item não encontrado!!>\n "+e);
         }
     }
 
