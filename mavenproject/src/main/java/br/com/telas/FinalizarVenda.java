@@ -39,7 +39,18 @@ public class FinalizarVenda extends javax.swing.JPanel {
     Conexao bancoMariaDB = new Conexao();
     Cliente client;
     TelaVenda s = new TelaVenda();
+    public String observacaoVenda;
 
+    public String getObservacaoVenda() {
+        return observacaoVenda;
+    }
+
+    public void setObservacaoVenda(String observacaoVenda) {
+        this.observacaoVenda = observacaoVenda;
+    }
+    
+    
+    
     public List<Produto> getLista() {
         return lista;
     }
@@ -533,13 +544,13 @@ public class FinalizarVenda extends javax.swing.JPanel {
         venda.setStatus(true);
         venda.setDataVenda(dataVenda.getDate()); // data da venda
         venda.setValorTotal(Double.parseDouble(camptotal.getText().replace("R$", "").trim())); // valor total da venda
-        venda.setDescricao(TelaVenda.field_observacao.getText()); // observação da venda
         venda.setValor_pago(Double.valueOf(campvalorPago.getText().replace(",", "."))); // valor que foi pago na venda;
         venda.setTroco(troco); // troco da venda;
         venda.setFormaPagamento(listaPagamento); // adiciona a lista de pagamento na venda;
         venda.setItens(listaItens); // adiciona a lista de itens na venda;
         venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));// pega a forma de pagamento da venda;
-
+        venda.setDescricao(this.observacaoVenda);
+        System.out.println(this.observacaoVenda);
         // verifica se foi adicionado o cliente no campo de texto;
         if (camp_cliente.getText().length() > 0) {
             System.out.println("Cliente: " + client.getNome());
@@ -605,14 +616,14 @@ public class FinalizarVenda extends javax.swing.JPanel {
         venda.setStatus(true);
         venda.setDataVenda(dataVenda.getDate()); // data da venda
         venda.setValorTotal(Double.parseDouble(camptotal.getText().replace("R$", "").trim())); // valor total da venda
-        venda.setDescricao(TelaVenda.field_observacao.getText()); // observação da venda
         venda.setValor_pago(Double.valueOf(campvalorPago.getText().replace(",", "."))); // valor pago na venda;
         venda.setTroco(valorRestante);
         venda.setFormaPagamento(listaPagamento); // adiciona uma lista de forma de pagamento;
         venda.setParcelas(listaParcelas); // adiciona uma lista de parcelas;
         venda.setItens(listaItens); // adiciona uma lista de itens;
         venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));
-
+        venda.setDescricao(this.observacaoVenda);
+        
         if (camp_cliente.getText().length() > 0 & !camp_cliente.getText().equals("CONSUMIDOR")) {
 
             // se o valor do textfield está vazia ou for zero;
@@ -679,14 +690,14 @@ public class FinalizarVenda extends javax.swing.JPanel {
         venda.setStatus(true);
         venda.setDataVenda(new Date()); // data da venda
         venda.setValorTotal(Double.parseDouble(camptotal.getText().replace("R$", "").trim())); // valor total da venda
-        venda.setDescricao(TelaVenda.field_observacao.getText()); // observação da venda
         venda.setValor_pago(Double.valueOf(campvalorPago.getText().replace(",", "."))); // valor pago na venda;
         venda.setTroco(troco);
         venda.setFormaPagamento(listaPagamento);
         venda.setParcelas(listaParcelas); // adiciona uma lista de parcelas;
         venda.setItens(listaItens); // adiciona uma lista de itens;
         venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));
-
+        venda.setDescricao(this.observacaoVenda);
+        
         if (camp_cliente.getText().length() > 0 & !camp_cliente.getText().equals("CONSUMIDOR")) {
             venda.setCliente(client); // adiciona o cliente na venda;
             client.getVendas().add(venda); // adiciona a venda na lista de cliente;

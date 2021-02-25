@@ -348,14 +348,18 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
     private void btn_receberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_receberActionPerformed
 
         try {
-            Conexao banco = new Conexao();
+            DateFormat data = new SimpleDateFormat("dd/MM/yyyy");
             int row = tableAPrazo.getSelectedRow();
-            venda.getParcelas().get(row).setPago("PG");
-            btn_receber.setEnabled(false);
-            checkbox.setSelected(false);
-            tableAPrazo.setEnabled(false);
-            banco.update(venda);
-            carregarCampos();
+            int confirmacao = JOptionPane.showInternalConfirmDialog(null, "Você deseja dar Baixa na PARCELA " + data.format(venda.getParcelas().get(row).getData()) + "?", "DAR BAIXA NA PARCELA", JOptionPane.YES_OPTION);
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                Conexao banco = new Conexao();
+                venda.getParcelas().get(row).setPago("PG");
+                btn_receber.setEnabled(false);
+                checkbox.setSelected(false);
+                tableAPrazo.setEnabled(false);
+                banco.update(venda);
+                carregarCampos();
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Selecione uma Parcela! \n" + e);
         }
@@ -396,7 +400,7 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_EditarVendaActionPerformed
 
     private void btn_adicionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adicionarItemActionPerformed
-        
+
     }//GEN-LAST:event_btn_adicionarItemActionPerformed
 
 

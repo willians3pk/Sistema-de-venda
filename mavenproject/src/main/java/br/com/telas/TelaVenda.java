@@ -356,7 +356,8 @@ public class TelaVenda extends javax.swing.JPanel {
 
     private void btn_finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarActionPerformed
         FinalizarVenda fv = new FinalizarVenda();
-        
+        String observacao = field_observacao.getText();
+        System.out.println(observacao);
         camp_cliente.requestFocus();
         btn_removerItem.setEnabled(false);
         jDesktopPane1.removeAll();
@@ -366,6 +367,7 @@ public class TelaVenda extends javax.swing.JPanel {
         fv.carregarComboBox();
         fv.valorTotal();
         fv.setLista(produtos);
+        fv.setObservacaoVenda(observacao);
         fv.dataVenda.setDate(new Date()); // sempre adiciona a data atual
         fv.camp_qtdeParcelas.setVisible(false);
         fv.camp_valorParcelas.setVisible(false);
@@ -539,7 +541,7 @@ public class TelaVenda extends javax.swing.JPanel {
     public static javax.swing.JTextField camp_tamanho;
     public static javax.swing.JTextField camp_total;
     public static javax.swing.JTextField field_itensQnt;
-    public static javax.swing.JTextArea field_observacao;
+    private javax.swing.JTextArea field_observacao;
     public static javax.swing.JFormattedTextField field_preco;
     public static javax.swing.JFormattedTextField field_qnt;
     private javax.swing.JLabel jLabel1;
