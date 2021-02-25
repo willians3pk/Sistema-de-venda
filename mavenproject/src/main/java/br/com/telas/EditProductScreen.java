@@ -18,7 +18,8 @@ public class EditProductScreen extends javax.swing.JFrame {
 
     Conexao connectbanco = new Conexao();
     Produto produto;
-
+    Fornecedor forne;
+    
     public EditProductScreen() {
         initComponents();
     }
@@ -70,6 +71,11 @@ public class EditProductScreen extends javax.swing.JFrame {
         camp_ProductName.setBounds(20, 50, 560, 26);
 
         comboBox_Supplier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboBox_Supplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBox_SupplierActionPerformed(evt);
+            }
+        });
         jPanel2.add(comboBox_Supplier);
         comboBox_Supplier.setBounds(620, 50, 230, 26);
 
@@ -212,6 +218,11 @@ public class EditProductScreen extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Data em que o Produto foi recebido do Correio!", "Ajuda!!", HEIGHT);
     }//GEN-LAST:event_jLabel1MouseClicked
 
+    private void comboBox_SupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBox_SupplierActionPerformed
+        int posicao = comboBox_Supplier.getSelectedIndex();
+        forne = connectbanco.list_Fornecedores().get(posicao);
+    }//GEN-LAST:event_comboBox_SupplierActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -336,10 +347,16 @@ public class EditProductScreen extends javax.swing.JFrame {
             double totalvalue = (priceSell * qnt);
 
             // PEGA O FORNECEDOR DA COMBOBOX;
-            Fornecedor forne = null;
+            Fornecedor forne;
             int posicao = comboBox_Supplier.getSelectedIndex();
             forne = connectbanco.list_Fornecedores().get(posicao);
-
+            System.out.println(forne.getNome());
+            
+//            // remove o produto do fornecedor;
+//            Fornecedor forncedorAtual = produto.getFornecedor();
+//            forncedorAtual.removeItem(produto);
+//            connectbanco.update(forncedorAtual);
+            
             // ADICIONA AS INFORMAÇÕES DO PRODUTO;
             produto.setFornecedor(forne);
             produto.setNome(camp_ProductName.getText());
@@ -347,7 +364,6 @@ public class EditProductScreen extends javax.swing.JFrame {
             produto.setValor_venda(Double.parseDouble(camp_Sellprice.getText().replace(",", ".")));
             produto.setApelido(camp_Apelido.getText());
             produto.setStatus(true);
-            produto.setExcluido(false);
             produto.setQnt(qnt);
             produto.setDescricao(camp_Description.getText());
             produto.setDataEntrega(camp_Deliverydate.getDate());// ADICIONA A DATA;
@@ -362,6 +378,8 @@ public class EditProductScreen extends javax.swing.JFrame {
                 size = comboBox_Size.getSelectedItem().toString(); // PEGA O TAMANHO DO ITEM NA COMBOBOX;
                 produto.setTamanho(size); // ADICIONA O TAMANHO DO ITEM AO PRODUTO;
                 connectbanco.update(produto);// ATUALIZA O PRODUTO;
+//                forne.adicionarProduto(produto);
+//                connectbanco.update(forne);
                 JOptionPane.showMessageDialog(null, "<html><font color=\"#0000FF\">PRODUTO ATUALIZADO COM SUCESSO!</font></html>");
                 dispose();
             }
@@ -375,23 +393,11 @@ public class EditProductScreen extends javax.swing.JFrame {
     public void loadingCampos() {
 
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
-
-        DecimalFormat dinheiro = new DecimalFormat("0.##");
-        String pricebuy = dinheiro.format(produto.getValor_compra()); // MOVE A VIRGULA DUAS CASAS DECIMAIS;
-        String pricesell = dinheiro.format(produto.getValor_venda()); // MOVE A VIRGULA DUAS CASAS DECIMAIS;
-
-        // ACRECENTA A VIRGULA E DUAS CASAS DECIMAIS AOS NUMEROS QUE SÃO INTEIROS;
-        if (pricebuy.contains(",")) {
-            camp_Buyprice.setText(pricebuy);
-        } else {
-            camp_Buyprice.setText(pricebuy + ",00");
-        }
-        if (pricesell.contains(",")) {
-            camp_Sellprice.setText(pricesell);
-        } else {
-            camp_Sellprice.setText(pricesell + ",00");
-        }
-
+        DecimalFormat dinheiro = new DecimalFormat("0.00");
+        
+        camp_Buyprice.setText(dinheiro.format(produto.getValor_compra()));
+        camp_Sellprice.setText(dinheiro.format(produto.getValor_venda()));
+        
         // ADICIONA OS ATRIBUTOS DO ITEM NOS CAMPOS PARA SER EDITADOS;
         camp_ProductName.setText(produto.getNome());
         camp_Apelido.setText(produto.getApelido());
@@ -400,7 +406,8 @@ public class EditProductScreen extends javax.swing.JFrame {
         camp_Description.setText(produto.getDescricao());
         camp_Deliverydate.setDate(produto.getDataEntrega());
         comboBox_Size.setSelectedItem(produto.getTamanho());
-
+        comboBox_Supplier.setSelectedItem(produto.getFornecedor().getNome()); // ADICIONA O FORNECEDOR DO ITEM NA COMBOBOX
+        
         if (comboBox_Supplier.getSelectedItem().toString() == produto.getFornecedor().getNome()) {
             JOptionPane.showMessageDialog(null, "Fornecedor nao contem na lista");
         } else {
@@ -415,6 +422,13 @@ public class EditProductScreen extends javax.swing.JFrame {
             comboBox.addElement(fornecedor.getNome());
             comboBox_Supplier.setModel(comboBox);           // ADICIONA OS FORNECEDORES NA COMBOBOX
         }
+    
+        if (comboBox_Supplier.getSelectedItem().toString() == produto.getFornecedor().getNome()) {
+            JOptionPane.showMessageDialog(null, "Fornecedor nao contem na lista");
+        } else {
+            comboBox_Supplier.setSelectedItem(produto.getFornecedor().getNome()); // ADICIONA O FORNECEDOR DO ITEM NA COMBOBOX
+        }
+    
     }
 
 }

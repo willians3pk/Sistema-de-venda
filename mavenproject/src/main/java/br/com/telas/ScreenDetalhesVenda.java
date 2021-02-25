@@ -8,13 +8,21 @@ package br.com.telas;
 import br.com.classes.ItensVenda;
 import br.com.classes.Parcelas;
 import br.com.classes.Venda;
+import br.com.conexao.Conexao;
+import br.com.conexao.NewHibernateUtil;
 import static br.com.telas.MainScreen.jDesktopPane1;
+import java.awt.Color;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -34,6 +42,12 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
 
     public ScreenDetalhesVenda() {
         initComponents();
+
+        checkbox.setVisible(false);
+        btn_removerItem.setVisible(false);
+        btn_adicionarItem.setVisible(false);
+        jLabel.setVisible(false);
+        jLabel7.setVisible(false);
 
         TableColumn colCodigo = jtableVenda.getColumnModel().getColumn(0);
         TableColumn colNome = jtableVenda.getColumnModel().getColumn(1);
@@ -85,6 +99,14 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
         jlabelValorPago = new javax.swing.JLabel();
         camp_CodigoCliente = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        checkbox = new javax.swing.JCheckBox();
+        btn_receber = new javax.swing.JButton();
+        btn_EditarVenda = new javax.swing.JButton();
+        btn_removerItem = new javax.swing.JButton();
+        jLabel = new javax.swing.JLabel();
+        btn_adicionarItem = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
 
         setLayout(null);
 
@@ -151,7 +173,7 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
         jPanel2.add(jScrollPane1);
         jScrollPane1.setBounds(10, 10, 740, 110);
 
-        tableAPrazo.setForeground(new java.awt.Color(255, 0, 0));
+        tableAPrazo.setForeground(new java.awt.Color(33, 33, 30));
         tableAPrazo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -191,6 +213,7 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
 
         camp_observacao.setEditable(false);
         camp_observacao.setColumns(20);
+        camp_observacao.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         camp_observacao.setRows(5);
         jScrollPane2.setViewportView(camp_observacao);
 
@@ -203,7 +226,7 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
         jPanel1.add(jSeparator1);
         jSeparator1.setBounds(20, 80, 1100, 10);
         jPanel1.add(jSeparator2);
-        jSeparator2.setBounds(20, 290, 1100, 10);
+        jSeparator2.setBounds(20, 300, 1100, 10);
 
         camp_totalvenda.setEditable(false);
         jPanel1.add(camp_totalvenda);
@@ -213,14 +236,14 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
         jPanel1.add(jLabel6);
         jLabel6.setBounds(320, 20, 100, 16);
 
-        btn_voltar.setText("Voltar");
+        btn_voltar.setText("<<<");
         btn_voltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_voltarActionPerformed(evt);
             }
         });
         jPanel1.add(btn_voltar);
-        btn_voltar.setBounds(1020, 10, 100, 40);
+        btn_voltar.setBounds(1060, 10, 60, 30);
 
         camp_valorentrada.setEditable(false);
         jPanel1.add(camp_valorentrada);
@@ -238,6 +261,66 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
         jPanel1.add(jLabel8);
         jLabel8.setBounds(720, 140, 110, 16);
 
+        checkbox.setText("Receber Parcela:");
+        checkbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxActionPerformed(evt);
+            }
+        });
+        jPanel1.add(checkbox);
+        checkbox.setBounds(820, 270, 140, 22);
+
+        btn_receber.setText("Receber");
+        btn_receber.setEnabled(false);
+        btn_receber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_receberActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_receber);
+        btn_receber.setBounds(1020, 260, 80, 30);
+
+        btn_EditarVenda.setText("Editar Venda");
+        btn_EditarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_EditarVendaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_EditarVenda);
+        btn_EditarVenda.setBounds(974, 590, 140, 40);
+
+        btn_removerItem.setText("Remover Item");
+        btn_removerItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_removerItemActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_removerItem);
+        btn_removerItem.setBounds(820, 590, 140, 40);
+
+        jLabel.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
+        jLabel.setForeground(new java.awt.Color(255, 0, 10));
+        jLabel.setText("Selecione Um Item Para Remover:");
+        jPanel1.add(jLabel);
+        jLabel.setBounds(30, 280, 230, 16);
+
+        btn_adicionarItem.setText("Adicionar Item");
+        btn_adicionarItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_adicionarItemActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_adicionarItem);
+        btn_adicionarItem.setBounds(664, 590, 140, 40);
+
+        jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 0, 24));
+        jLabel7.setText("ATENÇÃO VOCÊ ESTÁ EM MODO ADMINISTRADOR, MUITO CUIDADO COM OQUE VOCE IRÁ ALTERAR");
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(120, 90, 890, 30);
+        jPanel1.add(jSeparator4);
+        jSeparator4.setBounds(20, 120, 1100, 10);
+
         add(jPanel1);
         jPanel1.setBounds(6, 5, 1130, 640);
     }// </editor-fold>//GEN-END:initComponents
@@ -252,8 +335,76 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
         jDesktopPane1.add(sH);
     }//GEN-LAST:event_btn_voltarActionPerformed
 
+    private void checkboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxActionPerformed
+        if (checkbox.isSelected()) {
+            tableAPrazo.setEnabled(true);
+            btn_receber.setEnabled(true);
+        } else {
+            tableAPrazo.setEnabled(false);
+            btn_receber.setEnabled(false);
+        }
+    }//GEN-LAST:event_checkboxActionPerformed
+
+    private void btn_receberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_receberActionPerformed
+
+        try {
+            Conexao banco = new Conexao();
+            int row = tableAPrazo.getSelectedRow();
+            venda.getParcelas().get(row).setPago("PG");
+            btn_receber.setEnabled(false);
+            checkbox.setSelected(false);
+            tableAPrazo.setEnabled(false);
+            banco.update(venda);
+            carregarCampos();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Selecione uma Parcela! \n" + e);
+        }
+
+    }//GEN-LAST:event_btn_receberActionPerformed
+
+    private void btn_removerItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removerItemActionPerformed
+        DefaultTableModel tabela = (DefaultTableModel) jtableVenda.getModel();
+        Conexao banco = new Conexao();
+        try {
+            int confirmacao = JOptionPane.showInternalConfirmDialog(null, "Você tem certeza que deseja remover esse item?", "REMOVER ITEM", JOptionPane.YES_OPTION);
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                int row = jtableVenda.getSelectedRow();
+                for (ItensVenda iten : venda.getItens()) {
+                    System.out.println(iten.getIditensVenda() + " " + iten.getItems().getNome());
+                    if (iten.getIditensVenda().equals(tabela.getValueAt(row, 0))) {
+                        venda.getItens().remove(iten);
+                        banco.update(venda);
+                        carregarCampos();
+                        break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Selecione o Item que deseja remover! \n" + e);
+        }
+
+    }//GEN-LAST:event_btn_removerItemActionPerformed
+
+    private void btn_EditarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EditarVendaActionPerformed
+        jtableVenda.setEnabled(true);
+        btn_removerItem.setVisible(true);
+        btn_adicionarItem.setVisible(true);
+        jLabel.setVisible(true);
+        jLabel7.setVisible(true);
+        camp_observacao.setEnabled(true);
+//        camp_valorentrada.setEnabled(true);
+    }//GEN-LAST:event_btn_EditarVendaActionPerformed
+
+    private void btn_adicionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adicionarItemActionPerformed
+        
+    }//GEN-LAST:event_btn_adicionarItemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_EditarVenda;
+    private javax.swing.JButton btn_adicionarItem;
+    private javax.swing.JButton btn_receber;
+    private javax.swing.JButton btn_removerItem;
     private javax.swing.JButton btn_voltar;
     private javax.swing.JTextField camp_CodigoCliente;
     private javax.swing.JTextField camp_codigovenda;
@@ -263,12 +414,15 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
     private javax.swing.JTextArea camp_observacao;
     private javax.swing.JTextField camp_totalvenda;
     private javax.swing.JTextField camp_valorentrada;
+    private javax.swing.JCheckBox checkbox;
+    private javax.swing.JLabel jLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -278,6 +432,7 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JLabel jlabelValorPago;
     private javax.swing.JTable jtableVenda;
     private javax.swing.JTable tableAPrazo;
@@ -298,36 +453,42 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
         camp_CodigoCliente.setText(venda.getCliente().getIdpessoa() + "");
 
         DefaultTableModel tabelavenda = (DefaultTableModel) jtableVenda.getModel();
-
         tabelavenda.setNumRows(0);
-        for (ItensVenda iten : venda.getItens()) {
+        camp_valorentrada.setText(dinheiro.format(venda.getValor_pago()));
+        for (ItensVenda iten : venda.listaItens()) {
             tabelavenda.addRow(new Object[]{
-                iten.getItems().getIdProduto(),
+                iten.getIditensVenda(),
                 iten.getItems().getNome(),
                 iten.getQnt(),
                 dinheiro.format(iten.valortotal())
             });
         }
-        
+
         if (venda.FormaPagamento().equals("A PRAZO")) {
             DefaultTableModel tabelaAprazo = (DefaultTableModel) tableAPrazo.getModel();
             jlabelValorPago.setText("Valor Pago:");
             camp_valorentrada.setText(dinheiro.format(venda.getValor_pago())); // valor da entrada;
-
+            checkbox.setVisible(true);
+            btn_receber.setVisible(true);
             tabelaAprazo.setNumRows(0);
-            tabelaAprazo.addRow(new Object[]{
-                data.format(venda.getPrazo()),
-                dinheiro.format(venda.getValorTotal()),
-                venda.getPago()
-            });
+            for (Parcelas parcela : venda.getParcelas()) {
+                tabelaAprazo.addRow(new Object[]{
+                    data.format(parcela.getData()),
+                    dinheiro.format(parcela.getValor()),
+                    parcela.getPago()
+                });
+            }
+
         }
         if (venda.FormaPagamento().equals("PARCELADO")) {
             DefaultTableModel tabelaParcelado = (DefaultTableModel) tableAPrazo.getModel();
             jlabelValorPago.setText("Valor Entrada:");
             camp_valorentrada.setText(dinheiro.format(venda.getValor_pago())); // valor da entrada;
+            checkbox.setVisible(true);
+            btn_receber.setVisible(true);
 
             tabelaParcelado.setNumRows(0);
-            for (Parcelas parcela : venda.getParcelas()) {
+            for (Parcelas parcela : venda.listaParcelas()) {
                 if (parcela.isStatus()) {
                     tabelaParcelado.addRow(new Object[]{
                         data.format(parcela.getData()),

@@ -4,6 +4,9 @@ import br.com.conexao.Conexao;
 import br.com.conexao.NewHibernateUtil;
 import br.com.telas.MainScreen;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -74,25 +77,33 @@ public class Main {
 
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
-//        
-//        String datainicio = "2021-02-20";
-//        String datafim = "2021-02-21";
-//        String hql = "from Venda where dataVenda BETWEEN ('"+datainicio+"')"+"and"+"('"+datafim+"')";
-//        Query query = session.createQuery(hql);
-//        List<Venda> results = query.list();
-//        
-//        for (Venda result : results) {
-//            System.out.println(result.getDataVenda());
-////        }
+        
 
-        Venda venda = (Venda) session.get(Venda.class, 3);
+////        String hql = "FROM Venda as v INNER JOIN v.itens";
+//        String sql = "FROM ItensVenda as v INNER JOIN v.venda";
+//        List<Object[]> query = (List<Object[]>) session.createQuery(sql).list();
+//        
+//        for (Object[] objects : query) {
+//            ItensVenda item = (ItensVenda) objects[0];
+//            Venda venda = (Venda) objects[1];
+//            System.out.println(venda.getIdvenda());
+//            System.out.println(item.getItems().getIdProduto());
+//        }
 
-        for (int i = 0; i < venda.getItens().size(); i++) {
-            System.out.println(venda.getItens().get(i).getIditensVenda());
+        Venda venda = (Venda) session.get(Venda.class, 2);
+        
+        HashSet<ItensVenda> list = new HashSet();
+                
+        for (ItensVenda iten : venda.getItens()) {
+            list.add(iten);
+        }
+//        list = Collections.singleton(new HashSet(list));
+        
+        for (ItensVenda object : list) {
+            System.out.println(object.getIditensVenda());
+            
         }
         
-        System.out.println(venda.getParcelas().get(1).isStatus());
-        session.close();
     }
 
 }

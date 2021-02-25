@@ -8,7 +8,6 @@ package br.com.telas;
 import br.com.classes.Cliente;
 import br.com.classes.Endereco;
 import br.com.classes.FormaPagamento;
-import br.com.classes.Pessoa;
 import br.com.classes.Venda;
 import br.com.conexao.Conexao;
 import java.awt.Color;
@@ -24,11 +23,9 @@ import java.util.List;
 public class MainScreen extends javax.swing.JFrame {
 
     Color standardColor;
-
-    ProductScreen p = new ProductScreen();
     TelaFornecedor r = new TelaFornecedor();
     TelaCadastroCliente cc = new TelaCadastroCliente();
-    TelaVenda s = new TelaVenda();
+    
 
     public MainScreen() {
         initComponents();
@@ -212,6 +209,7 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_FocoMouse
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        ProductScreen p = new ProductScreen();
         jDesktopPane1.removeAll();
         p.setLocation(0, 0);
         p.setSize(1140, 650);
@@ -231,6 +229,7 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        TelaVenda s = new TelaVenda();
         jDesktopPane1.removeAll();
         s.setLocation(0, 0);
         s.setSize(1140, 650);

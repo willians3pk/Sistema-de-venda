@@ -8,12 +8,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name = "produto")
@@ -25,13 +24,13 @@ public class Produto {
     private Integer idProduto;
 
     @OneToOne(fetch = FetchType.EAGER)
+    @Cascade({CascadeType.ALL})
     private Fornecedor fornecedor;
     private String nome;
     private double valor_compra;
     private double valor_venda;
     private double valor_total;
     private boolean status;
-    private boolean excluido;
     private String tamanho;
     private String apelido;
     private int qnt;
@@ -45,7 +44,7 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(Integer idProduto, Fornecedor fornecedor, String nome, double valor_compra, double valor_venda, double valor_total, boolean status, boolean excluido, String tamanho, String apelido, int qnt, String descricao, Date dataEntrega, List<ItensVenda> itensVendas) {
+    public Produto(Integer idProduto, Fornecedor fornecedor, String nome, double valor_compra, double valor_venda, double valor_total, boolean status, String tamanho, String apelido, int qnt, String descricao, Date dataEntrega, Date dataRegistro, List<ItensVenda> itensVendas) {
         this.idProduto = idProduto;
         this.fornecedor = fornecedor;
         this.nome = nome;
@@ -53,12 +52,12 @@ public class Produto {
         this.valor_venda = valor_venda;
         this.valor_total = valor_total;
         this.status = status;
-        this.excluido = excluido;
         this.tamanho = tamanho;
         this.apelido = apelido;
         this.qnt = qnt;
         this.descricao = descricao;
         this.dataEntrega = dataEntrega;
+        this.dataRegistro = dataRegistro;
         this.itensVendas = itensVendas;
     }
 
@@ -118,14 +117,6 @@ public class Produto {
         this.status = status;
     }
 
-    public boolean isExcluido() {
-        return excluido;
-    }
-
-    public void setExcluido(boolean excluido) {
-        this.excluido = excluido;
-    }
-
     public String getTamanho() {
         return tamanho;
     }
@@ -173,7 +164,7 @@ public class Produto {
     public void setDataRegistro(Date dataRegistro) {
         this.dataRegistro = dataRegistro;
     }
-    
+
     public List<ItensVenda> getItensVendas() {
         return itensVendas;
     }

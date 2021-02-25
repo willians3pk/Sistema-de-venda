@@ -4,11 +4,12 @@ import br.com.auxiliar.Teclas;
 import br.com.classes.Produto;
 import br.com.conexao.Conexao;
 import static br.com.telas.MainScreen.jDesktopPane1;
-import static br.com.telas.TelaFinalizarVenda.camp_cliente;
-import static br.com.telas.TelaFinalizarVenda.jLabelQuantidadeItens;
+import static br.com.telas.FinalizarVenda.camp_cliente;
+import static br.com.telas.FinalizarVenda.jLabelQuantidadeItens;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.JOptionPane;
@@ -18,9 +19,8 @@ import javax.swing.table.TableColumn;
 public class TelaVenda extends javax.swing.JPanel {
 
     SearchScreen s = new SearchScreen();
-    TelaFinalizarVenda f = new TelaFinalizarVenda();
     Conexao bancoMariaDB = new Conexao();
-    public static List<Produto> produtos = new ArrayList<>();
+    public static List<Produto> produtos = new ArrayList<>(new HashSet());
     public static Produto produto;
     boolean tt = true;
 
@@ -29,7 +29,6 @@ public class TelaVenda extends javax.swing.JPanel {
         field_preco.setEnabled(false);
         field_qnt.setEnabled(false);
         camp_buscarProduto.setDocument(new Teclas());
-
     }
 
     @SuppressWarnings("unchecked")
@@ -356,17 +355,22 @@ public class TelaVenda extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_buscarProdutoActionPerformed
 
     private void btn_finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarActionPerformed
-
+        FinalizarVenda fv = new FinalizarVenda();
+        
         camp_cliente.requestFocus();
         btn_removerItem.setEnabled(false);
-        f.setVisible(true);
-        f.setLista(produtos);
-        f.valorTotal();
-        f.dataVenda.setDate(new Date()); // sempre adiciona a data atual
-        f.camp_qtdeParcelas.setVisible(false);
-        f.camp_valorParcelas.setVisible(false);
-        f.carregarComboBox();
-
+        jDesktopPane1.removeAll();
+        fv.setLocation(0, 0);
+        fv.setSize(1140, 650);
+        fv.setVisible(true);
+        fv.carregarComboBox();
+        fv.valorTotal();
+        fv.setLista(produtos);
+        fv.dataVenda.setDate(new Date()); // sempre adiciona a data atual
+        fv.camp_qtdeParcelas.setVisible(false);
+        fv.camp_valorParcelas.setVisible(false);
+        jDesktopPane1.add(fv);
+        
     }//GEN-LAST:event_btn_finalizarActionPerformed
 
     private void field_qntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_qntActionPerformed
@@ -402,14 +406,6 @@ public class TelaVenda extends javax.swing.JPanel {
     private void camp_buscarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camp_buscarProdutoActionPerformed
         String pesquisa = camp_buscarProduto.getText();
         List<Produto> listaProduto = bancoMariaDB.filtrarProdutoNome(pesquisa);
-
-//        for (int i = 0; i < bancoMariaDB.productBook().size(); i++) {
-//            // VERIFICA SE O NOME COMTEM NA LISTA DE PRODUTO E VERIFICA O STATUS DO PRODUTO;
-//            if (bancoMariaDB.productBook().get(i).getNome().contains(pesquisa) && bancoMariaDB.productBook().get(i).isStatus()) {
-//                produto = bancoMariaDB.productBook().get(i);
-////                listaProduto.add(produto); // ADICIONA NA LISTA PRODUTO;
-//            }
-//        }
 
         for (Produto produto1 : listaProduto) {
             produto = produto1;

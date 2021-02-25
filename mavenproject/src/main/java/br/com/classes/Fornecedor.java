@@ -9,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -44,19 +43,23 @@ public class Fornecedor {
     private List<NumeroContato> contatos;
 
     public Fornecedor() {
+        
     }
 
-    public Fornecedor(Integer idFornecedor, Endereco endereco, String nome, Long cnpj, Long cpf, String email, String homePage, List<Produto> list_Produto, List<NumeroContato> contatos) {
+    public Fornecedor(Integer idFornecedor, String nome, Long cnpj, Long cpf, String email, String homePage, Date dataCadastro, Endereco endereco, List<Produto> list_Produto, List<NumeroContato> contatos) {
         this.idFornecedor = idFornecedor;
-        this.endereco = endereco;
         this.nome = nome;
         this.cnpj = cnpj;
         this.cpf = cpf;
         this.email = email;
         this.homePage = homePage;
+        this.dataCadastro = dataCadastro;
+        this.endereco = endereco;
         this.list_Produto = list_Produto;
         this.contatos = contatos;
     }
+
+    
 
     public Integer getIdFornecedor() {
         return idFornecedor;
@@ -138,4 +141,14 @@ public class Fornecedor {
         this.dataCadastro = dataCadastro;
     }
 
+    // -----------------------------------------------
+    
+    public void adicionarProduto(Produto produto) {
+        this.list_Produto.add(produto);
+    }
+
+    public void removeItem(Produto produto){
+        this.getList_Produto().remove(produto);
+    }
+    
 }

@@ -6,6 +6,7 @@ import br.com.conexao.Conexao;
 import br.com.classes.Endereco;
 import br.com.classes.Fornecedor;
 import br.com.classes.NumeroContato;
+import br.com.classes.Produto;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -685,6 +686,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
         Fornecedor supplier = new Fornecedor(); // cria um novo fornecedor;
         Endereco end = new Endereco(); // cria um novo endereço;
         NumeroContato contact = new NumeroContato(); // cria um novo numero de contato;
+        List<Produto> produtos = new ArrayList<>();
 
         /*      FAZ UMA VERIFICAÇÃO SE TODOS OS CAMPOS OBRIGATORIOS ESTÃO PREENCHIDOS;*/
         if (camp_SupplierName.getText().length() > 0) {
@@ -733,20 +735,14 @@ public class TelaFornecedor extends javax.swing.JPanel {
             end.setEstadoUf(camp_StateSupplier.getText());
             end.setComplemento(camp_ComplementSupplier.getText());
 
-            //----------------------- Reacionamento entre objetos ---------------------------//
+            //----------------------- Relacionamento entre objetos ---------------------------//
             supplier.setEndereco(end); // adiciona o endereço ao forncedor;
             end.setFornecedors(supplier); // adiciona o fornecedor ao endereco;
             supplier.getContatos().add(contact); // adiciona o contato a lista de contatos;
-
+            supplier.setList_Produto(produtos); // adiciona lista produtos;
             Conexao connectbanco = new Conexao(); // abre conexao com o banco;
             connectbanco.save(supplier); // salva a classe Pai
 
-            /*          
-            connectbanco.save(end); 
-            connectbanco.save(contact);
-            NÃO A NECESSIDADE DE SALVAR O ENDERECO E NEM "CONTATO", POIS A CLASSE ESTÁ MAPEADA COMO CASCADE, ENTAO SÓ PRECISA
-            SALVAR A CLASS PAI QUE AUTOMATICAMENTO SALVA A CLASSE FILHO 
-             */
 //            LIMPA OS CAMPOS DE TEXTOS
             camp_SupplierName.setText(""); // name do fornecedor
             camp_AddressRuaSupplier.setText(""); // rua do fornecedor

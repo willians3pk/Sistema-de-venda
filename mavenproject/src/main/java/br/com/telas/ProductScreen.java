@@ -19,7 +19,8 @@ public class ProductScreen extends javax.swing.JPanel {
 
     public static Conexao connectbanco = new Conexao();
     ScreenCadFornecedor f = new ScreenCadFornecedor();
-    
+    Fornecedor forne = null;
+
     public ProductScreen() {
         initComponents();
         btn_ToEdit.setEnabled(false);
@@ -44,6 +45,7 @@ public class ProductScreen extends javax.swing.JPanel {
         btn_Deactivate = new javax.swing.JButton();
         camp_Profitmargin = new javax.swing.JFormattedTextField();
         jLabel8 = new javax.swing.JLabel();
+        checkbox_ordenby = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         camp_ProductName = new javax.swing.JTextField();
         camp_Qnt = new javax.swing.JFormattedTextField();
@@ -62,7 +64,6 @@ public class ProductScreen extends javax.swing.JPanel {
         camp_apelido = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        btn_NewSupplier = new javax.swing.JButton();
         obrigatorioName = new javax.swing.JLabel();
         obrigatorioPriceBuy = new javax.swing.JLabel();
         obrigatorioPriceSell = new javax.swing.JLabel();
@@ -182,6 +183,15 @@ public class ProductScreen extends javax.swing.JPanel {
         jPanel1.add(jLabel8);
         jLabel8.setBounds(930, 30, 170, 30);
 
+        checkbox_ordenby.setText("ORDENAR EM ORDEM ALFABETICA");
+        checkbox_ordenby.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkbox_ordenbyActionPerformed(evt);
+            }
+        });
+        jPanel1.add(checkbox_ordenby);
+        checkbox_ordenby.setBounds(10, 140, 240, 22);
+
         add(jPanel1);
         jPanel1.setBounds(10, 320, 1120, 320);
 
@@ -195,6 +205,11 @@ public class ProductScreen extends javax.swing.JPanel {
         camp_Qnt.setBounds(200, 110, 90, 26);
 
         comboBox_Supplier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione o Fornecedor>" }));
+        comboBox_Supplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBox_SupplierActionPerformed(evt);
+            }
+        });
         jPanel2.add(comboBox_Supplier);
         comboBox_Supplier.setBounds(650, 50, 370, 26);
 
@@ -205,20 +220,10 @@ public class ProductScreen extends javax.swing.JPanel {
         jScrollPane2.setBounds(200, 160, 380, 110);
 
         camp_Buyprice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        camp_Buyprice.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                camp_BuypriceKeyReleased(evt);
-            }
-        });
         jPanel2.add(camp_Buyprice);
         camp_Buyprice.setBounds(20, 110, 140, 26);
 
         camp_Sellprice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        camp_Sellprice.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                camp_SellpriceKeyReleased(evt);
-            }
-        });
         jPanel2.add(camp_Sellprice);
         camp_Sellprice.setBounds(20, 180, 140, 26);
 
@@ -264,15 +269,6 @@ public class ProductScreen extends javax.swing.JPanel {
         jLabel9.setText("Fornecedor:");
         jPanel2.add(jLabel9);
         jLabel9.setBounds(650, 30, 100, 16);
-
-        btn_NewSupplier.setText("Novo");
-        btn_NewSupplier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_NewSupplierActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btn_NewSupplier);
-        btn_NewSupplier.setBounds(1030, 50, 80, 30);
 
         obrigatorioName.setForeground(new java.awt.Color(255, 0, 0));
         obrigatorioName.setText("* obrigatorio");
@@ -377,6 +373,7 @@ public class ProductScreen extends javax.swing.JPanel {
         loadingTableProduct();
         btn_ToEdit.setEnabled(false);
         btn_Deactivate.setEnabled(false);
+        checkbox_ordenby.setSelected(false);
     }//GEN-LAST:event_btn_updateActionPerformed
 
     private void btn_DeactivateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DeactivateActionPerformed
@@ -399,22 +396,11 @@ public class ProductScreen extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btn_ToEditActionPerformed
 
-    private void btn_NewSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NewSupplierActionPerformed
-        f.setVisible(true);
-    }//GEN-LAST:event_btn_NewSupplierActionPerformed
-
-    private void camp_BuypriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_BuypriceKeyReleased
-//        buyPrice();
-    }//GEN-LAST:event_camp_BuypriceKeyReleased
-
-    private void camp_SellpriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_SellpriceKeyReleased
-//        sellPrice();
-    }//GEN-LAST:event_camp_SellpriceKeyReleased
-
     private void camp_SearchProductKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_SearchProductKeyReleased
         loadingTableProduct();
         btn_ToEdit.setEnabled(false);
         btn_Deactivate.setEnabled(false);
+        checkbox_ordenby.setSelected(false);
     }//GEN-LAST:event_camp_SearchProductKeyReleased
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
@@ -431,13 +417,76 @@ public class ProductScreen extends javax.swing.JPanel {
         comboBox_Size.setSelectedIndex(0);
     }//GEN-LAST:event_btn_cleanAllActionPerformed
 
+    private void comboBox_SupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBox_SupplierActionPerformed
+        int posicao = comboBox_Supplier.getSelectedIndex();
+        forne = connectbanco.list_Fornecedores().get(posicao);
+        System.out.println(posicao + " " + forne.getNome());
+    }//GEN-LAST:event_comboBox_SupplierActionPerformed
+
+    private void checkbox_ordenbyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkbox_ordenbyActionPerformed
+
+        List<Produto> items = new ArrayList<>();
+        for (int i = 0; i < connectbanco.produtosOrdenados().size(); i++) {
+            Produto item = connectbanco.produtosOrdenados().get(i);
+            if (item.isStatus()) {      // ESSE IF VAI ADICIONAR NA ARRAYLIST APENAS OS ITEMS QUE TIVEREM COM STATUS TRUE
+                items.add(item);        // ADICIONA O ITEM DA PESQUISA NA ARRAYLIST
+            }
+        }
+        Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
+        NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
+        NumberFormat lucroBruto = NumberFormat.getCurrencyInstance(localeBR);
+
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
+
+        DefaultTableModel tableDefault = (DefaultTableModel) table_Product.getModel();
+        // modifica a largura das colunas da tabela.
+        TableColumn colCodigo = table_Product.getColumnModel().getColumn(0);
+        TableColumn colDataProduto = table_Product.getColumnModel().getColumn(1);
+        TableColumn colNome = table_Product.getColumnModel().getColumn(2);
+        TableColumn colPreço = table_Product.getColumnModel().getColumn(3);
+        TableColumn colQuantidade = table_Product.getColumnModel().getColumn(4);
+        TableColumn colFornecedor = table_Product.getColumnModel().getColumn(5);
+        TableColumn colTamanho = table_Product.getColumnModel().getColumn(6);
+
+        colCodigo.setPreferredWidth(5);
+//        colDataProduto.setPreferredWidth(30);
+        colNome.setPreferredWidth(250);
+        colPreço.setPreferredWidth(25);
+        colQuantidade.setPreferredWidth(5);
+        colFornecedor.setPreferredWidth(250);
+        colTamanho.setPreferredWidth(2);
+
+        double y = 0;
+        double x = 0;
+        double z = 0;
+
+        try {
+            tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR PARA NAO HAVER DUPLICAÇÃO DE ITENS;
+            for (Produto item : items) {
+
+                x = item.getValor_total();
+
+                tableDefault.addRow(new Object[]{item.getIdProduto(), formato.format(item.getDataEntrega()), item.getNome(), dinheiro.format((item.getValor_venda())),
+                    item.getQnt(), item.getFornecedor().getNome(), item.getTamanho(), dinheiro.format(item.getValor_total())});
+
+                // calculo do valor lucro bruto
+                y = z + x;
+                z = y;
+            }
+
+            camp_Profitmargin.setText(lucroBruto.format(z)); // adiciona a margem de lucro bruto
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "<Item não Encontrado>");
+        }
+    }//GEN-LAST:event_checkbox_ordenbyActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox box_Price;
     private javax.swing.JCheckBox box_Qnt;
     private javax.swing.JCheckBox box_Size;
     public javax.swing.JButton btn_Deactivate;
-    private javax.swing.JButton btn_NewSupplier;
     private javax.swing.JButton btn_Register;
     public javax.swing.JButton btn_ToEdit;
     private javax.swing.JButton btn_cleanAll;
@@ -451,6 +500,7 @@ public class ProductScreen extends javax.swing.JPanel {
     private javax.swing.JTextField camp_SearchProduct;
     private javax.swing.JFormattedTextField camp_Sellprice;
     private javax.swing.JFormattedTextField camp_apelido;
+    private javax.swing.JCheckBox checkbox_ordenby;
     private javax.swing.JComboBox<String> comboBox_Size;
     public static javax.swing.JComboBox<String> comboBox_Supplier;
     private javax.swing.JLabel jLabel1;
@@ -526,23 +576,15 @@ public class ProductScreen extends javax.swing.JPanel {
             Produto newProduct = new Produto(); // cria um novo produto;
             String size = null;
 
-//            Float priceBuy = Float.parseFloat(camp_Buyprice.getText());//remove a virgula e adiciona apenas os numeros decimais
-//            Float priceSell = Float.parseFloat(camp_Sellprice.getText()); //remove a virgula e adiciona apenas os numeros decimais
-            
             double priceSell = Double.parseDouble(camp_Sellprice.getText().replaceAll(",", ".").replace("R$", "")); //remove a virgula e adiciona apenas os numeros decimais
             int qnt = Integer.parseInt(camp_Qnt.getText());
             Double totalvalue = (priceSell * qnt);
 
             try {
 
-                DefaultComboBoxModel comboBox = new DefaultComboBoxModel();
-                for (Fornecedor fornecedor : connectbanco.list_Fornecedores()) { // PEGA OS FORNECEDORES CADASTRADOS NO BANCO DE DADOS;
-                    comboBox.addElement(fornecedor.getNome());
-                    comboBox_Supplier.setModel(comboBox);           // ADICIONA OS FORNECEDORES NA COMBOBOX;
-                }
-
-                int position = comboBox_Supplier.getSelectedIndex();
-                Fornecedor forne = connectbanco.list_Fornecedores().get(position);
+                int posicao = comboBox_Supplier.getSelectedIndex();
+                forne = connectbanco.list_Fornecedores().get(posicao);
+                System.out.println("Fornecedor: " + forne.getNome());
 
                 // adiciona os valores dos campos, nos atributos do novo produto;
                 newProduct.setFornecedor(forne);
@@ -551,13 +593,12 @@ public class ProductScreen extends javax.swing.JPanel {
                 newProduct.setValor_venda(Double.parseDouble(camp_Sellprice.getText().replace(",", ".")));
                 newProduct.setApelido(camp_apelido.getText());
                 newProduct.setStatus(true);
-                newProduct.setExcluido(false);
                 newProduct.setQnt(qnt);
                 newProduct.setDescricao(camp_Description.getText());
                 newProduct.setDataEntrega(camp_Deliverydate.getDate());
                 newProduct.setValor_total(totalvalue);
                 newProduct.setDataRegistro(new Date()); // DATA QUE FOI REGISTRADO O PRODUTO;
-                
+
                 if (comboBox_Size.getSelectedItem().toString().equals("<selecione>")) {
                     JOptionPane.showMessageDialog(null, "<html><font color=\"#FF0000\">SELECIONE O TAMENHO!</font></html>");
                 } else {
@@ -567,6 +608,8 @@ public class ProductScreen extends javax.swing.JPanel {
 
                     /* ----------------- LIMPA OS CAMPOS  -------------- */
                     connectbanco.save(newProduct);
+////                    forne.adicionarProduto(newProduct);
+//                    connectbanco.save_update(forne);
                     camp_ProductName.setText("");
                     camp_apelido.setText("");
                     camp_Buyprice.setText("");
@@ -643,8 +686,6 @@ public class ProductScreen extends javax.swing.JPanel {
 
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
 
-        
-
         DefaultTableModel tableDefault = (DefaultTableModel) table_Product.getModel();
         // modifica a largura das colunas da tabela.
         TableColumn colCodigo = table_Product.getColumnModel().getColumn(0);
@@ -654,7 +695,7 @@ public class ProductScreen extends javax.swing.JPanel {
         TableColumn colQuantidade = table_Product.getColumnModel().getColumn(4);
         TableColumn colFornecedor = table_Product.getColumnModel().getColumn(5);
         TableColumn colTamanho = table_Product.getColumnModel().getColumn(6);
-        
+
         colCodigo.setPreferredWidth(5);
 //        colDataProduto.setPreferredWidth(30);
         colNome.setPreferredWidth(250);
@@ -662,11 +703,11 @@ public class ProductScreen extends javax.swing.JPanel {
         colQuantidade.setPreferredWidth(5);
         colFornecedor.setPreferredWidth(250);
         colTamanho.setPreferredWidth(2);
-        
+
         double y = 0;
         double x = 0;
         double z = 0;
-        
+
         try {
             tableDefault.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR PARA NAO HAVER DUPLICAÇÃO DE ITENS;
             for (Produto item : items) {

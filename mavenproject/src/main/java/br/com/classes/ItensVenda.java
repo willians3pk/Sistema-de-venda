@@ -1,6 +1,7 @@
 package br.com.classes;
 
 import br.com.conexao.Conexao;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,16 +20,17 @@ public class ItensVenda {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="Cod_ItensVenda", unique=true, nullable=false)
-    private int iditensVenda;
+    private Integer iditensVenda;
     @ManyToOne(fetch = FetchType.EAGER)
     private Produto items;    
     @ManyToOne(fetch = FetchType.EAGER)
-    @Cascade({CascadeType.ALL})
+    @Cascade({CascadeType.SAVE_UPDATE})
     private Venda venda;
     
     private int qnt;
     
     private boolean status;
+    private Date dataEmissao;
 
     public ItensVenda() {
     }
@@ -41,11 +43,11 @@ public class ItensVenda {
         this.status = status;
     }
 
-    public int getIditensVenda() {
+    public Integer getIditensVenda() {
         return iditensVenda;
     }
 
-    public void setIditensVenda(int iditensVenda) {
+    public void setIditensVenda(Integer iditensVenda) {
         this.iditensVenda = iditensVenda;
     }
 
@@ -81,9 +83,18 @@ public class ItensVenda {
         this.status = status;
     }
 
+    public Date getDataEmissao() {
+        return dataEmissao;
+    }
+
+    public void setDataEmissao(Date dataEmissao) {
+        this.dataEmissao = dataEmissao;
+    }
+
     //------------------------------------------------
     
     public double valortotal(){
         return this.getItems().getValor_venda() * this.getQnt();
     }
+
 }

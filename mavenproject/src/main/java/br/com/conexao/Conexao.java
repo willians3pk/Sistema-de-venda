@@ -165,6 +165,25 @@ public class Conexao {
         return null;
     }
 
+    public List<Produto> produtosOrdenados() {
+
+        this.session = NewHibernateUtil.getSessionFactory().openSession();
+        this.tx = session.beginTransaction();
+        List<Produto> list = null;
+
+        try {
+            list = (List<Produto>) session.createQuery("from Produto p ORDER BY p.nome").list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            System.out.println("Erro ao Pegar lista no Banco de Dados!");
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!");
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+    
     public List<Fornecedor> list_Fornecedores() {
 
         this.session = NewHibernateUtil.getSessionFactory().openSession();
