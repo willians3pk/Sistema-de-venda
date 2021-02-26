@@ -50,8 +50,6 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
-        camp_DDDSupplier = new javax.swing.JFormattedTextField();
-        jLabel33 = new javax.swing.JLabel();
         obrigatorioName = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jPanel9 = new javax.swing.JPanel();
@@ -106,13 +104,12 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         camp_HomePageSupplier.setBounds(20, 170, 280, 30);
 
         try {
-            camp_ContactSupplier.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#########")));
+            camp_ContactSupplier.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        camp_ContactSupplier.setText("000000000");
         jPanel8.add(camp_ContactSupplier);
-        camp_ContactSupplier.setBounds(440, 110, 130, 30);
+        camp_ContactSupplier.setBounds(360, 110, 130, 30);
 
         jLabel27.setText("Nome:");
         jPanel8.add(jLabel27);
@@ -120,7 +117,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
 
         jLabel28.setText("Contato:");
         jPanel8.add(jLabel28);
-        jLabel28.setBounds(440, 90, 130, 16);
+        jLabel28.setBounds(360, 90, 130, 16);
 
         jLabel29.setText("CPF:");
         jPanel8.add(jLabel29);
@@ -137,19 +134,6 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         jLabel32.setText("Home Page:");
         jPanel8.add(jLabel32);
         jLabel32.setBounds(20, 150, 130, 20);
-
-        try {
-            camp_DDDSupplier.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        camp_DDDSupplier.setText("00");
-        jPanel8.add(camp_DDDSupplier);
-        camp_DDDSupplier.setBounds(360, 110, 60, 30);
-
-        jLabel33.setText("DDD:");
-        jPanel8.add(jLabel33);
-        jLabel33.setBounds(360, 90, 60, 16);
 
         obrigatorioName.setForeground(new java.awt.Color(254, 1, 1));
         obrigatorioName.setText("* obrigatorio");
@@ -255,7 +239,6 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         camp_EmailSupplier.setText(""); // email do fornecedor
         camp_HomePageSupplier.setText(""); // home page do fornecedor
         camp_CEPSupplier.setText("00000000"); // cep do fornecedor
-        camp_DDDSupplier.setText("00"); // DDD do fornecedor
         camp_ContactSupplier.setText("000000000"); // contato do fornecedor
         camp_CNPJ.setText("00000000000000"); // CNPJ do fornecedor
         camp_cpfSupplier.setText("00000000000"); // CPF do fornecedor
@@ -312,7 +295,6 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JTextField camp_CitySupplier;
     private javax.swing.JTextPane camp_ComplementSupplier;
     private javax.swing.JFormattedTextField camp_ContactSupplier;
-    private javax.swing.JFormattedTextField camp_DDDSupplier;
     private javax.swing.JTextField camp_EmailSupplier;
     private javax.swing.JTextField camp_HomePageSupplier;
     private javax.swing.JFormattedTextField camp_NumbleHouseSupplier;
@@ -325,7 +307,6 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
@@ -341,7 +322,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void RegisterSupplier() {
-       
+
         Fornecedor supplier = new Fornecedor(); // cria um novo fornecedor;
         Endereco end = new Endereco(); // cria um novo endereço;
         NumeroContato contact = new NumeroContato(); // cria um novo numero de contato;
@@ -365,17 +346,10 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
             supplier.setHomePage(camp_HomePageSupplier.getText());
             supplier.setCpf(cpf);
             supplier.setDataCadastro(new Date()); // data em que o fornecedor foi cadastrado;
-            List<NumeroContato> phoneBook = new ArrayList<>();
-            supplier.setContatos(phoneBook);
 
             //--------------------------------- numero de contato -----------------------------------//
-            int ddd = Integer.parseInt(camp_DDDSupplier.getText());
-            int numeroContato = Integer.parseInt(camp_ContactSupplier.getText());
-
-            contact.setDdd(ddd);
-            contact.setFone(numeroContato);
-            contact.setFornecedor(supplier);
-            contact.setCpf(cpf);
+            Long numeroContato = Long.parseLong(camp_ContactSupplier.getText().replace("(", "").replace(")", "").replaceAll("-", ""));
+            supplier.setContato(numeroContato);
 
             //--------------------------------- Endereço -----------------------------------//
             int cep = Integer.parseInt(camp_CEPSupplier.getText().replaceAll("-", ""));
@@ -391,25 +365,17 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
             //----------------------- Reacionamento entre objetos ---------------------------//
             supplier.setEndereco(end); // adiciona o endereço ao forncedor;
             end.setFornecedors(supplier); // adiciona o fornecedor ao endereco;
-            supplier.getContatos().add(contact); // adiciona o contato a lista de contatos;
 
             Conexao connectbanco = new Conexao(); // abre conexao com o banco;
             connectbanco.save(supplier); // salva a classe Pai
 
-            /*          
-            connectbanco.save(end); 
-            connectbanco.save(contact);
-            NÃO A NECESSIDADE DE SALVAR O ENDERECO E NEM "CONTATO", POIS A CLASSE ESTÁ MAPEADA COMO CASCADE, ENTAO SÓ PRECISA
-            SALVAR A CLASS PAI QUE AUTOMATICAMENTO SALVA A CLASSE FILHO 
-             */
 //            LIMPA OS CAMPOS DE TEXTOS
             camp_SupplierName.setText(""); // name do fornecedor
             camp_AddressRuaSupplier.setText(""); // rua do fornecedor
             camp_EmailSupplier.setText(""); // email do fornecedor
             camp_HomePageSupplier.setText(""); // home page do fornecedor
             camp_CEPSupplier.setText("00000000"); // cep do fornecedor
-            camp_DDDSupplier.setText("00"); // DDD do fornecedor
-            camp_ContactSupplier.setText("000000000"); // contato do fornecedor
+            camp_ContactSupplier.setText("00000000000"); // contato do fornecedor
             camp_CNPJ.setText("00000000000000"); // CNPJ do fornecedor
             camp_cpfSupplier.setText("00000000000"); // CPF do fornecedor
             camp_BairroSupplier.setText("");// Bairro do fornecedor
@@ -417,13 +383,12 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
             camp_StateSupplier.setText(""); // Estado UF do fornecedor
             camp_CitySupplier.setText(""); // cidade do forncedor
             camp_ComplementSupplier.setText(""); // complemento do fornecedor
-            
+
             ProductScreen.loadingCampos();// carregar a comboBox de Fornecedores
             dispose();
         } else {
             JOptionPane.showMessageDialog(null, "<html><font color=\"#FF0000\">*PREENCHA AS INFORMAÇÕES OBRIGATORIAS*</font></html>");
         }
 
-       
     }
 }

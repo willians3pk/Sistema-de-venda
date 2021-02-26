@@ -29,7 +29,8 @@ public class Fornecedor {
     private String email;
     private String homePage;
     private Date dataCadastro;
-
+    private Long contato;
+    
     @OneToOne(fetch = FetchType.EAGER)
     @Cascade({CascadeType.PERSIST, CascadeType.SAVE_UPDATE})
     private Endereco endereco;
@@ -38,15 +39,15 @@ public class Fornecedor {
     @Cascade({CascadeType.PERSIST, CascadeType.SAVE_UPDATE})
     private List<Produto> list_Produto;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @Cascade({CascadeType.PERSIST, CascadeType.SAVE_UPDATE})
-    private List<NumeroContato> contatos;
+//    @OneToMany(fetch = FetchType.EAGER)
+//    @Cascade({CascadeType.PERSIST, CascadeType.SAVE_UPDATE})
+//    private List<NumeroContato> contatos;
 
     public Fornecedor() {
         
     }
 
-    public Fornecedor(Integer idFornecedor, String nome, Long cnpj, Long cpf, String email, String homePage, Date dataCadastro, Endereco endereco, List<Produto> list_Produto, List<NumeroContato> contatos) {
+    public Fornecedor(Integer idFornecedor, String nome, Long cnpj, Long cpf, String email, String homePage, Date dataCadastro, Endereco endereco, List<Produto> list_Produto) {
         this.idFornecedor = idFornecedor;
         this.nome = nome;
         this.cnpj = cnpj;
@@ -56,10 +57,7 @@ public class Fornecedor {
         this.dataCadastro = dataCadastro;
         this.endereco = endereco;
         this.list_Produto = list_Produto;
-        this.contatos = contatos;
-    }
-
-    
+    }   
 
     public Integer getIdFornecedor() {
         return idFornecedor;
@@ -125,16 +123,12 @@ public class Fornecedor {
         this.list_Produto = list_Produto;
     }
 
-    public List<NumeroContato> getContatos() {
-        return contatos;
+    public Long getContato() {
+        return contato;
     }
 
-    public void setContatos(List<NumeroContato> contatos) {
-        this.contatos = contatos;
-    }
-
-    public Date getDataCadastro() {
-        return dataCadastro;
+    public void setContato(Long contato) {
+        this.contato = contato;
     }
 
     public void setDataCadastro(Date dataCadastro) {

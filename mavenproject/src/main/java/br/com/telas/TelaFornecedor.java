@@ -47,8 +47,6 @@ public class TelaFornecedor extends javax.swing.JPanel {
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
-        camp_DDDSupplier = new javax.swing.JFormattedTextField();
-        jLabel33 = new javax.swing.JLabel();
         obrigatorioName = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jPanel9 = new javax.swing.JPanel();
@@ -106,8 +104,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
         btn_edit = new javax.swing.JButton();
         btn_save = new javax.swing.JButton();
         btn_cancelar = new javax.swing.JButton();
-        jScrollPane9 = new javax.swing.JScrollPane();
-        tabelaContato = new javax.swing.JTable();
+        camp_contato = new javax.swing.JFormattedTextField();
         jSeparator1 = new javax.swing.JSeparator();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -143,13 +140,13 @@ public class TelaFornecedor extends javax.swing.JPanel {
         camp_HomePageSupplier.setBounds(20, 170, 280, 26);
 
         try {
-            camp_ContactSupplier.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#########")));
+            camp_ContactSupplier.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        camp_ContactSupplier.setText("000000000");
+        camp_ContactSupplier.setText("0000000000000");
         jPanel8.add(camp_ContactSupplier);
-        camp_ContactSupplier.setBounds(440, 110, 130, 26);
+        camp_ContactSupplier.setBounds(360, 110, 130, 26);
 
         jLabel27.setText("Nome:");
         jPanel8.add(jLabel27);
@@ -157,7 +154,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
 
         jLabel28.setText("Contato:");
         jPanel8.add(jLabel28);
-        jLabel28.setBounds(440, 90, 130, 16);
+        jLabel28.setBounds(360, 90, 130, 16);
 
         jLabel29.setText("CPF:");
         jPanel8.add(jLabel29);
@@ -174,19 +171,6 @@ public class TelaFornecedor extends javax.swing.JPanel {
         jLabel32.setText("Home Page:");
         jPanel8.add(jLabel32);
         jLabel32.setBounds(20, 150, 130, 20);
-
-        try {
-            camp_DDDSupplier.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        camp_DDDSupplier.setText("00");
-        jPanel8.add(camp_DDDSupplier);
-        camp_DDDSupplier.setBounds(360, 110, 60, 26);
-
-        jLabel33.setText("DDD:");
-        jPanel8.add(jLabel33);
-        jLabel33.setBounds(360, 90, 60, 16);
 
         obrigatorioName.setForeground(new java.awt.Color(254, 1, 1));
         obrigatorioName.setText("* obrigatorio");
@@ -283,7 +267,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
 
         tableSupplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
+                {null, null, null, "(##)#####-####"},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
@@ -495,26 +479,14 @@ public class TelaFornecedor extends javax.swing.JPanel {
         jpanelSupplier.add(btn_cancelar);
         btn_cancelar.setBounds(840, 260, 90, 30);
 
-        jScrollPane9.setEnabled(false);
-
-        tabelaContato.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "DDD", "Numero"
-            }
-        ));
-        tabelaContato.setColumnSelectionAllowed(true);
-        tabelaContato.setEnabled(false);
-        jScrollPane9.setViewportView(tabelaContato);
-        tabelaContato.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-
-        jpanelSupplier.add(jScrollPane9);
-        jScrollPane9.setBounds(20, 230, 260, 70);
+        try {
+            camp_contato.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        camp_contato.setEnabled(false);
+        jpanelSupplier.add(camp_contato);
+        camp_contato.setBounds(20, 236, 170, 30);
 
         jPanel10.add(jpanelSupplier);
         jpanelSupplier.setBounds(10, 10, 1060, 330);
@@ -541,8 +513,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
         camp_EmailSupplier.setText(""); // email do fornecedor
         camp_HomePageSupplier.setText(""); // home page do fornecedor
         camp_CEPSupplier.setText("00000000"); // cep do fornecedor
-        camp_DDDSupplier.setText("00"); // DDD do fornecedor
-        camp_ContactSupplier.setText("000000000"); // contato do fornecedor
+        camp_ContactSupplier.setText("(00)00000-0000"); // contato do fornecedor
         camp_CNPJ.setText("00000000000000"); // CNPJ do fornecedor
         camp_cpfSupplier.setText("00000000000"); // CPF do fornecedor
         camp_BairroSupplier.setText("");// Bairro do fornecedor
@@ -621,7 +592,6 @@ public class TelaFornecedor extends javax.swing.JPanel {
     private javax.swing.JTextPane camp_ComplementSupplier;
     private javax.swing.JTextPane camp_ComplementSupplier1;
     private javax.swing.JFormattedTextField camp_ContactSupplier;
-    private javax.swing.JFormattedTextField camp_DDDSupplier;
     private javax.swing.JTextField camp_EmailSupplier;
     private javax.swing.JTextField camp_EmailSupplier1;
     private javax.swing.JTextField camp_HomePageSupplier;
@@ -632,6 +602,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
     private javax.swing.JTextField camp_StateSupplier1;
     private javax.swing.JTextField camp_SupplierName;
     private javax.swing.JTextField camp_SupplierName1;
+    private javax.swing.JFormattedTextField camp_contato;
     private javax.swing.JFormattedTextField camp_cpfSupplier;
     private javax.swing.JFormattedTextField camp_cpfSupplier1;
     private javax.swing.JTextField fieldSearch;
@@ -642,7 +613,6 @@ public class TelaFornecedor extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
@@ -670,14 +640,12 @@ public class TelaFornecedor extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel jpanelSupplier;
     private javax.swing.JLabel obrigatorioName;
-    private javax.swing.JTable tabelaContato;
     private javax.swing.JTable tableSupplier;
     // End of variables declaration//GEN-END:variables
 
@@ -685,7 +653,6 @@ public class TelaFornecedor extends javax.swing.JPanel {
 
         Fornecedor supplier = new Fornecedor(); // cria um novo fornecedor;
         Endereco end = new Endereco(); // cria um novo endereço;
-        NumeroContato contact = new NumeroContato(); // cria um novo numero de contato;
         List<Produto> produtos = new ArrayList<>();
 
         /*      FAZ UMA VERIFICAÇÃO SE TODOS OS CAMPOS OBRIGATORIOS ESTÃO PREENCHIDOS;*/
@@ -712,18 +679,11 @@ public class TelaFornecedor extends javax.swing.JPanel {
             supplier.setHomePage(camp_HomePageSupplier.getText());
             supplier.setCpf(cpf);
             supplier.setDataCadastro(new Date()); // data em que o fornecedor foi cadastrado;
-            List<NumeroContato> phoneBook = new ArrayList<>();
-            supplier.setContatos(phoneBook);
 
             //--------------------------------- numero de contato -----------------------------------//
-            int ddd = Integer.parseInt(camp_DDDSupplier.getText());
-            int numeroContato = Integer.parseInt(camp_ContactSupplier.getText());
-
-            contact.setDdd(ddd);
-            contact.setFone(numeroContato);
-            contact.setFornecedor(supplier);
-            contact.setCpf(cpf);
-
+            Long numeroContato = Long.parseLong(camp_ContactSupplier.getText().replace("(", "").replace(")", "").replaceAll("-", ""));
+            supplier.setContato(numeroContato);
+            
             //--------------------------------- Endereço -----------------------------------//
             int cep = Integer.parseInt(camp_CEPSupplier.getText().replaceAll("-", ""));
             int numbleHouse = Integer.parseInt(camp_NumbleHouseSupplier.getText());
@@ -738,7 +698,6 @@ public class TelaFornecedor extends javax.swing.JPanel {
             //----------------------- Relacionamento entre objetos ---------------------------//
             supplier.setEndereco(end); // adiciona o endereço ao forncedor;
             end.setFornecedors(supplier); // adiciona o fornecedor ao endereco;
-            supplier.getContatos().add(contact); // adiciona o contato a lista de contatos;
             supplier.setList_Produto(produtos); // adiciona lista produtos;
             Conexao connectbanco = new Conexao(); // abre conexao com o banco;
             connectbanco.save(supplier); // salva a classe Pai
@@ -749,8 +708,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
             camp_EmailSupplier.setText(""); // email do fornecedor
             camp_HomePageSupplier.setText(""); // home page do fornecedor
             camp_CEPSupplier.setText("00000000"); // cep do fornecedor
-            camp_DDDSupplier.setText("00"); // DDD do fornecedor
-            camp_ContactSupplier.setText("000000000"); // contato do fornecedor
+            camp_ContactSupplier.setText("(00)00000-0000"); // contato do fornecedor
             camp_CNPJ.setText("00000000000000"); // CNPJ do fornecedor
             camp_cpfSupplier.setText("00000000000"); // CPF do fornecedor
             camp_BairroSupplier.setText("");// Bairro do fornecedor
@@ -784,7 +742,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
         try {
             tabela.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
             for (Fornecedor f : forne) {
-                tabela.addRow(new Object[]{f.getIdFornecedor(), f.getNome(), f.getHomePage(), f.getContatos().get(0).getFone()});
+                tabela.addRow(new Object[]{f.getIdFornecedor(), f.getNome(), f.getHomePage(), f.getContato()});
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "<Item não encontrado!!>\n "+e);
@@ -802,24 +760,12 @@ public class TelaFornecedor extends javax.swing.JPanel {
             if (banco.list_Fornecedores().get(i).getIdFornecedor().equals(tabela.getValueAt(linha, 0))) { // VERIFICA SE O ID DO OBJETO CONTEM NA LISTA DE FORNECEDORES DO BANCO DE DADOS
                 f = banco.list_Fornecedores().get(i);
 
-                DefaultTableModel tabela1 = (DefaultTableModel) tabelaContato.getModel();
-//              PERCORRE TODA A LISTA DE CONTATO DE FORNECEDOR E ADICIONA EM UMA jTable
-                try {
-                    tabela1.setNumRows(0); // LIMPA OS CONTATOS ENTERIOR;
-                    for (NumeroContato contato : f.getContatos()) { // PEGA OS CONTATOS DO FORNECEDOR;
-                        tabela1.addRow(new Object[]{contato.getDdd(), contato.getFone()}); // E ADICIONA NA TABELA 
-                    }
-                } catch (Exception e) {
-                    System.out.println(e);
-                    JOptionPane.showMessageDialog(null, "Erro no Codigo");
-                }
-
                 camp_SupplierName1.setText(f.getNome());
                 camp_EmailSupplier1.setText(f.getEmail());
                 camp_HomePageSupplier1.setText(f.getHomePage());
                 camp_CNPJ1.setText(f.getCnpj().toString());
                 camp_cpfSupplier1.setText(f.getCpf().toString());
-//                camp_DDDSupplier1.setText();
+                camp_contato.setText(f.getContato().toString());
 
 //              CONVERTE OS VALORES DO TIPO INTEIRO PRA STRING;
                 String cep = String.valueOf(f.getEndereco().getCep());
@@ -846,7 +792,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
         camp_HomePageSupplier1.setEnabled(true);
         camp_CNPJ1.setEnabled(true);
         camp_cpfSupplier1.setEnabled(true);
-        tabelaContato.setEnabled(true);
+        camp_contato.setEnabled(true);
 //                camp_DDDSupplier1.setEnabled(true);
 //              ENDERECO;                
         camp_AddressRuaSupplier1.setEnabled(true);
@@ -869,7 +815,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
         camp_HomePageSupplier1.setEnabled(false);
         camp_CNPJ1.setEnabled(false);
         camp_cpfSupplier1.setEnabled(false);
-        tabelaContato.setEnabled(false);
+        camp_contato.setEnabled(false);
 
 //              ENDERECO;                
         camp_AddressRuaSupplier1.setEnabled(false);
@@ -903,9 +849,13 @@ public class TelaFornecedor extends javax.swing.JPanel {
             f.setEmail(camp_EmailSupplier1.getText());
             f.setHomePage(camp_HomePageSupplier1.getText());
             f.setCpf(cpf);
-
-            //--------------------------------- numero de contato -----------------------------------//
-            /*NAO ESQUECER DE ACRECENTAR ESSA PARTE DO CODIGO, ELABORAR UMA FORMA DE EDITAR OS CONTATOS;*/
+            try {
+                f.setContato(Long.parseLong(camp_contato.getText().replace("(", "").replace(")", "").replaceAll("-", "")));
+            } catch (Exception e) {
+                System.out.println("Erro \n"+e);
+            }
+            
+            
             //--------------------------------- Endereço -----------------------------------//
             int cep = 0;
             int numbleHouse = 0;
@@ -938,8 +888,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
         camp_EmailSupplier1.setText(""); // email do fornecedor
         camp_HomePageSupplier1.setText(""); // home page do fornecedor
         camp_CEPSupplier1.setText("00000000"); // cep do fornecedor
-        DefaultTableModel tabela1 = (DefaultTableModel) tabelaContato.getModel();
-        tabela1.setNumRows(0); // contato do fornecedor
+        camp_contato.setText("(00)00000-0000"); // contato do fornecedor
         camp_CNPJ1.setText("00000000000000"); // CNPJ do fornecedor
         camp_cpfSupplier1.setText("00000000000"); // CPF do fornecedor
         camp_BairroSupplier1.setText("");// Bairro do fornecedor
