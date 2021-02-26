@@ -43,7 +43,7 @@ Contributor(s):
     <session-factory>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ModaIntima?zeroDateTimeBehavior=convertToNull</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sys?zeroDateTimeBehavior=convertToNull</property>
         <property name="hibernate.connection.username">wsmint</property>
         <property name="hibernate.connection.password">Ws@12345</property>
         <property name="hibernate.current_session_context_class">thread</property>
@@ -54,7 +54,6 @@ Contributor(s):
         <mapping class="br.com.classes.FormaPagamento"/>
         <mapping class="br.com.classes.Fornecedor"/>
         <mapping class="br.com.classes.ItensVenda"/>
-        <mapping class="br.com.classes.NumeroContato"/>
         <mapping class="br.com.classes.Pessoa"/>
         <mapping class="br.com.classes.Produto"/>
         <mapping class="br.com.classes.Usuario"/>

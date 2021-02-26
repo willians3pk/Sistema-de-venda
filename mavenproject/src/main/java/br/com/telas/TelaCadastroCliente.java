@@ -3,7 +3,6 @@ package br.com.telas;
 import br.com.auxiliar.Teclas;
 import br.com.classes.Cliente;
 import br.com.classes.Endereco;
-import br.com.classes.NumeroContato;
 import br.com.classes.Venda;
 import br.com.conexao.Conexao;
 import java.text.SimpleDateFormat;
@@ -296,7 +295,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         jPanel11.add(jLabel3);
         jLabel3.setBounds(20, 30, 50, 16);
 
-        btn_update1.setText("Atualizar");
+        btn_update1.setText("Pesquisar");
         btn_update1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_update1ActionPerformed(evt);

@@ -7,11 +7,8 @@ package br.com.telas;
 
 import br.com.classes.Endereco;
 import br.com.classes.Fornecedor;
-import br.com.classes.NumeroContato;
 import br.com.conexao.Conexao;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -108,6 +105,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        camp_ContactSupplier.setText("000000000000000000");
         jPanel8.add(camp_ContactSupplier);
         camp_ContactSupplier.setBounds(360, 110, 130, 30);
 
@@ -239,7 +237,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         camp_EmailSupplier.setText(""); // email do fornecedor
         camp_HomePageSupplier.setText(""); // home page do fornecedor
         camp_CEPSupplier.setText("00000000"); // cep do fornecedor
-        camp_ContactSupplier.setText("000000000"); // contato do fornecedor
+        camp_ContactSupplier.setText("(00)00000-0000"); // contato do fornecedor
         camp_CNPJ.setText("00000000000000"); // CNPJ do fornecedor
         camp_cpfSupplier.setText("00000000000"); // CPF do fornecedor
         camp_BairroSupplier.setText("");// Bairro do fornecedor
@@ -325,7 +323,6 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
 
         Fornecedor supplier = new Fornecedor(); // cria um novo fornecedor;
         Endereco end = new Endereco(); // cria um novo endereço;
-        NumeroContato contact = new NumeroContato(); // cria um novo numero de contato;
 
         /*      FAZ UMA VERIFICAÇÃO SE TODOS OS CAMPOS OBRIGATORIOS ESTÃO PREENCHIDOS;*/
         if (camp_SupplierName.getText().length() > 0) {

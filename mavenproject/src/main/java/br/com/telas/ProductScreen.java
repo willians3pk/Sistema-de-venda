@@ -26,6 +26,24 @@ public class ProductScreen extends javax.swing.JPanel {
         btn_ToEdit.setEnabled(false);
         btn_Deactivate.setEnabled(false);
         camp_ProductName.setDocument(new Teclas());
+        
+        // modifica a largura das colunas da tabela.
+        TableColumn colCodigo = table_Product.getColumnModel().getColumn(0);
+        TableColumn colDataProduto = table_Product.getColumnModel().getColumn(1);
+        TableColumn colNome = table_Product.getColumnModel().getColumn(2);
+        TableColumn colPreço = table_Product.getColumnModel().getColumn(3);
+        TableColumn colQuantidade = table_Product.getColumnModel().getColumn(4);
+        TableColumn colFornecedor = table_Product.getColumnModel().getColumn(5);
+        TableColumn colTamanho = table_Product.getColumnModel().getColumn(6);
+
+        colCodigo.setPreferredWidth(5);
+//        colDataProduto.setPreferredWidth(30);
+        colNome.setPreferredWidth(250);
+        colPreço.setPreferredWidth(25);
+        colQuantidade.setPreferredWidth(5);
+        colFornecedor.setPreferredWidth(250);
+        colTamanho.setPreferredWidth(2);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -449,22 +467,6 @@ public class ProductScreen extends javax.swing.JPanel {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
 
         DefaultTableModel tableDefault = (DefaultTableModel) table_Product.getModel();
-        // modifica a largura das colunas da tabela.
-        TableColumn colCodigo = table_Product.getColumnModel().getColumn(0);
-        TableColumn colDataProduto = table_Product.getColumnModel().getColumn(1);
-        TableColumn colNome = table_Product.getColumnModel().getColumn(2);
-        TableColumn colPreço = table_Product.getColumnModel().getColumn(3);
-        TableColumn colQuantidade = table_Product.getColumnModel().getColumn(4);
-        TableColumn colFornecedor = table_Product.getColumnModel().getColumn(5);
-        TableColumn colTamanho = table_Product.getColumnModel().getColumn(6);
-
-        colCodigo.setPreferredWidth(5);
-//        colDataProduto.setPreferredWidth(30);
-        colNome.setPreferredWidth(250);
-        colPreço.setPreferredWidth(25);
-        colQuantidade.setPreferredWidth(5);
-        colFornecedor.setPreferredWidth(250);
-        colTamanho.setPreferredWidth(2);
 
         double y = 0;
         double x = 0;
@@ -793,7 +795,7 @@ public class ProductScreen extends javax.swing.JPanel {
                     comboBox.addElement(fornecedor.getNome());
                     comboBox_Supplier.setModel(comboBox);           // ADICIONA OS FORNECEDORES NA COMBOBOX;
                 }
-                
+
             }
         };
         t.start();

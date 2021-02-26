@@ -5,8 +5,8 @@ import br.com.classes.Cliente;
 import br.com.conexao.Conexao;
 import br.com.classes.Endereco;
 import br.com.classes.Fornecedor;
-import br.com.classes.NumeroContato;
 import br.com.classes.Produto;
+import static br.com.telas.MainScreen.jDesktopPane1;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +26,8 @@ public class TelaFornecedor extends javax.swing.JPanel {
         btn_save.setEnabled(false); // botao salvar da tela fornecedor;
         btn_cancelar.setEnabled(false); // botao cancelar da tela fornecedor;
         btn_Produto.setEnabled(false);
-        
+        camp_SupplierName.setDocument(new Teclas());
+        camp_SupplierName1.setDocument(new Teclas());
     }
 
     @SuppressWarnings("unchecked")
@@ -323,6 +324,11 @@ public class TelaFornecedor extends javax.swing.JPanel {
         btn_update.setBounds(710, 50, 90, 30);
 
         btn_Produto.setText("Produto");
+        btn_Produto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ProdutoActionPerformed(evt);
+            }
+        });
         jPanel4.add(btn_Produto);
         btn_Produto.setBounds(820, 50, 90, 30);
 
@@ -579,6 +585,15 @@ public class TelaFornecedor extends javax.swing.JPanel {
         btn_edit.setEnabled(false);
         btn_Produto.setEnabled(false);
     }//GEN-LAST:event_fieldSearchKeyReleased
+
+    private void btn_ProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ProdutoActionPerformed
+        TelaProdutoFornecedor p = new TelaProdutoFornecedor();
+        jDesktopPane1.removeAll();
+        p.setLocation(0, 0);
+        p.setSize(1140, 650);
+        p.setVisible(true);
+        jDesktopPane1.add(p);
+    }//GEN-LAST:event_btn_ProdutoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
