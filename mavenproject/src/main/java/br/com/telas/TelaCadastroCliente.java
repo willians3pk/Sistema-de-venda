@@ -45,8 +45,6 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        field_DDD = new javax.swing.JFormattedTextField();
-        jLabel20 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         field_date = new com.toedter.calendar.JDateChooser();
         jPanel7 = new javax.swing.JPanel();
@@ -102,8 +100,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         btn_cancelar1 = new javax.swing.JButton();
         camp_DataNascimento = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jtableContato = new javax.swing.JTable();
+        camp_contato = new javax.swing.JFormattedTextField();
         jSeparator1 = new javax.swing.JSeparator();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -125,20 +122,20 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        field_cpf.setText("000.000.000-00");
+        field_cpf.setText("0000000000000000000000");
         jPanel6.add(field_cpf);
         field_cpf.setBounds(320, 110, 250, 26);
         jPanel6.add(filed_Email);
         filed_Email.setBounds(20, 110, 280, 26);
 
         try {
-            field_contact.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#########")));
+            field_contact.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        field_contact.setText("000000000");
+        field_contact.setText("00000000000");
         jPanel6.add(field_contact);
-        field_contact.setBounds(100, 170, 130, 26);
+        field_contact.setBounds(20, 170, 130, 26);
 
         jLabel14.setText("Nome:");
         jPanel6.add(jLabel14);
@@ -146,7 +143,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
 
         jLabel15.setText("Contato:");
         jPanel6.add(jLabel15);
-        jLabel15.setBounds(100, 150, 130, 16);
+        jLabel15.setBounds(20, 150, 130, 16);
 
         jLabel16.setText("CPF:");
         jPanel6.add(jLabel16);
@@ -159,19 +156,6 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         jLabel18.setText("E-mail:");
         jPanel6.add(jLabel18);
         jLabel18.setBounds(20, 90, 80, 16);
-
-        try {
-            field_DDD.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        field_DDD.setText("00");
-        jPanel6.add(field_DDD);
-        field_DDD.setBounds(20, 170, 60, 26);
-
-        jLabel20.setText("DDD:");
-        jPanel6.add(jLabel20);
-        jLabel20.setBounds(20, 150, 60, 16);
 
         jLabel2.setForeground(new java.awt.Color(255, 0, 0));
         jLabel2.setText("* obrigatorio");
@@ -466,22 +450,15 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         jpanelSupplier1.add(jLabel4);
         jLabel4.setBounds(240, 90, 130, 16);
 
-        jtableContato.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "DDD", "Contato"
-            }
-        ));
-        jtableContato.setEnabled(false);
-        jScrollPane4.setViewportView(jtableContato);
-
-        jpanelSupplier1.add(jScrollPane4);
-        jScrollPane4.setBounds(210, 170, 210, 80);
+        try {
+            camp_contato.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        camp_contato.setText("(00)00000-0000");
+        camp_contato.setEnabled(false);
+        jpanelSupplier1.add(camp_contato);
+        camp_contato.setBounds(210, 170, 190, 26);
 
         jPanel12.add(jpanelSupplier1);
         jpanelSupplier1.setBounds(10, 10, 1060, 310);
@@ -511,8 +488,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         //        field_date.setName("");
 
         // contato
-        field_DDD.setText("00");
-        field_contact.setText("000000000");
+        field_contact.setText("(00)00000-0000");
 
         // endereco
         field_Rua.setText("");
@@ -583,9 +559,9 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     private javax.swing.JTextField camp_EmailClient;
     private javax.swing.JFormattedTextField camp_NumbleHouseClient;
     private javax.swing.JTextField camp_StateClient;
+    private javax.swing.JFormattedTextField camp_contato;
     private javax.swing.JFormattedTextField camp_cpfClient;
     private javax.swing.JTextField fieldSearch1;
-    private javax.swing.JFormattedTextField field_DDD;
     private javax.swing.JTextField field_Name;
     private javax.swing.JTextField field_Rua;
     private javax.swing.JTextField field_bairro;
@@ -605,7 +581,6 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
@@ -631,7 +606,6 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
@@ -639,7 +613,6 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel jpanelSupplier1;
-    private javax.swing.JTable jtableContato;
     private javax.swing.JTable tableClient;
     // End of variables declaration//GEN-END:variables
 
@@ -668,23 +641,9 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
             end.setNumeroCasa(numeroCasa);
             end.setPessoas(cliente);
             cliente.setEndereco(end);
-
-            // NUMERO DE CONTATO 
-            NumeroContato contact = new NumeroContato();
-
-            int ddd = Integer.parseInt(field_DDD.getText());
-            int fone = Integer.parseInt(field_contact.getText());
-            contact.setDdd(ddd);
-            contact.setFone(fone);
-            contact.setCpf(cpf);
-            contact.setPessoa(cliente);
-
-            List<NumeroContato> listContato = new ArrayList<>();
-            cliente.setNumeroContatos(listContato);
-            cliente.getNumeroContatos().add(contact);
-
-            /*NÃO A NECESSIDADE DE SALVAR O ENDERECO E NEM "CONTATO", POIS A CLASSE ESTÁ MAPEADA COMO CASCADE, ENTAO SÓ PRECISA
-            SALVAR A CLASS PAI QUE AUTOMATICAMENTO SALVA A CLASSE FILHO */
+            Long fone = Long.parseLong(field_contact.getText().replace("(", "").replace(")", "").replaceAll("-", ""));
+            cliente.setContato(fone);
+            
             banco.save(cliente);
 
 //            LIMPA OS CAMPOS DO FORMULARIO
@@ -694,8 +653,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
             filed_Email.setText("");
             field_date.setName("");
             // contato
-            field_DDD.setText("00");
-            field_contact.setText("000000000");
+            field_contact.setText("(00)00000-0000");
             // endereco
             field_Rua.setText("");
             field_cep.setText("00000-000");
@@ -719,23 +677,12 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
             if (banco.list_Cliente().get(i).getIdpessoa().equals(tabela.getValueAt(linha, 0))) { // VERIFICA SE O ID DO OBJETO CONTEM NA LISTA DE FORNECEDORES DO BANCO DE DADOS
                 cliente = banco.list_Cliente().get(i);
 
-                DefaultTableModel tabela2 = (DefaultTableModel) jtableContato.getModel();
-//              PERCORRE TODA A LISTA DE CONTATO DO CLIENTE E ADICIONA EM UMA jTable
-                try {
-                    tabela2.setNumRows(0); // LIMPA OS CONTATOS ENTERIOR;
-                    for (NumeroContato contato : cliente.getNumeroContatos()) { // PEGA OS CONTATOS DO CLIENTE;
-                        tabela2.addRow(new Object[]{contato.getDdd(), contato.getFone()}); // E ADICIONA NA TABELA 
-                    }
-                } catch (Exception e) {
-                    System.out.println(e);
-                    JOptionPane.showMessageDialog(null, "Erro no Codigo");
-                }
-
                 camp_ClientName.setText(cliente.getNome());
                 camp_EmailClient.setText(cliente.getEmail());
                 camp_cpfClient.setText(cliente.getCpf().toString());
                 camp_DataNascimento.setDate(cliente.getDataNascimento());
-
+                camp_contato.setText(cliente.getContato().toString());
+                
 //              CONVERTE OS VALORES DO TIPO INTEIRO PRA STRING;
                 String cep = String.valueOf(cliente.getEndereco().getCep());
                 String numbleHouse = String.valueOf(cliente.getEndereco().getNumeroCasa());
@@ -785,7 +732,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         camp_ClientName.setEnabled(false);
         camp_EmailClient.setEnabled(false);
         camp_cpfClient.setEnabled(false);
-        jtableContato.setEnabled(false);
+        camp_contato.setEnabled(false);
         camp_DataNascimento.setEnabled(false);
 //              ENDERECO;                
         camp_AddressRuaClient.setEnabled(false);
@@ -807,8 +754,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         camp_EmailClient.setText("");
 
         // contato
-        DefaultTableModel tabela1 = (DefaultTableModel) jtableContato.getModel();
-        tabela1.setNumRows(0); // contato do CLIENTE
+        camp_contato.setText("(00)00000-0000"); // contato do CLIENTE
 
         // endereco
         camp_AddressRuaClient.setText("");
@@ -825,7 +771,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         camp_EmailClient.setEnabled(true);
         camp_cpfClient.setEnabled(true);
 
-        jtableContato.setEnabled(true);
+        camp_contato.setEnabled(true);
         camp_DataNascimento.setEnabled(true);
 //              ENDERECO;                
         camp_AddressRuaClient.setEnabled(true);
@@ -851,13 +797,19 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
             } catch (Exception e) {
                 System.out.println("Campo CPF não podem estár vazios");
             }
-
+            
+            long contato = 0;
+            try {
+                contato = Long.parseLong(camp_contato.getText().replace("(", "").replace(")", "").replaceAll("-", ""));
+            } catch (Exception e) {
+                System.out.println("Campo Contato nao pode estár vazio");
+            }
+            
             cliente.setNome(camp_ClientName.getText());
             cliente.setEmail(camp_EmailClient.getText());
             cliente.setCpf(cpf);
             cliente.setDataNascimento(camp_DataNascimento.getDate());
-            //--------------------------------- numero de contato -----------------------------------//
-            /*NAO ESQUECER DE ACRECENTAR ESSA PARTE DO CODIGO, ELABORAR UMA FORMA DE EDITAR OS CONTATOS;*/
+            cliente.setContato(contato);
             //--------------------------------- Endereço -----------------------------------//
             int cep = 0;
             int numbleHouse = 0;

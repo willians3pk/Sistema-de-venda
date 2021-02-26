@@ -8,12 +8,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -34,15 +31,12 @@ public class Pessoa {
     private String email;
     private boolean status;
     private Date dataNascimento;
+    private Long contato;
     
-    @OneToMany(fetch = FetchType.EAGER)
-    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.PERSIST})
-    private List<NumeroContato> numeroContatos;
-
     public Pessoa() {
     }
 
-    public Pessoa(Integer idpessoa, Endereco endereco, String nome, Long cpf, String email, boolean status, Date dataNascimento, List<NumeroContato> numeroContatos) {
+    public Pessoa(Integer idpessoa, Endereco endereco, String nome, Long cpf, String email, boolean status, Date dataNascimento, Long contato) {
         this.idpessoa = idpessoa;
         this.endereco = endereco;
         this.nome = nome;
@@ -50,7 +44,7 @@ public class Pessoa {
         this.email = email;
         this.status = status;
         this.dataNascimento = dataNascimento;
-        this.numeroContatos = numeroContatos;
+        this.contato = contato;
     }
 
     public Integer getIdpessoa() {
@@ -109,12 +103,12 @@ public class Pessoa {
         this.dataNascimento = dataNascimento;
     }
 
-    public List<NumeroContato> getNumeroContatos() {
-        return numeroContatos;
+    public Long getContato() {
+        return contato;
     }
 
-    public void setNumeroContatos(List<NumeroContato> numeroContatos) {
-        this.numeroContatos = numeroContatos;
+    public void setContato(Long contato) {
+        this.contato = contato;
     }
     
 }
