@@ -5,8 +5,14 @@
  */
 package br.com.telas;
 
+import br.com.classes.Fornecedor;
+import br.com.classes.Produto;
+import br.com.conexao.NewHibernateUtil;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -14,9 +20,16 @@ import javax.swing.table.TableColumn;
  */
 public class TelaProdutoFornecedor extends javax.swing.JPanel {
 
-    /**
-     * Creates new form TelaProdutoFornecedor
-     */
+    Fornecedor fornecedor;
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+
     public TelaProdutoFornecedor() {
         initComponents();
 
@@ -94,4 +107,26 @@ public class TelaProdutoFornecedor extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable table_Product;
     // End of variables declaration//GEN-END:variables
+
+    public void produtosFornecedor() {
+
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        
+        // juntando duas tabelas do banco de dados;
+        String sql = "FROM Produto as v INNER JOIN v.fornecedor";
+        List<Object[]> query = (List<Object[]>) session.createQuery(sql).list();
+        DefaultTableModel tabela = (DefaultTableModel) table_Product.getModel();
+        tabela.setNumRows(0);
+        for (Object[] objects : query) {
+            Produto produto = (Produto) objects[0];
+            Fornecedor forne = (Fornecedor) objects[1];
+            if (forne.getIdFornecedor().equals(fornecedor.getIdFornecedor())) {
+                System.out.println(fornecedor.getNome() + "----" + produto.getNome());       
+                tabela.addRow(new Object[]{produto.getIdProduto(), produto.getNome(), produto.getQnt(), produto.getValor_venda()});
+            }
+
+        }
+    }
+
 }

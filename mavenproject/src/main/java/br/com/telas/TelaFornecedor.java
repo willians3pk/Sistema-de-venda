@@ -587,11 +587,19 @@ public class TelaFornecedor extends javax.swing.JPanel {
     }//GEN-LAST:event_fieldSearchKeyReleased
 
     private void btn_ProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ProdutoActionPerformed
+        DefaultTableModel tabela = (DefaultTableModel) tableSupplier.getModel();
         TelaProdutoFornecedor p = new TelaProdutoFornecedor();
+        Conexao banco = new Conexao();
+        int row = tableSupplier.getSelectedRow();
+        int id = (int) tabela.getValueAt(row, 0);
+        Fornecedor forncedor = banco.getFornecedor(id);
+        System.out.println(forncedor.getNome());
         jDesktopPane1.removeAll();
         p.setLocation(0, 0);
         p.setSize(1140, 650);
         p.setVisible(true);
+        p.setFornecedor(forncedor);
+        p.produtosFornecedor();
         jDesktopPane1.add(p);
     }//GEN-LAST:event_btn_ProdutoActionPerformed
 

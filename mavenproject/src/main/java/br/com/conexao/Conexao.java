@@ -368,6 +368,21 @@ public class Conexao {
         }
         return null;
     }
+    
+    public Fornecedor getFornecedor(int id){
+        this.session = NewHibernateUtil.getSessionFactory().openSession();
+        this.tx = session.beginTransaction();
+        try {
+            Fornecedor forncedor = (Fornecedor) session.get(Fornecedor.class, id);
+            return forncedor;
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Forncedor Não Encontrada!\n"+e);
+        } finally {
+            session.close();
+        }
+        return null;
+    }
 
     public List<Venda> filtraDatas(String dataInicio, String dataFim) {
         try {

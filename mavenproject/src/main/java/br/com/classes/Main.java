@@ -75,35 +75,36 @@ public class Main {
 ////            
 //            new MainScreen().setVisible(true);
 
-        Session session = NewHibernateUtil.getSessionFactory().openSession();
-        Transaction tx = session.beginTransaction();
-        
+//        Session session = NewHibernateUtil.getSessionFactory().openSession();
+//        Transaction tx = session.beginTransaction();
 
 ////        String hql = "FROM Venda as v INNER JOIN v.itens";
-//        String sql = "FROM ItensVenda as v INNER JOIN v.venda";
+//        String sql = "FROM Produto as v INNER JOIN v.fornecedor";
 //        List<Object[]> query = (List<Object[]>) session.createQuery(sql).list();
-//        
+//
 //        for (Object[] objects : query) {
-//            ItensVenda item = (ItensVenda) objects[0];
-//            Venda venda = (Venda) objects[1];
-//            System.out.println(venda.getIdvenda());
-//            System.out.println(item.getItems().getIdProduto());
+//            Produto produto = (Produto) objects[0];
+//            Fornecedor fornecedor = (Fornecedor) objects[1];
+//            if (fornecedor.getIdFornecedor().equals(1)) {
+//                System.out.println(fornecedor.getNome() + "----" + produto.getNome());
+//            }
+//
 //        }
-
-        Venda venda = (Venda) session.get(Venda.class, 2);
-        
-        HashSet<ItensVenda> list = new HashSet();
-                
-        for (ItensVenda iten : venda.getItens()) {
-            list.add(iten);
-        }
-//        list = Collections.singleton(new HashSet(list));
-        
-        for (ItensVenda object : list) {
-            System.out.println(object.getIditensVenda());
-            
-        }
-        
+//
+//        Venda venda = (Venda) session.get(Venda.class, 2);
+//        
+//        HashSet<ItensVenda> list = new HashSet();
+//                
+//        for (ItensVenda iten : venda.getItens()) {
+//            list.add(iten);
+//        }
+////        list = Collections.singleton(new HashSet(list));
+//        
+//        for (ItensVenda object : list) {
+//            System.out.println(object.getIditensVenda());
+//            
+//        }
+//        
     }
 
 }
