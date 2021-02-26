@@ -45,7 +45,7 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
 
         checkbox.setVisible(false);
         btn_removerItem.setVisible(false);
-        btn_adicionarItem.setVisible(false);
+        btn_salvar.setVisible(false);
         jLabel.setVisible(false);
         jLabel7.setVisible(false);
 
@@ -104,7 +104,7 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
         btn_EditarVenda = new javax.swing.JButton();
         btn_removerItem = new javax.swing.JButton();
         jLabel = new javax.swing.JLabel();
-        btn_adicionarItem = new javax.swing.JButton();
+        btn_salvar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
 
@@ -211,10 +211,17 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
         jPanel1.add(jPanel2);
         jPanel2.setBounds(20, 310, 1100, 150);
 
-        camp_observacao.setEditable(false);
         camp_observacao.setColumns(20);
         camp_observacao.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         camp_observacao.setRows(5);
+        camp_observacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                camp_observacaoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                camp_observacaoFocusLost(evt);
+            }
+        });
         jScrollPane2.setViewportView(camp_observacao);
 
         jPanel1.add(jScrollPane2);
@@ -304,14 +311,14 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
         jPanel1.add(jLabel);
         jLabel.setBounds(30, 280, 230, 16);
 
-        btn_adicionarItem.setText("Adicionar Item");
-        btn_adicionarItem.addActionListener(new java.awt.event.ActionListener() {
+        btn_salvar.setText("Salvar");
+        btn_salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_adicionarItemActionPerformed(evt);
+                btn_salvarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_adicionarItem);
-        btn_adicionarItem.setBounds(664, 590, 140, 40);
+        jPanel1.add(btn_salvar);
+        btn_salvar.setBounds(500, 580, 80, 40);
 
         jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 0, 24));
@@ -392,23 +399,33 @@ public class ScreenDetalhesVenda extends javax.swing.JPanel {
     private void btn_EditarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EditarVendaActionPerformed
         jtableVenda.setEnabled(true);
         btn_removerItem.setVisible(true);
-        btn_adicionarItem.setVisible(true);
         jLabel.setVisible(true);
         jLabel7.setVisible(true);
-        camp_observacao.setEnabled(true);
-//        camp_valorentrada.setEnabled(true);
     }//GEN-LAST:event_btn_EditarVendaActionPerformed
 
-    private void btn_adicionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adicionarItemActionPerformed
+    private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
+        Conexao banco = new Conexao();
+        int confirmacao = JOptionPane.showInternalConfirmDialog(null, "Você deseja salvar observação da venda?", "SALVAR OBSERVAÇÃO", JOptionPane.YES_OPTION);
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            venda.setDescricao(camp_observacao.getText());
+            banco.update(venda);
+        }
+    }//GEN-LAST:event_btn_salvarActionPerformed
 
-    }//GEN-LAST:event_btn_adicionarItemActionPerformed
+    private void camp_observacaoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_camp_observacaoFocusGained
+        btn_salvar.setVisible(true);
+    }//GEN-LAST:event_camp_observacaoFocusGained
+
+    private void camp_observacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_camp_observacaoFocusLost
+        btn_salvar.setVisible(false);
+    }//GEN-LAST:event_camp_observacaoFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_EditarVenda;
-    private javax.swing.JButton btn_adicionarItem;
     private javax.swing.JButton btn_receber;
     private javax.swing.JButton btn_removerItem;
+    private javax.swing.JButton btn_salvar;
     private javax.swing.JButton btn_voltar;
     private javax.swing.JTextField camp_CodigoCliente;
     private javax.swing.JTextField camp_codigovenda;
