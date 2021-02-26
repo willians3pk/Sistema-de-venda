@@ -25,6 +25,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
         btn_edit.setEnabled(false); //botao editar da tela fornecedor;
         btn_save.setEnabled(false); // botao salvar da tela fornecedor;
         btn_cancelar.setEnabled(false); // botao cancelar da tela fornecedor;
+        btn_Produto.setEnabled(false);
         
     }
 
@@ -73,6 +74,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
         fieldSearch = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btn_update = new javax.swing.JButton();
+        btn_Produto = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jpanelSupplier = new javax.swing.JPanel();
         camp_SupplierName1 = new javax.swing.JTextField();
@@ -267,7 +269,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
 
         tableSupplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, "(##)#####-####"},
+                {null, null, null, ""},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
@@ -311,14 +313,18 @@ public class TelaFornecedor extends javax.swing.JPanel {
         jPanel4.add(jLabel1);
         jLabel1.setBounds(20, 30, 50, 16);
 
-        btn_update.setText("Atualizar");
+        btn_update.setText("Pesquisar");
         btn_update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_updateActionPerformed(evt);
             }
         });
         jPanel4.add(btn_update);
-        btn_update.setBounds(720, 50, 90, 30);
+        btn_update.setBounds(710, 50, 90, 30);
+
+        btn_Produto.setText("Produto");
+        jPanel4.add(btn_Produto);
+        btn_Produto.setBounds(820, 50, 90, 30);
 
         jPanel3.add(jPanel4);
         jPanel4.setBounds(10, 0, 1080, 210);
@@ -529,6 +535,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
         CleanFieldSupplier();
         desableFieldSupplier();
         btn_edit.setEnabled(false);
+        btn_Produto.setEnabled(false);
     }//GEN-LAST:event_btn_updateActionPerformed
 
     private void tableSupplierKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tableSupplierKeyReleased
@@ -543,6 +550,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
         desableFieldSupplier();
         btn_edit.setEnabled(true); // deixa o botao editar habilitado;
         btn_cancelar.setEnabled(false); // desabilita o botao cancelar;
+        btn_Produto.setEnabled(true);
     }//GEN-LAST:event_tableSupplierMouseClicked
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
@@ -569,10 +577,12 @@ public class TelaFornecedor extends javax.swing.JPanel {
         desableFieldSupplier();
         CleanFieldSupplier();
         btn_edit.setEnabled(false);
+        btn_Produto.setEnabled(false);
     }//GEN-LAST:event_fieldSearchKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_Produto;
     private javax.swing.JButton btn_Register;
     private javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_edit;

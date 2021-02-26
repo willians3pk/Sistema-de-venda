@@ -445,7 +445,7 @@
                             <Column editable="false" title="Nome" type="java.lang.Object"/>
                             <Column editable="false" title="Home-Page" type="java.lang.Object"/>
                             <Column editable="false" title="Contato" type="java.lang.Object">
-                              <Data value="(##)#####-####"/>
+                              <Data value=""/>
                               <Data value="null"/>
                               <Data value="null"/>
                               <Data value="null"/>
@@ -509,14 +509,24 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btn_update">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Atualizar"/>
+                    <Property name="text" type="java.lang.String" value="Pesquisar"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_updateActionPerformed"/>
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="720" y="50" width="90" height="-1"/>
+                      <AbsoluteConstraints x="710" y="50" width="90" height="-1"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JButton" name="btn_Produto">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Produto"/>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="820" y="50" width="90" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
