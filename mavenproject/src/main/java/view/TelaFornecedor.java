@@ -3,31 +3,47 @@ package view;
 import br.com.configuracao.Teclas;
 import controle.Cliente;
 import conexao.Conexao;
+import conexao.NewHibernateUtil;
 import controle.Endereco;
 import controle.Fornecedor;
 import controle.Produto;
-import static view.MainScreen.jDesktopPane1;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class TelaFornecedor extends javax.swing.JPanel {
 
     Fornecedor f = null;
     Cliente cliente = null;
-
+    Fornecedor fornecedor;
     public TelaFornecedor() {
         initComponents();
         preencherTableSupplier();
+        preencherjlistaForncedor();
+        
 //      tela fornecedor;
         btn_edit.setEnabled(false); //botao editar da tela fornecedor;
         btn_save.setEnabled(false); // botao salvar da tela fornecedor;
         btn_cancelar.setEnabled(false); // botao cancelar da tela fornecedor;
-        btn_Produto.setEnabled(false);
         camp_SupplierName.setDocument(new Teclas());
         camp_SupplierName1.setDocument(new Teclas());
+
+        // modifica a largura das colunas da tabela.
+        TableColumn colCodigo = table_Product.getColumnModel().getColumn(0);
+        TableColumn colNome = table_Product.getColumnModel().getColumn(1);
+        TableColumn colQuantidade = table_Product.getColumnModel().getColumn(2);
+        TableColumn colPreço = table_Product.getColumnModel().getColumn(3);
+
+        colCodigo.setPreferredWidth(5);
+        colNome.setPreferredWidth(350);
+        colQuantidade.setPreferredWidth(5);
+        colPreço.setPreferredWidth(25);
     }
 
     @SuppressWarnings("unchecked")
@@ -75,7 +91,6 @@ public class TelaFornecedor extends javax.swing.JPanel {
         fieldSearch = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btn_update = new javax.swing.JButton();
-        btn_Produto = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jpanelSupplier = new javax.swing.JPanel();
         camp_SupplierName1 = new javax.swing.JTextField();
@@ -109,6 +124,14 @@ public class TelaFornecedor extends javax.swing.JPanel {
         btn_cancelar = new javax.swing.JButton();
         camp_contato = new javax.swing.JFormattedTextField();
         jSeparator1 = new javax.swing.JSeparator();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        table_Product = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel2 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setLayout(null);
@@ -323,15 +346,6 @@ public class TelaFornecedor extends javax.swing.JPanel {
         jPanel4.add(btn_update);
         btn_update.setBounds(710, 50, 90, 30);
 
-        btn_Produto.setText("Produto");
-        btn_Produto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_ProdutoActionPerformed(evt);
-            }
-        });
-        jPanel4.add(btn_Produto);
-        btn_Produto.setBounds(820, 50, 90, 30);
-
         jPanel3.add(jPanel4);
         jPanel4.setBounds(10, 0, 1080, 210);
 
@@ -510,6 +524,61 @@ public class TelaFornecedor extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Cadastros/Fornecedor", jPanel3);
 
+        jPanel2.setLayout(null);
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "PRODUTOS DO FORNECEDOR", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 18))); // NOI18N
+        jPanel5.setLayout(null);
+
+        table_Product.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Nome", "Qtde:", "Preço:"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(table_Product);
+
+        jPanel5.add(jScrollPane2);
+        jScrollPane2.setBounds(10, 40, 800, 290);
+
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
+        jList1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jList1KeyReleased(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jList1);
+
+        jPanel5.add(jScrollPane4);
+        jScrollPane4.setBounds(840, 70, 230, 260);
+
+        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jPanel5.add(jSeparator2);
+        jSeparator2.setBounds(820, 40, 10, 300);
+
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        jLabel2.setText("Fornecedor:");
+        jPanel5.add(jLabel2);
+        jLabel2.setBounds(840, 36, 170, 30);
+
+        jPanel2.add(jPanel5);
+        jPanel5.setBounds(10, 90, 1090, 350);
+
+        jTabbedPane1.addTab("Produtos", jPanel2);
+
         add(jTabbedPane1);
         jTabbedPane1.setBounds(10, 10, 1120, 630);
     }// </editor-fold>//GEN-END:initComponents
@@ -541,7 +610,6 @@ public class TelaFornecedor extends javax.swing.JPanel {
         CleanFieldSupplier();
         desableFieldSupplier();
         btn_edit.setEnabled(false);
-        btn_Produto.setEnabled(false);
     }//GEN-LAST:event_btn_updateActionPerformed
 
     private void tableSupplierKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tableSupplierKeyReleased
@@ -556,7 +624,6 @@ public class TelaFornecedor extends javax.swing.JPanel {
         desableFieldSupplier();
         btn_edit.setEnabled(true); // deixa o botao editar habilitado;
         btn_cancelar.setEnabled(false); // desabilita o botao cancelar;
-        btn_Produto.setEnabled(true);
     }//GEN-LAST:event_tableSupplierMouseClicked
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
@@ -583,29 +650,22 @@ public class TelaFornecedor extends javax.swing.JPanel {
         desableFieldSupplier();
         CleanFieldSupplier();
         btn_edit.setEnabled(false);
-        btn_Produto.setEnabled(false);
     }//GEN-LAST:event_fieldSearchKeyReleased
 
-    private void btn_ProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ProdutoActionPerformed
-        DefaultTableModel tabela = (DefaultTableModel) tableSupplier.getModel();
-        TelaProdutoFornecedor p = new TelaProdutoFornecedor();
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         Conexao banco = new Conexao();
-        int row = tableSupplier.getSelectedRow();
-        int id = (int) tabela.getValueAt(row, 0);
-        Fornecedor forncedor = banco.getFornecedor(id);
-        System.out.println(forncedor.getNome());
-        jDesktopPane1.removeAll();
-        p.setLocation(0, 0);
-        p.setSize(1140, 650);
-        p.setVisible(true);
-        p.setFornecedor(forncedor);
-        p.produtosFornecedor();
-        jDesktopPane1.add(p);
-    }//GEN-LAST:event_btn_ProdutoActionPerformed
+        fornecedor = banco.list_Fornecedores().get(jList1.getSelectedIndex());
+        produtosFornecedor();
+    }//GEN-LAST:event_jList1MouseClicked
+
+    private void jList1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jList1KeyReleased
+        Conexao banco = new Conexao();
+        fornecedor = banco.list_Fornecedores().get(jList1.getSelectedIndex());
+        produtosFornecedor();
+    }//GEN-LAST:event_jList1KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_Produto;
     private javax.swing.JButton btn_Register;
     private javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_edit;
@@ -640,6 +700,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField camp_cpfSupplier1;
     private javax.swing.JTextField fieldSearch;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
@@ -664,22 +725,29 @@ public class TelaFornecedor extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel jpanelSupplier;
     private javax.swing.JLabel obrigatorioName;
     private javax.swing.JTable tableSupplier;
+    private javax.swing.JTable table_Product;
     // End of variables declaration//GEN-END:variables
 
     private void RegisterSupplier() {
@@ -716,7 +784,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
             //--------------------------------- numero de contato -----------------------------------//
             Long numeroContato = Long.parseLong(camp_ContactSupplier.getText().replace("(", "").replace(")", "").replaceAll("-", ""));
             supplier.setContato(numeroContato);
-            
+
             //--------------------------------- Endereço -----------------------------------//
             int cep = Integer.parseInt(camp_CEPSupplier.getText().replaceAll("-", ""));
             int numbleHouse = Integer.parseInt(camp_NumbleHouseSupplier.getText());
@@ -770,7 +838,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
                 forne.add(f);
             }
         }
-
+        
         DefaultTableModel tabela = (DefaultTableModel) tableSupplier.getModel();
         try {
             tabela.setNumRows(0); // LIMPA OS NOMES DA PESQUISA ENTERIOR
@@ -778,10 +846,20 @@ public class TelaFornecedor extends javax.swing.JPanel {
                 tabela.addRow(new Object[]{f.getIdFornecedor(), f.getNome(), f.getHomePage(), f.getContato()});
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "<Item não encontrado!!>\n "+e);
+            JOptionPane.showMessageDialog(null, "<Item não encontrado!!>\n " + e);
         }
     }
 
+    private void preencherjlistaForncedor(){
+        DefaultListModel jlista = new DefaultListModel();
+        Conexao banco = new Conexao();
+        for (Fornecedor fornecedor : banco.list_Fornecedores()) {
+            jlista.addElement(fornecedor.getNome());
+            jList1.setModel(jlista);
+        }
+        
+    }
+    
     private void loadingFieldSupplier() {
 
         jpanelSupplier.setVisible(true); // deixa visivel os campos;
@@ -885,10 +963,9 @@ public class TelaFornecedor extends javax.swing.JPanel {
             try {
                 f.setContato(Long.parseLong(camp_contato.getText().replace("(", "").replace(")", "").replaceAll("-", "")));
             } catch (Exception e) {
-                System.out.println("Erro \n"+e);
+                System.out.println("Erro \n" + e);
             }
-            
-            
+
             //--------------------------------- Endereço -----------------------------------//
             int cep = 0;
             int numbleHouse = 0;
@@ -930,5 +1007,26 @@ public class TelaFornecedor extends javax.swing.JPanel {
         camp_CitySupplier1.setText(""); // cidade do forncedor
         camp_ComplementSupplier1.setText(""); // complemento do fornecedor 
 
+    }
+
+    public void produtosFornecedor() {
+
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+
+        // juntando duas tabelas do banco de dados;
+        String sql = "FROM Produto as v INNER JOIN v.fornecedor";
+        List<Object[]> query = (List<Object[]>) session.createQuery(sql).list();
+        DefaultTableModel tabela = (DefaultTableModel) table_Product.getModel();
+        tabela.setNumRows(0);
+        for (Object[] objects : query) {
+            Produto produto = (Produto) objects[0];
+            Fornecedor forne = (Fornecedor) objects[1];
+            if (forne.getIdFornecedor().equals(fornecedor.getIdFornecedor())) {
+                System.out.println(fornecedor.getNome() + "----" + produto.getNome());
+                tabela.addRow(new Object[]{produto.getIdProduto(), produto.getNome(), produto.getQnt(), produto.getValor_venda()});
+            }
+
+        }
     }
 }

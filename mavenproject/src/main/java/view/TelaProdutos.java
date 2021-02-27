@@ -84,7 +84,7 @@ public class TelaProdutos extends javax.swing.JPanel {
         obrigatorioName = new javax.swing.JLabel();
         obrigatorioPriceBuy = new javax.swing.JLabel();
         obrigatorioPriceSell = new javax.swing.JLabel();
-        obrigatorioQnt = new javax.swing.JLabel();
+        obrigatorioTamanho = new javax.swing.JLabel();
         obrigatorioSupplier = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         obrigatorioDate = new javax.swing.JLabel();
@@ -96,6 +96,7 @@ public class TelaProdutos extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         camp_cor = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
+        obrigatorioQnt1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
 
         setLayout(null);
@@ -307,10 +308,10 @@ public class TelaProdutos extends javax.swing.JPanel {
         jPanel2.add(obrigatorioPriceSell);
         obrigatorioPriceSell.setBounds(100, 160, 100, 16);
 
-        obrigatorioQnt.setForeground(new java.awt.Color(255, 0, 0));
-        obrigatorioQnt.setText("* obrigatorio");
-        jPanel2.add(obrigatorioQnt);
-        obrigatorioQnt.setBounds(230, 90, 100, 16);
+        obrigatorioTamanho.setForeground(new java.awt.Color(255, 0, 0));
+        obrigatorioTamanho.setText("* obrigatorio");
+        jPanel2.add(obrigatorioTamanho);
+        obrigatorioTamanho.setBounds(410, 90, 100, 16);
 
         obrigatorioSupplier.setForeground(new java.awt.Color(255, 0, 0));
         obrigatorioSupplier.setText("* obrigatorio");
@@ -368,6 +369,11 @@ public class TelaProdutos extends javax.swing.JPanel {
         jLabel13.setText("Cor:");
         jPanel2.add(jLabel13);
         jLabel13.setBounds(650, 90, 25, 16);
+
+        obrigatorioQnt1.setForeground(new java.awt.Color(255, 0, 0));
+        obrigatorioQnt1.setText("* obrigatorio");
+        jPanel2.add(obrigatorioQnt1);
+        obrigatorioQnt1.setBounds(230, 90, 100, 16);
 
         add(jPanel2);
         jPanel2.setBounds(10, 10, 1120, 290);
@@ -562,8 +568,9 @@ public class TelaProdutos extends javax.swing.JPanel {
     private javax.swing.JLabel obrigatorioName;
     private javax.swing.JLabel obrigatorioPriceBuy;
     private javax.swing.JLabel obrigatorioPriceSell;
-    private javax.swing.JLabel obrigatorioQnt;
+    private javax.swing.JLabel obrigatorioQnt1;
     private javax.swing.JLabel obrigatorioSupplier;
+    private javax.swing.JLabel obrigatorioTamanho;
     private javax.swing.JTable table_Product;
     // End of variables declaration//GEN-END:variables
 
@@ -575,9 +582,9 @@ public class TelaProdutos extends javax.swing.JPanel {
             obrigatorioName.setVisible(true);
         }
         if (camp_Qnt.getText().length() > 0) {
-            obrigatorioQnt.setVisible(false);
+            obrigatorioTamanho.setVisible(false);
         } else {
-            obrigatorioQnt.setVisible(true);
+            obrigatorioTamanho.setVisible(true);
         }
         if (camp_Buyprice.getText().length() > 0) {
             obrigatorioPriceBuy.setVisible(false);
@@ -643,8 +650,9 @@ public class TelaProdutos extends javax.swing.JPanel {
                 
                 if (comboBox_Size.getSelectedItem().toString().equals("<selecione>")) {
                     JOptionPane.showMessageDialog(null, "<html><font color=\"#FF0000\">SELECIONE O TAMENHO!</font></html>");
+                    obrigatorioTamanho.setVisible(true);
                 } else {
-
+                    obrigatorioTamanho.setVisible(false);
                     size = comboBox_Size.getSelectedItem().toString();
                     newProduct.setTamanho(size);
 

@@ -101,6 +101,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         camp_contato = new javax.swing.JFormattedTextField();
         jSeparator1 = new javax.swing.JSeparator();
+        jPanel1 = new javax.swing.JPanel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setLayout(null);
@@ -295,14 +296,14 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         jPanel11.add(jLabel3);
         jLabel3.setBounds(20, 30, 50, 16);
 
-        btn_update1.setText("Pesquisar");
+        btn_update1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Search-48.png"))); // NOI18N
         btn_update1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_update1ActionPerformed(evt);
             }
         });
         jPanel11.add(btn_update1);
-        btn_update1.setBounds(720, 50, 90, 30);
+        btn_update1.setBounds(710, 40, 50, 50);
 
         jPanel5.add(jPanel11);
         jPanel11.setBounds(10, 0, 1090, 220);
@@ -469,6 +470,9 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Cadastros/Clientes", jPanel5);
 
+        jPanel1.setLayout(null);
+        jTabbedPane1.addTab("Vendas", jPanel1);
+
         add(jTabbedPane1);
         jTabbedPane1.setBounds(10, 10, 1120, 630);
     }// </editor-fold>//GEN-END:initComponents
@@ -598,6 +602,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;

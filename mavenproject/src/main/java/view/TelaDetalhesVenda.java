@@ -243,7 +243,7 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         jPanel1.add(jLabel6);
         jLabel6.setBounds(320, 20, 100, 16);
 
-        btn_voltar.setText("<<<");
+        btn_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Left-48.png"))); // NOI18N
         btn_voltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_voltarActionPerformed(evt);
