@@ -243,7 +243,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         jPanel2.add(btn_limpAll);
         btn_limpAll.setBounds(848, 550, 110, 30);
 
-        jTabbedPane1.addTab("Cliente", jPanel2);
+        jTabbedPane1.addTab("Cadastrar", jPanel2);
 
         jPanel5.setLayout(null);
 
@@ -303,7 +303,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
             }
         });
         jPanel11.add(btn_update1);
-        btn_update1.setBounds(710, 40, 50, 50);
+        btn_update1.setBounds(710, 30, 50, 50);
 
         jPanel5.add(jPanel11);
         jPanel11.setBounds(10, 0, 1090, 220);
@@ -468,7 +468,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         jPanel5.add(jSeparator1);
         jSeparator1.setBounds(10, 230, 1090, 10);
 
-        jTabbedPane1.addTab("Cadastros/Clientes", jPanel5);
+        jTabbedPane1.addTab("Clientes", jPanel5);
 
         jPanel1.setLayout(null);
         jTabbedPane1.addTab("Vendas", jPanel1);

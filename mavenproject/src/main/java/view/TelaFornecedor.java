@@ -284,7 +284,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
         jPanel1.add(btn_limpall);
         btn_limpall.setBounds(848, 550, 110, 30);
 
-        jTabbedPane1.addTab("Fornecedor:", jPanel1);
+        jTabbedPane1.addTab("Cadastrar", jPanel1);
 
         jPanel3.setLayout(null);
 
@@ -337,14 +337,14 @@ public class TelaFornecedor extends javax.swing.JPanel {
         jPanel4.add(jLabel1);
         jLabel1.setBounds(20, 30, 50, 16);
 
-        btn_update.setText("Pesquisar");
+        btn_update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Search-48.png"))); // NOI18N
         btn_update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_updateActionPerformed(evt);
             }
         });
         jPanel4.add(btn_update);
-        btn_update.setBounds(710, 50, 90, 30);
+        btn_update.setBounds(710, 30, 50, 50);
 
         jPanel3.add(jPanel4);
         jPanel4.setBounds(10, 0, 1080, 210);
@@ -522,7 +522,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
         jPanel3.add(jSeparator1);
         jSeparator1.setBounds(10, 220, 1080, 10);
 
-        jTabbedPane1.addTab("Cadastros/Fornecedor", jPanel3);
+        jTabbedPane1.addTab("Fornecedores", jPanel3);
 
         jPanel2.setLayout(null);
 

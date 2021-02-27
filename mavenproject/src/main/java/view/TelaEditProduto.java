@@ -60,6 +60,8 @@ public class TelaEditProduto extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         comboxCategoria = new javax.swing.JComboBox<>();
         comboBox_Size = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        jlabeldata = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -212,6 +214,14 @@ public class TelaEditProduto extends javax.swing.JFrame {
         jPanel2.add(comboBox_Size);
         comboBox_Size.setBounds(350, 110, 160, 26);
 
+        jLabel8.setText("Ultima Atualização:");
+        jPanel2.add(jLabel8);
+        jLabel8.setBounds(10, 370, 130, 16);
+
+        jlabeldata.setText("data:");
+        jPanel2.add(jlabeldata);
+        jlabeldata.setBounds(140, 370, 170, 16);
+
         getContentPane().add(jPanel2);
         jPanel2.setBounds(10, 10, 890, 400);
 
@@ -296,9 +306,11 @@ public class TelaEditProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel jlabeldata;
     private javax.swing.JLabel obrigatorioData;
     private javax.swing.JLabel obrigatorioName;
     private javax.swing.JLabel obrigatorioPriceBuy;
@@ -426,13 +438,7 @@ public class TelaEditProduto extends javax.swing.JFrame {
         comboBox_Supplier.setSelectedItem(produto.getFornecedor().getNome()); // ADICIONA O FORNECEDOR DO ITEM NA COMBOBOX
         camp_cor.setText(produto.getCor());
         comboxCategoria.setSelectedItem(produto.getCategoria());
-        
-//        
-//        if (comboBox_Supplier.getSelectedItem().toString() == produto.getFornecedor().getNome()) {
-//            JOptionPane.showMessageDialog(null, "Fornecedor nao contem na lista");
-//        } else {
-//            comboBox_Supplier.setSelectedItem(produto.getFornecedor().getNome()); // ADICIONA O FORNECEDOR DO ITEM NA COMBOBOX
-//        }
+        jlabeldata.setText(produto.getDataRegistro().toString());
 
     }
 

@@ -26,7 +26,18 @@ public class TelaProdutos extends javax.swing.JPanel {
         btn_ToEdit.setEnabled(false);
         btn_Deactivate.setEnabled(false);
         camp_ProductName.setDocument(new Teclas());
-        
+        camp_ProductName.setEnabled(false);
+        camp_Deliverydate.setEnabled(false);
+        camp_Description.setEnabled(false);
+        camp_Qnt.setEnabled(false);
+        camp_apelido.setEnabled(false);
+        camp_cor.setEnabled(false);
+        camp_Buyprice.setEnabled(false);
+        camp_Sellprice.setEnabled(false);
+        comboxCategoria.setEnabled(false);
+        comboBox_Size.setEnabled(false);
+        comboBox_Supplier.setEnabled(false);
+
         // modifica a largura das colunas da tabela.
         TableColumn colCodigo = table_Product.getColumnModel().getColumn(0);
         TableColumn colDataProduto = table_Product.getColumnModel().getColumn(1);
@@ -84,7 +95,7 @@ public class TelaProdutos extends javax.swing.JPanel {
         obrigatorioName = new javax.swing.JLabel();
         obrigatorioPriceBuy = new javax.swing.JLabel();
         obrigatorioPriceSell = new javax.swing.JLabel();
-        obrigatorioTamanho = new javax.swing.JLabel();
+        obrigatorioCategoria = new javax.swing.JLabel();
         obrigatorioSupplier = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         obrigatorioDate = new javax.swing.JLabel();
@@ -96,7 +107,9 @@ public class TelaProdutos extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         camp_cor = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        obrigatorioQnt1 = new javax.swing.JLabel();
+        obrigatorioQnt = new javax.swing.JLabel();
+        btn_Novo = new javax.swing.JButton();
+        obrigatorioTamanho = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
 
         setLayout(null);
@@ -281,7 +294,7 @@ public class TelaProdutos extends javax.swing.JPanel {
             }
         });
         jPanel2.add(btn_Register);
-        btn_Register.setBounds(1010, 240, 90, 30);
+        btn_Register.setBounds(1020, 250, 90, 30);
         jPanel2.add(camp_apelido);
         camp_apelido.setBounds(760, 110, 157, 26);
 
@@ -308,10 +321,10 @@ public class TelaProdutos extends javax.swing.JPanel {
         jPanel2.add(obrigatorioPriceSell);
         obrigatorioPriceSell.setBounds(100, 160, 100, 16);
 
-        obrigatorioTamanho.setForeground(new java.awt.Color(255, 0, 0));
-        obrigatorioTamanho.setText("* obrigatorio");
-        jPanel2.add(obrigatorioTamanho);
-        obrigatorioTamanho.setBounds(410, 90, 100, 16);
+        obrigatorioCategoria.setForeground(new java.awt.Color(255, 0, 0));
+        obrigatorioCategoria.setText("* obrigatorio");
+        jPanel2.add(obrigatorioCategoria);
+        obrigatorioCategoria.setBounds(500, 30, 100, 16);
 
         obrigatorioSupplier.setForeground(new java.awt.Color(255, 0, 0));
         obrigatorioSupplier.setText("* obrigatorio");
@@ -338,14 +351,14 @@ public class TelaProdutos extends javax.swing.JPanel {
         jPanel2.add(camp_Deliverydate);
         camp_Deliverydate.setBounds(650, 180, 180, 27);
 
-        btn_cleanAll.setText("Limpar Tudo");
+        btn_cleanAll.setText("Limpar ");
         btn_cleanAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cleanAllActionPerformed(evt);
             }
         });
         jPanel2.add(btn_cleanAll);
-        btn_cleanAll.setBounds(866, 240, 120, 30);
+        btn_cleanAll.setBounds(810, 250, 100, 30);
 
         jButton1.setText("Novo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -370,10 +383,24 @@ public class TelaProdutos extends javax.swing.JPanel {
         jPanel2.add(jLabel13);
         jLabel13.setBounds(650, 90, 25, 16);
 
-        obrigatorioQnt1.setForeground(new java.awt.Color(255, 0, 0));
-        obrigatorioQnt1.setText("* obrigatorio");
-        jPanel2.add(obrigatorioQnt1);
-        obrigatorioQnt1.setBounds(230, 90, 100, 16);
+        obrigatorioQnt.setForeground(new java.awt.Color(255, 0, 0));
+        obrigatorioQnt.setText("* obrigatorio");
+        jPanel2.add(obrigatorioQnt);
+        obrigatorioQnt.setBounds(230, 90, 100, 16);
+
+        btn_Novo.setText("Novo");
+        btn_Novo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_NovoActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btn_Novo);
+        btn_Novo.setBounds(920, 250, 90, 30);
+
+        obrigatorioTamanho.setForeground(new java.awt.Color(255, 0, 0));
+        obrigatorioTamanho.setText("* obrigatorio");
+        jPanel2.add(obrigatorioTamanho);
+        obrigatorioTamanho.setBounds(410, 90, 100, 16);
 
         add(jPanel2);
         jPanel2.setBounds(10, 10, 1120, 290);
@@ -383,6 +410,17 @@ public class TelaProdutos extends javax.swing.JPanel {
 
     private void btn_RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RegisterActionPerformed
         RegisterProduct();
+        camp_ProductName.setEnabled(false);
+        camp_Deliverydate.setEnabled(false);
+        camp_Description.setEnabled(false);
+        camp_Qnt.setEnabled(false);
+        camp_apelido.setEnabled(false);
+        camp_cor.setEnabled(false);
+        camp_Buyprice.setEnabled(false);
+        camp_Sellprice.setEnabled(false);
+        comboxCategoria.setEnabled(false);
+        comboBox_Size.setEnabled(false);
+        comboBox_Supplier.setEnabled(false);
     }//GEN-LAST:event_btn_RegisterActionPerformed
 
     private void box_QntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_box_QntActionPerformed
@@ -521,12 +559,28 @@ public class TelaProdutos extends javax.swing.JPanel {
         checkbox_ordenby.setSelected(false);
     }//GEN-LAST:event_btn_pesquisarMouseClicked
 
+    private void btn_NovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NovoActionPerformed
+        camp_ProductName.setEnabled(true);
+        camp_Deliverydate.setEnabled(true);
+        camp_Description.setEnabled(true);
+        camp_Qnt.setEnabled(true);
+        camp_apelido.setEnabled(true);
+        camp_cor.setEnabled(true);
+        camp_Buyprice.setEnabled(true);
+        camp_Sellprice.setEnabled(true);
+        comboxCategoria.setEnabled(true);
+        comboBox_Size.setEnabled(true);
+        comboBox_Supplier.setEnabled(true);
+
+    }//GEN-LAST:event_btn_NovoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox box_Price;
     private javax.swing.JCheckBox box_Qnt;
     private javax.swing.JCheckBox box_Size;
     public javax.swing.JButton btn_Deactivate;
+    private javax.swing.JButton btn_Novo;
     private javax.swing.JButton btn_Register;
     public javax.swing.JButton btn_ToEdit;
     private javax.swing.JButton btn_cleanAll;
@@ -564,11 +618,12 @@ public class TelaProdutos extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel obrigatorioCategoria;
     private javax.swing.JLabel obrigatorioDate;
     private javax.swing.JLabel obrigatorioName;
     private javax.swing.JLabel obrigatorioPriceBuy;
     private javax.swing.JLabel obrigatorioPriceSell;
-    private javax.swing.JLabel obrigatorioQnt1;
+    private javax.swing.JLabel obrigatorioQnt;
     private javax.swing.JLabel obrigatorioSupplier;
     private javax.swing.JLabel obrigatorioTamanho;
     private javax.swing.JTable table_Product;
@@ -582,9 +637,9 @@ public class TelaProdutos extends javax.swing.JPanel {
             obrigatorioName.setVisible(true);
         }
         if (camp_Qnt.getText().length() > 0) {
-            obrigatorioTamanho.setVisible(false);
+            obrigatorioQnt.setVisible(false);
         } else {
-            obrigatorioTamanho.setVisible(true);
+            obrigatorioQnt.setVisible(true);
         }
         if (camp_Buyprice.getText().length() > 0) {
             obrigatorioPriceBuy.setVisible(false);
@@ -645,9 +700,15 @@ public class TelaProdutos extends javax.swing.JPanel {
                 newProduct.setValor_total(totalvalue);
                 newProduct.setDataRegistro(new Date()); // DATA QUE FOI REGISTRADO O PRODUTO;
                 newProduct.setCor(camp_cor.getText());
-                newProduct.setCategoria(comboxCategoria.getSelectedItem().toString());
-                
-                
+
+                if (comboxCategoria.getSelectedItem().toString().equals("<selecione>")) {
+                    JOptionPane.showMessageDialog(null, "<html><font color=\"#FF0000\">SELECIONE A CATEGORIA DO PRODUTO!</font></html>");
+                    obrigatorioCategoria.setVisible(true);
+                } else {
+                    newProduct.setCategoria(comboxCategoria.getSelectedItem().toString());
+                    obrigatorioCategoria.setVisible(false);
+                }
+
                 if (comboBox_Size.getSelectedItem().toString().equals("<selecione>")) {
                     JOptionPane.showMessageDialog(null, "<html><font color=\"#FF0000\">SELECIONE O TAMENHO!</font></html>");
                     obrigatorioTamanho.setVisible(true);
@@ -658,8 +719,6 @@ public class TelaProdutos extends javax.swing.JPanel {
 
                     /* ----------------- LIMPA OS CAMPOS  -------------- */
                     connectbanco.save(newProduct);
-////                    forne.adicionarProduto(newProduct);
-//                    connectbanco.save_update(forne);
                     camp_ProductName.setText("");
                     camp_apelido.setText("");
                     camp_Buyprice.setText("");
@@ -811,7 +870,7 @@ public class TelaProdutos extends javax.swing.JPanel {
                     comboBox.addElement(fornecedor.getNome());
                     comboBox_Supplier.setModel(comboBox);           // ADICIONA OS FORNECEDORES NA COMBOBOX;
                 }
-                                
+
             }
         };
         t.start();
