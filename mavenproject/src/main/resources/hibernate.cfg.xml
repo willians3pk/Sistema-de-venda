@@ -49,16 +49,17 @@ Contributor(s):
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         
-        <mapping class="br.com.classes.Cliente"/>
-        <mapping class="br.com.classes.Endereco"/>
-        <mapping class="br.com.classes.FormaPagamento"/>
-        <mapping class="br.com.classes.Fornecedor"/>
-        <mapping class="br.com.classes.ItensVenda"/>
-        <mapping class="br.com.classes.Pessoa"/>
-        <mapping class="br.com.classes.Produto"/>
-        <mapping class="br.com.classes.Usuario"/>
-        <mapping class="br.com.classes.Venda"/>
-        <mapping class="br.com.classes.Parcelas"/>
+        <mapping class="controle.Cliente"/>
+        <mapping class="controle.Endereco"/>
+        <mapping class="controle.FormaPagamento"/>
+        <mapping class="controle.Fornecedor"/>
+        <mapping class="controle.ItensVenda"/>
+        <mapping class="controle.Pessoa"/>
+        <mapping class="controle.Produto"/>
+        <mapping class="controle.Usuario"/>
+        <mapping class="controle.Venda"/>
+        <mapping class="controle.Parcelas"/>
+        <mapping class="br.com.configuracao.Config"/>
         
     </session-factory>
 </hibernate-configuration>
