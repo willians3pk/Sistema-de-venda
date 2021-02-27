@@ -5,7 +5,6 @@
  */
 package conexao;
 
-import br.com.configuracao.Config;
 import controle.Fornecedor;
 import controle.Produto;
 import controle.Cliente;
@@ -308,24 +307,6 @@ public class Conexao {
             return list;
         } catch (Exception e) {
             System.out.println("Erro ao Pegar lista de Venda Banco de Dados!");
-            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n"+e );
-        } finally {
-            session.close();
-        }
-        return null;
-    }
-        
-    public List<Config> lista_Config() {
-
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
-
-        try {
-            List<Config> list = session.createQuery("from Config").list();
-            tx.commit();
-            return list;
-        } catch (Exception e) {
-            System.out.println("Erro ao Pegar lista de Config Banco de Dados!");
             JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n"+e );
         } finally {
             session.close();

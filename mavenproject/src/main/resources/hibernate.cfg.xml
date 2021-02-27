@@ -59,7 +59,6 @@ Contributor(s):
         <mapping class="controle.Usuario"/>
         <mapping class="controle.Venda"/>
         <mapping class="controle.Parcelas"/>
-        <mapping class="br.com.configuracao.Config"/>
         
     </session-factory>
 </hibernate-configuration>

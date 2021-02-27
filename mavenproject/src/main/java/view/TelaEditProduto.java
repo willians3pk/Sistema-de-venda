@@ -1,6 +1,5 @@
 package view;
 
-import br.com.configuracao.Config;
 import controle.Fornecedor;
 import controle.Produto;
 import conexao.Conexao;
@@ -9,9 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import static view.TelaProdutos.comboBox_Size;
-import static view.TelaProdutos.comboxCategoria;
-import static view.TelaProdutos.connectbanco;
 
 public class TelaEditProduto extends javax.swing.JFrame {
 
@@ -42,7 +38,6 @@ public class TelaEditProduto extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        comboBox_Size = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -60,10 +55,11 @@ public class TelaEditProduto extends javax.swing.JFrame {
         obrigatorioTamanho = new javax.swing.JLabel();
         obrigatorioData = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        comboxCategoria = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         camp_cor = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
+        comboxCategoria = new javax.swing.JComboBox<>();
+        comboBox_Size = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -111,9 +107,6 @@ public class TelaEditProduto extends javax.swing.JFrame {
         jLabel5.setText("Qnt:");
         jPanel2.add(jLabel5);
         jLabel5.setBounds(200, 90, 44, 16);
-
-        jPanel2.add(comboBox_Size);
-        comboBox_Size.setBounds(350, 110, 170, 26);
 
         jLabel6.setText("Tamanho:");
         jPanel2.add(jLabel6);
@@ -201,9 +194,6 @@ public class TelaEditProduto extends javax.swing.JFrame {
         jPanel2.add(jLabel1);
         jLabel1.setBounds(600, 180, 50, 30);
 
-        jPanel2.add(comboxCategoria);
-        comboxCategoria.setBounds(370, 50, 180, 26);
-
         jLabel12.setText("Tipo Categoria:");
         jPanel2.add(jLabel12);
         jLabel12.setBounds(370, 30, 110, 16);
@@ -213,6 +203,14 @@ public class TelaEditProduto extends javax.swing.JFrame {
         jLabel13.setText("Cor:");
         jPanel2.add(jLabel13);
         jLabel13.setBounds(600, 90, 25, 16);
+
+        comboxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecione>", "Sexshop", "Lengeri" }));
+        jPanel2.add(comboxCategoria);
+        comboxCategoria.setBounds(370, 50, 180, 26);
+
+        comboBox_Size.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecione>", "P", "M", "G", "GG", "TAM. UNICO" }));
+        jPanel2.add(comboBox_Size);
+        comboBox_Size.setBounds(350, 110, 160, 26);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(10, 10, 890, 400);
@@ -285,7 +283,7 @@ public class TelaEditProduto extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField camp_Qnt;
     private javax.swing.JFormattedTextField camp_Sellprice;
     private javax.swing.JTextField camp_cor;
-    private javax.swing.JComboBox<String> comboBox_Size;
+    public static javax.swing.JComboBox<String> comboBox_Size;
     private javax.swing.JComboBox<String> comboBox_Supplier;
     public static javax.swing.JComboBox<String> comboxCategoria;
     private javax.swing.JLabel jLabel1;
@@ -426,20 +424,16 @@ public class TelaEditProduto extends javax.swing.JFrame {
         camp_Deliverydate.setDate(produto.getDataEntrega());
         comboBox_Size.setSelectedItem(produto.getTamanho());
         comboBox_Supplier.setSelectedItem(produto.getFornecedor().getNome()); // ADICIONA O FORNECEDOR DO ITEM NA COMBOBOX
+        camp_cor.setText(produto.getCor());
+        comboxCategoria.setSelectedItem(produto.getCategoria());
+        
+//        
+//        if (comboBox_Supplier.getSelectedItem().toString() == produto.getFornecedor().getNome()) {
+//            JOptionPane.showMessageDialog(null, "Fornecedor nao contem na lista");
+//        } else {
+//            comboBox_Supplier.setSelectedItem(produto.getFornecedor().getNome()); // ADICIONA O FORNECEDOR DO ITEM NA COMBOBOX
+//        }
 
-        if (comboBox_Supplier.getSelectedItem().toString() == produto.getFornecedor().getNome()) {
-            JOptionPane.showMessageDialog(null, "Fornecedor nao contem na lista");
-        } else {
-            comboBox_Supplier.setSelectedItem(produto.getFornecedor().getNome()); // ADICIONA O FORNECEDOR DO ITEM NA COMBOBOX
-        }
-        
-        if(comboxCategoria.getSelectedItem().toString() == produto.getCategoria()){
-            comboxCategoria.setSelectedItem(produto.getCategoria());
-        }
-        
-        if(comboBox_Size.getSelectedItem().toString() == produto.getTamanho()){
-            comboBox_Size.setSelectedItem(produto.getTamanho());
-        }
     }
 
     public void PopularComcobox() {
@@ -448,18 +442,6 @@ public class TelaEditProduto extends javax.swing.JFrame {
         for (Fornecedor fornecedor : connectbanco.list_Fornecedores()) {
             comboBox.addElement(fornecedor.getNome());
             comboBox_Supplier.setModel(comboBox);           // ADICIONA OS FORNECEDORES NA COMBOBOX
-        }
-
-        DefaultComboBoxModel categoria = new DefaultComboBoxModel();
-        for (Config config : connectbanco.lista_Config()) {
-            categoria.addElement(config.getCategoriaProduto());
-            comboxCategoria.setModel(categoria);            // ADICIONA AS CATEGORIAS NA COMBOBOX
-        }
-
-        DefaultComboBoxModel tamanho = new DefaultComboBoxModel();
-        for (Config config : connectbanco.lista_Config()) {
-            tamanho.addElement(config.getTamanho());
-            comboBox_Size.setModel(tamanho);                // ADICIONA AS TAMANHO NA COMBOBOX
         }
 
     }

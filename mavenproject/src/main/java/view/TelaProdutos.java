@@ -1,6 +1,5 @@
 package view;
 
-import br.com.configuracao.Config;
 import br.com.configuracao.Teclas;
 import conexao.Conexao;
 import controle.Fornecedor;
@@ -97,8 +96,6 @@ public class TelaProdutos extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         camp_cor = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        btn_adicionarTamanho = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
 
         setLayout(null);
@@ -268,6 +265,7 @@ public class TelaProdutos extends javax.swing.JPanel {
         jPanel2.add(jLabel5);
         jLabel5.setBounds(200, 90, 44, 16);
 
+        comboBox_Size.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecione>", "P", "M", "G", "GG", "TAM. UNICO" }));
         jPanel2.add(comboBox_Size);
         comboBox_Size.setBounds(340, 110, 160, 26);
 
@@ -357,6 +355,7 @@ public class TelaProdutos extends javax.swing.JPanel {
         jPanel2.add(jButton1);
         jButton1.setBounds(1030, 50, 80, 30);
 
+        comboxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecione>", "Sexshop", "Lengeri" }));
         jPanel2.add(comboxCategoria);
         comboxCategoria.setBounds(400, 50, 180, 26);
 
@@ -369,26 +368,6 @@ public class TelaProdutos extends javax.swing.JPanel {
         jLabel13.setText("Cor:");
         jPanel2.add(jLabel13);
         jLabel13.setBounds(650, 90, 25, 16);
-
-        jButton2.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jButton2.setText("+");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton2);
-        jButton2.setBounds(580, 50, 30, 30);
-
-        btn_adicionarTamanho.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        btn_adicionarTamanho.setText("+");
-        btn_adicionarTamanho.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_adicionarTamanhoActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btn_adicionarTamanho);
-        btn_adicionarTamanho.setBounds(500, 110, 30, 30);
 
         add(jPanel2);
         jPanel2.setBounds(10, 10, 1120, 290);
@@ -536,18 +515,6 @@ public class TelaProdutos extends javax.swing.JPanel {
         checkbox_ordenby.setSelected(false);
     }//GEN-LAST:event_btn_pesquisarMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        TelaCriarCategoria tela = new TelaCriarCategoria();
-        tela.carregarCampos();
-        tela.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void btn_adicionarTamanhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adicionarTamanhoActionPerformed
-        TelaCriarTamanho tela = new TelaCriarTamanho();
-        
-        tela.setVisible(true);
-    }//GEN-LAST:event_btn_adicionarTamanhoActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox box_Price;
@@ -556,7 +523,6 @@ public class TelaProdutos extends javax.swing.JPanel {
     public javax.swing.JButton btn_Deactivate;
     private javax.swing.JButton btn_Register;
     public javax.swing.JButton btn_ToEdit;
-    private javax.swing.JButton btn_adicionarTamanho;
     private javax.swing.JButton btn_cleanAll;
     private javax.swing.JLabel btn_pesquisar;
     private javax.swing.JFormattedTextField camp_Buyprice;
@@ -574,7 +540,6 @@ public class TelaProdutos extends javax.swing.JPanel {
     public static javax.swing.JComboBox<String> comboBox_Supplier;
     public static javax.swing.JComboBox<String> comboxCategoria;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -672,7 +637,10 @@ public class TelaProdutos extends javax.swing.JPanel {
                 newProduct.setDataEntrega(camp_Deliverydate.getDate());
                 newProduct.setValor_total(totalvalue);
                 newProduct.setDataRegistro(new Date()); // DATA QUE FOI REGISTRADO O PRODUTO;
-
+                newProduct.setCor(camp_cor.getText());
+                newProduct.setCategoria(comboxCategoria.getSelectedItem().toString());
+                
+                
                 if (comboBox_Size.getSelectedItem().toString().equals("<selecione>")) {
                     JOptionPane.showMessageDialog(null, "<html><font color=\"#FF0000\">SELECIONE O TAMENHO!</font></html>");
                 } else {
@@ -835,19 +803,7 @@ public class TelaProdutos extends javax.swing.JPanel {
                     comboBox.addElement(fornecedor.getNome());
                     comboBox_Supplier.setModel(comboBox);           // ADICIONA OS FORNECEDORES NA COMBOBOX;
                 }
-                
-                DefaultComboBoxModel categoria = new DefaultComboBoxModel();
-                for (Config config : connectbanco.lista_Config()) {
-                    categoria.addElement(config.getCategoriaProduto());
-                    comboxCategoria.setModel(categoria);            // ADICIONA AS CATEGORIAS NA COMBOBOX
-                }
-                
-                DefaultComboBoxModel tamanho = new DefaultComboBoxModel();
-                for (Config config : connectbanco.lista_Config()) {
-                    tamanho.addElement(config.getTamanho());
-                    comboBox_Size.setModel(tamanho);                // ADICIONA AS TAMANHO NA COMBOBOX
-                }
-                
+                                
             }
         };
         t.start();
