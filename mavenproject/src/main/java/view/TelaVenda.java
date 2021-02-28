@@ -65,6 +65,8 @@ public class TelaVenda extends javax.swing.JPanel {
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jlabel_totalVenda = new javax.swing.JLabel();
@@ -205,6 +207,19 @@ public class TelaVenda extends javax.swing.JPanel {
         jPanel7.setBounds(10, 10, 160, 40);
         jPanel3.add(jSeparator1);
         jSeparator1.setBounds(10, 60, 710, 10);
+
+        jPanel8.setBackground(new java.awt.Color(244, 254, 11));
+        jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel8.setLayout(null);
+
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Contas a Receber");
+        jPanel8.add(jLabel2);
+        jLabel2.setBounds(0, 0, 160, 40);
+
+        jPanel3.add(jPanel8);
+        jPanel8.setBounds(10, 80, 160, 40);
 
         add(jPanel3);
         jPanel3.setBounds(10, 10, 730, 510);
@@ -633,6 +648,7 @@ public class TelaVenda extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -646,6 +662,7 @@ public class TelaVenda extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;

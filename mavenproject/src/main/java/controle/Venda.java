@@ -51,6 +51,7 @@ public class Venda {
     private double valorTotal;
     private String descricao;
     private double troco;
+    private Estado estado;
     private static final Logger LOG = Logger.getLogger(Venda.class.getName());
 
     
@@ -178,6 +179,14 @@ public class Venda {
         this.troco = troco;
     }
 
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+    
     public static Logger getLOG() {
         return LOG;
     }

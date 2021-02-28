@@ -75,8 +75,8 @@ public class Main {
 ////            
 //            new MainScreen().setVisible(true);
 
-//        Session session = NewHibernateUtil.getSessionFactory().openSession();
-//        Transaction tx = session.beginTransaction();
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
 
 ////        String hql = "FROM Venda as v INNER JOIN v.itens";
 //        String sql = "FROM Produto as v INNER JOIN v.fornecedor";
@@ -91,8 +91,10 @@ public class Main {
 //
 //        }
 //
-//        Venda venda = (Venda) session.get(Venda.class, 2);
-//        
+        Venda venda = (Venda) connect.getVenda(2);
+        Estado estado = Estado.CANCELADO;
+        venda.setEstado(estado);
+        connect.update(venda);
 //        HashSet<ItensVenda> list = new HashSet();
 //                
 //        for (ItensVenda iten : venda.getItens()) {

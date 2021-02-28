@@ -81,11 +81,11 @@ public class TelaHistorico extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Codigo", "Data da Venda", "Cliente", "Forma de Pagamento", "Descrição", "Total da Venda"
+                "Codigo", "Data da Venda", "Cliente", "Forma de Pagamento", "Descrição", "Total da Venda", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
