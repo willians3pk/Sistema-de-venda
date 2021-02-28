@@ -521,10 +521,21 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_fieldSearch1KeyReleased
 
     private void btn_update1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_update1ActionPerformed
-        preencherTableClient();
-        CleanFieldClient();
-        desabilitarfieldClient();
-        btn_edit1.setEnabled(false);
+        final TelaLoading carregando = new TelaLoading();
+        carregando.setVisible(true);
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                preencherTableClient();
+                CleanFieldClient();
+                desabilitarfieldClient();
+                btn_edit1.setEnabled(false);
+                carregando.dispose();
+            }
+
+        };
+        t.start();
+        
     }//GEN-LAST:event_btn_update1ActionPerformed
 
     private void btn_edit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_edit1ActionPerformed

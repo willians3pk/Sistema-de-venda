@@ -3,6 +3,7 @@ package controle;
 import conexao.Conexao;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,9 +40,7 @@ public class Fornecedor {
     @Cascade({CascadeType.PERSIST, CascadeType.SAVE_UPDATE})
     private List<Produto> list_Produto;
 
-//    @OneToMany(fetch = FetchType.EAGER)
-//    @Cascade({CascadeType.PERSIST, CascadeType.SAVE_UPDATE})
-//    private List<NumeroContato> contatos;
+    private boolean status;
 
     public Fornecedor() {
         
@@ -135,6 +134,15 @@ public class Fornecedor {
         this.dataCadastro = dataCadastro;
     }
 
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+       
+    
     // -----------------------------------------------
     
     public void adicionarProduto(Produto produto) {
@@ -144,5 +152,7 @@ public class Fornecedor {
     public void removeItem(Produto produto){
         this.getList_Produto().remove(produto);
     }
+    
+    
     
 }

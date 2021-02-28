@@ -343,7 +343,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
             supplier.setHomePage(camp_HomePageSupplier.getText());
             supplier.setCpf(cpf);
             supplier.setDataCadastro(new Date()); // data em que o fornecedor foi cadastrado;
-
+            supplier.setStatus(true);
             //--------------------------------- numero de contato -----------------------------------//
             Long numeroContato = Long.parseLong(camp_ContactSupplier.getText().replace("(", "").replace(")", "").replaceAll("-", ""));
             supplier.setContato(numeroContato);

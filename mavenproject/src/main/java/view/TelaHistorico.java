@@ -52,7 +52,7 @@ public class TelaHistorico extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btn_pesquisar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btn_filtrar = new javax.swing.JButton();
         jCheckBox2 = new javax.swing.JCheckBox();
         jCheckBox1 = new javax.swing.JCheckBox();
         jSeparator1 = new javax.swing.JSeparator();
@@ -65,6 +65,7 @@ public class TelaHistorico extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jtotalVendas = new javax.swing.JTextField();
         btn_detalhes = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setLayout(null);
@@ -119,13 +120,23 @@ public class TelaHistorico extends javax.swing.JPanel {
         jPanel4.add(btn_pesquisar);
         btn_pesquisar.setBounds(470, 30, 90, 30);
 
-        jButton2.setText("Filtrar");
-        jPanel4.add(jButton2);
-        jButton2.setBounds(1020, 40, 70, 30);
+        btn_filtrar.setText("Filtrar");
+        btn_filtrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_filtrarActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btn_filtrar);
+        btn_filtrar.setBounds(1020, 40, 70, 30);
         jPanel4.add(jCheckBox2);
         jCheckBox2.setBounds(890, 50, 96, 22);
 
         jCheckBox1.setText("Vendas A Prazo");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
         jPanel4.add(jCheckBox1);
         jCheckBox1.setBounds(750, 50, 140, 22);
 
@@ -185,6 +196,12 @@ public class TelaHistorico extends javax.swing.JPanel {
         jPanel1.add(btn_detalhes);
         btn_detalhes.setBounds(950, 40, 160, 40);
 
+        jLabel7.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("HISTORICOS DE VENDAS REALIZADAS");
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(220, 20, 650, 60);
+
         add(jPanel1);
         jPanel1.setBounds(10, 10, 1120, 630);
     }// </editor-fold>//GEN-END:initComponents
@@ -214,16 +231,16 @@ public class TelaHistorico extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_detalhesActionPerformed
 
     private void btn_pesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisarActionPerformed
-        
+
         Conexao banco = new Conexao();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        
+
         Session session = NewHibernateUtil.getSessionFactory().openSession();
-        Transaction tx  = session.beginTransaction();
-        String hql = "from Venda where dataVenda BETWEEN ('"+camp_dataInicio.getText()+"')"+"and"+"('"+camp_dataFim.getText()+"')";
+        Transaction tx = session.beginTransaction();
+        String hql = "from Venda where dataVenda BETWEEN ('" + camp_dataInicio.getText() + "')" + "and" + "('" + camp_dataFim.getText() + "')";
         Query query = session.createQuery(hql);
         List<Venda> results = query.list();
-        
+
         DefaultTableModel tabela = (DefaultTableModel) jtable_vendas.getModel();
 
         Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
@@ -252,13 +269,70 @@ public class TelaHistorico extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btn_pesquisarActionPerformed
 
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void btn_filtrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filtrarActionPerformed
+        final TelaLoading carregando = new TelaLoading();
+        carregando.setVisible(true);
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                if (jCheckBox1.isSelected()) {
+
+                    List<Venda> vendas = new ArrayList<>();
+                    DefaultTableModel tabela = (DefaultTableModel) jtable_vendas.getModel();
+
+                    Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
+                    NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
+
+                    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
+
+                    vendas = bancoMariaDB.lista_Vendas();
+
+                    double y = 0;
+                    double x = 0;
+                    double z = 0;
+
+                    tabela.setNumRows(0);
+                    for (Venda venda : vendas) {
+
+                        if (venda.isStatus() && venda.FormaPagamento().equals("A PRAZO")) {
+                            x = venda.getValorTotal();
+                            tabela.addRow(new Object[]{
+                                venda.getIdvenda(),
+                                formato.format(venda.getDataVenda()),
+                                venda.getCliente().getNome(),
+                                venda.FormaPagamento(), venda.getDescricao(),
+                                dinheiro.format(venda.getValorTotal())});
+
+                            // soma todos os valores total de cada venda;
+                            y = z + x;
+                            z = y;
+                        }
+                    }
+                    jtotalVendas.setText(dinheiro.format(z));
+
+                } else {
+                    carregarTabelaVendas();
+                }
+
+                carregando.dispose();
+            }
+
+        };
+        t.start();
+        
+    }//GEN-LAST:event_btn_filtrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_detalhes;
+    private javax.swing.JButton btn_filtrar;
     private javax.swing.JButton btn_pesquisar;
     private javax.swing.JFormattedTextField camp_dataFim;
     private javax.swing.JFormattedTextField camp_dataInicio;
-    private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
@@ -267,6 +341,7 @@ public class TelaHistorico extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
@@ -295,18 +370,20 @@ public class TelaHistorico extends javax.swing.JPanel {
 
         tabela.setNumRows(0);
         for (Venda venda : vendas) {
-            x = venda.getValorTotal();
 
-            tabela.addRow(new Object[]{
-                venda.getIdvenda(),
-                formato.format(venda.getDataVenda()),
-                venda.getCliente().getNome(),
-                venda.FormaPagamento(), venda.getDescricao(),
-                dinheiro.format(venda.getValorTotal())});
+            if (venda.isStatus()) {
+                x = venda.getValorTotal();
+                tabela.addRow(new Object[]{
+                    venda.getIdvenda(),
+                    formato.format(venda.getDataVenda()),
+                    venda.getCliente().getNome(),
+                    venda.FormaPagamento(), venda.getDescricao(),
+                    dinheiro.format(venda.getValorTotal())});
 
-            // soma todos os valores total de cada venda;
-            y = z + x;
-            z = y;
+                // soma todos os valores total de cada venda;
+                y = z + x;
+                z = y;
+            }
         }
         jtotalVendas.setText(dinheiro.format(z));
 

@@ -1,5 +1,6 @@
 package view;
 
+import br.com.configuracao.Teclas;
 import controle.Fornecedor;
 import controle.Produto;
 import conexao.Conexao;
@@ -17,6 +18,15 @@ public class TelaEditProduto extends javax.swing.JFrame {
 
     public TelaEditProduto() {
         initComponents();
+        camp_ProductName.setDocument(new Teclas());
+        camp_ProductName.setEnabled(false);
+        camp_Buyprice.setEnabled(false);
+        camp_Sellprice.setEnabled(false);
+        camp_cor.setEnabled(false);
+        camp_Deliverydate.setEnabled(false);
+        comboBox_Size.setEnabled(false);
+        comboBox_Supplier.setEnabled(true);
+        comboxCategoria.setEnabled(false);
     }
 
     public void setProduto(Produto produto) {
@@ -71,7 +81,6 @@ public class TelaEditProduto extends javax.swing.JFrame {
         jPanel2.add(camp_ProductName);
         camp_ProductName.setBounds(20, 50, 330, 26);
 
-        comboBox_Supplier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboBox_Supplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBox_SupplierActionPerformed(evt);
@@ -435,10 +444,15 @@ public class TelaEditProduto extends javax.swing.JFrame {
         camp_Description.setText(produto.getDescricao());
         camp_Deliverydate.setDate(produto.getDataEntrega());
         comboBox_Size.setSelectedItem(produto.getTamanho());
-        comboBox_Supplier.setSelectedItem(produto.getFornecedor().getNome()); // ADICIONA O FORNECEDOR DO ITEM NA COMBOBOX
         camp_cor.setText(produto.getCor());
-        comboxCategoria.setSelectedItem(produto.getCategoria());
+        comboxCategoria.setSelectedItem(produto.getCategoria().toString());
         jlabeldata.setText(produto.getDataRegistro().toString());
+        
+        if(comboBox_Supplier.getSelectedItem() == (produto.getFornecedor().getNome())){
+            comboBox_Supplier.setSelectedItem(produto.getFornecedor().getNome().toString());
+        }else{
+            comboBox_Supplier.setSelectedItem(produto.getFornecedor().getNome());
+        }
 
     }
 
@@ -449,7 +463,13 @@ public class TelaEditProduto extends javax.swing.JFrame {
             comboBox.addElement(fornecedor.getNome());
             comboBox_Supplier.setModel(comboBox);           // ADICIONA OS FORNECEDORES NA COMBOBOX
         }
-
+        
+        if(comboBox_Supplier.getSelectedItem() == (produto.getFornecedor().getNome())){
+            comboBox_Supplier.setSelectedItem(produto.getFornecedor().getNome().toString());
+        }else{
+            comboBox_Supplier.setSelectedItem(produto.getFornecedor().getNome());
+        }
+        
     }
 
 }

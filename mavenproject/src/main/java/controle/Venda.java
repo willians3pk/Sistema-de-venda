@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -49,9 +50,10 @@ public class Venda {
     private double valor_pago;
     private double valorTotal;
     private String descricao;
-
     private double troco;
+    private static final Logger LOG = Logger.getLogger(Venda.class.getName());
 
+    
     public Venda() {
 
     }
@@ -176,6 +178,10 @@ public class Venda {
         this.troco = troco;
     }
 
+    public static Logger getLOG() {
+        return LOG;
+    }
+    
 //--------------------------------------------------------------
 
     public List<ItensVenda> listaItens(){
@@ -266,7 +272,7 @@ public class Venda {
             parcela.setStatus(true);
             bancoDAO.save(parcela); //SALVA A PARCELA NO BANCO DE DADOS;
         }
-        // https://www.guj.com.br/t/duvida-gerar-parcelas-com-data-resolvido/134893/2 forum que ajudou a criar as datas da parcela;
+    
     }
 
 }

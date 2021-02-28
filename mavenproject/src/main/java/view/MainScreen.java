@@ -10,11 +10,14 @@ import controle.Endereco;
 import controle.FormaPagamento;
 import controle.Venda;
 import conexao.Conexao;
+import controle.ItensVenda;
+import controle.Produto;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,7 +28,6 @@ public class MainScreen extends javax.swing.JFrame {
     Color standardColor;
     TelaFornecedor r = new TelaFornecedor();
     TelaCadastroCliente cc = new TelaCadastroCliente();
-    
 
     public MainScreen() {
         initComponents();
@@ -43,7 +45,6 @@ public class MainScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
         horariodoSystema = new javax.swing.JLabel();
         menuLateral = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -64,9 +65,13 @@ public class MainScreen extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuICancelarVenda = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jVendaHIstoricos = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(MAXIMIZED_BOTH);
@@ -74,10 +79,6 @@ public class MainScreen extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(null);
-
-        jLabel5.setText("Configuração");
-        jPanel1.add(jLabel5);
-        jLabel5.setBounds(1270, 30, 90, 16);
 
         horariodoSystema.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         horariodoSystema.setText("jLabel6");
@@ -195,23 +196,57 @@ public class MainScreen extends javax.swing.JFrame {
         jMenu3.setText("Produto");
 
         jMenuItem1.setText("Desativados");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem1);
 
         jMenu1.add(jMenu3);
 
         jMenu4.setText("Venda");
 
-        jMenuItem3.setText("Adicionar Item");
-        jMenu4.add(jMenuItem3);
+        jMenuICancelarVenda.setText("Cancelar Venda");
+        jMenuICancelarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuICancelarVendaActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuICancelarVenda);
 
         jMenuItem4.setText("Editar");
         jMenu4.add(jMenuItem4);
 
         jMenu1.add(jMenu4);
 
+        jMenu5.setText("Fornecedor");
+
+        jMenuItem2.setText("Desativados");
+        jMenu5.add(jMenuItem2);
+
+        jMenu1.add(jMenu5);
+
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Venda");
+
+        jVendaHIstoricos.setText("Historicos");
+        jVendaHIstoricos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jVendaHIstoricosActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jVendaHIstoricos);
+
+        jMenuItem3.setText("Vendas Canceladas");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem3);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -260,6 +295,7 @@ public class MainScreen extends javax.swing.JFrame {
         r.setLocation(0, 0);
         r.setSize(1140, 650);
         r.setVisible(true);
+        r.preencherjlistaForncedor();
         jDesktopPane1.add(r);
     }//GEN-LAST:event_jLabel2MouseClicked
 
@@ -279,6 +315,77 @@ public class MainScreen extends javax.swing.JFrame {
         cc.setVisible(true);
         jDesktopPane1.add(cc);
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        TelaItensDesativados tela = new TelaItensDesativados();
+        jDesktopPane1.removeAll();
+        tela.setLocation(0, 0);
+        tela.setSize(1140, 650);
+        tela.setVisible(true);
+        tela.carregarProduto();
+        jDesktopPane1.add(tela);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jVendaHIstoricosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jVendaHIstoricosActionPerformed
+        final TelaLoading carregando = new TelaLoading();
+        carregando.setVisible(true);
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                TelaHistorico sH = new TelaHistorico();
+                jDesktopPane1.removeAll();
+                sH.setLocation(0, 0);
+                sH.setSize(1140, 650);
+                sH.setVisible(true);
+                sH.carregarTabelaVendas();
+                jDesktopPane1.add(sH);
+                carregando.dispose();
+            }
+
+        };
+        t.start();
+
+    }//GEN-LAST:event_jVendaHIstoricosActionPerformed
+
+    private void jMenuICancelarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuICancelarVendaActionPerformed
+        String codigo = JOptionPane.showInputDialog("CODIGO da Venda que deseja Cancelar!");
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Você tem Certeza que Deseja Cancelar a Venda de Numero " + codigo, "Cancelar a Venda?", JOptionPane.YES_NO_OPTION);
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            final TelaLoading carregando = new TelaLoading();
+            carregando.setVisible(true);
+            Thread t = new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        Integer id = Integer.parseInt(codigo);
+                        Conexao banco = new Conexao();
+                        Venda venda = banco.getVenda(id);
+                        venda.setStatus(false);
+                        banco.update(venda);
+                        for (ItensVenda listaIten : venda.listaItens()) {
+                            Produto produto = banco.getProduto(listaIten.getItems().getIdProduto());
+                            produto.setQnt(listaIten.getQnt() + produto.getQnt());
+                            produto.setDataRegistro(new Date());
+                            banco.update(produto);
+                        }
+                        JOptionPane.showMessageDialog(null, "Venda Cancelada!");
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, e);
+                    }
+                    carregando.dispose();
+                }
+
+            };
+            t.start();
+
+            
+        }
+
+    }//GEN-LAST:event_jMenuICancelarVendaActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -323,13 +430,15 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuICancelarVenda;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
@@ -341,6 +450,7 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JMenuItem jVendaHIstoricos;
     private javax.swing.JPanel menuLateral;
     // End of variables declaration//GEN-END:variables
 
@@ -349,9 +459,9 @@ public class MainScreen extends javax.swing.JFrame {
         Date dataSistema = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         horariodoSystema.setText(formato.format(dataSistema));
-    
+
         Conexao bancoDAO = new Conexao();
-        if(bancoDAO.list_Cliente().size() <= 0){
+        if (bancoDAO.list_Cliente().size() <= 0) {
             Cliente consumidor = new Cliente();
             List<Venda> vendas = new ArrayList<>();
             Endereco end = new Endereco();
@@ -362,12 +472,12 @@ public class MainScreen extends javax.swing.JFrame {
             consumidor.setStatus(true);
             consumidor.setCpf(Long.MIN_VALUE);
             consumidor.setClienteDesde(new Date()); // DATA QUE O CLIENTE FOI CADASTRADO;
-            
+
             consumidor.setVendas(vendas);
             bancoDAO.save(consumidor);
         }
-        
-        if(bancoDAO.listFormPagamento().size() <= 0){
+
+        if (bancoDAO.listFormPagamento().size() <= 0) {
             FormaPagamento formapagamento = new FormaPagamento();
             formapagamento.setDescricao("DINHEIRO A VISTA");
             bancoDAO.save(formapagamento);
@@ -386,7 +496,7 @@ public class MainScreen extends javax.swing.JFrame {
             FormaPagamento formapagamento5 = new FormaPagamento();
             formapagamento5.setDescricao("PARCELADO");
             bancoDAO.save(formapagamento5);
-            
+
         }
     }
 

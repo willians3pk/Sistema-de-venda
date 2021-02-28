@@ -29,17 +29,19 @@ public class TelaVenda extends javax.swing.JPanel {
         field_preco.setEnabled(false);
         field_qnt.setEnabled(false);
         camp_buscarProduto.setDocument(new Teclas());
-        
+
         TableColumn colCodigo = jTable_produto.getColumnModel().getColumn(0);
         TableColumn colNome = jTable_produto.getColumnModel().getColumn(1);
-        TableColumn colPreço = jTable_produto.getColumnModel().getColumn(2);
-        TableColumn colQuant = jTable_produto.getColumnModel().getColumn(3);
+        TableColumn colCor = jTable_produto.getColumnModel().getColumn(2);
+        TableColumn colPreço = jTable_produto.getColumnModel().getColumn(3);
+        TableColumn colQuant = jTable_produto.getColumnModel().getColumn(4);
 
         colCodigo.setPreferredWidth(5);
-        colNome.setPreferredWidth(220);
-        colPreço.setPreferredWidth(10);
+        colNome.setPreferredWidth(150);
+        colCor.setPreferredWidth(30);
+        colPreço.setPreferredWidth(30);
         colQuant.setPreferredWidth(5);
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -53,8 +55,13 @@ public class TelaVenda extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         btn_finalizar = new javax.swing.JButton();
         btn_removerItem = new javax.swing.JButton();
-        btn_historico = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        btn_Cliente = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        btn_venda = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jlabel_totalVenda = new javax.swing.JLabel();
@@ -67,7 +74,7 @@ public class TelaVenda extends javax.swing.JPanel {
         btn_buscarProduto = new javax.swing.JButton();
         camp_buscarProduto = new javax.swing.JTextField();
         btn_adcionar = new javax.swing.JButton();
-        camp_apelido = new javax.swing.JTextField();
+        camp_Cor = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         camp_tamanho = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
@@ -90,11 +97,11 @@ public class TelaVenda extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Codigo_item", "Nome", "Valor", "Qtde:"
+                "Codigo_item", "Nome:", "Cor:", "Valor:", "Qtde:"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -145,25 +152,56 @@ public class TelaVenda extends javax.swing.JPanel {
         jPanel3.add(btn_removerItem);
         btn_removerItem.setBounds(430, 460, 130, 40);
 
-        btn_historico.setText("Vendas");
-        btn_historico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_historicoActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btn_historico);
-        btn_historico.setBounds(630, 10, 90, 40);
+        jPanel1.setBackground(new java.awt.Color(60, 205, 186));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setLayout(null);
 
-        jLabel1.setBackground(new java.awt.Color(64, 157, 197));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Clientes");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_Cliente.setBackground(new java.awt.Color(1, 1, 1));
+        btn_Cliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btn_Cliente.setText("Clientes");
+        btn_Cliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                btn_ClienteMouseClicked(evt);
             }
         });
-        jPanel3.add(jLabel1);
-        jLabel1.setBounds(450, 10, 160, 40);
+        jPanel1.add(btn_Cliente);
+        btn_Cliente.setBounds(0, 0, 160, 40);
+
+        jPanel3.add(jPanel1);
+        jPanel1.setBounds(430, 10, 160, 40);
+
+        jPanel2.setBackground(new java.awt.Color(208, 208, 187));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.setLayout(null);
+
+        btn_venda.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btn_venda.setText("Vendas");
+        btn_venda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_vendaMouseClicked(evt);
+            }
+        });
+        jPanel2.add(btn_venda);
+        btn_venda.setBounds(0, 0, 160, 40);
+
+        jPanel3.add(jPanel2);
+        jPanel2.setBounds(220, 10, 160, 40);
+
+        jPanel7.setBackground(new java.awt.Color(29, 32, 232));
+        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel7.setLayout(null);
+
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(253, 251, 251));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("CAIXA");
+        jPanel7.add(jLabel1);
+        jLabel1.setBounds(0, 0, 160, 40);
+
+        jPanel3.add(jPanel7);
+        jPanel7.setBounds(10, 10, 160, 40);
+        jPanel3.add(jSeparator1);
+        jSeparator1.setBounds(10, 60, 710, 10);
 
         add(jPanel3);
         jPanel3.setBounds(10, 10, 730, 510);
@@ -223,7 +261,7 @@ public class TelaVenda extends javax.swing.JPanel {
         jLabel6.setBounds(190, 170, 100, 20);
 
         jLabel7.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel7.setText("Apelido:");
+        jLabel7.setText("Cor:");
         jPanel5.add(jLabel7);
         jLabel7.setBounds(10, 170, 80, 20);
 
@@ -263,15 +301,17 @@ public class TelaVenda extends javax.swing.JPanel {
         jPanel5.add(btn_adcionar);
         btn_adcionar.setBounds(10, 280, 360, 50);
 
-        camp_apelido.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jPanel5.add(camp_apelido);
-        camp_apelido.setBounds(10, 190, 160, 40);
+        camp_Cor.setEditable(false);
+        camp_Cor.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jPanel5.add(camp_Cor);
+        camp_Cor.setBounds(10, 190, 160, 40);
 
         jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel8.setText("Preço unitario:");
         jPanel5.add(jLabel8);
         jLabel8.setBounds(10, 90, 120, 20);
 
+        camp_tamanho.setEditable(false);
         camp_tamanho.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jPanel5.add(camp_tamanho);
         camp_tamanho.setBounds(190, 190, 170, 40);
@@ -334,7 +374,6 @@ public class TelaVenda extends javax.swing.JPanel {
                 produtos.remove(produtos.get(i)); // remove o item;
                 adicionarItens();
                 //limpa os campos
-                camp_buscarProduto.setText("");
                 btn_buscarProduto.setText("");
                 field_preco.setText("0,00");
                 field_qnt.setText("0");
@@ -356,12 +395,22 @@ public class TelaVenda extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable_produtoMouseClicked
 
     private void btn_buscarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarProdutoActionPerformed
+        final TelaLoading carregando = new TelaLoading();
+        carregando.setVisible(true);
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                s.setVisible(true);
+                s.carregaCampos();
+                s.setVariavelProduto(produto);
+                s.field_nome.setText("");
+                btn_removerItem.setEnabled(false);
+                carregando.dispose();
+            }
 
-        s.setVisible(true);
-        s.carregaCampos();
-        s.setVariavelProduto(produto);
-        s.field_nome.setText("");
-        btn_removerItem.setEnabled(false);
+        };
+        t.start();
+
 
     }//GEN-LAST:event_btn_buscarProdutoActionPerformed
 
@@ -383,7 +432,7 @@ public class TelaVenda extends javax.swing.JPanel {
         fv.camp_qtdeParcelas.setVisible(false);
         fv.camp_valorParcelas.setVisible(false);
         jDesktopPane1.add(fv);
-        
+
     }//GEN-LAST:event_btn_finalizarActionPerformed
 
     private void field_qntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_qntActionPerformed
@@ -421,16 +470,19 @@ public class TelaVenda extends javax.swing.JPanel {
         List<Produto> listaProduto = bancoMariaDB.filtrarProdutoNome(pesquisa);
 
         for (Produto produto1 : listaProduto) {
-            produto = produto1;
+            if (produto1.isStatus()) {
+                produto = produto1;
+            }
+
         }
-        
+
         try {
             System.out.println(produto.getNome());
             camp_buscarProduto.setText(produto.getNome());
-            camp_apelido.setText(produto.getApelido());
+            camp_Cor.setText(produto.getCor());
             camp_tamanho.setText(produto.getTamanho());
             field_preco.setText("" + produto.getValor_venda());
-            field_qnt.setText(""+1);
+            field_qnt.setText("" + 1);
             field_qnt.setEnabled(true);
             btn_adcionar.setEnabled(true);
             btn_limpa.setEnabled(true);
@@ -442,7 +494,7 @@ public class TelaVenda extends javax.swing.JPanel {
 
     private void camp_buscarProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_camp_buscarProdutoFocusLost
         if (camp_buscarProduto.getText().length() <= 0) {
-            camp_apelido.setText("");
+            camp_Cor.setText("");
             camp_tamanho.setText("");
             field_preco.setText("");
             field_qnt.setText("");
@@ -471,7 +523,7 @@ public class TelaVenda extends javax.swing.JPanel {
                                 adicionarItens(); // adiciona os itens na tabela de itens na tela vendas;
                                 System.out.println(produto2.getNome());
                                 camp_buscarProduto.setText("");
-                                camp_apelido.setText("");
+                                camp_Cor.setText("");
                                 camp_tamanho.setText("");
                                 field_preco.setText("");
                                 field_qnt.setText("");
@@ -486,7 +538,7 @@ public class TelaVenda extends javax.swing.JPanel {
                             produto.setQnt(Integer.parseInt(field_qnt.getText()));
                             produtos.add(produto);
                             camp_buscarProduto.setText("");
-                            camp_apelido.setText("");
+                            camp_Cor.setText("");
                             camp_tamanho.setText("");
                             field_preco.setText("");
                             field_qnt.setText("");
@@ -510,7 +562,7 @@ public class TelaVenda extends javax.swing.JPanel {
 
     private void btn_limpaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpaActionPerformed
         camp_buscarProduto.setText("");
-        camp_apelido.setText("");
+        camp_Cor.setText("");
         camp_tamanho.setText("");
         field_preco.setText("");
         field_qnt.setText("");
@@ -519,35 +571,46 @@ public class TelaVenda extends javax.swing.JPanel {
         btn_limpa.setEnabled(false);
     }//GEN-LAST:event_btn_limpaActionPerformed
 
-    private void btn_historicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_historicoActionPerformed
-        TelaHistorico sH = new TelaHistorico();
-        jDesktopPane1.removeAll();
-        sH.setLocation(0, 0);
-        sH.setSize(1140, 650);
-        sH.setVisible(true);
-        sH.carregarTabelaVendas();
-        jDesktopPane1.add(sH);
-
-    }//GEN-LAST:event_btn_historicoActionPerformed
-
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+    private void btn_ClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ClienteMouseClicked
         TelaCadastroCliente cc = new TelaCadastroCliente();
         jDesktopPane1.removeAll();
         cc.setLocation(0, 0);
         cc.setSize(1140, 650);
         cc.setVisible(true);
         jDesktopPane1.add(cc);
-    }//GEN-LAST:event_jLabel1MouseClicked
+    }//GEN-LAST:event_btn_ClienteMouseClicked
+
+    private void btn_vendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_vendaMouseClicked
+        final TelaLoading carregando = new TelaLoading();
+        carregando.setVisible(true);
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                TelaHistorico sH = new TelaHistorico();
+                jDesktopPane1.removeAll();
+                sH.setLocation(0, 0);
+                sH.setSize(1140, 650);
+                sH.setVisible(true);
+                sH.carregarTabelaVendas();
+                jDesktopPane1.add(sH);
+                carregando.dispose();
+            }
+
+        };
+        t.start();
+
+    }//GEN-LAST:event_btn_vendaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btn_Cliente;
     public static javax.swing.JButton btn_adcionar;
     public static javax.swing.JButton btn_buscarProduto;
     private javax.swing.JButton btn_finalizar;
-    private javax.swing.JButton btn_historico;
     public static javax.swing.JButton btn_limpa;
     private javax.swing.JButton btn_removerItem;
-    public static javax.swing.JTextField camp_apelido;
+    private javax.swing.JLabel btn_venda;
+    public static javax.swing.JTextField camp_Cor;
     public static javax.swing.JTextField camp_buscarProduto;
     public static javax.swing.JTextField camp_tamanho;
     public static javax.swing.JTextField camp_total;
@@ -565,28 +628,23 @@ public class TelaVenda extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSeparator jSeparator1;
     public static javax.swing.JTable jTable_produto;
     public static javax.swing.JLabel jlabel_totalVenda;
     // End of variables declaration//GEN-END:variables
 
     public static void adicionarItens() {
         DefaultTableModel tableDefault = (DefaultTableModel) jTable_produto.getModel();
-        TableColumn colCodigo = jTable_produto.getColumnModel().getColumn(0);
-        TableColumn colNome = jTable_produto.getColumnModel().getColumn(1);
-        TableColumn colPreço = jTable_produto.getColumnModel().getColumn(2);
-        TableColumn colQuant = jTable_produto.getColumnModel().getColumn(3);
 
-        colCodigo.setPreferredWidth(5);
-        colNome.setPreferredWidth(220);
-        colPreço.setPreferredWidth(10);
-        colQuant.setPreferredWidth(5);
-        
         try {
             Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
             NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
@@ -600,9 +658,9 @@ public class TelaVenda extends javax.swing.JPanel {
                 x = produto.getQnt();
                 y = z + x;
                 z = y;
-                tableDefault.addRow(new Object[]{produto.getIdProduto(), produto.getNome(), dinheiro.format(produto.getValor_venda()), produto.getQnt()});
+                tableDefault.addRow(new Object[]{produto.getIdProduto(), produto.getNome(), produto.getCor(), dinheiro.format(produto.getValor_venda()), produto.getQnt()});
                 field_preco.setText(String.valueOf(dinheiro.format(produto.getValor_venda())));// colocar o valor do item no campo preco;             
-                btn_buscarProduto.setText(produto.getNome());
+
                 field_qnt.setText(String.valueOf(produto.getQnt()));
             }
             calculoValorTotal();
@@ -645,7 +703,7 @@ public class TelaVenda extends javax.swing.JPanel {
         produto = pp;
         camp_buscarProduto.setText(produto.getNome());
         camp_tamanho.setText(produto.getTamanho());
-        camp_apelido.setText(produto.getApelido());
+        camp_Cor.setText(produto.getApelido());
         field_preco.setText("" + produto.getValor_venda());
         field_qnt.setText("" + 1);
         btn_adcionar.setEnabled(true);

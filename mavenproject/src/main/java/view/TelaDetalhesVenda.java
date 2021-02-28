@@ -9,20 +9,14 @@ import controle.ItensVenda;
 import controle.Parcelas;
 import controle.Venda;
 import conexao.Conexao;
-import conexao.NewHibernateUtil;
 import static view.MainScreen.jDesktopPane1;
-import java.awt.Color;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
@@ -51,12 +45,16 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
 
         TableColumn colCodigo = jtableVenda.getColumnModel().getColumn(0);
         TableColumn colNome = jtableVenda.getColumnModel().getColumn(1);
-        TableColumn calQtde = jtableVenda.getColumnModel().getColumn(2);
-        TableColumn colTotal = jtableVenda.getColumnModel().getColumn(3);
+        TableColumn colCor = jtableVenda.getColumnModel().getColumn(2);
+        TableColumn calQtde = jtableVenda.getColumnModel().getColumn(3);
+        TableColumn colCategoria = jtableVenda.getColumnModel().getColumn(4);
+        TableColumn colTotal = jtableVenda.getColumnModel().getColumn(5);
 
         colCodigo.setPreferredWidth(5);
-        colNome.setPreferredWidth(300);
+        colNome.setPreferredWidth(280);
+        colCor.setPreferredWidth(50);
         calQtde.setPreferredWidth(5);
+        colCategoria.setPreferredWidth(45);
         colTotal.setPreferredWidth(5);
 
         TableColumn colData = tableAPrazo.getColumnModel().getColumn(0);
@@ -150,17 +148,17 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
 
         jtableVenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo:", "Nome:", "Qtde:", "Total:"
+                "Codigo:", "Nome:", "Cor:", "Qtde:", "Categoria:", "Total:"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -288,6 +286,7 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         btn_receber.setBounds(1020, 260, 80, 30);
 
         btn_EditarVenda.setText("Editar Venda");
+        btn_EditarVenda.setEnabled(false);
         btn_EditarVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_EditarVendaActionPerformed(evt);
@@ -476,11 +475,14 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         DefaultTableModel tabelavenda = (DefaultTableModel) jtableVenda.getModel();
         tabelavenda.setNumRows(0);
         camp_valorentrada.setText(dinheiro.format(venda.getValor_pago()));
+        
         for (ItensVenda iten : venda.listaItens()) {
             tabelavenda.addRow(new Object[]{
                 iten.getIditensVenda(),
                 iten.getItems().getNome(),
+                iten.getItems().getCor(),
                 iten.getQnt(),
+                iten.getItems().getCategoria(),
                 dinheiro.format(iten.valortotal())
             });
         }
@@ -492,7 +494,7 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
             checkbox.setVisible(true);
             btn_receber.setVisible(true);
             tabelaAprazo.setNumRows(0);
-            for (Parcelas parcela : venda.getParcelas()) {
+            for (Parcelas parcela : venda.listaParcelas()) {
                 tabelaAprazo.addRow(new Object[]{
                     data.format(parcela.getData()),
                     dinheiro.format(parcela.getValor()),

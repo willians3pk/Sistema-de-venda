@@ -35,22 +35,22 @@ public class TelaBuscaProduto extends javax.swing.JFrame {
         this.variavelProduto = variavelProduto;
     }
 
-    
-    
     public TelaBuscaProduto() {
         initComponents();
         btn_ok.setEnabled(false);
-        
+
         TableColumn colCodigo = tabela_busca.getColumnModel().getColumn(0);
         TableColumn colNome = tabela_busca.getColumnModel().getColumn(1);
-        TableColumn colPreço = tabela_busca.getColumnModel().getColumn(2);
-        TableColumn colQuant = tabela_busca.getColumnModel().getColumn(3);
+        TableColumn colCor = tabela_busca.getColumnModel().getColumn(2);
+        TableColumn colPreço = tabela_busca.getColumnModel().getColumn(3);
+        TableColumn colQuant = tabela_busca.getColumnModel().getColumn(4);
 
         colCodigo.setPreferredWidth(5);
-        colNome.setPreferredWidth(220);
-        colPreço.setPreferredWidth(10);
+        colNome.setPreferredWidth(190);
+        colCor.setPreferredWidth(30);
+        colPreço.setPreferredWidth(25);
         colQuant.setPreferredWidth(5);
-    
+
     }
 
     /**
@@ -67,7 +67,7 @@ public class TelaBuscaProduto extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btn_Buscar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
         tabela_busca = new javax.swing.JTable();
         btn_ok = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -111,17 +111,16 @@ public class TelaBuscaProduto extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(177, 177, 177)));
         jPanel2.setLayout(null);
 
-        tabela_busca.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         tabela_busca.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "codigo_item", "nome", "valor", "qnt_estoque"
+                "Codigo_item", "Nome:", "Cor:", "Valor:", "Qtde:"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -133,10 +132,15 @@ public class TelaBuscaProduto extends javax.swing.JFrame {
                 tabela_buscaMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tabela_busca);
+        tabela_busca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tabela_buscaKeyReleased(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tabela_busca);
 
-        jPanel2.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 20, 570, 150);
+        jPanel2.add(jScrollPane3);
+        jScrollPane3.setBounds(10, 10, 570, 160);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(10, 100, 590, 180);
@@ -167,17 +171,24 @@ public class TelaBuscaProduto extends javax.swing.JFrame {
         carregaCampos();
     }//GEN-LAST:event_field_nomeKeyReleased
 
-    private void tabela_buscaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabela_buscaMouseClicked
-        btn_ok.setEnabled(true);
-    }//GEN-LAST:event_tabela_buscaMouseClicked
-
     private void field_nomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_field_nomeMouseClicked
         btn_ok.setEnabled(false);
     }//GEN-LAST:event_field_nomeMouseClicked
 
     private void btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BuscarActionPerformed
-        carregaCampos();
-        btn_ok.setEnabled(false);
+        final TelaLoading carregando = new TelaLoading();
+        carregando.setVisible(true);
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                carregaCampos();
+                btn_ok.setEnabled(false);
+                carregando.dispose();
+            }
+
+        };
+        t.start();
+
     }//GEN-LAST:event_btn_BuscarActionPerformed
 
     private void btn_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_okActionPerformed
@@ -189,7 +200,7 @@ public class TelaBuscaProduto extends javax.swing.JFrame {
                 Produto item = banco.productBook().get(i); // pega o produto da lista do banco de dados;
 
                 // verifica se a quantidade de itens selecionado é maior que a quantidade que tem em estoque;
-                if (item.getQnt()<= 0) {
+                if (item.getQnt() <= 0) {
                     JOptionPane.showMessageDialog(null, "Produto só contém " + item.getQnt() + " em estoque");
 
                 } else {
@@ -204,6 +215,14 @@ public class TelaBuscaProduto extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tabela_buscaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabela_buscaMouseClicked
+        btn_ok.setEnabled(true);
+    }//GEN-LAST:event_tabela_buscaMouseClicked
+
+    private void tabela_buscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabela_buscaKeyReleased
+        btn_ok.setEnabled(true);
+    }//GEN-LAST:event_tabela_buscaKeyReleased
 
     /**
      * @param args the command line arguments
@@ -254,8 +273,8 @@ public class TelaBuscaProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tabela_busca;
+    private javax.swing.JScrollPane jScrollPane3;
+    public static javax.swing.JTable tabela_busca;
     // End of variables declaration//GEN-END:variables
 
     public void carregaCampos() {
@@ -280,7 +299,7 @@ public class TelaBuscaProduto extends javax.swing.JFrame {
             // PEGA TODOS OS PRODUTOS QUE SÃO ADICIONADO NA LISTA;
             // E ADICIONA NA TABELA 
             for (Produto p : produto) {
-                tabela.addRow(new Object[]{p.getIdProduto(), p.getNome(), dinheiro.format(p.getValor_venda()), p.getQnt()});
+                tabela.addRow(new Object[]{p.getIdProduto(), p.getNome(), p.getCor(), dinheiro.format(p.getValor_venda()), p.getQnt()});
             }
         } catch (Exception e) {
             System.out.println(e);

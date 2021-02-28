@@ -48,9 +48,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
     public void setObservacaoVenda(String observacaoVenda) {
         this.observacaoVenda = observacaoVenda;
     }
-    
-    
-    
+
     public List<Produto> getLista() {
         return lista;
     }
@@ -532,73 +530,83 @@ public class FinalizarVenda extends javax.swing.JPanel {
     }
 
     private void finalizarVenda() {
+        final TelaLoading carregando = new TelaLoading();
+        carregando.setVisible(true);
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                
+                Venda venda = new Venda(); // cria uma nova venda;
+                List<ItensVenda> listaItens = new ArrayList<>(); // cria lista de itens;
+                List<FormaPagamento> listaPagamento = new ArrayList<>(); // cria uma nova lista de pagamento;
 
-        Venda venda = new Venda(); // cria uma nova venda;
-        List<ItensVenda> listaItens = new ArrayList<>(); // cria lista de itens;
-        List<FormaPagamento> listaPagamento = new ArrayList<>(); // cria uma nova lista de pagamento;
+                double valortotal = Double.parseDouble(camptotal.getText().replace("R$", ""));
+                double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", "."));
+                double troco = valortotal - valorPago;
 
-        double valortotal = Double.parseDouble(camptotal.getText().replace("R$", ""));
-        double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", "."));
-        double troco = valortotal - valorPago;
+                venda.setStatus(true);
+                venda.setDataVenda(dataVenda.getDate()); // data da venda
+                venda.setValorTotal(Double.parseDouble(camptotal.getText().replace("R$", "").trim())); // valor total da venda
+                venda.setValor_pago(Double.valueOf(campvalorPago.getText().replace(",", "."))); // valor que foi pago na venda;
+                venda.setTroco(troco); // troco da venda;
+                venda.setFormaPagamento(listaPagamento); // adiciona a lista de pagamento na venda;
+                venda.setItens(listaItens); // adiciona a lista de itens na venda;
+                venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));// pega a forma de pagamento da venda;
+                venda.setDescricao(observacaoVenda);
 
-        venda.setStatus(true);
-        venda.setDataVenda(dataVenda.getDate()); // data da venda
-        venda.setValorTotal(Double.parseDouble(camptotal.getText().replace("R$", "").trim())); // valor total da venda
-        venda.setValor_pago(Double.valueOf(campvalorPago.getText().replace(",", "."))); // valor que foi pago na venda;
-        venda.setTroco(troco); // troco da venda;
-        venda.setFormaPagamento(listaPagamento); // adiciona a lista de pagamento na venda;
-        venda.setItens(listaItens); // adiciona a lista de itens na venda;
-        venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));// pega a forma de pagamento da venda;
-        venda.setDescricao(this.observacaoVenda);
-        System.out.println(this.observacaoVenda);
-        // verifica se foi adicionado o cliente no campo de texto;
-        if (camp_cliente.getText().length() > 0) {
-            System.out.println("Cliente: " + client.getNome());
-            venda.setCliente(client); // adiciona o cliente na venda;
-            client.getVendas().add(venda); // adiciona a venda na lista de vendas do cliente;
-            bancoMariaDB.save_update(client);
-        } else {
-            System.out.println("Cliente: " + bancoMariaDB.list_Cliente().get(0).getNome());
-            venda.setCliente(bancoMariaDB.list_Cliente().get(0)); // adiciona o cliente na venda;
-            bancoMariaDB.list_Cliente().get(0).getVendas().add(venda); // adiciona a venda na lista de vendas do cliente;
-            bancoMariaDB.update(bancoMariaDB.list_Cliente().get(0));
-        }
-
-        venda.adicionarItens(lista, venda); // salva os itens da venda;
-
-        // ATUALIZAR O ESTOQUE DE PRODUTO NO BANCO DE DADOS
-        for (int i = 0; i < bancoMariaDB.productBook().size(); i++) {
-            for (Produto produto : lista) {
-                if (bancoMariaDB.productBook().get(i).getIdProduto().equals(produto.getIdProduto())) {
-                    Produto item = bancoMariaDB.productBook().get(i); // pega o produto do banco de dados
-                    int qnt_Atualizada = item.getQnt() - produto.getQnt(); // subtrair a quantidade do produto que foi vendido;
-                    item.setQnt(qnt_Atualizada); // adicionar a subtração;
-                    bancoMariaDB.update(item); // atualiza a quantidade do produto no banco;
-
+                // verifica se foi adicionado o cliente no campo de texto;
+                if (camp_cliente.getText().length() > 0) {
+                    System.out.println("Cliente: " + client.getNome());
+                    venda.setCliente(client); // adiciona o cliente na venda;
+                    client.getVendas().add(venda); // adiciona a venda na lista de vendas do cliente;
+                    bancoMariaDB.save_update(client);
+                } else {
+                    System.out.println("Cliente: " + bancoMariaDB.list_Cliente().get(0).getNome());
+                    venda.setCliente(bancoMariaDB.list_Cliente().get(0)); // adiciona o cliente na venda;
+                    bancoMariaDB.list_Cliente().get(0).getVendas().add(venda); // adiciona a venda na lista de vendas do cliente;
+                    bancoMariaDB.update(bancoMariaDB.list_Cliente().get(0));
                 }
+
+                venda.adicionarItens(lista, venda); // salva os itens da venda;
+
+                // ATUALIZAR O ESTOQUE DE PRODUTO NO BANCO DE DADOS
+                for (int i = 0; i < bancoMariaDB.productBook().size(); i++) {
+                    for (Produto produto : lista) {
+                        if (bancoMariaDB.productBook().get(i).getIdProduto().equals(produto.getIdProduto())) {
+                            Produto item = bancoMariaDB.productBook().get(i); // pega o produto do banco de dados
+                            int qnt_Atualizada = item.getQnt() - produto.getQnt(); // subtrair a quantidade do produto que foi vendido;
+                            item.setQnt(qnt_Atualizada); // adicionar a subtração;
+                            bancoMariaDB.update(item); // atualiza a quantidade do produto no banco;
+
+                        }
+                    }
+                }
+
+                lista.clear(); // limpa a lista;
+                DefaultListModel datasparcelas = new DefaultListModel();
+                camp_cliente.setText("");
+                jListdatasparceladas.setModel(datasparcelas);
+                camp_valorParcelas.setText("0,00");
+                camp_qtdeParcelas.setVisible(false);
+                camp_valorParcelas.setVisible(false);
+                jListdatasparceladas.setVisible(false);
+                telaVenda.adicionarItens();
+                telaVenda.camp_buscarProduto.setText("");
+                telaVenda.field_preco.setText("0,00");
+                telaVenda.field_qnt.setText("0");
+                JOptionPane.showMessageDialog(null, "Venda Registrada com sucesso!");
+                TelaVenda s = new TelaVenda();
+                jDesktopPane1.removeAll();
+                s.setLocation(0, 0);
+                s.setSize(1140, 650);
+                s.setVisible(true);
+                jDesktopPane1.add(s);
+
+                carregando.dispose();
             }
-        }
 
-        lista.clear(); // limpa a lista;
-        DefaultListModel datasparcelas = new DefaultListModel();
-        camp_cliente.setText("");
-        jListdatasparceladas.setModel(datasparcelas);
-        camp_valorParcelas.setText("0,00");
-        camp_qtdeParcelas.setVisible(false);
-        camp_valorParcelas.setVisible(false);
-        jListdatasparceladas.setVisible(false);
-        telaVenda.adicionarItens();
-        telaVenda.camp_buscarProduto.setText("");
-        telaVenda.field_preco.setText("0,00");
-        telaVenda.field_qnt.setText("0");
-        JOptionPane.showMessageDialog(null, "Venda Registrada com sucesso!");
-
-        TelaVenda s = new TelaVenda();
-        jDesktopPane1.removeAll();
-        s.setLocation(0, 0);
-        s.setSize(1140, 650);
-        s.setVisible(true);
-        jDesktopPane1.add(s);
+        };
+        t.start();
     }
 
     public void vendaParcelada() {
@@ -623,7 +631,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
         venda.setItens(listaItens); // adiciona uma lista de itens;
         venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));
         venda.setDescricao(this.observacaoVenda);
-        
+
         if (camp_cliente.getText().length() > 0 & !camp_cliente.getText().equals("CONSUMIDOR")) {
 
             // se o valor do textfield está vazia ou for zero;
@@ -697,7 +705,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
         venda.setItens(listaItens); // adiciona uma lista de itens;
         venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));
         venda.setDescricao(this.observacaoVenda);
-        
+
         if (camp_cliente.getText().length() > 0 & !camp_cliente.getText().equals("CONSUMIDOR")) {
             venda.setCliente(client); // adiciona o cliente na venda;
             client.getVendas().add(venda); // adiciona a venda na lista de cliente;
@@ -732,16 +740,17 @@ public class FinalizarVenda extends javax.swing.JPanel {
             telaVenda.field_preco.setText("0,00");
             telaVenda.field_qnt.setText("0");
             JOptionPane.showMessageDialog(null, "Venda Registrada com sucesso!");
+
+            TelaVenda s = new TelaVenda();
+            jDesktopPane1.removeAll();
+            s.setLocation(0, 0);
+            s.setSize(1140, 650);
+            s.setVisible(true);
+            jDesktopPane1.add(s);
         } else {
             JOptionPane.showMessageDialog(null, "ATENÇÃO vendas A PRAZO precisa de um cliente cadastrado.");
         }
-        
-        TelaVenda s = new TelaVenda();
-        jDesktopPane1.removeAll();
-        s.setLocation(0, 0);
-        s.setSize(1140, 650);
-        s.setVisible(true);
-        jDesktopPane1.add(s);
+
     }
 
     public void carregarComboBox() {

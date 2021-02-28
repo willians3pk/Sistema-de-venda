@@ -351,6 +351,25 @@ public class Conexao {
         }
         return produtosFiltrados;
     }
+    
+    public List<Produto> filtrarProdutoDesativado(String nome) {
+        // cria nova lista
+        List<Produto> produtosFiltrados = new ArrayList<>();
+        // se o valor do textfield está vazia
+        if (nome.isEmpty()) {
+            // adiciona todos os elementos daquela lista que sugeri para transformar em atributo
+            produtosFiltrados.addAll(this.productBook());
+        } else {
+            for (int i = 0; i < this.productBook().size(); i++) {
+                Produto p = this.productBook().get(i);
+                // se nome do produto começa com o valor do textfield
+                if (p.getNome().startsWith(nome) && !p.isStatus()) {
+                    produtosFiltrados.add(p);
+                }
+            }
+        }
+        return produtosFiltrados;
+    }
 
     public Venda getVenda(Integer id) {
         this.session = NewHibernateUtil.getSessionFactory().openSession();
@@ -399,6 +418,19 @@ public class Conexao {
         return null;
     }
 
-    
+   public Produto getProduto(Integer id) {
+        this.session = NewHibernateUtil.getSessionFactory().openSession();
+        this.tx = session.beginTransaction();
+        try {
+            Produto produto = (Produto) session.get(Produto.class, id);
+            return produto;
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Produto Não Encontrada!\n"+e);
+        } finally {
+            session.close();
+        }
+        return null;
+    }
     
 }

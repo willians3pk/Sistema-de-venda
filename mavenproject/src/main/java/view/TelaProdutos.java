@@ -42,17 +42,19 @@ public class TelaProdutos extends javax.swing.JPanel {
         TableColumn colCodigo = table_Product.getColumnModel().getColumn(0);
         TableColumn colDataProduto = table_Product.getColumnModel().getColumn(1);
         TableColumn colNome = table_Product.getColumnModel().getColumn(2);
-        TableColumn colPreço = table_Product.getColumnModel().getColumn(3);
-        TableColumn colQuantidade = table_Product.getColumnModel().getColumn(4);
-        TableColumn colFornecedor = table_Product.getColumnModel().getColumn(5);
-        TableColumn colTamanho = table_Product.getColumnModel().getColumn(6);
+        TableColumn colCor = table_Product.getColumnModel().getColumn(3);
+        TableColumn colPreço = table_Product.getColumnModel().getColumn(4);
+        TableColumn colQuantidade = table_Product.getColumnModel().getColumn(5);
+        TableColumn colFornecedor = table_Product.getColumnModel().getColumn(6);
+        TableColumn colTamanho = table_Product.getColumnModel().getColumn(7);
 
         colCodigo.setPreferredWidth(5);
         colNome.setPreferredWidth(250);
-        colPreço.setPreferredWidth(25);
+        colCor.setPreferredWidth(50);
+        colPreço.setPreferredWidth(50);
         colQuantidade.setPreferredWidth(5);
-        colFornecedor.setPreferredWidth(250);
-        colTamanho.setPreferredWidth(2);
+        colFornecedor.setPreferredWidth(200);
+        colTamanho.setPreferredWidth(50);
 
     }
 
@@ -122,11 +124,11 @@ public class TelaProdutos extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Cod_Produto:", "Receb/Produto:", "Nome", "Preço", "Qtde:", "Fornecedor:", "Tamanho:", "Total:"
+                "Cod_Produto:", "Receb/Produto:", "Nome", "Cor:", "Preço:", "Qtde:", "Fornecedor:", "Tamanho:", "Total:"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -141,7 +143,7 @@ public class TelaProdutos extends javax.swing.JPanel {
         jScrollPane1.setViewportView(table_Product);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 160, 1090, 150);
+        jScrollPane1.setBounds(10, 120, 1090, 190);
 
         camp_SearchProduct.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -149,11 +151,11 @@ public class TelaProdutos extends javax.swing.JPanel {
             }
         });
         jPanel1.add(camp_SearchProduct);
-        camp_SearchProduct.setBounds(10, 90, 470, 30);
+        camp_SearchProduct.setBounds(10, 60, 470, 30);
 
         jLabel1.setText("Pesquisar:");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(20, 60, 80, 16);
+        jLabel1.setBounds(20, 30, 80, 16);
 
         box_Size.setText("Tamanho");
         box_Size.addActionListener(new java.awt.event.ActionListener() {
@@ -162,7 +164,7 @@ public class TelaProdutos extends javax.swing.JPanel {
             }
         });
         jPanel1.add(box_Size);
-        box_Size.setBounds(120, 60, 100, 22);
+        box_Size.setBounds(120, 30, 100, 22);
 
         box_Price.setText("Preço");
         box_Price.addActionListener(new java.awt.event.ActionListener() {
@@ -171,7 +173,7 @@ public class TelaProdutos extends javax.swing.JPanel {
             }
         });
         jPanel1.add(box_Price);
-        box_Price.setBounds(230, 60, 60, 22);
+        box_Price.setBounds(230, 30, 60, 22);
 
         box_Qnt.setText("Quantidade");
         box_Qnt.addActionListener(new java.awt.event.ActionListener() {
@@ -180,16 +182,16 @@ public class TelaProdutos extends javax.swing.JPanel {
             }
         });
         jPanel1.add(box_Qnt);
-        box_Qnt.setBounds(350, 60, 95, 22);
+        box_Qnt.setBounds(350, 30, 95, 22);
 
-        btn_ToEdit.setText("Editar");
+        btn_ToEdit.setText("Detalhes");
         btn_ToEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_ToEditActionPerformed(evt);
             }
         });
         jPanel1.add(btn_ToEdit);
-        btn_ToEdit.setBounds(570, 90, 100, 30);
+        btn_ToEdit.setBounds(560, 60, 90, 30);
 
         btn_Deactivate.setText("Desativa");
         btn_Deactivate.addActionListener(new java.awt.event.ActionListener() {
@@ -198,17 +200,17 @@ public class TelaProdutos extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btn_Deactivate);
-        btn_Deactivate.setBounds(690, 90, 100, 30);
+        btn_Deactivate.setBounds(1000, 80, 100, 30);
 
         camp_Profitmargin.setEditable(false);
         camp_Profitmargin.setForeground(new java.awt.Color(255, 0, 39));
         jPanel1.add(camp_Profitmargin);
-        camp_Profitmargin.setBounds(990, 60, 110, 26);
+        camp_Profitmargin.setBounds(1000, 40, 110, 26);
 
         jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         jLabel8.setText("Margem de Lucro Bruto:");
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(930, 30, 170, 30);
+        jLabel8.setBounds(940, 10, 170, 30);
 
         checkbox_ordenby.setText("ORDENAR EM ORDEM ALFABETICA");
         checkbox_ordenby.addActionListener(new java.awt.event.ActionListener() {
@@ -217,7 +219,7 @@ public class TelaProdutos extends javax.swing.JPanel {
             }
         });
         jPanel1.add(checkbox_ordenby);
-        checkbox_ordenby.setBounds(10, 140, 240, 22);
+        checkbox_ordenby.setBounds(10, 100, 240, 22);
 
         btn_pesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Search-48.png"))); // NOI18N
         btn_pesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -226,7 +228,7 @@ public class TelaProdutos extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btn_pesquisar);
-        btn_pesquisar.setBounds(490, 80, 50, 50);
+        btn_pesquisar.setBounds(490, 50, 50, 50);
 
         add(jPanel1);
         jPanel1.setBounds(10, 320, 1120, 320);
@@ -496,6 +498,8 @@ public class TelaProdutos extends javax.swing.JPanel {
         camp_Sellprice.setText("");
         camp_Qnt.setText("");
         camp_Description.setText("");
+        camp_cor.setText("");
+        comboxCategoria.setSelectedIndex(0);
         comboBox_Size.setSelectedIndex(0);
     }//GEN-LAST:event_btn_cleanAllActionPerformed
 
@@ -532,7 +536,7 @@ public class TelaProdutos extends javax.swing.JPanel {
 
                 x = item.getValor_total();
 
-                tableDefault.addRow(new Object[]{item.getIdProduto(), formato.format(item.getDataEntrega()), item.getNome(), dinheiro.format((item.getValor_venda())),
+                tableDefault.addRow(new Object[]{item.getIdProduto(), formato.format(item.getDataEntrega()), item.getNome(), item.getCor(), dinheiro.format((item.getValor_venda())),
                     item.getQnt(), item.getFornecedor().getNome(), item.getTamanho(), dinheiro.format(item.getValor_total())});
 
                 // calculo do valor lucro bruto
@@ -553,10 +557,21 @@ public class TelaProdutos extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btn_pesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pesquisarMouseClicked
-        loadingTableProduct();
-        btn_ToEdit.setEnabled(false);
-        btn_Deactivate.setEnabled(false);
-        checkbox_ordenby.setSelected(false);
+        final TelaLoading carregando = new TelaLoading();
+        carregando.setVisible(true);
+        Thread t = new Thread(){
+            @Override
+            public void run(){
+                loadingTableProduct();
+                btn_ToEdit.setEnabled(false);
+                btn_Deactivate.setEnabled(false);
+                checkbox_ordenby.setSelected(false);
+                carregando.dispose();
+            }
+            
+        };t.start();
+
+        
     }//GEN-LAST:event_btn_pesquisarMouseClicked
 
     private void btn_NovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NovoActionPerformed
@@ -725,6 +740,8 @@ public class TelaProdutos extends javax.swing.JPanel {
                     camp_Sellprice.setText("");
                     camp_Qnt.setText("");
                     camp_Description.setText("");
+                    camp_cor.setText("");
+                    comboxCategoria.setSelectedIndex(0);
                     comboBox_Size.setSelectedIndex(0);
 
                     loadingTableProduct(); // carrega os dados na tabela de produtos
@@ -796,22 +813,6 @@ public class TelaProdutos extends javax.swing.JPanel {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
 
         DefaultTableModel tableDefault = (DefaultTableModel) table_Product.getModel();
-        // modifica a largura das colunas da tabela.
-        TableColumn colCodigo = table_Product.getColumnModel().getColumn(0);
-        TableColumn colDataProduto = table_Product.getColumnModel().getColumn(1);
-        TableColumn colNome = table_Product.getColumnModel().getColumn(2);
-        TableColumn colPreço = table_Product.getColumnModel().getColumn(3);
-        TableColumn colQuantidade = table_Product.getColumnModel().getColumn(4);
-        TableColumn colFornecedor = table_Product.getColumnModel().getColumn(5);
-        TableColumn colTamanho = table_Product.getColumnModel().getColumn(6);
-
-        colCodigo.setPreferredWidth(5);
-//        colDataProduto.setPreferredWidth(30);
-        colNome.setPreferredWidth(250);
-        colPreço.setPreferredWidth(25);
-        colQuantidade.setPreferredWidth(5);
-        colFornecedor.setPreferredWidth(250);
-        colTamanho.setPreferredWidth(2);
 
         double y = 0;
         double x = 0;
@@ -823,7 +824,7 @@ public class TelaProdutos extends javax.swing.JPanel {
 
                 x = item.getValor_total();
 
-                tableDefault.addRow(new Object[]{item.getIdProduto(), formato.format(item.getDataEntrega()), item.getNome(), dinheiro.format((item.getValor_venda())),
+                tableDefault.addRow(new Object[]{item.getIdProduto(), formato.format(item.getDataEntrega()), item.getNome(), item.getCor(),dinheiro.format((item.getValor_venda())),
                     item.getQnt(), item.getFornecedor().getNome(), item.getTamanho(), dinheiro.format(item.getValor_total())});
 
                 // calculo do valor lucro bruto
@@ -867,8 +868,10 @@ public class TelaProdutos extends javax.swing.JPanel {
             public void run() {
                 DefaultComboBoxModel comboBox = new DefaultComboBoxModel();
                 for (Fornecedor fornecedor : connectbanco.list_Fornecedores()) { // PEGA OS FORNECEDORES CADASTRADOS NO BANCO DE DADOS;
-                    comboBox.addElement(fornecedor.getNome());
-                    comboBox_Supplier.setModel(comboBox);           // ADICIONA OS FORNECEDORES NA COMBOBOX;
+                    if (fornecedor.isStatus()) {
+                        comboBox.addElement(fornecedor.getNome());
+                        comboBox_Supplier.setModel(comboBox);
+                    }           // ADICIONA OS FORNECEDORES NA COMBOBOX;
                 }
 
             }
