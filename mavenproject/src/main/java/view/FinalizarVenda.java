@@ -27,6 +27,8 @@ import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -39,6 +41,8 @@ public class FinalizarVenda extends javax.swing.JPanel {
     Conexao bancoMariaDB = new Conexao();
     Cliente client;
     TelaVenda s = new TelaVenda();
+    Venda venda;
+    
     public String observacaoVenda;
 
     public String getObservacaoVenda() {
@@ -65,13 +69,23 @@ public class FinalizarVenda extends javax.swing.JPanel {
         this.client = cliente;
     }
 
+    public Venda getVenda() {
+        return venda;
+    }
+
+    public void setVenda(Venda venda) {
+        this.venda = venda;
+    }
+
     public FinalizarVenda() {
         initComponents();
         carregarComboBox();
+        
         camp_qtdeParcelas.setVisible(false);
         camp_valorParcelas.setVisible(false);
         jListdatasparceladas.setVisible(false);
         camp_cliente.setDocument(new Teclas());
+
     }
 
     @SuppressWarnings("unchecked")
@@ -79,49 +93,42 @@ public class FinalizarVenda extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
         jLabelValorTotal = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        comboBOX_FormaPagamento = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        camptotal = new javax.swing.JTextField();
-        campvalorPago = new javax.swing.JFormattedTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        campvalorPago1 = new javax.swing.JFormattedTextField();
-        jLabel7 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         dataVenda = new com.toedter.calendar.JDateChooser();
         jLabeldatavenda = new javax.swing.JLabel();
-        camp_valorParcelas = new javax.swing.JTextField();
-        camp_qtdeParcelas = new javax.swing.JFormattedTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jListdatasparceladas = new javax.swing.JList<>();
+        camptotal = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        camp_desconto = new javax.swing.JFormattedTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        camp_cliente = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         btn_finalizarvenda = new javax.swing.JButton();
         btn_cancelarVenda = new javax.swing.JButton();
         jLabelQuantidadeItens = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        campvalorPago = new javax.swing.JFormattedTextField();
+        jLabel5 = new javax.swing.JLabel();
+        comboBOX_FormaPagamento = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         campTroco = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jSeparator3 = new javax.swing.JSeparator();
-        camp_cliente = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        camp_valorParcelas = new javax.swing.JTextField();
+        camp_qtdeParcelas = new javax.swing.JFormattedTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jListdatasparceladas = new javax.swing.JList<>();
 
         setLayout(null);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.setLayout(null);
-
-        jLabel13.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
-        jLabel13.setText("Tela Finalizar venda");
-        jPanel2.add(jLabel13);
-        jLabel13.setBounds(290, 20, 340, 30);
 
         jLabelValorTotal.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
         jLabelValorTotal.setForeground(new java.awt.Color(255, 0, 0));
@@ -140,110 +147,62 @@ public class FinalizarVenda extends javax.swing.JPanel {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(null);
 
-        comboBOX_FormaPagamento.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        comboBOX_FormaPagamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBOX_FormaPagamentoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(comboBOX_FormaPagamento);
-        comboBOX_FormaPagamento.setBounds(20, 60, 290, 40);
-
-        jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        jLabel4.setText("FORMA DE PAGAMENTO:");
-        jPanel1.add(jLabel4);
-        jLabel4.setBounds(20, 30, 310, 30);
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel3.setLayout(null);
-
-        camptotal.setEditable(false);
-        camptotal.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        camptotal.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel3.add(camptotal);
-        camptotal.setBounds(180, 20, 130, 30);
-
-        campvalorPago.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        campvalorPago.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                campvalorPagoKeyReleased(evt);
-            }
-        });
-        jPanel3.add(campvalorPago);
-        campvalorPago.setBounds(180, 70, 130, 30);
-
-        jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        jLabel3.setText("%");
-        jPanel3.add(jLabel3);
-        jLabel3.setBounds(280, 120, 30, 30);
-
-        jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        jLabel9.setText("TOTAL:");
-        jPanel3.add(jLabel9);
-        jLabel9.setBounds(10, 20, 120, 30);
-
-        jLabel5.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        jLabel5.setText("VALOR PAGO:");
-        jPanel3.add(jLabel5);
-        jLabel5.setBounds(10, 70, 180, 30);
-
-        campvalorPago1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        campvalorPago1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                campvalorPago1KeyReleased(evt);
-            }
-        });
-        jPanel3.add(campvalorPago1);
-        campvalorPago1.setBounds(180, 120, 90, 30);
-
-        jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        jLabel7.setText("DESCONTO:");
-        jPanel3.add(jLabel7);
-        jLabel7.setBounds(10, 120, 170, 30);
-
-        jPanel1.add(jPanel3);
-        jPanel3.setBounds(10, 190, 390, 190);
-
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel4.setLayout(null);
         jPanel4.add(dataVenda);
-        dataVenda.setBounds(20, 40, 180, 30);
+        dataVenda.setBounds(770, 40, 170, 30);
 
         jLabeldatavenda.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabeldatavenda.setText("DATA DA VENDA:");
         jPanel4.add(jLabeldatavenda);
-        jLabeldatavenda.setBounds(20, 10, 230, 29);
+        jLabeldatavenda.setBounds(770, 10, 220, 29);
 
-        camp_valorParcelas.setEditable(false);
-        jPanel4.add(camp_valorParcelas);
-        camp_valorParcelas.setBounds(150, 120, 80, 30);
+        camptotal.setEditable(false);
+        camptotal.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        camptotal.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel4.add(camptotal);
+        camptotal.setBounds(250, 80, 470, 30);
 
-        camp_qtdeParcelas.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        camp_qtdeParcelas.addKeyListener(new java.awt.event.KeyAdapter() {
+        jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel9.setText("TOTAL A RECEBER:");
+        jPanel4.add(jLabel9);
+        jLabel9.setBounds(10, 80, 240, 30);
+
+        camp_desconto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        camp_desconto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                camp_qtdeParcelasKeyReleased(evt);
+                camp_descontoKeyReleased(evt);
             }
         });
-        jPanel4.add(camp_qtdeParcelas);
-        camp_qtdeParcelas.setBounds(150, 80, 80, 30);
+        jPanel4.add(camp_desconto);
+        camp_desconto.setBounds(250, 120, 280, 30);
 
-        jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel6.setText("Qtde Parcelas.:");
-        jPanel4.add(jLabel6);
-        jLabel6.setBounds(10, 80, 150, 30);
+        jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel3.setText("%");
+        jPanel4.add(jLabel3);
+        jLabel3.setBounds(540, 120, 30, 30);
 
-        jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel8.setText("Valor Parcelas:");
-        jPanel4.add(jLabel8);
-        jLabel8.setBounds(10, 120, 150, 30);
+        jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel7.setText("DESCONTO:");
+        jPanel4.add(jLabel7);
+        jLabel7.setBounds(10, 120, 170, 30);
 
-        jScrollPane1.setViewportView(jListdatasparceladas);
+        camp_cliente.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        camp_cliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                camp_clienteActionPerformed(evt);
+            }
+        });
+        jPanel4.add(camp_cliente);
+        camp_cliente.setBounds(10, 40, 740, 30);
 
-        jPanel4.add(jScrollPane1);
-        jScrollPane1.setBounds(250, 80, 110, 70);
+        jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel10.setText("CLIENTE:");
+        jPanel4.add(jLabel10);
+        jLabel10.setBounds(10, 10, 130, 30);
 
         jPanel1.add(jPanel4);
-        jPanel4.setBounds(410, 190, 390, 190);
+        jPanel4.setBounds(10, 10, 1100, 160);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel5.setLayout(null);
@@ -269,41 +228,88 @@ public class FinalizarVenda extends javax.swing.JPanel {
         jLabelQuantidadeItens.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         jLabelQuantidadeItens.setText("0");
         jPanel5.add(jLabelQuantidadeItens);
-        jLabelQuantidadeItens.setBounds(430, 30, 50, 50);
+        jLabelQuantidadeItens.setBounds(150, 30, 50, 50);
 
         jLabel11.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         jLabel11.setText("Qtde itens:");
         jPanel5.add(jLabel11);
-        jLabel11.setBounds(290, 30, 130, 50);
-
-        campTroco.setEditable(false);
-        campTroco.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        jPanel5.add(campTroco);
-        campTroco.setBounds(140, 30, 130, 40);
-
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        jLabel1.setText("TROCO");
-        jPanel5.add(jLabel1);
-        jLabel1.setBounds(10, 40, 120, 30);
+        jLabel11.setBounds(10, 30, 130, 50);
 
         jPanel1.add(jPanel5);
         jPanel5.setBounds(10, 460, 1100, 80);
-        jPanel1.add(jSeparator3);
-        jSeparator3.setBounds(10, 170, 1100, 10);
 
-        camp_cliente.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        camp_cliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                camp_clienteActionPerformed(evt);
+        jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel6.setLayout(null);
+
+        campvalorPago.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        campvalorPago.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campvalorPagoKeyReleased(evt);
             }
         });
-        jPanel1.add(camp_cliente);
-        camp_cliente.setBounds(360, 60, 310, 40);
+        jPanel6.add(campvalorPago);
+        campvalorPago.setBounds(370, 40, 300, 40);
 
-        jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        jLabel10.setText("CLIENTE:");
-        jPanel1.add(jLabel10);
-        jLabel10.setBounds(360, 30, 140, 30);
+        jLabel5.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel5.setText("VALOR DO PAGAMENTO:");
+        jPanel6.add(jLabel5);
+        jLabel5.setBounds(370, 10, 300, 30);
+
+        comboBOX_FormaPagamento.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        comboBOX_FormaPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBOX_FormaPagamentoActionPerformed(evt);
+            }
+        });
+        jPanel6.add(comboBOX_FormaPagamento);
+        comboBOX_FormaPagamento.setBounds(10, 40, 320, 40);
+
+        jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel4.setText("FORMA DE PAGAMENTO:");
+        jPanel6.add(jLabel4);
+        jLabel4.setBounds(10, 10, 320, 30);
+
+        jTextField1.setEditable(false);
+        jTextField1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jTextField1.setText("TOTAL PAGO ..............");
+        jPanel6.add(jTextField1);
+        jTextField1.setBounds(10, 220, 210, 40);
+
+        campTroco.setEditable(false);
+        campTroco.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jPanel6.add(campTroco);
+        campTroco.setBounds(240, 220, 490, 40);
+
+        jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel6.setText("Qtde Parcelas.:");
+        jPanel6.add(jLabel6);
+        jLabel6.setBounds(740, 170, 140, 30);
+
+        jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel8.setText("Valor Parcelas:");
+        jPanel6.add(jLabel8);
+        jLabel8.setBounds(740, 220, 140, 30);
+
+        camp_valorParcelas.setEditable(false);
+        jPanel6.add(camp_valorParcelas);
+        camp_valorParcelas.setBounds(880, 220, 70, 30);
+
+        camp_qtdeParcelas.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        camp_qtdeParcelas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                camp_qtdeParcelasKeyReleased(evt);
+            }
+        });
+        jPanel6.add(camp_qtdeParcelas);
+        camp_qtdeParcelas.setBounds(880, 170, 70, 30);
+
+        jScrollPane1.setViewportView(jListdatasparceladas);
+
+        jPanel6.add(jScrollPane1);
+        jScrollPane1.setBounds(980, 170, 100, 80);
+
+        jPanel1.add(jPanel6);
+        jPanel6.setBounds(10, 180, 1100, 270);
 
         add(jPanel1);
         jPanel1.setBounds(10, 90, 1120, 550);
@@ -324,7 +330,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
             camp_qtdeParcelas.setVisible(false);
             camp_valorParcelas.setVisible(false);
             jListdatasparceladas.setVisible(false);
-            valorTotal();
+//            valorTotal();
             jLabeldatavenda.setText("DATA DA VENDA:");
             campvalorPago.setEnabled(true);
         }
@@ -353,11 +359,18 @@ public class FinalizarVenda extends javax.swing.JPanel {
             int qtdeParce = Integer.parseInt(camp_qtdeParcelas.getText());
             double total = Double.parseDouble(camptotal.getText().replace("R$", ""));
             double valorEntrada = Double.parseDouble(campvalorPago.getText().replace(",", "."));
-
+            DecimalFormat dinheiro = new DecimalFormat("0.00");
+            
             double valorRestante = total - valorEntrada;
+            if (valorRestante > 0) {
+                jTextField1.setText("FALTA PAGAR ...........");
+            }else if(valorRestante < 0){
+                jTextField1.setText("TROCO ..............");
+            }
+            
             double valorParcela = valorRestante / qtdeParce; // valor da parcela;
-            camp_valorParcelas.setText("" + valorParcela);
-            campTroco.setText(String.valueOf(valorRestante));
+            camp_valorParcelas.setText("" + dinheiro.format(valorParcela));
+            campTroco.setText(String.valueOf(dinheiro.format(valorRestante)));
             //----------------------------------------------------------------------------
             // gera as datas da parcela;
             GregorianCalendar gc = new GregorianCalendar();
@@ -377,9 +390,9 @@ public class FinalizarVenda extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_campvalorPagoKeyReleased
 
-    private void campvalorPago1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campvalorPago1KeyReleased
+    private void camp_descontoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_descontoKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_campvalorPago1KeyReleased
+    }//GEN-LAST:event_camp_descontoKeyReleased
 
     private void camp_qtdeParcelasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_qtdeParcelasKeyReleased
 
@@ -475,17 +488,15 @@ public class FinalizarVenda extends javax.swing.JPanel {
     private javax.swing.JButton btn_finalizarvenda;
     private javax.swing.JTextField campTroco;
     public static javax.swing.JTextField camp_cliente;
+    public javax.swing.JFormattedTextField camp_desconto;
     public javax.swing.JFormattedTextField camp_qtdeParcelas;
     public javax.swing.JTextField camp_valorParcelas;
     private javax.swing.JTextField camptotal;
     public javax.swing.JFormattedTextField campvalorPago;
-    public javax.swing.JFormattedTextField campvalorPago1;
     private javax.swing.JComboBox<String> comboBOX_FormaPagamento;
     public com.toedter.calendar.JDateChooser dataVenda;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -500,11 +511,11 @@ public class FinalizarVenda extends javax.swing.JPanel {
     private javax.swing.JList<String> jListdatasparceladas;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
     public void valorTotal() {
@@ -535,7 +546,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
         Thread t = new Thread() {
             @Override
             public void run() {
-                
+
                 Venda venda = new Venda(); // cria uma nova venda;
                 List<ItensVenda> listaItens = new ArrayList<>(); // cria lista de itens;
                 List<FormaPagamento> listaPagamento = new ArrayList<>(); // cria uma nova lista de pagamento;

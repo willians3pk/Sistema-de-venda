@@ -3,6 +3,9 @@ package view;
 import br.com.configuracao.Teclas;
 import controle.Produto;
 import conexao.Conexao;
+import controle.FormaPagamento;
+import controle.ItensVenda;
+import controle.Venda;
 import static view.MainScreen.jDesktopPane1;
 import static view.FinalizarVenda.camp_cliente;
 import static view.FinalizarVenda.jLabelQuantidadeItens;
@@ -421,12 +424,20 @@ public class TelaVenda extends javax.swing.JPanel {
         camp_cliente.requestFocus();
         btn_removerItem.setEnabled(false);
         jDesktopPane1.removeAll();
+        
+        Venda venda = new Venda();
+        List<FormaPagamento> listaPagamento = new ArrayList<>();
+        List<ItensVenda> listaItens = new ArrayList<>();
+        venda.setFormaPagamento(listaPagamento);
+        venda.setItens(listaItens);
+        
         fv.setLocation(0, 0);
         fv.setSize(1140, 650);
         fv.setVisible(true);
         fv.carregarComboBox();
         fv.valorTotal();
         fv.setLista(produtos);
+        fv.setVenda(venda);
         fv.setObservacaoVenda(observacao);
         fv.dataVenda.setDate(new Date()); // sempre adiciona a data atual
         fv.camp_qtdeParcelas.setVisible(false);
@@ -695,7 +706,7 @@ public class TelaVenda extends javax.swing.JPanel {
 
         camp_buscarProduto.setText(tableDefault.getValueAt(posicao, 1).toString()); //Nome do produto
         field_preco.setText(tableDefault.getValueAt(posicao, 2).toString()); // preco do produto
-        field_qnt.setText(tableDefault.getValueAt(posicao, 3).toString()); //quantidade do item
+        field_qnt.setText(tableDefault.getValueAt(posicao, 4).toString()); //quantidade do item
 
     }
 
@@ -703,7 +714,7 @@ public class TelaVenda extends javax.swing.JPanel {
         produto = pp;
         camp_buscarProduto.setText(produto.getNome());
         camp_tamanho.setText(produto.getTamanho());
-        camp_Cor.setText(produto.getApelido());
+        camp_Cor.setText(produto.getCor());
         field_preco.setText("" + produto.getValor_venda());
         field_qnt.setText("" + 1);
         btn_adcionar.setEnabled(true);

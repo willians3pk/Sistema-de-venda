@@ -1067,9 +1067,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
         DefaultListModel jlista = new DefaultListModel();
         Conexao banco = new Conexao();
         for (Fornecedor fornecedor : banco.list_Fornecedores()) {
-            if (fornecedor.isStatus()) {
-                jlista.addElement(fornecedor.getNome());
-            }
+            jlista.addElement(fornecedor.getNome());
             jList1.setModel(jlista);
         }
 
