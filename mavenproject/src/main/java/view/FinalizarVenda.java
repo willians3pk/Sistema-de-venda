@@ -13,6 +13,7 @@ import controle.Parcelas;
 import controle.Produto;
 import controle.Venda;
 import conexao.Conexao;
+import controle.Estado;
 import static view.MainScreen.jDesktopPane1;
 import static view.TelaVenda.produtos;
 import java.text.DateFormat;
@@ -97,8 +98,6 @@ public class FinalizarVenda extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        dataVenda = new com.toedter.calendar.JDateChooser();
-        jLabeldatavenda = new javax.swing.JLabel();
         camptotal = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         camp_desconto = new javax.swing.JFormattedTextField();
@@ -124,6 +123,8 @@ public class FinalizarVenda extends javax.swing.JPanel {
         camp_qtdeParcelas = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jListdatasparceladas = new javax.swing.JList<>();
+        dataVenda = new com.toedter.calendar.JDateChooser();
+        jLabeldatavenda = new javax.swing.JLabel();
 
         setLayout(null);
 
@@ -149,13 +150,6 @@ public class FinalizarVenda extends javax.swing.JPanel {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel4.setLayout(null);
-        jPanel4.add(dataVenda);
-        dataVenda.setBounds(770, 40, 170, 30);
-
-        jLabeldatavenda.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabeldatavenda.setText("DATA DA VENDA:");
-        jPanel4.add(jLabeldatavenda);
-        jLabeldatavenda.setBounds(770, 10, 220, 29);
 
         camptotal.setEditable(false);
         camptotal.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -307,6 +301,13 @@ public class FinalizarVenda extends javax.swing.JPanel {
 
         jPanel6.add(jScrollPane1);
         jScrollPane1.setBounds(980, 170, 100, 80);
+        jPanel6.add(dataVenda);
+        dataVenda.setBounds(700, 50, 230, 30);
+
+        jLabeldatavenda.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabeldatavenda.setText("DATA DA VENDA:");
+        jPanel6.add(jLabeldatavenda);
+        jLabeldatavenda.setBounds(700, 20, 220, 29);
 
         jPanel1.add(jPanel6);
         jPanel6.setBounds(10, 180, 1100, 270);
@@ -547,10 +548,6 @@ public class FinalizarVenda extends javax.swing.JPanel {
             @Override
             public void run() {
 
-                Venda venda = new Venda(); // cria uma nova venda;
-                List<ItensVenda> listaItens = new ArrayList<>(); // cria lista de itens;
-                List<FormaPagamento> listaPagamento = new ArrayList<>(); // cria uma nova lista de pagamento;
-
                 double valortotal = Double.parseDouble(camptotal.getText().replace("R$", ""));
                 double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", "."));
                 double troco = valortotal - valorPago;
@@ -560,11 +557,10 @@ public class FinalizarVenda extends javax.swing.JPanel {
                 venda.setValorTotal(Double.parseDouble(camptotal.getText().replace("R$", "").trim())); // valor total da venda
                 venda.setValor_pago(Double.valueOf(campvalorPago.getText().replace(",", "."))); // valor que foi pago na venda;
                 venda.setTroco(troco); // troco da venda;
-                venda.setFormaPagamento(listaPagamento); // adiciona a lista de pagamento na venda;
-                venda.setItens(listaItens); // adiciona a lista de itens na venda;
                 venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));// pega a forma de pagamento da venda;
                 venda.setDescricao(observacaoVenda);
-
+                venda.setEstado(Estado.PAGO);
+                
                 // verifica se foi adicionado o cliente no campo de texto;
                 if (camp_cliente.getText().length() > 0) {
                     System.out.println("Cliente: " + client.getNome());
@@ -622,11 +618,6 @@ public class FinalizarVenda extends javax.swing.JPanel {
 
     public void vendaParcelada() {
 
-        Venda venda = new Venda();
-        List<ItensVenda> listaItens = new ArrayList<>(); // cria lista de itens;
-        List<FormaPagamento> listaPagamento = new ArrayList<>();
-        List<Parcelas> listaParcelas = new ArrayList<>();
-
         double valortotal = Double.parseDouble(camptotal.getText().replace("R$", ""));
         double valorEntrada = Double.parseDouble(campvalorPago.getText().replace(",", "."));
         double valorRestante = valortotal - valorEntrada;
@@ -637,12 +628,10 @@ public class FinalizarVenda extends javax.swing.JPanel {
         venda.setValorTotal(Double.parseDouble(camptotal.getText().replace("R$", "").trim())); // valor total da venda
         venda.setValor_pago(Double.valueOf(campvalorPago.getText().replace(",", "."))); // valor pago na venda;
         venda.setTroco(valorRestante);
-        venda.setFormaPagamento(listaPagamento); // adiciona uma lista de forma de pagamento;
-        venda.setParcelas(listaParcelas); // adiciona uma lista de parcelas;
-        venda.setItens(listaItens); // adiciona uma lista de itens;
         venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));
         venda.setDescricao(this.observacaoVenda);
-
+        venda.setEstado(Estado.ANDAMENTO);
+        
         if (camp_cliente.getText().length() > 0 & !camp_cliente.getText().equals("CONSUMIDOR")) {
 
             // se o valor do textfield está vazia ou for zero;
@@ -697,11 +686,6 @@ public class FinalizarVenda extends javax.swing.JPanel {
 
     public void vendaAprazo() {
 
-        Venda venda = new Venda();
-        List<ItensVenda> listaItens = new ArrayList<>(); // cria lista de itens;
-        List<FormaPagamento> listaPagamento = new ArrayList<>();
-        List<Parcelas> listaParcelas = new ArrayList<>();
-
         double valortotal = Double.parseDouble(camptotal.getText().replace("R$", ""));
         double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", "."));
         double troco = valortotal - valorPago;
@@ -711,12 +695,10 @@ public class FinalizarVenda extends javax.swing.JPanel {
         venda.setValorTotal(Double.parseDouble(camptotal.getText().replace("R$", "").trim())); // valor total da venda
         venda.setValor_pago(Double.valueOf(campvalorPago.getText().replace(",", "."))); // valor pago na venda;
         venda.setTroco(troco);
-        venda.setFormaPagamento(listaPagamento);
-        venda.setParcelas(listaParcelas); // adiciona uma lista de parcelas;
-        venda.setItens(listaItens); // adiciona uma lista de itens;
         venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));
         venda.setDescricao(this.observacaoVenda);
-
+        venda.setEstado(Estado.ANDAMENTO);
+        
         if (camp_cliente.getText().length() > 0 & !camp_cliente.getText().equals("CONSUMIDOR")) {
             venda.setCliente(client); // adiciona o cliente na venda;
             client.getVendas().add(venda); // adiciona a venda na lista de cliente;

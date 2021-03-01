@@ -3,6 +3,7 @@ package view;
 import controle.Venda;
 import conexao.Conexao;
 import conexao.NewHibernateUtil;
+import controle.Estado;
 import static view.MainScreen.jDesktopPane1;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -30,6 +31,7 @@ public class TelaHistorico extends javax.swing.JPanel {
         TableColumn colFormaPagamento = jtable_vendas.getColumnModel().getColumn(3);
         TableColumn colDescrição = jtable_vendas.getColumnModel().getColumn(4);
         TableColumn colTotalVenda = jtable_vendas.getColumnModel().getColumn(5);
+        TableColumn colEstado = jtable_vendas.getColumnModel().getColumn(6);
 
         colCodigo.setPreferredWidth(5);
         colDataVenda.setPreferredWidth(30);
@@ -37,6 +39,7 @@ public class TelaHistorico extends javax.swing.JPanel {
         colFormaPagamento.setPreferredWidth(50);
         colDescrição.setPreferredWidth(200);
         colTotalVenda.setPreferredWidth(5);
+        colEstado.setPreferredWidth(5);
 
     }
 
@@ -128,8 +131,15 @@ public class TelaHistorico extends javax.swing.JPanel {
         });
         jPanel4.add(btn_filtrar);
         btn_filtrar.setBounds(1020, 40, 70, 30);
+
+        jCheckBox2.setText("Contas a Receber");
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox2ActionPerformed(evt);
+            }
+        });
         jPanel4.add(jCheckBox2);
-        jCheckBox2.setBounds(890, 50, 96, 22);
+        jCheckBox2.setBounds(870, 50, 140, 22);
 
         jCheckBox1.setText("Vendas A Prazo");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -138,7 +148,7 @@ public class TelaHistorico extends javax.swing.JPanel {
             }
         });
         jPanel4.add(jCheckBox1);
-        jCheckBox1.setBounds(750, 50, 140, 22);
+        jCheckBox1.setBounds(700, 50, 140, 22);
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel4.add(jSeparator1);
@@ -269,10 +279,6 @@ public class TelaHistorico extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btn_pesquisarActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
     private void btn_filtrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filtrarActionPerformed
         final TelaLoading carregando = new TelaLoading();
         carregando.setVisible(true);
@@ -305,7 +311,8 @@ public class TelaHistorico extends javax.swing.JPanel {
                                 formato.format(venda.getDataVenda()),
                                 venda.getCliente().getNome(),
                                 venda.FormaPagamento(), venda.getDescricao(),
-                                dinheiro.format(venda.getValorTotal())});
+                                dinheiro.format(venda.getValorTotal()),
+                                venda.getEstado().getDescricao()});
 
                             // soma todos os valores total de cada venda;
                             y = z + x;
@@ -314,17 +321,58 @@ public class TelaHistorico extends javax.swing.JPanel {
                     }
                     jtotalVendas.setText(dinheiro.format(z));
 
+                } else if (jCheckBox2.isSelected()) {
+                    List<Venda> vendas = new ArrayList<>();
+                    DefaultTableModel tabela = (DefaultTableModel) jtable_vendas.getModel();
+
+                    Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
+                    NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
+
+                    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
+
+                    vendas = bancoMariaDB.lista_Vendas();
+
+                    double y = 0;
+                    double x = 0;
+                    double z = 0;
+
+                    tabela.setNumRows(0);
+                    for (Venda venda : vendas) {
+
+                        if (venda.isStatus() && venda.getEstado().equals(Estado.ANDAMENTO)) {
+                            x = venda.getValorTotal();
+                            tabela.addRow(new Object[]{
+                                venda.getIdvenda(),
+                                formato.format(venda.getDataVenda()),
+                                venda.getCliente().getNome(),
+                                venda.FormaPagamento(), venda.getDescricao(),
+                                dinheiro.format(venda.getValorTotal()),
+                                venda.getEstado().getDescricao()});
+
+                            // soma todos os valores total de cada venda;
+                            y = z + x;
+                            z = y;
+                        }
+                    }
+                    jtotalVendas.setText(dinheiro.format(z));
                 } else {
                     carregarTabelaVendas();
                 }
-
                 carregando.dispose();
             }
 
         };
         t.start();
-        
+
     }//GEN-LAST:event_btn_filtrarActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        jCheckBox2.setSelected(false);
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+        jCheckBox1.setSelected(false);
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -378,7 +426,8 @@ public class TelaHistorico extends javax.swing.JPanel {
                     formato.format(venda.getDataVenda()),
                     venda.getCliente().getNome(),
                     venda.FormaPagamento(), venda.getDescricao(),
-                    dinheiro.format(venda.getValorTotal())});
+                    dinheiro.format(venda.getValorTotal()),
+                    venda.getEstado()});
 
                 // soma todos os valores total de cada venda;
                 y = z + x;

@@ -2,17 +2,13 @@
 package controle;
 
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -29,7 +25,7 @@ public class Parcelas {
     private Venda venda;
     private int parcela;
     private double valor;
-    private String Pago;
+    private Estado Pago;
     private boolean status;
     private Date data;
 
@@ -77,11 +73,11 @@ public class Parcelas {
         this.valor = valor;
     }
 
-    public String getPago() {
+    public Estado getPago() {
         return Pago;
     }
 
-    public void setPago(String Pago) {
+    public void setPago(Estado Pago) {
         this.Pago = Pago;
     }
 

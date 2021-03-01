@@ -56,7 +56,9 @@ public class Venda {
 
     
     public Venda() {
-
+        this.itens =  new ArrayList<ItensVenda>();
+        this.formaPagamento = new ArrayList<FormaPagamento>();
+        this.parcelas =  new ArrayList<Parcelas>();
     }
 
     public Venda(Integer idvenda, Cliente cliente, Usuario usuario, List<FormaPagamento> formaPagamento, List<Parcelas> parcelas, List<ItensVenda> itens, int codigoVenda, Date dataVenda, boolean status, double valor_pago, double valorTotal, String descricao, double troco) {
@@ -255,6 +257,8 @@ public class Venda {
             parcela.setParcela(numeroParcela + i);//  NUMERO DAS PARCELAS;
             parcela.setData(d);
             parcela.setStatus(true);
+            parcela.setPago(Estado.ANDAMENTO);
+            
             bancoDAO.save(parcela); //SALVA A PARCELA NO BANCO DE DADOS;
         }
         // https://www.guj.com.br/t/duvida-gerar-parcelas-com-data-resolvido/134893/2 forum que ajudou a criar as datas da parcela;
@@ -279,6 +283,8 @@ public class Venda {
             parcela.setParcela(numeroParcela + i);//  NUMERO DAS PARCELAS;
             parcela.setData(d);
             parcela.setStatus(true);
+            parcela.setPago(Estado.ANDAMENTO);
+            
             bancoDAO.save(parcela); //SALVA A PARCELA NO BANCO DE DADOS;
         }
     

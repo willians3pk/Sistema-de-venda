@@ -9,6 +9,7 @@ import controle.ItensVenda;
 import controle.Parcelas;
 import controle.Venda;
 import conexao.Conexao;
+import controle.Estado;
 import static view.MainScreen.jDesktopPane1;
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -359,11 +360,21 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
             int confirmacao = JOptionPane.showInternalConfirmDialog(null, "Você deseja dar Baixa na PARCELA " + data.format(venda.getParcelas().get(row).getData()) + "?", "DAR BAIXA NA PARCELA", JOptionPane.YES_OPTION);
             if (confirmacao == JOptionPane.YES_OPTION) {
                 Conexao banco = new Conexao();
-                venda.getParcelas().get(row).setPago("PG");
+                venda.getParcelas().get(row).setPago(Estado.PAGO);
                 btn_receber.setEnabled(false);
                 checkbox.setSelected(false);
                 tableAPrazo.setEnabled(false);
-                banco.update(venda);
+                for (Parcelas parcela : venda.getParcelas()) {
+                    if (parcela.getPago().equals(Estado.PAGO)) {
+                        venda.setEstado(Estado.PAGO);
+                        banco.update(venda);
+                    }
+                    if (parcela.getPago().equals(Estado.ANDAMENTO)) {
+                        venda.setEstado(Estado.ANDAMENTO);
+                        banco.update(venda);
+                    }
+                }
+
                 carregarCampos();
             }
         } catch (Exception e) {
@@ -475,7 +486,7 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         DefaultTableModel tabelavenda = (DefaultTableModel) jtableVenda.getModel();
         tabelavenda.setNumRows(0);
         camp_valorentrada.setText(dinheiro.format(venda.getValor_pago()));
-        
+
         for (ItensVenda iten : venda.listaItens()) {
             tabelavenda.addRow(new Object[]{
                 iten.getIditensVenda(),
