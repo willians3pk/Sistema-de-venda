@@ -147,6 +147,19 @@ public class TelaFornecedor extends javax.swing.JPanel {
         jScrollPane6 = new javax.swing.JScrollPane();
         camp_descricao = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        qtdeProdutos = new javax.swing.JTextField();
+        camp_precoCusto = new javax.swing.JTextField();
+        camp_categoria = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        camp_tamanho = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        camp_apelido = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        camp_cor = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jSeparator6 = new javax.swing.JSeparator();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setLayout(null);
@@ -633,7 +646,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
             }
         });
         jPanel2.add(btn_editar);
-        btn_editar.setBounds(1014, 540, 80, 40);
+        btn_editar.setBounds(980, 360, 110, 40);
 
         camp_descricao.setEditable(false);
         camp_descricao.setColumns(20);
@@ -646,6 +659,63 @@ public class TelaFornecedor extends javax.swing.JPanel {
         jLabel4.setText("Descrição:");
         jPanel2.add(jLabel4);
         jLabel4.setBounds(20, 470, 90, 16);
+
+        jLabel5.setText("Qtde Produtos:");
+        jPanel2.add(jLabel5);
+        jLabel5.setBounds(620, 40, 100, 16);
+
+        qtdeProdutos.setEditable(false);
+        jPanel2.add(qtdeProdutos);
+        qtdeProdutos.setBounds(720, 30, 80, 26);
+
+        camp_precoCusto.setEditable(false);
+        camp_precoCusto.setText("jTextField1");
+        jPanel2.add(camp_precoCusto);
+        camp_precoCusto.setBounds(20, 370, 150, 26);
+
+        camp_categoria.setEditable(false);
+        camp_categoria.setText("jTextField2");
+        jPanel2.add(camp_categoria);
+        camp_categoria.setBounds(20, 430, 150, 26);
+
+        jLabel6.setText("Preço Custo:");
+        jPanel2.add(jLabel6);
+        jLabel6.setBounds(20, 350, 90, 16);
+
+        jLabel7.setText("Categoria:");
+        jPanel2.add(jLabel7);
+        jLabel7.setBounds(20, 410, 80, 16);
+
+        camp_tamanho.setEditable(false);
+        camp_tamanho.setText("jTextField3");
+        jPanel2.add(camp_tamanho);
+        camp_tamanho.setBounds(200, 430, 150, 26);
+
+        jLabel8.setText("Tamanho:");
+        jPanel2.add(jLabel8);
+        jLabel8.setBounds(200, 410, 80, 16);
+
+        camp_apelido.setEditable(false);
+        camp_apelido.setText("jTextField4");
+        jPanel2.add(camp_apelido);
+        camp_apelido.setBounds(370, 430, 140, 26);
+
+        jLabel9.setText("Apelido:");
+        jPanel2.add(jLabel9);
+        jLabel9.setBounds(370, 410, 60, 16);
+
+        camp_cor.setEditable(false);
+        camp_cor.setText("jTextField5");
+        jPanel2.add(camp_cor);
+        camp_cor.setBounds(200, 370, 140, 26);
+
+        jLabel10.setText("Cor:");
+        jPanel2.add(jLabel10);
+        jLabel10.setBounds(200, 350, 50, 16);
+
+        jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jPanel2.add(jSeparator6);
+        jSeparator6.setBounds(530, 350, 10, 230);
 
         jTabbedPane1.addTab("Produtos", jPanel2);
 
@@ -749,6 +819,10 @@ public class TelaFornecedor extends javax.swing.JPanel {
             Session session = NewHibernateUtil.getSessionFactory().openSession();
             Transaction tx = session.beginTransaction();
 
+            int y = 0;
+            int x = 0;
+            int z = 0;
+
             // juntando duas tabelas do banco de dados;
             String sql = "FROM Produto as v INNER JOIN v.fornecedor";
             List<Object[]> query = (List<Object[]>) session.createQuery(sql).list();
@@ -766,8 +840,12 @@ public class TelaFornecedor extends javax.swing.JPanel {
                             produto.getCor(),
                             produto.getQnt(),
                             dinheiro.format(produto.getValor_venda())});
+                        x = 1;
+                        y = z + x;
+                        z = y;
                     }
                 }
+                qtdeProdutos.setText(z + "");
 
             }
         } else {
@@ -821,6 +899,12 @@ public class TelaFornecedor extends javax.swing.JPanel {
             if (connectbanco.productBook().get(i).getIdProduto().equals(tableDefault.getValueAt(linha, 0))) { // VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
                 Produto item = connectbanco.productBook().get(i);
                 camp_descricao.setText(item.getDescricao());
+                camp_cor.setText(item.getCor());
+                camp_categoria.setText(item.getCategoria());
+                camp_precoCusto.setText("R$ "+item.getValor_compra());
+                camp_apelido.setText(item.getApelido());
+                camp_tamanho.setText(item.getTamanho());               
+                
             }
         }
     }//GEN-LAST:event_table_ProductMouseClicked
@@ -904,6 +988,11 @@ public class TelaFornecedor extends javax.swing.JPanel {
             if (connectbanco.productBook().get(i).getIdProduto().equals(tableDefault.getValueAt(linha, 0))) { // VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
                 Produto item = connectbanco.productBook().get(i);
                 camp_descricao.setText(item.getDescricao());
+                camp_cor.setText(item.getCor());
+                camp_categoria.setText(item.getCategoria());
+                camp_precoCusto.setText("R$ "+item.getValor_compra());
+                camp_apelido.setText(item.getApelido());
+                camp_tamanho.setText(item.getTamanho()); 
             }
         }
     }//GEN-LAST:event_table_ProductKeyReleased
@@ -941,13 +1030,19 @@ public class TelaFornecedor extends javax.swing.JPanel {
     private javax.swing.JTextField camp_StateSupplier1;
     private javax.swing.JTextField camp_SupplierName;
     private javax.swing.JTextField camp_SupplierName1;
+    private javax.swing.JTextField camp_apelido;
+    private javax.swing.JTextField camp_categoria;
     private javax.swing.JFormattedTextField camp_contato;
+    private javax.swing.JTextField camp_cor;
     private javax.swing.JFormattedTextField camp_cpfSupplier;
     private javax.swing.JFormattedTextField camp_cpfSupplier1;
     private javax.swing.JTextArea camp_descricao;
+    private javax.swing.JTextField camp_precoCusto;
+    private javax.swing.JTextField camp_tamanho;
     private javax.swing.JCheckBox checke_produtosDesativado;
     private javax.swing.JTextField fieldSearch;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
@@ -972,9 +1067,14 @@ public class TelaFornecedor extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -995,9 +1095,11 @@ public class TelaFornecedor extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel jpanelSupplier;
     private javax.swing.JLabel obrigatorioName;
+    private javax.swing.JTextField qtdeProdutos;
     private javax.swing.JTable tableSupplier;
     private javax.swing.JTable table_Product;
     // End of variables declaration//GEN-END:variables
@@ -1272,6 +1374,10 @@ public class TelaFornecedor extends javax.swing.JPanel {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
 
+        int x = 0;
+        int y = 0;
+        int z = 0;
+        
         // juntando duas tabelas do banco de dados;
         String sql = "FROM Produto as v INNER JOIN v.fornecedor";
         List<Object[]> query = (List<Object[]>) session.createQuery(sql).list();
@@ -1288,7 +1394,10 @@ public class TelaFornecedor extends javax.swing.JPanel {
                     produto.getCor(),
                     produto.getQnt(),
                     dinheiro.format(produto.getValor_venda())});
-            }
+                x = 1;
+                y = z + x;
+                z = y;
+            }qtdeProdutos.setText(""+z);
 
         }
     }

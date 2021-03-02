@@ -8,7 +8,6 @@ import static view.MainScreen.jDesktopPane1;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.JOptionPane;
@@ -24,7 +23,8 @@ public class TelaHistorico extends javax.swing.JPanel {
 
     public TelaHistorico() {
         initComponents();
-
+        jlabelAviso.setVisible(false);
+        
         TableColumn colCodigo = jtable_vendas.getColumnModel().getColumn(0);
         TableColumn colDataVenda = jtable_vendas.getColumnModel().getColumn(1);
         TableColumn colNome = jtable_vendas.getColumnModel().getColumn(2);
@@ -69,6 +69,7 @@ public class TelaHistorico extends javax.swing.JPanel {
         jtotalVendas = new javax.swing.JTextField();
         btn_detalhes = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        jlabelAviso = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setLayout(null);
@@ -212,6 +213,11 @@ public class TelaHistorico extends javax.swing.JPanel {
         jPanel1.add(jLabel7);
         jLabel7.setBounds(220, 20, 650, 60);
 
+        jlabelAviso.setForeground(new java.awt.Color(255, 0, 0));
+        jlabelAviso.setText("Vendas canceladas não se inclui nesse resultado:");
+        jPanel1.add(jlabelAviso);
+        jlabelAviso.setBounds(640, 600, 330, 16);
+
         add(jPanel1);
         jPanel1.setBounds(10, 10, 1120, 630);
     }// </editor-fold>//GEN-END:initComponents
@@ -271,11 +277,14 @@ public class TelaHistorico extends javax.swing.JPanel {
                 venda.FormaPagamento(), venda.getDescricao(),
                 dinheiro.format(venda.getValorTotal()),
                 venda.getEstado().getDescricao()});
-
-            // soma todos os valores total de cada venda;
-            y = z + x;
-            z = y;
+            // só calcula as vendas que nao são canceladas;
+            if (venda.isStatus()) {
+                // soma todos os valores total de cada venda;
+                y = z + x;
+                z = y;
+            }
         }
+        jlabelAviso.setVisible(true);
         jtotalVendas.setText(dinheiro.format(z));
 
     }//GEN-LAST:event_btn_pesquisarActionPerformed
@@ -314,12 +323,12 @@ public class TelaHistorico extends javax.swing.JPanel {
                                 venda.FormaPagamento(), venda.getDescricao(),
                                 dinheiro.format(venda.getValorTotal()),
                                 venda.getEstado().getDescricao()});
-
                             // soma todos os valores total de cada venda;
                             y = z + x;
                             z = y;
                         }
                     }
+                    jlabelAviso.setVisible(false);
                     jtotalVendas.setText(dinheiro.format(z));
 
                 } else if (jCheckBox2.isSelected()) {
@@ -355,6 +364,7 @@ public class TelaHistorico extends javax.swing.JPanel {
                             z = y;
                         }
                     }
+                    jlabelAviso.setVisible(false);
                     jtotalVendas.setText(dinheiro.format(z));
                 } else {
                     carregarTabelaVendas();
@@ -397,6 +407,7 @@ public class TelaHistorico extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel jlabelAviso;
     public static javax.swing.JTable jtable_vendas;
     private javax.swing.JTextField jtotalVendas;
     // End of variables declaration//GEN-END:variables
@@ -426,7 +437,7 @@ public class TelaHistorico extends javax.swing.JPanel {
                     venda.getIdvenda(),
                     formato.format(venda.getDataVenda()),
                     venda.getCliente().getNome(),
-                    venda.FormaPagamento(), 
+                    venda.FormaPagamento(),
                     venda.getDescricao(),
                     dinheiro.format(venda.getValorTotal()),
                     venda.getEstado().getDescricao()});
@@ -436,6 +447,7 @@ public class TelaHistorico extends javax.swing.JPanel {
                 z = y;
             }
         }
+        jlabelAviso.setVisible(false);
         jtotalVendas.setText(dinheiro.format(z));
 
     }
