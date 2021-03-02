@@ -23,7 +23,6 @@ import static view.TelaProdutos.connectbanco;
 public class TelaFornecedor extends javax.swing.JPanel {
 
     Fornecedor f = null;
-    Cliente cliente = null;
     Fornecedor fornecedor;
 
     public TelaFornecedor() {
@@ -145,6 +144,9 @@ public class TelaFornecedor extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
         btn_editar = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        camp_descricao = new javax.swing.JTextArea();
+        jLabel4 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setLayout(null);
@@ -572,10 +574,15 @@ public class TelaFornecedor extends javax.swing.JPanel {
                 table_ProductMouseClicked(evt);
             }
         });
+        table_Product.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                table_ProductKeyReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(table_Product);
 
         jPanel5.add(jScrollPane2);
-        jScrollPane2.setBounds(10, 40, 800, 290);
+        jScrollPane2.setBounds(10, 40, 800, 220);
 
         jList1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -590,11 +597,11 @@ public class TelaFornecedor extends javax.swing.JPanel {
         jScrollPane4.setViewportView(jList1);
 
         jPanel5.add(jScrollPane4);
-        jScrollPane4.setBounds(840, 70, 230, 260);
+        jScrollPane4.setBounds(840, 70, 230, 190);
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel5.add(jSeparator2);
-        jSeparator2.setBounds(820, 40, 10, 300);
+        jSeparator2.setBounds(820, 40, 10, 230);
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         jLabel2.setText("Fornecedor:");
@@ -602,7 +609,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
         jLabel2.setBounds(840, 36, 170, 30);
 
         jPanel2.add(jPanel5);
-        jPanel5.setBounds(10, 150, 1090, 350);
+        jPanel5.setBounds(10, 60, 1090, 280);
 
         checke_produtosDesativado.setText("Produtos desativados");
         checke_produtosDesativado.addActionListener(new java.awt.event.ActionListener() {
@@ -611,13 +618,13 @@ public class TelaFornecedor extends javax.swing.JPanel {
             }
         });
         jPanel2.add(checke_produtosDesativado);
-        checke_produtosDesativado.setBounds(840, 130, 170, 22);
+        checke_produtosDesativado.setBounds(840, 40, 170, 22);
 
         jLabel3.setText("Filtro:");
         jPanel2.add(jLabel3);
-        jLabel3.setBounds(840, 100, 44, 16);
+        jLabel3.setBounds(840, 10, 44, 16);
         jPanel2.add(jSeparator5);
-        jSeparator5.setBounds(840, 120, 250, 10);
+        jSeparator5.setBounds(840, 30, 250, 10);
 
         btn_editar.setText("Editar");
         btn_editar.addActionListener(new java.awt.event.ActionListener() {
@@ -627,6 +634,18 @@ public class TelaFornecedor extends javax.swing.JPanel {
         });
         jPanel2.add(btn_editar);
         btn_editar.setBounds(1014, 540, 80, 40);
+
+        camp_descricao.setEditable(false);
+        camp_descricao.setColumns(20);
+        camp_descricao.setRows(5);
+        jScrollPane6.setViewportView(camp_descricao);
+
+        jPanel2.add(jScrollPane6);
+        jScrollPane6.setBounds(20, 490, 380, 82);
+
+        jLabel4.setText("Descrição:");
+        jPanel2.add(jLabel4);
+        jLabel4.setBounds(20, 470, 90, 16);
 
         jTabbedPane1.addTab("Produtos", jPanel2);
 
@@ -796,6 +815,14 @@ public class TelaFornecedor extends javax.swing.JPanel {
 
     private void table_ProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_ProductMouseClicked
         btn_editar.setVisible(true);
+        DefaultTableModel tableDefault = (DefaultTableModel) table_Product.getModel();
+        int linha = table_Product.getSelectedRow();
+        for (int i = 0; i < connectbanco.productBook().size(); i++) {
+            if (connectbanco.productBook().get(i).getIdProduto().equals(tableDefault.getValueAt(linha, 0))) { // VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
+                Produto item = connectbanco.productBook().get(i);
+                camp_descricao.setText(item.getDescricao());
+            }
+        }
     }//GEN-LAST:event_table_ProductMouseClicked
 
     private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
@@ -812,7 +839,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
                 screenEdit.PopularComcobox();// CARREGA A COMBOBOX COM OS FORNECEDORES;
             }
         }
-        btn_edit.setVisible(false);
+        btn_editar.setVisible(false);
     }//GEN-LAST:event_btn_editarActionPerformed
 
     private void checke_produtosDesativadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checke_produtosDesativadoActionPerformed
@@ -869,6 +896,18 @@ public class TelaFornecedor extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btn_desativarActionPerformed
 
+    private void table_ProductKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_table_ProductKeyReleased
+        btn_editar.setVisible(true);
+        DefaultTableModel tableDefault = (DefaultTableModel) table_Product.getModel();
+        int linha = table_Product.getSelectedRow();
+        for (int i = 0; i < connectbanco.productBook().size(); i++) {
+            if (connectbanco.productBook().get(i).getIdProduto().equals(tableDefault.getValueAt(linha, 0))) { // VERIFICA SE O ID DO OBJETO CONTEM NO BANCO DE DADOS
+                Produto item = connectbanco.productBook().get(i);
+                camp_descricao.setText(item.getDescricao());
+            }
+        }
+    }//GEN-LAST:event_table_ProductKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_Register;
@@ -905,6 +944,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField camp_contato;
     private javax.swing.JFormattedTextField camp_cpfSupplier;
     private javax.swing.JFormattedTextField camp_cpfSupplier1;
+    private javax.swing.JTextArea camp_descricao;
     private javax.swing.JCheckBox checke_produtosDesativado;
     private javax.swing.JTextField fieldSearch;
     private javax.swing.JLabel jLabel1;
@@ -922,6 +962,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
@@ -948,6 +989,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;

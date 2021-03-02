@@ -13,7 +13,7 @@ public enum Estado {
     
     PAGO("CANCELADO"),
     CANCELADO("PAGO"),
-    ANDAMENTO("ANDAMENTO");
+    RECEBER("RECEBER");
     
     private String descricao;
     

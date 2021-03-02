@@ -36,7 +36,7 @@ public class TelaHistorico extends javax.swing.JPanel {
         colCodigo.setPreferredWidth(5);
         colDataVenda.setPreferredWidth(30);
         colNome.setPreferredWidth(200);
-        colFormaPagamento.setPreferredWidth(50);
+        colFormaPagamento.setPreferredWidth(70);
         colDescrição.setPreferredWidth(200);
         colTotalVenda.setPreferredWidth(5);
         colEstado.setPreferredWidth(5);
@@ -269,7 +269,8 @@ public class TelaHistorico extends javax.swing.JPanel {
                 formato.format(venda.getDataVenda()),
                 venda.getCliente().getNome(),
                 venda.FormaPagamento(), venda.getDescricao(),
-                dinheiro.format(venda.getValorTotal())});
+                dinheiro.format(venda.getValorTotal()),
+                venda.getEstado().getDescricao()});
 
             // soma todos os valores total de cada venda;
             y = z + x;
@@ -339,7 +340,7 @@ public class TelaHistorico extends javax.swing.JPanel {
                     tabela.setNumRows(0);
                     for (Venda venda : vendas) {
 
-                        if (venda.isStatus() && venda.getEstado().equals(Estado.ANDAMENTO)) {
+                        if (venda.isStatus() && venda.getEstado().equals(Estado.RECEBER)) {
                             x = venda.getValorTotal();
                             tabela.addRow(new Object[]{
                                 venda.getIdvenda(),
@@ -425,9 +426,10 @@ public class TelaHistorico extends javax.swing.JPanel {
                     venda.getIdvenda(),
                     formato.format(venda.getDataVenda()),
                     venda.getCliente().getNome(),
-                    venda.FormaPagamento(), venda.getDescricao(),
+                    venda.FormaPagamento(), 
+                    venda.getDescricao(),
                     dinheiro.format(venda.getValorTotal()),
-                    venda.getEstado()});
+                    venda.getEstado().getDescricao()});
 
                 // soma todos os valores total de cada venda;
                 y = z + x;

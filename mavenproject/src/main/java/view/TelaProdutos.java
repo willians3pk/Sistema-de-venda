@@ -193,14 +193,14 @@ public class TelaProdutos extends javax.swing.JPanel {
         jPanel1.add(btn_ToEdit);
         btn_ToEdit.setBounds(560, 60, 90, 30);
 
-        btn_Deactivate.setText("Desativa");
+        btn_Deactivate.setText("Excluir");
         btn_Deactivate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_DeactivateActionPerformed(evt);
             }
         });
         jPanel1.add(btn_Deactivate);
-        btn_Deactivate.setBounds(1000, 80, 100, 30);
+        btn_Deactivate.setBounds(660, 60, 100, 30);
 
         camp_Profitmargin.setEditable(false);
         camp_Profitmargin.setForeground(new java.awt.Color(255, 0, 39));

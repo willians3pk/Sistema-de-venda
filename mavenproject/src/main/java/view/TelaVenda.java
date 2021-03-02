@@ -426,12 +426,7 @@ public class TelaVenda extends javax.swing.JPanel {
         btn_removerItem.setEnabled(false);
         jDesktopPane1.removeAll();
         
-        Venda venda = new Venda();
-        List<FormaPagamento> listaPagamento = new ArrayList<>();
-        List<ItensVenda> listaItens = new ArrayList<>();
-        venda.setFormaPagamento(listaPagamento);
-        venda.setItens(listaItens);
-        
+        Venda venda = new Venda();        
         fv.setLocation(0, 0);
         fv.setSize(1140, 650);
         fv.setVisible(true);
@@ -461,6 +456,9 @@ public class TelaVenda extends javax.swing.JPanel {
                     } else {
                         produtos.get(posicao).setQnt(Integer.parseInt(field_qnt.getText()));
                         adicionarItens();
+                        field_qnt.setText("");
+                        camp_buscarProduto.setText("");
+                        field_preco.setText("");
                     }
                     camp_total.requestFocus(); // muda o foco do cursor do mouse
                 }

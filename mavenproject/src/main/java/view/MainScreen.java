@@ -10,6 +10,7 @@ import controle.Endereco;
 import controle.FormaPagamento;
 import controle.Venda;
 import conexao.Conexao;
+import controle.Estado;
 import controle.ItensVenda;
 import controle.Produto;
 import java.awt.Color;
@@ -71,7 +72,7 @@ public class MainScreen extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jVendaHIstoricos = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuCliente = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(MAXIMIZED_BOTH);
@@ -195,7 +196,8 @@ public class MainScreen extends javax.swing.JFrame {
 
         jMenu3.setText("Produto");
 
-        jMenuItem1.setText("Desativados");
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem1.setText("Excluidos");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -207,6 +209,7 @@ public class MainScreen extends javax.swing.JFrame {
 
         jMenu4.setText("Venda");
 
+        jMenuICancelarVenda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuICancelarVenda.setText("Cancelar Venda");
         jMenuICancelarVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -231,6 +234,7 @@ public class MainScreen extends javax.swing.JFrame {
 
         jMenu2.setText("Venda");
 
+        jVendaHIstoricos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jVendaHIstoricos.setText("Historicos");
         jVendaHIstoricos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,13 +243,14 @@ public class MainScreen extends javax.swing.JFrame {
         });
         jMenu2.add(jVendaHIstoricos);
 
-        jMenuItem3.setText("Vendas Canceladas");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jMenuCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuCliente.setText("Clientes");
+        jMenuCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jMenuClienteActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
+        jMenu2.add(jMenuCliente);
 
         jMenuBar1.add(jMenu2);
 
@@ -312,6 +317,7 @@ public class MainScreen extends javax.swing.JFrame {
         jDesktopPane1.removeAll();
         cc.setLocation(0, 0);
         cc.setSize(1140, 650);
+        cc.setCc(cc);
         cc.setVisible(true);
         jDesktopPane1.add(cc);
     }//GEN-LAST:event_jLabel4MouseClicked
@@ -360,8 +366,10 @@ public class MainScreen extends javax.swing.JFrame {
                         Integer id = Integer.parseInt(codigo);
                         Conexao banco = new Conexao();
                         Venda venda = banco.getVenda(id);
+                        venda.setEstado(Estado.CANCELADO);
                         venda.setStatus(false);
                         banco.update(venda);
+                        // ESTORNA OS ITENS DA VENDA CANCELADA PARA O ESTOQUE
                         for (ItensVenda listaIten : venda.listaItens()) {
                             Produto produto = banco.getProduto(listaIten.getItems().getIdProduto());
                             produto.setQnt(listaIten.getQnt() + produto.getQnt());
@@ -378,14 +386,31 @@ public class MainScreen extends javax.swing.JFrame {
             };
             t.start();
 
-            
         }
 
     }//GEN-LAST:event_jMenuICancelarVendaActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jMenuClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuClienteActionPerformed
 
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+        final TelaLoading carregando = new TelaLoading();
+        carregando.setVisible(true);
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                jDesktopPane1.removeAll();
+                cc.setLocation(0, 0);
+                cc.setSize(1140, 650);
+                cc.setCc(cc);
+                cc.setVisible(true);
+                jDesktopPane1.add(cc);
+                carregando.dispose();
+            }
+
+        };
+        t.start();
+
+
+    }//GEN-LAST:event_jMenuClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -436,10 +461,10 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuCliente;
     private javax.swing.JMenuItem jMenuICancelarVenda;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

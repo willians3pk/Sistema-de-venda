@@ -5,26 +5,46 @@ import controle.Cliente;
 import controle.Endereco;
 import controle.Venda;
 import conexao.Conexao;
+import controle.Estado;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import static view.MainScreen.jDesktopPane1;
 
 public class TelaCadastroCliente extends javax.swing.JPanel {
 
     Cliente cliente = null;
+    TelaCadastroCliente cc;
+
+    public void setCc(TelaCadastroCliente cc) {
+        this.cc = cc;
+    }
 
     public TelaCadastroCliente() {
         initComponents();
-
+        btn_visualiza.setEnabled(false);
         //      tela cliente;        
         btn_edit1.setEnabled(false); // botao editar da tela cliente;
         btn_save1.setEnabled(false); // botao editar da tela cliente;
         btn_cancelar1.setEnabled(false); // botao editar da tela cancelar;
-
         field_Name.setDocument(new Teclas());
+
+        TableColumn colCodigo = tabelaVenda.getColumnModel().getColumn(0);
+        TableColumn colNome = tabelaVenda.getColumnModel().getColumn(1);
+        TableColumn colEstadoVenda = tabelaVenda.getColumnModel().getColumn(2);
+        TableColumn colValotTotal = tabelaVenda.getColumnModel().getColumn(3);
+
+        colCodigo.setPreferredWidth(5);
+        colNome.setPreferredWidth(350);
+        colEstadoVenda.setPreferredWidth(10);
+        colValotTotal.setPreferredWidth(20);
     }
 
     @SuppressWarnings("unchecked")
@@ -70,6 +90,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         fieldSearch1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         btn_update1 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jpanelSupplier1 = new javax.swing.JPanel();
         camp_ClientName = new javax.swing.JTextField();
@@ -102,6 +123,21 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         camp_contato = new javax.swing.JFormattedTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaVenda = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jLabel1 = new javax.swing.JLabel();
+        btn_carregar = new javax.swing.JButton();
+        btn_filtrar = new javax.swing.JButton();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        btn_visualiza = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        jtotalVendas = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setLayout(null);
@@ -305,6 +341,10 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         jPanel11.add(btn_update1);
         btn_update1.setBounds(710, 30, 50, 50);
 
+        jButton1.setText("Vendas");
+        jPanel11.add(jButton1);
+        jButton1.setBounds(970, 60, 90, 30);
+
         jPanel5.add(jPanel11);
         jPanel11.setBounds(10, 0, 1090, 220);
 
@@ -471,6 +511,119 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         jTabbedPane1.addTab("Clientes", jPanel5);
 
         jPanel1.setLayout(null);
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.setLayout(null);
+
+        tabelaVenda.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Cod_Venda:", "Cliente:", "Estado_Venda:", "Total:"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tabelaVenda);
+
+        jPanel3.add(jScrollPane1);
+        jScrollPane1.setBounds(280, 50, 800, 300);
+
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
+        jList1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jList1KeyReleased(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jList1);
+
+        jPanel3.add(jScrollPane3);
+        jScrollPane3.setBounds(10, 80, 250, 270);
+
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        jLabel1.setText("Clientes:");
+        jPanel3.add(jLabel1);
+        jLabel1.setBounds(10, 50, 130, 20);
+
+        btn_carregar.setText("Carregar:");
+        btn_carregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_carregarActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btn_carregar);
+        btn_carregar.setBounds(170, 50, 90, 30);
+
+        btn_filtrar.setText("Filtrar");
+        btn_filtrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_filtrarActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btn_filtrar);
+        btn_filtrar.setBounds(1010, 20, 70, 30);
+
+        jCheckBox2.setText("A Prazo:");
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox2ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jCheckBox2);
+        jCheckBox2.setBounds(910, 20, 96, 22);
+
+        jCheckBox1.setText("Contas a Receber:");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jCheckBox1);
+        jCheckBox1.setBounds(750, 20, 150, 22);
+
+        jPanel1.add(jPanel3);
+        jPanel3.setBounds(10, 90, 1090, 360);
+
+        btn_visualiza.setText("Visualizar");
+        btn_visualiza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_visualizaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_visualiza);
+        btn_visualiza.setBounds(1000, 470, 100, 40);
+
+        jLabel5.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("VENDAS DOS CLIENTES:");
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(190, 30, 720, 40);
+        jPanel1.add(jSeparator3);
+        jSeparator3.setBounds(10, 70, 1090, 10);
+
+        jtotalVendas.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        jPanel1.add(jtotalVendas);
+        jtotalVendas.setBounds(99, 536, 1000, 40);
+
+        jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel6.setText("Total:");
+        jPanel1.add(jLabel6);
+        jLabel6.setBounds(10, 540, 90, 30);
+
         jTabbedPane1.addTab("Vendas", jPanel1);
 
         add(jTabbedPane1);
@@ -535,7 +688,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
 
         };
         t.start();
-        
+
     }//GEN-LAST:event_btn_update1ActionPerformed
 
     private void btn_edit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_edit1ActionPerformed
@@ -556,13 +709,153 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         btn_edit1.setEnabled(false);
     }//GEN-LAST:event_btn_cancelar1ActionPerformed
 
+    private void btn_carregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_carregarActionPerformed
+        final TelaLoading carregando = new TelaLoading();
+        carregando.setVisible(true);
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                preencherjlistaCliente();
+                carregando.dispose();
+            }
+        };
+        t.start();
+
+
+    }//GEN-LAST:event_btn_carregarActionPerformed
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        jList1MouseClicked();
+    }//GEN-LAST:event_jList1MouseClicked
+
+    private void jList1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jList1KeyReleased
+        jList1MouseClicked();
+    }//GEN-LAST:event_jList1KeyReleased
+
+    private void btn_visualizaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_visualizaActionPerformed
+        DefaultTableModel tabelaVendas = (DefaultTableModel) tabelaVenda.getModel();
+        int linha = tabelaVenda.getSelectedRow();
+        List<Venda> vendas;
+        Conexao bancoMariaDB = new Conexao();
+        vendas = bancoMariaDB.lista_Vendas();
+        try {
+            for (Venda venda : vendas) {
+                if (venda.getIdvenda().equals(tabelaVendas.getValueAt(linha, 0))) {
+                    TelaDetalhesVenda dv = new TelaDetalhesVenda();
+                    jDesktopPane1.removeAll();
+                    dv.setLocation(0, 0);
+                    dv.setSize(1140, 650);
+                    dv.setVisible(true);
+                    dv.setVenda(venda);
+                    dv.setCc(cc);
+                    dv.carregarCampos();
+                    dv.btn_volta2.setVisible(true);
+                    dv.btn_voltar.setVisible(false);
+                    jDesktopPane1.add(dv);
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Selecione a Venda que voce que visualizar!");
+        }
+
+    }//GEN-LAST:event_btn_visualizaActionPerformed
+
+    private void btn_filtrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filtrarActionPerformed
+        final TelaLoading carregando = new TelaLoading();
+        carregando.setVisible(true);
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                if (jCheckBox2.isSelected()) {
+
+                    List<Venda> vendas = new ArrayList<>();
+                    DefaultTableModel tabela = (DefaultTableModel) tabelaVenda.getModel();
+
+                    Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
+                    NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
+
+                    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
+
+                    double y = 0;
+                    double x = 0;
+                    double z = 0;
+
+                    tabela.setNumRows(0);
+                    for (Venda venda : cliente.getVendas()) {
+
+                        if (venda.isStatus() && venda.FormaPagamento().equals("A PRAZO")) {
+                            x = venda.getValorTotal();
+                            tabela.addRow(new Object[]{
+                                venda.getIdvenda(),
+                                venda.getCliente().getNome(),
+                                venda.getEstado(),
+                                dinheiro.format(venda.getValorTotal())});
+
+                            // soma todos os valores total de cada venda;
+                            y = z + x;
+                            z = y;
+                        }
+                    }
+                    jtotalVendas.setText(dinheiro.format(z));
+
+                } else if (jCheckBox1.isSelected()) {
+                    List<Venda> vendas = new ArrayList<>();
+                    DefaultTableModel tabela = (DefaultTableModel) tabelaVenda.getModel();
+
+                    Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
+                    NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
+
+                    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
+
+                    double y = 0;
+                    double x = 0;
+                    double z = 0;
+
+                    tabela.setNumRows(0);
+                    for (Venda venda : cliente.getVendas()) {
+
+                        if (venda.isStatus() && venda.getEstado().equals(Estado.RECEBER)) {
+                            x = venda.getValorTotal();
+                            tabela.addRow(new Object[]{
+                                venda.getIdvenda(),
+                                venda.getCliente().getNome(),
+                                venda.getEstado(),
+                                dinheiro.format(venda.getValorTotal())});
+
+                            // soma todos os valores total de cada venda;
+                            y = z + x;
+                            z = y;
+                        }
+                    }
+                    jtotalVendas.setText(dinheiro.format(z));
+                } else {
+//                    carregarTabelaVendas();
+                }
+                carregando.dispose();
+            }
+
+        };
+        t.start();
+    }//GEN-LAST:event_btn_filtrarActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        jCheckBox2.setSelected(false);
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+         jCheckBox1.setSelected(false);
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cancelar1;
+    private javax.swing.JButton btn_carregar;
     private javax.swing.JButton btn_edit1;
+    private javax.swing.JButton btn_filtrar;
     private javax.swing.JButton btn_limpAll;
     private javax.swing.JButton btn_save1;
     private javax.swing.JButton btn_update1;
+    private javax.swing.JButton btn_visualiza;
     private javax.swing.JTextField camp_AddressRuaClient;
     private javax.swing.JTextField camp_BairroClient;
     private javax.swing.JFormattedTextField camp_CEPClient;
@@ -588,7 +881,11 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     private javax.swing.JTextField field_estado;
     private javax.swing.JFormattedTextField field_numeroCasa;
     private javax.swing.JTextField filed_Email;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -603,31 +900,40 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel jpanelSupplier1;
+    private javax.swing.JTextField jtotalVendas;
+    private javax.swing.JTable tabelaVenda;
     private javax.swing.JTable tableClient;
     // End of variables declaration//GEN-END:variables
 
@@ -638,7 +944,13 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
 
             Cliente cliente = new Cliente();
             cliente.setNome(field_Name.getText());
-            Long cpf = Long.parseLong(field_cpf.getText().replace(".", "").replace(".", "").replace("-", ""));
+            long cpf = 0;
+            try {
+                cpf = Long.parseLong(field_cpf.getText().replace(".", "").replace(".", "").replace("-", ""));
+            } catch (Exception e) {
+                System.out.println("Campo cpf nao pode esta vazio! "+e);
+            }
+            
             cliente.setCpf(cpf);
             cliente.setEmail(filed_Email.getText());
             cliente.setStatus(true);
@@ -649,16 +961,34 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
             Endereco end = new Endereco();
             end.setRua(field_Rua.getText());
             end.setCidade(field_cidade.getText());
-            int cep = Integer.parseInt(field_cep.getText().replace("-", ""));
+            int cep = 0;
+            try {
+                cep = Integer.parseInt(field_cep.getText().replace("-", ""));
+            } catch (Exception e) {
+                System.out.println("campo cep nao pode está vazio! "+e);
+            }
+            
             end.setCep(cep);
             end.setComplemento(field_complement.getText());
-            int numeroCasa = Integer.parseInt(field_numeroCasa.getText());
+            int numeroCasa = 0;
+            try {
+                numeroCasa = Integer.parseInt(field_numeroCasa.getText());
+            } catch (Exception e) {
+                System.out.println("campo Numero Casa nao pode está vazio! "+e);
+            }
             end.setNumeroCasa(numeroCasa);
             end.setPessoas(cliente);
             cliente.setEndereco(end);
-            Long fone = Long.parseLong(field_contact.getText().replace("(", "").replace(")", "").replaceAll("-", ""));
-            cliente.setContato(fone);
+            long fone = 0;
+            try {
+                fone = Long.parseLong(field_contact.getText().replace("(", "").replace(")", "").replaceAll("-", ""));
+            } catch (Exception e) {
+                System.out.println("Campo fone nao pode está vazio! "+e);
+            }
+             
             
+             cliente.setContato(fone);
+
             banco.save(cliente);
 
 //            LIMPA OS CAMPOS DO FORMULARIO
@@ -697,7 +1027,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
                 camp_cpfClient.setText(cliente.getCpf().toString());
                 camp_DataNascimento.setDate(cliente.getDataNascimento());
                 camp_contato.setText(cliente.getContato().toString());
-                
+
 //              CONVERTE OS VALORES DO TIPO INTEIRO PRA STRING;
                 String cep = String.valueOf(cliente.getEndereco().getCep());
                 String numbleHouse = String.valueOf(cliente.getEndereco().getNumeroCasa());
@@ -812,14 +1142,14 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
             } catch (Exception e) {
                 System.out.println("Campo CPF não podem estár vazios");
             }
-            
+
             long contato = 0;
             try {
                 contato = Long.parseLong(camp_contato.getText().replace("(", "").replace(")", "").replaceAll("-", ""));
             } catch (Exception e) {
                 System.out.println("Campo Contato nao pode estár vazio");
             }
-            
+
             cliente.setNome(camp_ClientName.getText());
             cliente.setEmail(camp_EmailClient.getText());
             cliente.setCpf(cpf);
@@ -848,4 +1178,44 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "<html><font color=\"#0000FF\">DADOS ALTERADO COM SUCESSO!</font></html>");
         }
     }
+
+    public void jList1MouseClicked() {
+        btn_visualiza.setEnabled(true);
+        Conexao banco = new Conexao();
+        cliente = banco.list_Cliente().get(jList1.getSelectedIndex());
+
+        Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
+        NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
+
+        double y = 0;
+        double x = 0;
+        double z = 0;
+
+        DefaultTableModel tabela = (DefaultTableModel) tabelaVenda.getModel();
+        tabela.setNumRows(0);
+        for (Venda venda : cliente.getVendas()) {
+            x = venda.getValorTotal();
+            tabela.addRow(new Object[]{
+                venda.getIdvenda(),
+                venda.getCliente().getNome(),
+                venda.getEstado().getDescricao(),
+                dinheiro.format(venda.getValorTotal())});
+
+            y = z + x;
+            z = y;
+        }
+        jtotalVendas.setText(dinheiro.format(z));
+
+    }
+
+    public void preencherjlistaCliente() {
+        DefaultListModel jlista = new DefaultListModel();
+        Conexao banco = new Conexao();
+        for (Cliente cliente : banco.list_Cliente()) {
+            jlista.addElement(cliente.getNome());
+            jList1.setModel(jlista);
+        }
+
+    }
+
 }

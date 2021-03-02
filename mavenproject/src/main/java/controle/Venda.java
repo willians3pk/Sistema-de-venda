@@ -257,7 +257,7 @@ public class Venda {
             parcela.setParcela(numeroParcela + i);//  NUMERO DAS PARCELAS;
             parcela.setData(d);
             parcela.setStatus(true);
-            parcela.setPago(Estado.ANDAMENTO);
+            parcela.setPago(Estado.RECEBER);
             
             bancoDAO.save(parcela); //SALVA A PARCELA NO BANCO DE DADOS;
         }
@@ -283,7 +283,7 @@ public class Venda {
             parcela.setParcela(numeroParcela + i);//  NUMERO DAS PARCELAS;
             parcela.setData(d);
             parcela.setStatus(true);
-            parcela.setPago(Estado.ANDAMENTO);
+            parcela.setPago(Estado.RECEBER);
             
             bancoDAO.save(parcela); //SALVA A PARCELA NO BANCO DE DADOS;
         }

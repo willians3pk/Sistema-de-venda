@@ -630,7 +630,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
         venda.setTroco(valorRestante);
         venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));
         venda.setDescricao(this.observacaoVenda);
-        venda.setEstado(Estado.ANDAMENTO);
+        venda.setEstado(Estado.RECEBER);
         
         if (camp_cliente.getText().length() > 0 & !camp_cliente.getText().equals("CONSUMIDOR")) {
 
@@ -697,7 +697,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
         venda.setTroco(troco);
         venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));
         venda.setDescricao(this.observacaoVenda);
-        venda.setEstado(Estado.ANDAMENTO);
+        venda.setEstado(Estado.RECEBER);
         
         if (camp_cliente.getText().length() > 0 & !camp_cliente.getText().equals("CONSUMIDOR")) {
             venda.setCliente(client); // adiciona o cliente na venda;

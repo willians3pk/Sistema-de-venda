@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package view;
-
 import controle.ItensVenda;
 import controle.Parcelas;
 import controle.Venda;
@@ -26,7 +25,12 @@ import javax.swing.table.TableColumn;
 public class TelaDetalhesVenda extends javax.swing.JPanel {
 
     Venda venda;
+    TelaCadastroCliente cc;
 
+    public void setCc(TelaCadastroCliente cc) {
+        this.cc = cc;
+    }
+    
     public Venda getVenda() {
         return venda;
     }
@@ -41,9 +45,8 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         checkbox.setVisible(false);
         btn_removerItem.setVisible(false);
         btn_salvar.setVisible(false);
-        jLabel.setVisible(false);
-        jLabel7.setVisible(false);
-
+        btn_volta2.setVisible(false);
+        
         TableColumn colCodigo = jtableVenda.getColumnModel().getColumn(0);
         TableColumn colNome = jtableVenda.getColumnModel().getColumn(1);
         TableColumn colCor = jtableVenda.getColumnModel().getColumn(2);
@@ -102,10 +105,9 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         btn_receber = new javax.swing.JButton();
         btn_EditarVenda = new javax.swing.JButton();
         btn_removerItem = new javax.swing.JButton();
-        jLabel = new javax.swing.JLabel();
         btn_salvar = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
+        btn_volta2 = new javax.swing.JButton();
 
         setLayout(null);
 
@@ -305,12 +307,6 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         jPanel1.add(btn_removerItem);
         btn_removerItem.setBounds(820, 590, 140, 40);
 
-        jLabel.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
-        jLabel.setForeground(new java.awt.Color(255, 0, 10));
-        jLabel.setText("Selecione Um Item Para Remover:");
-        jPanel1.add(jLabel);
-        jLabel.setBounds(30, 280, 230, 16);
-
         btn_salvar.setText("Salvar");
         btn_salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -319,14 +315,17 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         });
         jPanel1.add(btn_salvar);
         btn_salvar.setBounds(500, 580, 80, 40);
-
-        jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 0, 24));
-        jLabel7.setText("ATENÇÃO VOCÊ ESTÁ EM MODO ADMINISTRADOR, MUITO CUIDADO COM OQUE VOCE IRÁ ALTERAR");
-        jPanel1.add(jLabel7);
-        jLabel7.setBounds(120, 90, 890, 30);
         jPanel1.add(jSeparator4);
         jSeparator4.setBounds(20, 120, 1100, 10);
+
+        btn_volta2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Left-48.png"))); // NOI18N
+        btn_volta2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_volta2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_volta2);
+        btn_volta2.setBounds(1060, 10, 60, 30);
 
         add(jPanel1);
         jPanel1.setBounds(6, 5, 1130, 640);
@@ -369,8 +368,8 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
                         venda.setEstado(Estado.PAGO);
                         banco.update(venda);
                     }
-                    if (parcela.getPago().equals(Estado.ANDAMENTO)) {
-                        venda.setEstado(Estado.ANDAMENTO);
+                    if (parcela.getPago().equals(Estado.RECEBER)) {
+                        venda.setEstado(Estado.RECEBER);
                         banco.update(venda);
                     }
                 }
@@ -409,8 +408,6 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
     private void btn_EditarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EditarVendaActionPerformed
         jtableVenda.setEnabled(true);
         btn_removerItem.setVisible(true);
-        jLabel.setVisible(true);
-        jLabel7.setVisible(true);
     }//GEN-LAST:event_btn_EditarVendaActionPerformed
 
     private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
@@ -430,13 +427,22 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         btn_salvar.setVisible(false);
     }//GEN-LAST:event_camp_observacaoFocusLost
 
+    private void btn_volta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volta2ActionPerformed
+        jDesktopPane1.removeAll();
+        cc.setLocation(0, 0);
+        cc.setSize(1140, 650);
+        cc.setVisible(true);
+        jDesktopPane1.add(cc);
+    }//GEN-LAST:event_btn_volta2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_EditarVenda;
     private javax.swing.JButton btn_receber;
     private javax.swing.JButton btn_removerItem;
     private javax.swing.JButton btn_salvar;
-    private javax.swing.JButton btn_voltar;
+    public javax.swing.JButton btn_volta2;
+    public javax.swing.JButton btn_voltar;
     private javax.swing.JTextField camp_CodigoCliente;
     private javax.swing.JTextField camp_codigovenda;
     private javax.swing.JFormattedTextField camp_datavenda;
@@ -446,14 +452,12 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
     private javax.swing.JTextField camp_totalvenda;
     private javax.swing.JTextField camp_valorentrada;
     private javax.swing.JCheckBox checkbox;
-    private javax.swing.JLabel jLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

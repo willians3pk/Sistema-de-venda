@@ -39,7 +39,7 @@ public class Conexao {
             tx.commit();
         } catch (Exception e) {
             System.out.println("Erro " + e);
-            JOptionPane.showMessageDialog(null, "Erro!\n"+e);
+            JOptionPane.showMessageDialog(null, "Erro!\n" + e);
         } finally {
             session.close();
         }
@@ -55,7 +55,7 @@ public class Conexao {
             tx.commit();
         } catch (Exception e) {
             System.out.println("Erro ao persistir" + e);
-            JOptionPane.showMessageDialog(null, "-----Erro!----\n"+e);
+            JOptionPane.showMessageDialog(null, "-----Erro!----\n" + e);
         } finally {
             session.close();
         }
@@ -105,7 +105,7 @@ public class Conexao {
             tx.commit();
         } catch (Exception e) {
             System.out.println("Erro " + e);
-            JOptionPane.showMessageDialog(null, "Erro!\n"+e);
+            JOptionPane.showMessageDialog(null, "Erro!\n" + e);
         } finally {
             session.close();
         }
@@ -121,7 +121,7 @@ public class Conexao {
             tx.commit();
         } catch (Exception e) {
             System.out.println("Erro " + e);
-            JOptionPane.showMessageDialog(null, "Erro!\n"+e);
+            JOptionPane.showMessageDialog(null, "Erro!\n" + e);
         } finally {
             session.close();
         }
@@ -137,7 +137,7 @@ public class Conexao {
             tx.commit();
         } catch (Exception e) {
             System.out.println("Erro " + e);
-            JOptionPane.showMessageDialog(null, "Erro!\n"+e);
+            JOptionPane.showMessageDialog(null, "Erro!\n" + e);
         } finally {
             session.close();
         }
@@ -155,7 +155,7 @@ public class Conexao {
             return list;
         } catch (Exception e) {
             System.out.println("Erro ao Pegar lista no Banco de Dados!");
-            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n"+e );
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n" + e);
         } finally {
             session.close();
         }
@@ -174,13 +174,13 @@ public class Conexao {
             return list;
         } catch (Exception e) {
             System.out.println("Erro ao Pegar lista no Banco de Dados!");
-            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n"+e );
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n" + e);
         } finally {
             session.close();
         }
         return null;
     }
-    
+
     public List<Fornecedor> list_Fornecedores() {
 
         this.session = NewHibernateUtil.getSessionFactory().openSession();
@@ -193,7 +193,7 @@ public class Conexao {
             return list;
         } catch (Exception e) {
             System.out.println("Erro ao Pegar lista no Banco de Dados!");
-            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n"+e );
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n" + e);
         } finally {
             session.close();
         }
@@ -212,7 +212,7 @@ public class Conexao {
             return list;
         } catch (Exception e) {
             System.out.println("Erro ao Pegar lista no Banco de Dados!");
-            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n"+e );
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n" + e);
         } finally {
             session.close();
         }
@@ -231,7 +231,7 @@ public class Conexao {
             return list;
         } catch (Exception e) {
             System.out.println("Erro ao Pegar lista no Banco de Dados!");
-            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n"+e );
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n" + e);
         } finally {
             session.close();
         }
@@ -250,7 +250,7 @@ public class Conexao {
             return list;
         } catch (Exception e) {
             System.out.println("Erro ao Pegar lista no Banco de Dados!");
-            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n"+e );
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n" + e);
         } finally {
             session.close();
         }
@@ -269,7 +269,7 @@ public class Conexao {
             return list;
         } catch (Exception e) {
             System.out.println(e);
-            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n"+e );
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n" + e);
         } finally {
             session.close();
         }
@@ -288,7 +288,7 @@ public class Conexao {
             return list;
         } catch (Exception e) {
             System.out.println(e);
-            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n"+e );
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n" + e);
         } finally {
             session.close();
         }
@@ -307,13 +307,13 @@ public class Conexao {
             return list;
         } catch (Exception e) {
             System.out.println("Erro ao Pegar lista de Venda Banco de Dados!");
-            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n"+e );
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n" + e);
         } finally {
             session.close();
         }
         return null;
     }
-    
+
     public List<Cliente> filtrarPorNome(String nome) {
         // cria nova lista
         List<Cliente> clientesCadastrados = new ArrayList<>();
@@ -351,7 +351,7 @@ public class Conexao {
         }
         return produtosFiltrados;
     }
-    
+
     public List<Produto> filtrarProdutoDesativado(String nome) {
         // cria nova lista
         List<Produto> produtosFiltrados = new ArrayList<>();
@@ -379,14 +379,14 @@ public class Conexao {
             return venda;
         } catch (Exception e) {
             System.out.println(e);
-            JOptionPane.showMessageDialog(null, "Venda Não Encontrada!\n"+e);
+            JOptionPane.showMessageDialog(null, "Venda Não Encontrada!\n" + e);
         } finally {
             session.close();
         }
         return null;
     }
-    
-    public Fornecedor getFornecedor(int id){
+
+    public Fornecedor getFornecedor(int id) {
         this.session = NewHibernateUtil.getSessionFactory().openSession();
         this.tx = session.beginTransaction();
         try {
@@ -394,7 +394,7 @@ public class Conexao {
             return forncedor;
         } catch (Exception e) {
             System.out.println(e);
-            JOptionPane.showMessageDialog(null, "Forncedor Não Encontrada!\n"+e);
+            JOptionPane.showMessageDialog(null, "Forncedor Não Encontrada!\n" + e);
         } finally {
             session.close();
         }
@@ -411,14 +411,14 @@ public class Conexao {
             return results;
         } catch (Exception e) {
             System.out.println(e);
-            JOptionPane.showMessageDialog(null, "Venda Não Encontrada!\n"+e );
+            JOptionPane.showMessageDialog(null, "Venda Não Encontrada!\n" + e);
         } finally {
             session.close();
         }
         return null;
     }
 
-   public Produto getProduto(Integer id) {
+    public Produto getProduto(Integer id) {
         this.session = NewHibernateUtil.getSessionFactory().openSession();
         this.tx = session.beginTransaction();
         try {
@@ -426,11 +426,11 @@ public class Conexao {
             return produto;
         } catch (Exception e) {
             System.out.println(e);
-            JOptionPane.showMessageDialog(null, "Produto Não Encontrada!\n"+e);
+            JOptionPane.showMessageDialog(null, "Produto Não Encontrada!\n" + e);
         } finally {
             session.close();
         }
         return null;
     }
-    
+
 }
