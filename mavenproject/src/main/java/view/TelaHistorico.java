@@ -70,6 +70,7 @@ public class TelaHistorico extends javax.swing.JPanel {
         btn_detalhes = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jlabelAviso = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setLayout(null);
@@ -217,6 +218,10 @@ public class TelaHistorico extends javax.swing.JPanel {
         jlabelAviso.setText("Vendas canceladas não se inclui nesse resultado:");
         jPanel1.add(jlabelAviso);
         jlabelAviso.setBounds(640, 600, 330, 16);
+
+        jButton1.setText("Relatorio");
+        jPanel1.add(jButton1);
+        jButton1.setBounds(10, 50, 100, 30);
 
         add(jPanel1);
         jPanel1.setBounds(10, 10, 1120, 630);
@@ -392,6 +397,7 @@ public class TelaHistorico extends javax.swing.JPanel {
     private javax.swing.JButton btn_pesquisar;
     private javax.swing.JFormattedTextField camp_dataFim;
     private javax.swing.JFormattedTextField camp_dataInicio;
+    private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;

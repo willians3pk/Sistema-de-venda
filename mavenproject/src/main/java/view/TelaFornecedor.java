@@ -31,7 +31,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
         preencherjlistaForncedor();
         btn_editar.setVisible(false);
         btn_desativar.setEnabled(false);
-
+        btn_desativar.setVisible(false);
         // tela fornecedor;
         btn_edit.setEnabled(false); //botao editar da tela fornecedor;
         btn_save.setEnabled(false); // botao salvar da tela fornecedor;
@@ -654,11 +654,11 @@ public class TelaFornecedor extends javax.swing.JPanel {
         jScrollPane6.setViewportView(camp_descricao);
 
         jPanel2.add(jScrollPane6);
-        jScrollPane6.setBounds(20, 490, 380, 82);
+        jScrollPane6.setBounds(10, 490, 380, 82);
 
         jLabel4.setText("Descrição:");
         jPanel2.add(jLabel4);
-        jLabel4.setBounds(20, 470, 90, 16);
+        jLabel4.setBounds(10, 470, 90, 16);
 
         jLabel5.setText("Qtde Produtos:");
         jPanel2.add(jLabel5);
@@ -669,53 +669,48 @@ public class TelaFornecedor extends javax.swing.JPanel {
         qtdeProdutos.setBounds(720, 30, 80, 26);
 
         camp_precoCusto.setEditable(false);
-        camp_precoCusto.setText("jTextField1");
         jPanel2.add(camp_precoCusto);
-        camp_precoCusto.setBounds(20, 370, 150, 26);
+        camp_precoCusto.setBounds(10, 370, 150, 26);
 
         camp_categoria.setEditable(false);
-        camp_categoria.setText("jTextField2");
         jPanel2.add(camp_categoria);
-        camp_categoria.setBounds(20, 430, 150, 26);
+        camp_categoria.setBounds(190, 370, 340, 26);
 
         jLabel6.setText("Preço Custo:");
         jPanel2.add(jLabel6);
-        jLabel6.setBounds(20, 350, 90, 16);
+        jLabel6.setBounds(10, 350, 90, 16);
 
         jLabel7.setText("Categoria:");
         jPanel2.add(jLabel7);
-        jLabel7.setBounds(20, 410, 80, 16);
+        jLabel7.setBounds(190, 350, 80, 16);
 
         camp_tamanho.setEditable(false);
-        camp_tamanho.setText("jTextField3");
         jPanel2.add(camp_tamanho);
-        camp_tamanho.setBounds(200, 430, 150, 26);
+        camp_tamanho.setBounds(10, 430, 340, 26);
 
         jLabel8.setText("Tamanho:");
         jPanel2.add(jLabel8);
-        jLabel8.setBounds(200, 410, 80, 16);
+        jLabel8.setBounds(10, 410, 80, 16);
 
         camp_apelido.setEditable(false);
-        camp_apelido.setText("jTextField4");
         jPanel2.add(camp_apelido);
-        camp_apelido.setBounds(370, 430, 140, 26);
+        camp_apelido.setBounds(370, 430, 180, 26);
 
         jLabel9.setText("Apelido:");
         jPanel2.add(jLabel9);
         jLabel9.setBounds(370, 410, 60, 16);
 
         camp_cor.setEditable(false);
-        camp_cor.setText("jTextField5");
         jPanel2.add(camp_cor);
-        camp_cor.setBounds(200, 370, 140, 26);
+        camp_cor.setBounds(550, 370, 270, 26);
 
         jLabel10.setText("Cor:");
         jPanel2.add(jLabel10);
-        jLabel10.setBounds(200, 350, 50, 16);
+        jLabel10.setBounds(550, 350, 50, 16);
 
         jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel2.add(jSeparator6);
-        jSeparator6.setBounds(530, 350, 10, 230);
+        jSeparator6.setBounds(830, 350, 10, 230);
 
         jTabbedPane1.addTab("Produtos", jPanel2);
 
@@ -920,7 +915,7 @@ public class TelaFornecedor extends javax.swing.JPanel {
                 screenEdit.setVisible(true); // TORNA VISIVEL A TELA DE EDITAR PRODUTO;
                 screenEdit.setProduto(item); // MANDA O ITEM PRA OUTRA TELA;
                 screenEdit.loadingCampos();  // CARREGA OS CAMPOS DA TELA QUE EDITA OS PRODUTOS;
-                screenEdit.PopularComcobox();// CARREGA A COMBOBOX COM OS FORNECEDORES;
+                screenEdit.popularCombox();// CARREGA A COMBOBOX COM OS FORNECEDORES;
             }
         }
         btn_editar.setVisible(false);

@@ -11,8 +11,8 @@ package controle;
  */
 public enum Estado {
     
-    PAGO("CANCELADO"),
-    CANCELADO("PAGO"),
+    CANCELADO("CANCELADO"),
+    PAGO("PAGO"),
     RECEBER("RECEBER");
     
     private String descricao;

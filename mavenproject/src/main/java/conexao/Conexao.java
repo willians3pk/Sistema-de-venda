@@ -5,6 +5,7 @@
  */
 package conexao;
 
+import br.com.configuracao.Categoria;
 import controle.Fornecedor;
 import controle.Produto;
 import controle.Cliente;
@@ -31,8 +32,8 @@ public class Conexao {
 
     public void save(Object objeto) {
 
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
 
         try {
             session.save(objeto);
@@ -433,4 +434,22 @@ public class Conexao {
         return null;
     }
 
+    public static final List<Categoria> lista_Categoria() {
+
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+
+        try {
+            List<Categoria> list = session.createQuery("from Categoria").list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            System.out.println("Erro ao Pegar lista de Categoria Banco de Dados!");
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n" + e);
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+    
 }

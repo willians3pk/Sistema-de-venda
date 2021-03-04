@@ -229,6 +229,7 @@ public class Venda {
             ItensVenda itensvenda = new ItensVenda();
             itensvenda.setStatus(true);
             itensvenda.setItems(produto);
+            produto.getItensVendas().add(itensvenda);
             itensvenda.setQnt(produto.getQnt());
             itensvenda.setVenda(venda);
             itensvenda.setDataEmissao(new Date());

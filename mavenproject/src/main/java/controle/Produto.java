@@ -1,5 +1,6 @@
 package controle;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -44,6 +45,7 @@ public class Produto {
     private List<ItensVenda> itensVendas;
 
     public Produto() {
+        itensVendas = new ArrayList<ItensVenda>();
     }
 
     public Produto(Integer idProduto, Fornecedor fornecedor, String nome, double valor_compra, double valor_venda, double valor_total, boolean status, String tamanho, String apelido, int qnt, String descricao, Date dataEntrega, Date dataRegistro, List<ItensVenda> itensVendas) {

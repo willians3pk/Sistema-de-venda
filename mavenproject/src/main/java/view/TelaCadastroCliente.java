@@ -30,6 +30,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     public TelaCadastroCliente() {
         initComponents();
         btn_visualiza.setEnabled(false);
+        
         //      tela cliente;        
         btn_edit1.setEnabled(false); // botao editar da tela cliente;
         btn_save1.setEnabled(false); // botao editar da tela cliente;
@@ -140,6 +141,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         jSeparator3 = new javax.swing.JSeparator();
         jtotalVendas = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setLayout(null);
@@ -635,6 +637,11 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         jPanel1.add(jLabel6);
         jLabel6.setBounds(10, 540, 90, 30);
 
+        jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel8.setText("TOTAL DAS VENDAS DO CLIENTE:");
+        jPanel1.add(jLabel8);
+        jLabel8.setBounds(100, 510, 300, 21);
+
         jTabbedPane1.addTab("Vendas", jPanel1);
 
         add(jTabbedPane1);
@@ -924,6 +931,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
@@ -952,7 +960,6 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
 
     private void RegisterClient() {
         Conexao banco = new Conexao();
-        List<Venda> vendas = new ArrayList<>();
         if ((field_Name.getText().length() > 0)) {
 
             Cliente cliente = new Cliente();
@@ -969,7 +976,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
             cliente.setStatus(true);
             cliente.setClienteDesde(new Date()); // DATA QUE O CLIENTE FOI CADASTRADO;
             cliente.setDataNascimento(field_date.getDate());
-            cliente.setVendas(vendas);
+            
 // ---------- ENDEREÇO -----------------
             Endereco end = new Endereco();
             end.setRua(field_Rua.getText());
@@ -1195,7 +1202,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         btn_visualiza.setEnabled(true);
         Conexao banco = new Conexao();
         cliente = banco.list_Cliente().get(jList1.getSelectedIndex());
-        
+        System.out.println(cliente.getNome()+" "+jList1.getSelectedIndex());
         qtdeVendas.setText(""+cliente.getVendas().size());
         Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
         NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
@@ -1221,7 +1228,6 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
             }
         }
         jtotalVendas.setText(dinheiro.format(z));
-
     }
 
     public void preencherjlistaCliente() {

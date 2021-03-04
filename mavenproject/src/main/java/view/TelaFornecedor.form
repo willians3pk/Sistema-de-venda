@@ -1118,7 +1118,7 @@
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="20" y="490" width="380" height="-1"/>
+                  <AbsoluteConstraints x="10" y="490" width="380" height="-1"/>
                 </Constraint>
               </Constraints>
 
@@ -1139,7 +1139,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="20" y="470" width="90" height="-1"/>
+                  <AbsoluteConstraints x="10" y="470" width="90" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -1166,22 +1166,20 @@
             <Component class="javax.swing.JTextField" name="camp_precoCusto">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="text" type="java.lang.String" value="jTextField1"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="20" y="370" width="150" height="-1"/>
+                  <AbsoluteConstraints x="10" y="370" width="150" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
             <Component class="javax.swing.JTextField" name="camp_categoria">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="text" type="java.lang.String" value="jTextField2"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="20" y="430" width="150" height="-1"/>
+                  <AbsoluteConstraints x="190" y="370" width="340" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -1191,7 +1189,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="20" y="350" width="90" height="-1"/>
+                  <AbsoluteConstraints x="10" y="350" width="90" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -1201,18 +1199,17 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="20" y="410" width="80" height="-1"/>
+                  <AbsoluteConstraints x="190" y="350" width="80" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
             <Component class="javax.swing.JTextField" name="camp_tamanho">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="text" type="java.lang.String" value="jTextField3"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="200" y="430" width="150" height="-1"/>
+                  <AbsoluteConstraints x="10" y="430" width="340" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -1222,18 +1219,17 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="200" y="410" width="80" height="-1"/>
+                  <AbsoluteConstraints x="10" y="410" width="80" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
             <Component class="javax.swing.JTextField" name="camp_apelido">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="text" type="java.lang.String" value="jTextField4"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="370" y="430" width="140" height="-1"/>
+                  <AbsoluteConstraints x="370" y="430" width="180" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -1250,11 +1246,10 @@
             <Component class="javax.swing.JTextField" name="camp_cor">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="text" type="java.lang.String" value="jTextField5"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="200" y="370" width="140" height="-1"/>
+                  <AbsoluteConstraints x="550" y="370" width="270" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -1264,7 +1259,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="200" y="350" width="50" height="-1"/>
+                  <AbsoluteConstraints x="550" y="350" width="50" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -1274,7 +1269,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="530" y="350" width="10" height="230"/>
+                  <AbsoluteConstraints x="830" y="350" width="10" height="230"/>
                 </Constraint>
               </Constraints>
             </Component>

@@ -182,6 +182,11 @@ public class FinalizarVenda extends javax.swing.JPanel {
         jLabel7.setBounds(10, 120, 170, 30);
 
         camp_cliente.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        camp_cliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                camp_clienteFocusLost(evt);
+            }
+        });
         camp_cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 camp_clienteActionPerformed(evt);
@@ -483,6 +488,20 @@ public class FinalizarVenda extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_camp_clienteActionPerformed
 
+    private void camp_clienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_camp_clienteFocusLost
+        try {
+            String pesquisa = camp_cliente.getText();
+            List<Cliente> listaClientes = bancoMariaDB.filtrarPorNome(pesquisa);
+            DefaultListModel jlista = new DefaultListModel();
+            for (Cliente cliente : listaClientes) {
+                client = cliente;
+            }
+            camp_cliente.setText(client.getNome());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_camp_clienteFocusLost
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cancelarVenda;
@@ -568,10 +587,11 @@ public class FinalizarVenda extends javax.swing.JPanel {
                     client.getVendas().add(venda); // adiciona a venda na lista de vendas do cliente;
                     bancoMariaDB.save_update(client);
                 } else {
-                    System.out.println("Cliente: " + bancoMariaDB.list_Cliente().get(0).getNome());
-                    venda.setCliente(bancoMariaDB.list_Cliente().get(0)); // adiciona o cliente na venda;
-                    bancoMariaDB.list_Cliente().get(0).getVendas().add(venda); // adiciona a venda na lista de vendas do cliente;
-                    bancoMariaDB.update(bancoMariaDB.list_Cliente().get(0));
+                    Cliente consumidor = bancoMariaDB.list_Cliente().get(0);
+                    System.out.println("Cliente: " + consumidor.getNome());
+                    venda.setCliente(consumidor); // adiciona o cliente na venda;
+                    consumidor.getVendas().add(venda); // adiciona a venda na lista de vendas do cliente;
+                    bancoMariaDB.save_update(consumidor);
                 }
 
                 venda.adicionarItens(lista, venda); // salva os itens da venda;

@@ -1,5 +1,6 @@
 package view;
 
+import br.com.configuracao.Categoria;
 import br.com.configuracao.Teclas;
 import controle.Fornecedor;
 import controle.Produto;
@@ -12,21 +13,24 @@ import javax.swing.JOptionPane;
 
 public class TelaEditProduto extends javax.swing.JFrame {
 
-    Conexao connectbanco = new Conexao();
-    Produto produto;
+    public static Conexao connectbanco = new Conexao();
+    public static Produto produto;
     Fornecedor forne;
 
+    /**
+     *
+     */
     public TelaEditProduto() {
         initComponents();
         camp_ProductName.setDocument(new Teclas());
-        camp_ProductName.setEnabled(false);
-        camp_Buyprice.setEnabled(false);
-        camp_Sellprice.setEnabled(false);
-        camp_cor.setEnabled(false);
-        camp_Deliverydate.setEnabled(false);
-        comboBox_Size.setEnabled(false);
+        camp_ProductName.setEnabled(true);
+        camp_Buyprice.setEnabled(true);
+        camp_Sellprice.setEnabled(true);
+        camp_cor.setEnabled(true);
+        camp_Deliverydate.setEnabled(true);
+        comboBox_Size.setEnabled(true);
         comboBox_Supplier.setEnabled(true);
-        comboxCategoria.setEnabled(false);
+        comboxCategoria.setEnabled(true);
     }
 
     public void setProduto(Produto produto) {
@@ -68,10 +72,12 @@ public class TelaEditProduto extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         camp_cor = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
+        camp_categoria = new javax.swing.JTextField();
         comboxCategoria = new javax.swing.JComboBox<>();
         comboBox_Size = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jlabeldata = new javax.swing.JLabel();
+        btn_adicionarCategoria = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -215,7 +221,15 @@ public class TelaEditProduto extends javax.swing.JFrame {
         jPanel2.add(jLabel13);
         jLabel13.setBounds(600, 90, 25, 16);
 
-        comboxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecione>", "Sexshop", "Lengeri" }));
+        camp_categoria.setText("jTextField1");
+        jPanel2.add(camp_categoria);
+        camp_categoria.setBounds(370, 50, 160, 26);
+
+        comboxCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboxCategoriaActionPerformed(evt);
+            }
+        });
         jPanel2.add(comboxCategoria);
         comboxCategoria.setBounds(370, 50, 180, 26);
 
@@ -230,6 +244,16 @@ public class TelaEditProduto extends javax.swing.JFrame {
         jlabeldata.setText("data:");
         jPanel2.add(jlabeldata);
         jlabeldata.setBounds(140, 370, 170, 16);
+
+        btn_adicionarCategoria.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btn_adicionarCategoria.setText("+");
+        btn_adicionarCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_adicionarCategoriaActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btn_adicionarCategoria);
+        btn_adicionarCategoria.setBounds(550, 50, 30, 30);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(10, 10, 890, 400);
@@ -254,6 +278,15 @@ public class TelaEditProduto extends javax.swing.JFrame {
         int posicao = comboBox_Supplier.getSelectedIndex();
         forne = connectbanco.list_Fornecedores().get(posicao);
     }//GEN-LAST:event_comboBox_SupplierActionPerformed
+
+    private void comboxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboxCategoriaActionPerformed
+        String categoria = comboxCategoria.getSelectedItem().toString();
+        camp_categoria.setText(categoria);
+    }//GEN-LAST:event_comboxCategoriaActionPerformed
+
+    private void btn_adicionarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adicionarCategoriaActionPerformed
+        new TelaCategoria().setVisible(true);
+    }//GEN-LAST:event_btn_adicionarCategoriaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -282,6 +315,36 @@ public class TelaEditProduto extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -292,6 +355,7 @@ public class TelaEditProduto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_adicionarCategoria;
     private javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_save;
     private javax.swing.JTextField camp_Apelido;
@@ -301,9 +365,10 @@ public class TelaEditProduto extends javax.swing.JFrame {
     private javax.swing.JTextField camp_ProductName;
     private javax.swing.JFormattedTextField camp_Qnt;
     private javax.swing.JFormattedTextField camp_Sellprice;
+    private javax.swing.JTextField camp_categoria;
     private javax.swing.JTextField camp_cor;
     public static javax.swing.JComboBox<String> comboBox_Size;
-    private javax.swing.JComboBox<String> comboBox_Supplier;
+    public static javax.swing.JComboBox<String> comboBox_Supplier;
     public static javax.swing.JComboBox<String> comboxCategoria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -391,10 +456,6 @@ public class TelaEditProduto extends javax.swing.JFrame {
             forne = connectbanco.list_Fornecedores().get(posicao);
             System.out.println(forne.getNome());
 
-//            // remove o produto do fornecedor;
-//            Fornecedor forncedorAtual = produto.getFornecedor();
-//            forncedorAtual.removeItem(produto);
-//            connectbanco.update(forncedorAtual);
             // ADICIONA AS INFORMAÇÕES DO PRODUTO;
             produto.setFornecedor(forne);
             produto.setNome(camp_ProductName.getText());
@@ -407,7 +468,9 @@ public class TelaEditProduto extends javax.swing.JFrame {
             produto.setDataEntrega(camp_Deliverydate.getDate());// ADICIONA A DATA;
             produto.setValor_total(totalvalue); // ADICIONA O VALOR TOTAL;
             produto.setDataRegistro(new Date()); //  DATA QUE FOI ATUALIZADO;
-
+            produto.setCor(camp_cor.getText());
+            produto.setCategoria(camp_categoria.getText());
+            
             if (comboBox_Size.getSelectedItem().toString().equals("<selecione>")) {
                 JOptionPane.showMessageDialog(null, "<html><font color=\"#FF0000\">SELECIONE O TAMENHO!</font></html>");
                 obrigatorioTamanho.setVisible(true);
@@ -416,8 +479,6 @@ public class TelaEditProduto extends javax.swing.JFrame {
                 size = comboBox_Size.getSelectedItem().toString(); // PEGA O TAMANHO DO ITEM NA COMBOBOX;
                 produto.setTamanho(size); // ADICIONA O TAMANHO DO ITEM AO PRODUTO;
                 connectbanco.update(produto);// ATUALIZA O PRODUTO;
-//                forne.adicionarProduto(produto);
-//                connectbanco.update(forne);
                 JOptionPane.showMessageDialog(null, "<html><font color=\"#0000FF\">PRODUTO ATUALIZADO COM SUCESSO!</font></html>");
                 dispose();
             }
@@ -445,31 +506,40 @@ public class TelaEditProduto extends javax.swing.JFrame {
         camp_Deliverydate.setDate(produto.getDataEntrega());
         comboBox_Size.setSelectedItem(produto.getTamanho());
         camp_cor.setText(produto.getCor());
-        comboxCategoria.setSelectedItem(produto.getCategoria().toString());
+        camp_categoria.setText(produto.getCategoria());
         jlabeldata.setText(produto.getDataRegistro().toString());
-        
-        if(comboBox_Supplier.getSelectedItem() == (produto.getFornecedor().getNome())){
+
+        if (comboBox_Supplier.getSelectedItem() == (produto.getFornecedor().getNome())) {
             comboBox_Supplier.setSelectedItem(produto.getFornecedor().getNome().toString());
-        }else{
+        } else {
             comboBox_Supplier.setSelectedItem(produto.getFornecedor().getNome());
         }
 
     }
 
-    public void PopularComcobox() {
+    public void popularCombox() {
+        try {
+            DefaultComboBoxModel comboBox = new DefaultComboBoxModel();
+            for (Fornecedor fornecedor : connectbanco.list_Fornecedores()) {
+                comboBox.addElement(fornecedor.getNome());
+                comboBox_Supplier.setModel(comboBox);           // ADICIONA OS FORNECEDORES NA COMBOBOX
+            }
 
-        DefaultComboBoxModel comboBox = new DefaultComboBoxModel();
-        for (Fornecedor fornecedor : connectbanco.list_Fornecedores()) {
-            comboBox.addElement(fornecedor.getNome());
-            comboBox_Supplier.setModel(comboBox);           // ADICIONA OS FORNECEDORES NA COMBOBOX
+            DefaultComboBoxModel comboBoxCategoria = new DefaultComboBoxModel();
+            for (Categoria categoria : Conexao.lista_Categoria()) {
+                comboBoxCategoria.addElement(categoria.getTipo_Categoria());
+                comboxCategoria.setModel(comboBoxCategoria);
+            }
+
+            if (comboBox_Supplier.getSelectedItem() == (produto.getFornecedor().getNome())) {
+                comboBox_Supplier.setSelectedItem(produto.getFornecedor().getNome().toString());
+            } else {
+                comboBox_Supplier.setSelectedItem(produto.getFornecedor().getNome());
+            }
+        } catch (Exception e) {
+            System.out.println(e);
         }
-        
-        if(comboBox_Supplier.getSelectedItem() == (produto.getFornecedor().getNome())){
-            comboBox_Supplier.setSelectedItem(produto.getFornecedor().getNome().toString());
-        }else{
-            comboBox_Supplier.setSelectedItem(produto.getFornecedor().getNome());
-        }
-        
+
     }
 
 }

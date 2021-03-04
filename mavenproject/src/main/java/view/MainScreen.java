@@ -488,7 +488,6 @@ public class MainScreen extends javax.swing.JFrame {
         Conexao bancoDAO = new Conexao();
         if (bancoDAO.list_Cliente().size() <= 0) {
             Cliente consumidor = new Cliente();
-            List<Venda> vendas = new ArrayList<>();
             Endereco end = new Endereco();
             end.setCep(0);
             end.setNumeroCasa(SOMEBITS);
@@ -497,8 +496,6 @@ public class MainScreen extends javax.swing.JFrame {
             consumidor.setStatus(true);
             consumidor.setCpf(Long.MIN_VALUE);
             consumidor.setClienteDesde(new Date()); // DATA QUE O CLIENTE FOI CADASTRADO;
-
-            consumidor.setVendas(vendas);
             bancoDAO.save(consumidor);
         }
 

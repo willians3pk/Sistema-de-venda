@@ -1,5 +1,6 @@
 package controle;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -19,6 +20,7 @@ public class Cliente extends Pessoa{
     private List<Venda> vendas;
         
     public Cliente() {
+        vendas = new ArrayList<Venda>();
     }
 
     public Cliente(Date clienteDesde, Long limiteCredito, List<Venda> vendas) {

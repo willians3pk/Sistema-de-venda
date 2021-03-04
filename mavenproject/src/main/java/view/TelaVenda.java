@@ -65,6 +65,9 @@ public class TelaVenda extends javax.swing.JPanel {
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jlabel_totalVenda = new javax.swing.JLabel();
@@ -136,6 +139,7 @@ public class TelaVenda extends javax.swing.JPanel {
         jPanel3.add(jLabel9);
         jLabel9.setBounds(220, 440, 100, 20);
 
+        btn_finalizar.setBackground(new java.awt.Color(255, 252, 0));
         btn_finalizar.setText("Finalizar");
         btn_finalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,7 +175,7 @@ public class TelaVenda extends javax.swing.JPanel {
         btn_Cliente.setBounds(0, 0, 160, 40);
 
         jPanel3.add(jPanel1);
-        jPanel1.setBounds(430, 10, 160, 40);
+        jPanel1.setBounds(560, 10, 160, 40);
 
         jPanel2.setBackground(new java.awt.Color(208, 208, 187));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -188,7 +192,7 @@ public class TelaVenda extends javax.swing.JPanel {
         btn_venda.setBounds(0, 0, 160, 40);
 
         jPanel3.add(jPanel2);
-        jPanel2.setBounds(220, 10, 160, 40);
+        jPanel2.setBounds(280, 10, 160, 40);
 
         jPanel7.setBackground(new java.awt.Color(29, 32, 232));
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -205,6 +209,17 @@ public class TelaVenda extends javax.swing.JPanel {
         jPanel7.setBounds(10, 10, 160, 40);
         jPanel3.add(jSeparator1);
         jSeparator1.setBounds(10, 60, 710, 10);
+
+        jTextField1.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        jPanel3.add(jTextField1);
+        jTextField1.setBounds(120, 90, 590, 40);
+
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel2.setText("Cliente:");
+        jPanel3.add(jLabel2);
+        jLabel2.setBounds(20, 100, 130, 30);
+        jPanel3.add(jSeparator2);
+        jSeparator2.setBounds(10, 210, 710, 10);
 
         add(jPanel3);
         jPanel3.setBounds(10, 10, 730, 510);
@@ -294,7 +309,7 @@ public class TelaVenda extends javax.swing.JPanel {
         jPanel5.add(camp_buscarProduto);
         camp_buscarProduto.setBounds(10, 40, 320, 40);
 
-        btn_adcionar.setText("ADICIOINAR ITEM");
+        btn_adcionar.setText("ADICIONAR ITEM");
         btn_adcionar.setEnabled(false);
         btn_adcionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -425,8 +440,8 @@ public class TelaVenda extends javax.swing.JPanel {
         camp_cliente.requestFocus();
         btn_removerItem.setEnabled(false);
         jDesktopPane1.removeAll();
-        
-        Venda venda = new Venda();        
+
+        Venda venda = new Venda();
         fv.setLocation(0, 0);
         fv.setSize(1140, 650);
         fv.setVisible(true);
@@ -530,8 +545,9 @@ public class TelaVenda extends javax.swing.JPanel {
                             if (produto2.getIdProduto() == produto.getIdProduto() & (Integer.parseInt(field_qnt.getText()) + produto2.getQnt() <= produto.getQnt())) {
 
                                 produto2.setQnt(Integer.parseInt(field_qnt.getText()) + produto2.getQnt()); // adiciona o produto + a quantidade que ele ja tinha;
+                                produto.setCor(camp_Cor.getText());
+                                produto.setTamanho(camp_tamanho.getText());
                                 adicionarItens(); // adiciona os itens na tabela de itens na tela vendas;
-                                System.out.println(produto2.getNome());
                                 camp_buscarProduto.setText("");
                                 camp_Cor.setText("");
                                 camp_tamanho.setText("");
@@ -546,6 +562,8 @@ public class TelaVenda extends javax.swing.JPanel {
                         }
                         if (tt) {
                             produto.setQnt(Integer.parseInt(field_qnt.getText()));
+                            produto.setCor(camp_Cor.getText());
+                            produto.setTamanho(camp_tamanho.getText());
                             produtos.add(produto);
                             camp_buscarProduto.setText("");
                             camp_Cor.setText("");
@@ -632,6 +650,7 @@ public class TelaVenda extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -648,7 +667,9 @@ public class TelaVenda extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     public static javax.swing.JTable jTable_produto;
+    private javax.swing.JTextField jTextField1;
     public static javax.swing.JLabel jlabel_totalVenda;
     // End of variables declaration//GEN-END:variables
 
