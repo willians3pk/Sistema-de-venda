@@ -2,6 +2,7 @@ package view;
 
 import br.com.configuracao.Categoria;
 import br.com.configuracao.Teclas;
+import br.com.configuracao.TeclasPermitidas;
 import conexao.Conexao;
 import controle.Fornecedor;
 import controle.Produto;
@@ -24,6 +25,7 @@ public class TelaProdutos extends javax.swing.JPanel {
 
     public TelaProdutos() {
         initComponents();
+        camp_Qnt.setDocument(new TeclasPermitidas());
         btn_ToEdit.setEnabled(false);
         btn_Deactivate.setEnabled(false);
         btn_adicionarCategoria.setEnabled(false);

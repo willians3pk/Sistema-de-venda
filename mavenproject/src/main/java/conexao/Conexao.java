@@ -316,6 +316,7 @@ public class Conexao {
     }
 
     public List<Cliente> filtrarPorNome(String nome) {
+
         // cria nova lista
         List<Cliente> clientesCadastrados = new ArrayList<>();
         // se o valor do textfield está vazia
@@ -451,5 +452,5 @@ public class Conexao {
         }
         return null;
     }
-    
+
 }

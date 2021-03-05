@@ -30,8 +30,6 @@ public class TelaFornecedor extends javax.swing.JPanel {
         preencherTableSupplier();
         preencherjlistaForncedor();
         btn_editar.setVisible(false);
-        btn_desativar.setEnabled(false);
-        btn_desativar.setVisible(false);
         // tela fornecedor;
         btn_edit.setEnabled(false); //botao editar da tela fornecedor;
         btn_save.setEnabled(false); // botao salvar da tela fornecedor;
@@ -98,7 +96,6 @@ public class TelaFornecedor extends javax.swing.JPanel {
         fieldSearch = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btn_update = new javax.swing.JButton();
-        btn_desativar = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jpanelSupplier = new javax.swing.JPanel();
         camp_SupplierName1 = new javax.swing.JTextField();
@@ -373,15 +370,6 @@ public class TelaFornecedor extends javax.swing.JPanel {
         });
         jPanel4.add(btn_update);
         btn_update.setBounds(710, 30, 50, 50);
-
-        btn_desativar.setText("Desativar");
-        btn_desativar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_desativarActionPerformed(evt);
-            }
-        });
-        jPanel4.add(btn_desativar);
-        btn_desativar.setBounds(954, 60, 100, 30);
 
         jPanel3.add(jPanel4);
         jPanel4.setBounds(10, 0, 1080, 210);
@@ -751,7 +739,6 @@ public class TelaFornecedor extends javax.swing.JPanel {
                 CleanFieldSupplier();
                 desableFieldSupplier();
                 btn_edit.setEnabled(false);
-                btn_desativar.setEnabled(false);
                 carregando.dispose();
             }
 
@@ -765,7 +752,6 @@ public class TelaFornecedor extends javax.swing.JPanel {
         desableFieldSupplier();
         btn_edit.setEnabled(true); // deixa o botao editar habilitado;
         btn_cancelar.setEnabled(false); // desabilita o botao cancelar;
-        btn_desativar.setEnabled(true);
     }//GEN-LAST:event_tableSupplierKeyReleased
 
     private void tableSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSupplierMouseClicked
@@ -773,7 +759,6 @@ public class TelaFornecedor extends javax.swing.JPanel {
         desableFieldSupplier();
         btn_edit.setEnabled(true); // deixa o botao editar habilitado;
         btn_cancelar.setEnabled(false); // desabilita o botao cancelar;
-        btn_desativar.setEnabled(true);
     }//GEN-LAST:event_tableSupplierMouseClicked
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
@@ -800,7 +785,6 @@ public class TelaFornecedor extends javax.swing.JPanel {
         desableFieldSupplier();
         CleanFieldSupplier();
         btn_edit.setEnabled(false);
-        btn_desativar.setEnabled(false);
     }//GEN-LAST:event_fieldSearchKeyReleased
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
@@ -957,24 +941,6 @@ public class TelaFornecedor extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_checke_produtosDesativadoActionPerformed
 
-    private void btn_desativarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_desativarActionPerformed
-        DefaultTableModel tabela = (DefaultTableModel) tableSupplier.getModel();
-        Conexao banco = new Conexao();
-        int confirmacao = JOptionPane.showConfirmDialog(null, "<html>Você Deseja <html><font color=\"#FF0000\">*DESATIVAR FORNECEDOR?*?</font></html></html>", "DESATIVAR FORNECEDOR", JOptionPane.YES_NO_OPTION);
-        if (confirmacao == JOptionPane.YES_OPTION) {
-            try {
-                int linha = tableSupplier.getSelectedRow();// pega a posição da linha que esta selecionada;
-                Integer id = (int) tabela.getValueAt(linha, 0);
-                Fornecedor fornecedor = banco.getFornecedor(id);
-                fornecedor.setStatus(false);
-                banco.update(fornecedor);
-                btn_updateActionPerformed(evt);
-            } catch (Exception e) {
-            }
-        }
-
-    }//GEN-LAST:event_btn_desativarActionPerformed
-
     private void table_ProductKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_table_ProductKeyReleased
         btn_editar.setVisible(true);
         DefaultTableModel tableDefault = (DefaultTableModel) table_Product.getModel();
@@ -996,7 +962,6 @@ public class TelaFornecedor extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_Register;
     private javax.swing.JButton btn_cancelar;
-    private javax.swing.JButton btn_desativar;
     private javax.swing.JButton btn_edit;
     private javax.swing.JButton btn_editar;
     private javax.swing.JButton btn_limpall;

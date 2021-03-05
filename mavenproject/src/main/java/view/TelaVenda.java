@@ -1,8 +1,10 @@
 package view;
 
 import br.com.configuracao.Teclas;
+import br.com.configuracao.TeclasPermitidas;
 import controle.Produto;
 import conexao.Conexao;
+import controle.Cliente;
 import controle.FormaPagamento;
 import controle.ItensVenda;
 import controle.Venda;
@@ -25,6 +27,7 @@ public class TelaVenda extends javax.swing.JPanel {
     Conexao bancoMariaDB = new Conexao();
     public static List<Produto> produtos = new ArrayList<>(new HashSet());
     public static Produto produto;
+    public Cliente cliente;
     boolean tt = true;
 
     public TelaVenda() {
@@ -32,7 +35,9 @@ public class TelaVenda extends javax.swing.JPanel {
         field_preco.setEnabled(false);
         field_qnt.setEnabled(false);
         camp_buscarProduto.setDocument(new Teclas());
-
+        camp_nomeCliente.setDocument(new Teclas());
+        field_qnt.setDocument(new TeclasPermitidas());
+        
         TableColumn colCodigo = jTable_produto.getColumnModel().getColumn(0);
         TableColumn colNome = jTable_produto.getColumnModel().getColumn(1);
         TableColumn colCor = jTable_produto.getColumnModel().getColumn(2);
@@ -65,9 +70,11 @@ public class TelaVenda extends javax.swing.JPanel {
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jTextField1 = new javax.swing.JTextField();
+        camp_nomeCliente = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
+        jPanel8 = new javax.swing.JPanel();
+        btn_buscarCliente = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jlabel_totalVenda = new javax.swing.JLabel();
@@ -210,16 +217,39 @@ public class TelaVenda extends javax.swing.JPanel {
         jPanel3.add(jSeparator1);
         jSeparator1.setBounds(10, 60, 710, 10);
 
-        jTextField1.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        jPanel3.add(jTextField1);
-        jTextField1.setBounds(120, 90, 590, 40);
+        camp_nomeCliente.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        camp_nomeCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                camp_nomeClienteFocusLost(evt);
+            }
+        });
+        camp_nomeCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                camp_nomeClienteActionPerformed(evt);
+            }
+        });
+        jPanel3.add(camp_nomeCliente);
+        camp_nomeCliente.setBounds(110, 160, 490, 40);
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel2.setText("Cliente:");
         jPanel3.add(jLabel2);
-        jLabel2.setBounds(20, 100, 130, 30);
+        jLabel2.setBounds(10, 170, 130, 30);
         jPanel3.add(jSeparator2);
         jSeparator2.setBounds(10, 210, 710, 10);
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel3.add(jPanel8);
+        jPanel8.setBounds(10, 250, 200, 190);
+
+        btn_buscarCliente.setText("Buscar");
+        btn_buscarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarClienteActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btn_buscarCliente);
+        btn_buscarCliente.setBounds(610, 160, 110, 40);
 
         add(jPanel3);
         jPanel3.setBounds(10, 10, 730, 510);
@@ -436,7 +466,6 @@ public class TelaVenda extends javax.swing.JPanel {
     private void btn_finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarActionPerformed
         FinalizarVenda fv = new FinalizarVenda();
         String observacao = field_observacao.getText();
-        System.out.println(observacao);
         camp_cliente.requestFocus();
         btn_removerItem.setEnabled(false);
         jDesktopPane1.removeAll();
@@ -449,6 +478,8 @@ public class TelaVenda extends javax.swing.JPanel {
         fv.valorTotal();
         fv.setLista(produtos);
         fv.setVenda(venda);
+        fv.setCliente(cliente);
+        try {fv.camp_cliente.setText(cliente.getNome());} catch (Exception e) {System.out.println("sem cliente");}
         fv.setObservacaoVenda(observacao);
         fv.dataVenda.setDate(new Date()); // sempre adiciona a data atual
         fv.camp_qtdeParcelas.setVisible(false);
@@ -629,10 +660,82 @@ public class TelaVenda extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btn_vendaMouseClicked
 
+    private void camp_nomeClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camp_nomeClienteActionPerformed
+        final TelaLoading carregando = new TelaLoading();
+        carregando.setVisible(true);
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                String NomeCliente = camp_nomeCliente.getText();
+                try {
+                    List<Cliente> ListaCliente = bancoMariaDB.filtrarPorNome(NomeCliente);
+                    for (Cliente cliente1 : ListaCliente) {
+                        cliente = cliente1;
+                    }
+                    camp_nomeCliente.setText(cliente.getNome());
+                } catch (Exception e) {
+                    System.out.println("cliente nao encontrado! " + e);
+                }
+                carregando.dispose();
+            }
+
+        };
+        t.start();
+        
+    }//GEN-LAST:event_camp_nomeClienteActionPerformed
+
+    private void btn_buscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarClienteActionPerformed
+        final TelaLoading carregando = new TelaLoading();
+        carregando.setVisible(true);
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                String NomeCliente = camp_nomeCliente.getText();
+                try {
+                    List<Cliente> ListaCliente = bancoMariaDB.filtrarPorNome(NomeCliente);
+                    for (Cliente cliente1 : ListaCliente) {
+                        cliente = cliente1;
+                    }
+                    camp_nomeCliente.setText(cliente.getNome());
+                } catch (Exception e) {
+                    System.out.println("cliente nao encontrado! " + e);
+                }
+                carregando.dispose();
+            }
+
+        };
+        t.start();
+        
+    }//GEN-LAST:event_btn_buscarClienteActionPerformed
+
+    private void camp_nomeClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_camp_nomeClienteFocusLost
+        final TelaLoading carregando = new TelaLoading();
+        carregando.setVisible(true);
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                String NomeCliente = camp_nomeCliente.getText();
+                try {
+                    List<Cliente> ListaCliente = bancoMariaDB.filtrarPorNome(NomeCliente);
+                    for (Cliente cliente1 : ListaCliente) {
+                        cliente = cliente1;
+                    }
+                    camp_nomeCliente.setText(cliente.getNome());
+                } catch (Exception e) {
+                    System.out.println("cliente nao encontrado! " + e);
+                }
+                carregando.dispose();
+            }
+
+        };
+        t.start();
+    }//GEN-LAST:event_camp_nomeClienteFocusLost
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btn_Cliente;
     public static javax.swing.JButton btn_adcionar;
+    private javax.swing.JButton btn_buscarCliente;
     public static javax.swing.JButton btn_buscarProduto;
     private javax.swing.JButton btn_finalizar;
     public static javax.swing.JButton btn_limpa;
@@ -640,6 +743,7 @@ public class TelaVenda extends javax.swing.JPanel {
     private javax.swing.JLabel btn_venda;
     public static javax.swing.JTextField camp_Cor;
     public static javax.swing.JTextField camp_buscarProduto;
+    private javax.swing.JTextField camp_nomeCliente;
     public static javax.swing.JTextField camp_tamanho;
     public static javax.swing.JTextField camp_total;
     public static javax.swing.JTextField field_itensQnt;
@@ -664,12 +768,12 @@ public class TelaVenda extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     public static javax.swing.JTable jTable_produto;
-    private javax.swing.JTextField jTextField1;
     public static javax.swing.JLabel jlabel_totalVenda;
     // End of variables declaration//GEN-END:variables
 

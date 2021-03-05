@@ -4,13 +4,18 @@ import controle.Venda;
 import conexao.Conexao;
 import conexao.NewHibernateUtil;
 import controle.Estado;
+import java.awt.Color;
+import java.awt.Component;
 import static view.MainScreen.jDesktopPane1;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import org.hibernate.Query;
@@ -24,7 +29,7 @@ public class TelaHistorico extends javax.swing.JPanel {
     public TelaHistorico() {
         initComponents();
         jlabelAviso.setVisible(false);
-        
+
         TableColumn colCodigo = jtable_vendas.getColumnModel().getColumn(0);
         TableColumn colDataVenda = jtable_vendas.getColumnModel().getColumn(1);
         TableColumn colNome = jtable_vendas.getColumnModel().getColumn(2);
@@ -64,6 +69,7 @@ public class TelaHistorico extends javax.swing.JPanel {
         camp_dataFim = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jCheckBox3 = new javax.swing.JCheckBox();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
         jtotalVendas = new javax.swing.JTextField();
@@ -150,7 +156,7 @@ public class TelaHistorico extends javax.swing.JPanel {
             }
         });
         jPanel4.add(jCheckBox1);
-        jCheckBox1.setBounds(700, 50, 140, 22);
+        jCheckBox1.setBounds(870, 30, 140, 22);
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel4.add(jSeparator1);
@@ -184,6 +190,15 @@ public class TelaHistorico extends javax.swing.JPanel {
         jLabel6.setText("Ano/Mes/Dia:");
         jPanel4.add(jLabel6);
         jLabel6.setBounds(110, 10, 90, 16);
+
+        jCheckBox3.setText("Vendas PAGO");
+        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox3ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jCheckBox3);
+        jCheckBox3.setBounds(870, 10, 190, 22);
 
         jPanel1.add(jPanel4);
         jPanel4.setBounds(10, 90, 1100, 80);
@@ -371,6 +386,41 @@ public class TelaHistorico extends javax.swing.JPanel {
                     }
                     jlabelAviso.setVisible(false);
                     jtotalVendas.setText(dinheiro.format(z));
+                } else if (jCheckBox3.isSelected()) {
+                    List<Venda> vendas = new ArrayList<>();
+                    DefaultTableModel tabela = (DefaultTableModel) jtable_vendas.getModel();
+
+                    Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
+                    NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
+
+                    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
+
+                    vendas = bancoMariaDB.lista_Vendas();
+
+                    double y = 0;
+                    double x = 0;
+                    double z = 0;
+
+                    tabela.setNumRows(0);
+                    for (Venda venda : vendas) {
+
+                        if (venda.isStatus() && venda.getEstado().equals(Estado.PAGO)) {
+                            x = venda.getValorTotal();
+                            tabela.addRow(new Object[]{
+                                venda.getIdvenda(),
+                                formato.format(venda.getDataVenda()),
+                                venda.getCliente().getNome(),
+                                venda.FormaPagamento(), venda.getDescricao(),
+                                dinheiro.format(venda.getValorTotal()),
+                                venda.getEstado().getDescricao()});
+                            // soma todos os valores total de cada venda;
+                            y = z + x;
+                            z = y;
+                        }
+                    }
+                    jlabelAviso.setVisible(false);
+                    jtotalVendas.setText(dinheiro.format(z));
+
                 } else {
                     carregarTabelaVendas();
                 }
@@ -384,11 +434,18 @@ public class TelaHistorico extends javax.swing.JPanel {
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         jCheckBox2.setSelected(false);
+        jCheckBox3.setSelected(false);
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
         jCheckBox1.setSelected(false);
+        jCheckBox3.setSelected(false);
     }//GEN-LAST:event_jCheckBox2ActionPerformed
+
+    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+        jCheckBox1.setSelected(false);
+        jCheckBox2.setSelected(false);
+    }//GEN-LAST:event_jCheckBox3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -400,6 +457,7 @@ public class TelaHistorico extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -457,5 +515,4 @@ public class TelaHistorico extends javax.swing.JPanel {
         jtotalVendas.setText(dinheiro.format(z));
 
     }
-
 }

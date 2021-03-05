@@ -6,6 +6,7 @@
 package view;
 
 import br.com.configuracao.Teclas;
+import br.com.configuracao.TeclasPermitidas;
 import controle.Cliente;
 import controle.FormaPagamento;
 import controle.ItensVenda;
@@ -81,7 +82,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
     public FinalizarVenda() {
         initComponents();
         carregarComboBox();
-        
+                
         camp_qtdeParcelas.setVisible(false);
         camp_valorParcelas.setVisible(false);
         jListdatasparceladas.setVisible(false);
@@ -580,7 +581,6 @@ public class FinalizarVenda extends javax.swing.JPanel {
                 venda.setDescricao(observacaoVenda);
                 venda.setEstado(Estado.PAGO);
                 
-                // verifica se foi adicionado o cliente no campo de texto;
                 if (camp_cliente.getText().length() > 0) {
                     System.out.println("Cliente: " + client.getNome());
                     venda.setCliente(client); // adiciona o cliente na venda;
