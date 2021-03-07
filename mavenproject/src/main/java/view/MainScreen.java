@@ -5,14 +5,14 @@
  */
 package view;
 
-import controle.Cliente;
-import controle.Endereco;
-import controle.FormaPagamento;
-import controle.Venda;
+import model.Cliente;
+import model.Endereco;
+import model.FormaPagamento;
+import model.Venda;
 import conexao.Conexao;
-import controle.Estado;
-import controle.ItensVenda;
-import controle.Produto;
+import model.Estado;
+import model.ItensVenda;
+import model.Produto;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

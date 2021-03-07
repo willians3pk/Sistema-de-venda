@@ -5,7 +5,7 @@
  */
 package view;
 
-import controle.Produto;
+import model.Produto;
 import conexao.Conexao;
 import static view.TelaVenda.jTable_produto;
 import java.text.NumberFormat;
@@ -192,7 +192,7 @@ public class TelaBuscaProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_BuscarActionPerformed
 
     private void btn_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_okActionPerformed
-//        adicionaNaTable();
+
         DefaultTableModel tableDefault = (DefaultTableModel) tabela_busca.getModel();
         int linha = tabela_busca.getSelectedRow();
         for (int i = 0; i < banco.productBook().size(); i++) {

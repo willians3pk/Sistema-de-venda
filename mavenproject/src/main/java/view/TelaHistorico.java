@@ -1,9 +1,9 @@
 package view;
 
-import controle.Venda;
+import model.Venda;
 import conexao.Conexao;
 import conexao.NewHibernateUtil;
-import controle.Estado;
+import model.Estado;
 import java.awt.Color;
 import java.awt.Component;
 import static view.MainScreen.jDesktopPane1;

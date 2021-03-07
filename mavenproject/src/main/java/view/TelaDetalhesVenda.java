@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 package view;
-import controle.ItensVenda;
-import controle.Parcelas;
-import controle.Venda;
+import model.ItensVenda;
+import model.Parcelas;
+import model.Venda;
 import conexao.Conexao;
-import controle.Estado;
+import model.Estado;
 import static view.MainScreen.jDesktopPane1;
 import java.text.DateFormat;
 import java.text.NumberFormat;

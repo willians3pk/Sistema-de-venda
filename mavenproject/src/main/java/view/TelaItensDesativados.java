@@ -6,7 +6,7 @@
 package view;
 
 import conexao.Conexao;
-import controle.Produto;
+import model.Produto;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;

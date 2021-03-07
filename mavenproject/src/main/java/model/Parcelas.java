@@ -1,5 +1,5 @@
 
-package controle;
+package model;
 
 import java.util.Date;
 import javax.persistence.Column;

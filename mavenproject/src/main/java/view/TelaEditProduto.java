@@ -2,8 +2,8 @@ package view;
 
 import br.com.configuracao.Categoria;
 import br.com.configuracao.Teclas;
-import controle.Fornecedor;
-import controle.Produto;
+import model.Fornecedor;
+import model.Produto;
 import conexao.Conexao;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;

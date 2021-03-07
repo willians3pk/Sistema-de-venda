@@ -1,4 +1,4 @@
-package controle;
+package model;
 
 import conexao.Conexao;
 import conexao.NewHibernateUtil;

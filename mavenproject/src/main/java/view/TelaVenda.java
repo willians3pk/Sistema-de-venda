@@ -2,12 +2,12 @@ package view;
 
 import br.com.configuracao.Teclas;
 import br.com.configuracao.TeclasPermitidas;
-import controle.Produto;
+import model.Produto;
 import conexao.Conexao;
-import controle.Cliente;
-import controle.FormaPagamento;
-import controle.ItensVenda;
-import controle.Venda;
+import model.Cliente;
+import model.FormaPagamento;
+import model.ItensVenda;
+import model.Venda;
 import static view.MainScreen.jDesktopPane1;
 import static view.FinalizarVenda.camp_cliente;
 import static view.FinalizarVenda.jLabelQuantidadeItens;
@@ -27,9 +27,20 @@ public class TelaVenda extends javax.swing.JPanel {
     Conexao bancoMariaDB = new Conexao();
     public static List<Produto> produtos = new ArrayList<>(new HashSet());
     public static Produto produto;
-    public Cliente cliente;
+    public static Cliente cliente;
     boolean tt = true;
 
+    public static Cliente getCliente() {
+        return cliente;
+    }
+
+    public static void setCliente(Cliente cliente) {
+        TelaVenda.cliente = cliente;
+    }
+
+    
+    
+    
     public TelaVenda() {
         initComponents();
         field_preco.setEnabled(false);
@@ -217,15 +228,11 @@ public class TelaVenda extends javax.swing.JPanel {
         jPanel3.add(jSeparator1);
         jSeparator1.setBounds(10, 60, 710, 10);
 
+        camp_nomeCliente.setEditable(false);
         camp_nomeCliente.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        camp_nomeCliente.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                camp_nomeClienteFocusLost(evt);
-            }
-        });
-        camp_nomeCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                camp_nomeClienteActionPerformed(evt);
+        camp_nomeCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                camp_nomeClienteMouseClicked(evt);
             }
         });
         jPanel3.add(camp_nomeCliente);
@@ -660,30 +667,6 @@ public class TelaVenda extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btn_vendaMouseClicked
 
-    private void camp_nomeClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camp_nomeClienteActionPerformed
-        final TelaLoading carregando = new TelaLoading();
-        carregando.setVisible(true);
-        Thread t = new Thread() {
-            @Override
-            public void run() {
-                String NomeCliente = camp_nomeCliente.getText();
-                try {
-                    List<Cliente> ListaCliente = bancoMariaDB.filtrarPorNome(NomeCliente);
-                    for (Cliente cliente1 : ListaCliente) {
-                        cliente = cliente1;
-                    }
-                    camp_nomeCliente.setText(cliente.getNome());
-                } catch (Exception e) {
-                    System.out.println("cliente nao encontrado! " + e);
-                }
-                carregando.dispose();
-            }
-
-        };
-        t.start();
-        
-    }//GEN-LAST:event_camp_nomeClienteActionPerformed
-
     private void btn_buscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarClienteActionPerformed
         final TelaLoading carregando = new TelaLoading();
         carregando.setVisible(true);
@@ -708,28 +691,12 @@ public class TelaVenda extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btn_buscarClienteActionPerformed
 
-    private void camp_nomeClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_camp_nomeClienteFocusLost
-        final TelaLoading carregando = new TelaLoading();
-        carregando.setVisible(true);
-        Thread t = new Thread() {
-            @Override
-            public void run() {
-                String NomeCliente = camp_nomeCliente.getText();
-                try {
-                    List<Cliente> ListaCliente = bancoMariaDB.filtrarPorNome(NomeCliente);
-                    for (Cliente cliente1 : ListaCliente) {
-                        cliente = cliente1;
-                    }
-                    camp_nomeCliente.setText(cliente.getNome());
-                } catch (Exception e) {
-                    System.out.println("cliente nao encontrado! " + e);
-                }
-                carregando.dispose();
-            }
-
-        };
-        t.start();
-    }//GEN-LAST:event_camp_nomeClienteFocusLost
+    private void camp_nomeClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_camp_nomeClienteMouseClicked
+        TelaBuscarCliente tbp = new TelaBuscarCliente();
+        tbp.setVisible(true);
+        tbp.carregarTabelaCliente();
+        tbp.setClient(cliente);
+    }//GEN-LAST:event_camp_nomeClienteMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -743,7 +710,7 @@ public class TelaVenda extends javax.swing.JPanel {
     private javax.swing.JLabel btn_venda;
     public static javax.swing.JTextField camp_Cor;
     public static javax.swing.JTextField camp_buscarProduto;
-    private javax.swing.JTextField camp_nomeCliente;
+    public static javax.swing.JTextField camp_nomeCliente;
     public static javax.swing.JTextField camp_tamanho;
     public static javax.swing.JTextField camp_total;
     public static javax.swing.JTextField field_itensQnt;
@@ -836,6 +803,7 @@ public class TelaVenda extends javax.swing.JPanel {
 
     public static void carregaCampos(Produto pp) {
         produto = pp;
+        camp_nomeCliente.setText(cliente.getNome());
         camp_buscarProduto.setText(produto.getNome());
         camp_tamanho.setText(produto.getTamanho());
         camp_Cor.setText(produto.getCor());

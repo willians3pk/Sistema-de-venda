@@ -1,5 +1,5 @@
 
-package controle;
+package model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

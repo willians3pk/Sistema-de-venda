@@ -5,8 +5,8 @@
  */
 package view;
 
-import controle.Endereco;
-import controle.Fornecedor;
+import model.Endereco;
+import model.Fornecedor;
 import conexao.Conexao;
 import java.util.Date;
 import javax.swing.JOptionPane;

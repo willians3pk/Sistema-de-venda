@@ -1,4 +1,4 @@
-package controle;
+package model;
 
 import java.util.List;
 import javax.persistence.Column;

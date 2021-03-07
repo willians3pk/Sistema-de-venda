@@ -6,14 +6,14 @@
 package conexao;
 
 import br.com.configuracao.Categoria;
-import controle.Fornecedor;
-import controle.Produto;
-import controle.Cliente;
-import controle.Endereco;
-import controle.FormaPagamento;
-import controle.ItensVenda;
-import controle.Pessoa;
-import controle.Venda;
+import model.Fornecedor;
+import model.Produto;
+import model.Cliente;
+import model.Endereco;
+import model.FormaPagamento;
+import model.ItensVenda;
+import model.Pessoa;
+import model.Venda;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;

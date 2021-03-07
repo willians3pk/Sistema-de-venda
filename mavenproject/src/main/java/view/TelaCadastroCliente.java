@@ -1,11 +1,11 @@
 package view;
 
 import br.com.configuracao.Teclas;
-import controle.Cliente;
-import controle.Endereco;
-import controle.Venda;
+import model.Cliente;
+import model.Endereco;
+import model.Venda;
 import conexao.Conexao;
-import controle.Estado;
+import model.Estado;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

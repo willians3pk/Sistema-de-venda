@@ -1,12 +1,12 @@
 package view;
 
 import br.com.configuracao.Teclas;
-import controle.Cliente;
+import model.Cliente;
 import conexao.Conexao;
 import conexao.NewHibernateUtil;
-import controle.Endereco;
-import controle.Fornecedor;
-import controle.Produto;
+import model.Endereco;
+import model.Fornecedor;
+import model.Produto;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
