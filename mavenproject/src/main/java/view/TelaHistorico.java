@@ -72,11 +72,17 @@ public class TelaHistorico extends javax.swing.JPanel {
         jSeparator2 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
         jtotalVendas = new javax.swing.JTextField();
-        btn_detalhes = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jlabelAviso = new javax.swing.JLabel();
         btn_gerarRelatorio = new javax.swing.JButton();
         camp_nomeCliente = new javax.swing.JTextField();
+        jPanel8 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        btn_detalhes = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setLayout(null);
@@ -222,15 +228,6 @@ public class TelaHistorico extends javax.swing.JPanel {
         jPanel1.add(jtotalVendas);
         jtotalVendas.setBounds(960, 580, 150, 40);
 
-        btn_detalhes.setText("Vizualizar Detalhes");
-        btn_detalhes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_detalhesActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_detalhes);
-        btn_detalhes.setBounds(950, 40, 160, 40);
-
         jLabel7.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("HISTORICOS DE VENDAS REALIZADAS");
@@ -258,6 +255,42 @@ public class TelaHistorico extends javax.swing.JPanel {
         });
         jPanel1.add(camp_nomeCliente);
         camp_nomeCliente.setBounds(220, 80, 680, 26);
+
+        jPanel8.setBackground(new java.awt.Color(255, 0, 0));
+        jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(jPanel8);
+        jPanel8.setBounds(920, 50, 10, 10);
+
+        jPanel5.setBackground(new java.awt.Color(33, 33, 33));
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(jPanel5);
+        jPanel5.setBounds(920, 70, 10, 10);
+
+        jLabel11.setText("Vendas que Foram Pagas:");
+        jPanel1.add(jLabel11);
+        jLabel11.setBounds(940, 70, 180, 16);
+
+        jLabel10.setText("Vendas que Falta Receber:");
+        jPanel1.add(jLabel10);
+        jLabel10.setBounds(940, 50, 170, 16);
+
+        jPanel9.setBackground(new java.awt.Color(254, 182, 1));
+        jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(jPanel9);
+        jPanel9.setBounds(920, 90, 10, 10);
+
+        jLabel12.setText("Vendas Canceladas:");
+        jPanel1.add(jLabel12);
+        jLabel12.setBounds(940, 90, 130, 16);
+
+        btn_detalhes.setText("Vizualizar Detalhes");
+        btn_detalhes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_detalhesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_detalhes);
+        btn_detalhes.setBounds(10, 580, 150, 40);
 
         add(jPanel1);
         jPanel1.setBounds(10, 10, 1120, 630);
@@ -532,6 +565,9 @@ public class TelaHistorico extends javax.swing.JPanel {
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -542,6 +578,9 @@ public class TelaHistorico extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

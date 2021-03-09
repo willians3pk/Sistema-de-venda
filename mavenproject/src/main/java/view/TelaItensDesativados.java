@@ -12,9 +12,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import model.Categoria;
 
 /**
  *
@@ -29,7 +31,9 @@ public class TelaItensDesativados extends javax.swing.JPanel {
         initComponents();
         btn_ativar.setVisible(false);
         carregarProduto();
-
+        carregarCategorias();
+        btn_excluir.setEnabled(false);
+        
         TableColumn colCodigo = tabela_produto.getColumnModel().getColumn(0);
         TableColumn colNome = tabela_produto.getColumnModel().getColumn(1);
         TableColumn colQuantidade = tabela_produto.getColumnModel().getColumn(2);
@@ -66,6 +70,12 @@ public class TelaItensDesativados extends javax.swing.JPanel {
         camp_nome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jLabel3 = new javax.swing.JLabel();
+        btn_excluir = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setLayout(null);
@@ -108,17 +118,17 @@ public class TelaItensDesativados extends javax.swing.JPanel {
         jPanel1.add(jLabel1);
         jLabel1.setBounds(180, 30, 410, 20);
 
-        add(jPanel1);
-        jPanel1.setBounds(140, 170, 760, 260);
-
         btn_ativar.setText("Ativar");
         btn_ativar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_ativarActionPerformed(evt);
             }
         });
-        add(btn_ativar);
-        btn_ativar.setBounds(920, 390, 90, 40);
+        jPanel1.add(btn_ativar);
+        btn_ativar.setBounds(660, 10, 90, 40);
+
+        add(jPanel1);
+        jPanel1.setBounds(20, 130, 760, 260);
 
         btn_filtrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Search-48.png"))); // NOI18N
         btn_filtrar.addActionListener(new java.awt.event.ActionListener() {
@@ -127,7 +137,7 @@ public class TelaItensDesativados extends javax.swing.JPanel {
             }
         });
         add(btn_filtrar);
-        btn_filtrar.setBounds(840, 70, 50, 40);
+        btn_filtrar.setBounds(720, 30, 50, 40);
 
         camp_nome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -135,13 +145,45 @@ public class TelaItensDesativados extends javax.swing.JPanel {
             }
         });
         add(camp_nome);
-        camp_nome.setBounds(140, 80, 690, 30);
+        camp_nome.setBounds(20, 40, 690, 30);
 
         jLabel2.setText("Nome:");
         add(jLabel2);
-        jLabel2.setBounds(140, 60, 50, 16);
+        jLabel2.setBounds(20, 20, 50, 16);
         add(jSeparator1);
-        jSeparator1.setBounds(140, 130, 760, 10);
+        jSeparator1.setBounds(20, 90, 760, 10);
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.setLayout(null);
+
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jList1);
+
+        jPanel2.add(jScrollPane2);
+        jScrollPane2.setBounds(10, 70, 170, 180);
+
+        jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        jLabel3.setText("Categorias:");
+        jPanel2.add(jLabel3);
+        jLabel3.setBounds(110, 20, 180, 29);
+
+        btn_excluir.setText("Excluir");
+        btn_excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_excluirActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btn_excluir);
+        btn_excluir.setBounds(250, 220, 80, 30);
+        jPanel2.add(jSeparator2);
+        jSeparator2.setBounds(10, 50, 320, 10);
+
+        add(jPanel2);
+        jPanel2.setBounds(790, 130, 340, 260);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tabela_produtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabela_produtoMouseClicked
@@ -235,16 +277,43 @@ public class TelaItensDesativados extends javax.swing.JPanel {
 
     }//GEN-LAST:event_camp_nomeKeyReleased
 
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        btn_excluir.setEnabled(true);
+    }//GEN-LAST:event_jList1MouseClicked
+
+    private void btn_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_excluirActionPerformed
+        try {
+            int linhaSelecionada = jList1.getSelectedIndex();
+            Categoria categoria = Conexao.lista_Categoria().get(linhaSelecionada);
+            Conexao banco = new Conexao();
+            int confirmacao = JOptionPane.showConfirmDialog(null, "Voce deseja realmente excluir a categoria?", "Excluir", JOptionPane.YES_NO_OPTION);
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                banco.delete(categoria);
+                JOptionPane.showMessageDialog(null, "Categoria Deletada!");
+                TelaProdutos.loadingCampos();
+                carregarCategorias();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Selecione uma Categoria! \n" + "Erro: " + e);
+        }
+    }//GEN-LAST:event_btn_excluirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_ativar;
+    private javax.swing.JButton btn_excluir;
     private javax.swing.JButton btn_filtrar;
     private javax.swing.JTextField camp_nome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable tabela_produto;
     // End of variables declaration//GEN-END:variables
 
@@ -262,7 +331,7 @@ public class TelaItensDesativados extends javax.swing.JPanel {
                     produto.getIdProduto(),
                     produto.getNome(),
                     produto.getQnt(),
-                    produto.getValor_venda(),
+                    dinheiro.format(produto.getValor_venda()),
                     produto.getApelido(),
                     produto.getCategoria(),
                     produto.getTamanho()
@@ -274,4 +343,16 @@ public class TelaItensDesativados extends javax.swing.JPanel {
 
     }
 
+    public void carregarCategorias() {
+        try {
+            DefaultListModel jlist = new DefaultListModel();
+            for (Categoria categoria : Conexao.lista_Categoria()) {
+                jlist.addElement(categoria.getTipo_Categoria());
+                jList1.setModel(jlist);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
 }

@@ -114,6 +114,8 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         camp_acrescimo = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
+        estadoVenda = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
 
         setLayout(null);
 
@@ -332,18 +334,31 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         });
         jPanel1.add(btn_volta2);
         btn_volta2.setBounds(1060, 10, 60, 30);
+
+        camp_desconto.setEditable(false);
         jPanel1.add(camp_desconto);
         camp_desconto.setBounds(440, 230, 70, 30);
 
         jLabel7.setText("Desconto:");
         jPanel1.add(jLabel7);
         jLabel7.setBounds(440, 210, 80, 16);
+
+        camp_acrescimo.setEditable(false);
         jPanel1.add(camp_acrescimo);
         camp_acrescimo.setBounds(530, 230, 70, 30);
 
         jLabel10.setText("Acrescimo:");
         jPanel1.add(jLabel10);
         jLabel10.setBounds(530, 210, 70, 16);
+
+        estadoVenda.setEditable(false);
+        estadoVenda.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        jPanel1.add(estadoVenda);
+        estadoVenda.setBounds(490, 40, 220, 30);
+
+        jLabel9.setText("Estado Venda:");
+        jPanel1.add(jLabel9);
+        jLabel9.setBounds(490, 20, 100, 16);
 
         add(jPanel1);
         jPanel1.setBounds(6, 5, 1130, 640);
@@ -472,6 +487,7 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
     private javax.swing.JTextField camp_totalvenda;
     private javax.swing.JTextField camp_valorentrada;
     private javax.swing.JCheckBox checkbox;
+    private javax.swing.JTextField estadoVenda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -481,6 +497,7 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -510,7 +527,8 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         camp_CodigoCliente.setText(venda.getCliente().getIdpessoa() + "");
         camp_desconto.setText(venda.getDesconto() + " %");
         camp_acrescimo.setText(dinheiro.format(venda.getAcrescimo()));
-
+        estadoVenda.setText(venda.getEstado().getDescricao());
+        
         DefaultTableModel tabelavenda = (DefaultTableModel) jtableVenda.getModel();
         tabelavenda.setNumRows(0);
         camp_valorentrada.setText(dinheiro.format(venda.getValor_pago()));

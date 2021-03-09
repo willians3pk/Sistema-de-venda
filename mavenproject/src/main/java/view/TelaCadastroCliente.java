@@ -1,6 +1,6 @@
 package view;
 
-import br.com.configuracao.TableRendererVendas;
+import br.com.configuracao.TableRendererClientes;
 import br.com.configuracao.Teclas;
 import model.Cliente;
 import model.Endereco;
@@ -31,7 +31,6 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     public TelaCadastroCliente() {
         initComponents();
         btn_visualiza.setEnabled(false);
-//        tabelaVenda.setDefaultRenderer(Object.class, new TableRenderer());
 
         //      tela cliente;        
         btn_edit1.setEnabled(false); // botao editar da tela cliente;
@@ -138,12 +137,20 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel7 = new javax.swing.JLabel();
         qtdeVendas = new javax.swing.JTextField();
+        camp_codigocliente = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
         btn_visualiza = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jtotalVendas = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setLayout(null);
@@ -609,6 +616,14 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         jPanel3.add(qtdeVendas);
         qtdeVendas.setBounds(370, 20, 80, 26);
 
+        camp_codigocliente.setEditable(false);
+        jPanel3.add(camp_codigocliente);
+        camp_codigocliente.setBounds(560, 20, 79, 26);
+
+        jLabel9.setText("Codigo Cliente:");
+        jPanel3.add(jLabel9);
+        jLabel9.setBounds(460, 30, 95, 16);
+
         jPanel1.add(jPanel3);
         jPanel3.setBounds(10, 90, 1090, 360);
 
@@ -643,6 +658,33 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         jLabel8.setText("TOTAL DAS VENDAS DO CLIENTE:");
         jPanel1.add(jLabel8);
         jLabel8.setBounds(100, 510, 300, 21);
+
+        jLabel10.setText("Vendas que Falta Receber:");
+        jPanel1.add(jLabel10);
+        jLabel10.setBounds(940, 10, 170, 16);
+
+        jLabel11.setText("Vendas que Foram Pagas:");
+        jPanel1.add(jLabel11);
+        jLabel11.setBounds(940, 30, 160, 16);
+
+        jLabel12.setText("Vendas Canceladas:");
+        jPanel1.add(jLabel12);
+        jLabel12.setBounds(940, 50, 130, 16);
+
+        jPanel8.setBackground(new java.awt.Color(255, 0, 0));
+        jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(jPanel8);
+        jPanel8.setBounds(920, 12, 10, 10);
+
+        jPanel4.setBackground(new java.awt.Color(33, 33, 33));
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(jPanel4);
+        jPanel4.setBounds(920, 30, 10, 10);
+
+        jPanel9.setBackground(new java.awt.Color(254, 182, 1));
+        jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(jPanel9);
+        jPanel9.setBounds(920, 50, 10, 10);
 
         jTabbedPane1.addTab("Vendas", jPanel1);
 
@@ -886,6 +928,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     private javax.swing.JTextField camp_EmailClient;
     private javax.swing.JFormattedTextField camp_NumbleHouseClient;
     private javax.swing.JTextField camp_StateClient;
+    private javax.swing.JTextField camp_codigocliente;
     private javax.swing.JFormattedTextField camp_contato;
     private javax.swing.JFormattedTextField camp_cpfClient;
     private javax.swing.JTextField fieldSearch1;
@@ -906,6 +949,9 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -934,15 +980,19 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel65;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1201,6 +1251,8 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     }
 
     public void jList1MouseClicked() {
+        
+        
         btn_visualiza.setEnabled(true);
         Conexao banco = new Conexao();
         cliente = banco.list_Cliente().get(jList1.getSelectedIndex());
@@ -1209,10 +1261,12 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
         NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
+        camp_codigocliente.setText(cliente.getIdpessoa()+"");
         double y = 0;
         double x = 0;
         double z = 0;
 
+        tabelaVenda.setDefaultRenderer(Object.class, new TableRendererClientes());
         DefaultTableModel tabela = (DefaultTableModel) tabelaVenda.getModel();
         tabela.setNumRows(0);
         for (Venda venda : cliente.getVendas()) {

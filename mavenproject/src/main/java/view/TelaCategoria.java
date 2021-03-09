@@ -9,8 +9,6 @@ public class TelaCategoria extends javax.swing.JFrame {
 
     public TelaCategoria() {
         initComponents();
-        carregarCategorias();
-        btn_excluir.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -20,10 +18,7 @@ public class TelaCategoria extends javax.swing.JFrame {
         camp_nome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        btn_excluir = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -42,32 +37,18 @@ public class TelaCategoria extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(330, 10, 80, 30);
+        jButton1.setBounds(240, 50, 80, 30);
 
-        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jList1MouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jList1);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 80, 170, 80);
-
-        btn_excluir.setText("Excluir");
-        btn_excluir.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_excluirActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_excluir);
-        btn_excluir.setBounds(200, 130, 80, 30);
+        getContentPane().add(jButton2);
+        jButton2.setBounds(330, 50, 80, 30);
 
-        jLabel3.setText("Categorias:");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(10, 60, 100, 16);
-
-        setSize(new java.awt.Dimension(434, 200));
+        setSize(new java.awt.Dimension(434, 115));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -79,7 +60,6 @@ public class TelaCategoria extends javax.swing.JFrame {
             Conexao banco = new Conexao();
             banco.save(c);
             camp_nome.setText("");
-            carregarCategorias();
             TelaProdutos.loadingCampos();
             JOptionPane.showMessageDialog(null, "Categoria Criada!");
             dispose();
@@ -89,28 +69,9 @@ public class TelaCategoria extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
-        btn_excluir.setEnabled(true);
-    }//GEN-LAST:event_jList1MouseClicked
-
-    private void btn_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_excluirActionPerformed
-        try {
-            int linhaSelecionada = jList1.getSelectedIndex();
-            Categoria categoria = Conexao.lista_Categoria().get(linhaSelecionada);
-            Conexao banco = new Conexao();
-            int confirmacao = JOptionPane.showConfirmDialog(null, "Voce deseja realmente excluir a categoria?", "Excluir", JOptionPane.YES_NO_OPTION);
-            if (confirmacao == JOptionPane.YES_OPTION) {
-                banco.delete(categoria);
-                JOptionPane.showMessageDialog(null, "Categoria Deletada!");
-                TelaProdutos.loadingCampos();
-                carregarCategorias();
-                dispose();
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Selecione uma Categoria! \n" + "Erro: " + e);
-        }
-
-    }//GEN-LAST:event_btn_excluirActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,26 +109,10 @@ public class TelaCategoria extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_excluir;
     private javax.swing.JTextField camp_nome;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-
-    public void carregarCategorias() {
-        try {
-            for (Categoria categoria : Conexao.lista_Categoria()) {
-                DefaultListModel jlist = new DefaultListModel();
-                jlist.addElement(categoria.getTipo_Categoria());
-                jList1.setModel(jlist);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-    }
 
 }

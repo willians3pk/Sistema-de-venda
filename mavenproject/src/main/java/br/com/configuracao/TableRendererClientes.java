@@ -14,24 +14,23 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author user
  */
-public class TableRendererProdutos extends DefaultTableCellRenderer {
-
+public class TableRendererClientes extends DefaultTableCellRenderer{
+    
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-        String estado = table.getModel().getValueAt(row, 5).toString();
-        Integer Qtde = Integer.parseInt(estado);
-        if (Qtde <= 0) {
-            comp.setBackground(Color.RED);
+        String estado = table.getModel().getValueAt(row, 2).toString();
+        if(estado.equals("PAGO")){
+//            comp.setBackground(Color.LIGHT_GRAY);
             comp.setForeground(Color.BLACK);
 //            comp.setBackground(new Color(100, 200, 50));
-        } else if (Qtde >=3) {
-            comp.setForeground(Color.black);
-            comp.setBackground(new Color(247,247,247));
-        } else if (Qtde <=2) {
-            comp.setForeground(Color.BLACK);
-            comp.setBackground(Color.YELLOW);
+        } else if(estado.equals("RECEBER")){
+//            comp.setBackground(Color.YELLOW);
+            comp.setForeground(Color.red);
+//            comp.setBackground(new Color(255, 91, 96));
+        }else if(estado.equals("CANCELADO")){
+            comp.setForeground(Color.ORANGE);
 //            comp.setBackground(new Color(109, 149, 254));
         }
 
