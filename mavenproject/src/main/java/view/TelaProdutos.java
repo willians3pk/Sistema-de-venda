@@ -1,9 +1,11 @@
 package view;
 
-import br.com.configuracao.Categoria;
+import model.Categoria;
+import br.com.configuracao.TableRendererProdutos;
 import br.com.configuracao.Teclas;
 import br.com.configuracao.TeclasPermitidas;
 import conexao.Conexao;
+import java.awt.Color;
 import model.Fornecedor;
 import model.Produto;
 import java.text.NumberFormat;
@@ -29,6 +31,8 @@ public class TelaProdutos extends javax.swing.JPanel {
         btn_ToEdit.setEnabled(false);
         btn_Deactivate.setEnabled(false);
         btn_adicionarCategoria.setEnabled(false);
+        table_Product.setDefaultRenderer(Object.class, new TableRendererProdutos());
+        table_Product.setSelectionBackground(Color.LIGHT_GRAY);
 
         camp_ProductName.setDocument(new Teclas());
         camp_ProductName.setEnabled(false);
@@ -894,10 +898,8 @@ public class TelaProdutos extends javax.swing.JPanel {
                 try {
                     DefaultComboBoxModel comboBox = new DefaultComboBoxModel();
                     for (Fornecedor fornecedor : connectbanco.list_Fornecedores()) { // PEGA OS FORNECEDORES CADASTRADOS NO BANCO DE DADOS;
-                        if (fornecedor.isStatus()) {
-                            comboBox.addElement(fornecedor.getNome());
-                            comboBox_Supplier.setModel(comboBox);
-                        }           // ADICIONA OS FORNECEDORES NA COMBOBOX;
+                        comboBox.addElement(fornecedor.getNome());
+                        comboBox_Supplier.setModel(comboBox);
                     }
 
                     DefaultComboBoxModel comboBoxCategoria = new DefaultComboBoxModel();

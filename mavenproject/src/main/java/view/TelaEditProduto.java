@@ -1,6 +1,5 @@
 package view;
 
-import br.com.configuracao.Categoria;
 import br.com.configuracao.Teclas;
 import model.Fornecedor;
 import model.Produto;
@@ -10,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import model.Categoria;
 
 public class TelaEditProduto extends javax.swing.JFrame {
 

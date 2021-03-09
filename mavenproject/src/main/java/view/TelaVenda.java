@@ -27,7 +27,7 @@ public class TelaVenda extends javax.swing.JPanel {
     Conexao bancoMariaDB = new Conexao();
     public static List<Produto> produtos = new ArrayList<>(new HashSet());
     public static Produto produto;
-    public static Cliente cliente;
+    public static Cliente cliente = new Cliente();
     boolean tt = true;
 
     public static Cliente getCliente() {
@@ -38,9 +38,6 @@ public class TelaVenda extends javax.swing.JPanel {
         TelaVenda.cliente = cliente;
     }
 
-    
-    
-    
     public TelaVenda() {
         initComponents();
         field_preco.setEnabled(false);
@@ -48,7 +45,7 @@ public class TelaVenda extends javax.swing.JPanel {
         camp_buscarProduto.setDocument(new Teclas());
         camp_nomeCliente.setDocument(new Teclas());
         field_qnt.setDocument(new TeclasPermitidas());
-        
+
         TableColumn colCodigo = jTable_produto.getColumnModel().getColumn(0);
         TableColumn colNome = jTable_produto.getColumnModel().getColumn(1);
         TableColumn colCor = jTable_produto.getColumnModel().getColumn(2);
@@ -85,7 +82,6 @@ public class TelaVenda extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jPanel8 = new javax.swing.JPanel();
-        btn_buscarCliente = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jlabel_totalVenda = new javax.swing.JLabel();
@@ -220,6 +216,11 @@ public class TelaVenda extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(253, 251, 251));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("CAIXA");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
         jPanel7.add(jLabel1);
         jLabel1.setBounds(0, 0, 160, 40);
 
@@ -248,15 +249,6 @@ public class TelaVenda extends javax.swing.JPanel {
         jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.add(jPanel8);
         jPanel8.setBounds(10, 250, 200, 190);
-
-        btn_buscarCliente.setText("Buscar");
-        btn_buscarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_buscarClienteActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btn_buscarCliente);
-        btn_buscarCliente.setBounds(610, 160, 110, 40);
 
         add(jPanel3);
         jPanel3.setBounds(10, 10, 730, 510);
@@ -486,7 +478,12 @@ public class TelaVenda extends javax.swing.JPanel {
         fv.setLista(produtos);
         fv.setVenda(venda);
         fv.setCliente(cliente);
-        try {fv.camp_cliente.setText(cliente.getNome());} catch (Exception e) {System.out.println("sem cliente");}
+        fv.camp_Acrescimo.setText("0,00");
+        try {
+            fv.camp_cliente.setText(cliente.getNome());
+        } catch (Exception e) {
+            System.out.println("sem cliente");
+        }
         fv.setObservacaoVenda(observacao);
         fv.dataVenda.setDate(new Date()); // sempre adiciona a data atual
         fv.camp_qtdeParcelas.setVisible(false);
@@ -667,30 +664,6 @@ public class TelaVenda extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btn_vendaMouseClicked
 
-    private void btn_buscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarClienteActionPerformed
-        final TelaLoading carregando = new TelaLoading();
-        carregando.setVisible(true);
-        Thread t = new Thread() {
-            @Override
-            public void run() {
-                String NomeCliente = camp_nomeCliente.getText();
-                try {
-                    List<Cliente> ListaCliente = bancoMariaDB.filtrarPorNome(NomeCliente);
-                    for (Cliente cliente1 : ListaCliente) {
-                        cliente = cliente1;
-                    }
-                    camp_nomeCliente.setText(cliente.getNome());
-                } catch (Exception e) {
-                    System.out.println("cliente nao encontrado! " + e);
-                }
-                carregando.dispose();
-            }
-
-        };
-        t.start();
-        
-    }//GEN-LAST:event_btn_buscarClienteActionPerformed
-
     private void camp_nomeClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_camp_nomeClienteMouseClicked
         TelaBuscarCliente tbp = new TelaBuscarCliente();
         tbp.setVisible(true);
@@ -698,11 +671,19 @@ public class TelaVenda extends javax.swing.JPanel {
         tbp.setClient(cliente);
     }//GEN-LAST:event_camp_nomeClienteMouseClicked
 
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        TelaCaixa caixa = new TelaCaixa();
+        jDesktopPane1.removeAll();
+        caixa.setLocation(0, 0);
+        caixa.setSize(1140, 650);
+        caixa.setVisible(true);
+        jDesktopPane1.add(caixa);
+    }//GEN-LAST:event_jLabel1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btn_Cliente;
     public static javax.swing.JButton btn_adcionar;
-    private javax.swing.JButton btn_buscarCliente;
     public static javax.swing.JButton btn_buscarProduto;
     private javax.swing.JButton btn_finalizar;
     public static javax.swing.JButton btn_limpa;
@@ -803,7 +784,6 @@ public class TelaVenda extends javax.swing.JPanel {
 
     public static void carregaCampos(Produto pp) {
         produto = pp;
-        camp_nomeCliente.setText(cliente.getNome());
         camp_buscarProduto.setText(produto.getNome());
         camp_tamanho.setText(produto.getTamanho());
         camp_Cor.setText(produto.getCor());

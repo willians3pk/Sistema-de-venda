@@ -37,7 +37,7 @@ public class Venda {
     private Usuario usuario;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<FormaPagamento> formaPagamento;
-    
+
     @OneToMany(fetch = FetchType.EAGER)
     @Cascade({CascadeType.ALL})
     private List<Parcelas> parcelas;
@@ -52,13 +52,14 @@ public class Venda {
     private String descricao;
     private double troco;
     private Estado estado;
+    private float desconto;
+    private double acrescimo;
     private static final Logger LOG = Logger.getLogger(Venda.class.getName());
 
-    
     public Venda() {
-        this.itens =  new ArrayList<ItensVenda>();
+        this.itens = new ArrayList<ItensVenda>();
         this.formaPagamento = new ArrayList<FormaPagamento>();
-        this.parcelas =  new ArrayList<Parcelas>();
+        this.parcelas = new ArrayList<Parcelas>();
     }
 
     public Venda(Integer idvenda, Cliente cliente, Usuario usuario, List<FormaPagamento> formaPagamento, List<Parcelas> parcelas, List<ItensVenda> itens, int codigoVenda, Date dataVenda, boolean status, double valor_pago, double valorTotal, String descricao, double troco) {
@@ -188,33 +189,48 @@ public class Venda {
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
+
+    public float getDesconto() {
+        return desconto;
+    }
+
+    public void setDesconto(float desconto) {
+        this.desconto = desconto;
+    }
+
+    public double getAcrescimo() {
+        return acrescimo;
+    }
+
+    public void setAcrescimo(double acrescimo) {
+        this.acrescimo = acrescimo;
+    }
+
     
     public static Logger getLOG() {
         return LOG;
     }
-    
-//--------------------------------------------------------------
 
-    public List<ItensVenda> listaItens(){
+//--------------------------------------------------------------
+    public List<ItensVenda> listaItens() {
         HashSet<ItensVenda> list = new HashSet();
-        
+
         for (ItensVenda iten : this.getItens()) {
             list.add(iten);
         }
         List<ItensVenda> lista = new ArrayList<>(new HashSet(list));
         return lista;
     }
-    
-    public HashSet<Parcelas> listaParcelas(){
+
+    public HashSet<Parcelas> listaParcelas() {
         HashSet<Parcelas> list = new HashSet();
-        
+
         for (Parcelas iten : this.getParcelas()) {
             list.add(iten);
         }
         return list;
     }
-    
-    
+
     public String FormaPagamento() {
         for (FormaPagamento formaPagamento1 : formaPagamento) {
             return formaPagamento1.getDescricao();
@@ -259,12 +275,12 @@ public class Venda {
             parcela.setData(d);
             parcela.setStatus(true);
             parcela.setPago(Estado.RECEBER);
-            
+
             bancoDAO.save(parcela); //SALVA A PARCELA NO BANCO DE DADOS;
         }
         // https://www.guj.com.br/t/duvida-gerar-parcelas-com-data-resolvido/134893/2 forum que ajudou a criar as datas da parcela;
     }
-    
+
     public void gerarParcelasAprazo(int numParcela, Venda venda, double valorParcela, Date datapagamento) {
         int numeroParcela = 1; // impede da primeira parcela ser 0 na tabela do banco;
         Conexao bancoDAO = new Conexao();
@@ -285,10 +301,21 @@ public class Venda {
             parcela.setData(d);
             parcela.setStatus(true);
             parcela.setPago(Estado.RECEBER);
-            
+
             bancoDAO.save(parcela); //SALVA A PARCELA NO BANCO DE DADOS;
         }
-    
+
+    }
+
+    public double calcularDesconto(float desconto, double valortotal) {
+
+        float porcentagem = desconto / 100;
+        System.out.println(porcentagem);
+        double valordesconto = (porcentagem * valortotal);
+        System.out.println("valordesconto = "+valordesconto);
+        double resultado = valortotal - valordesconto;
+        System.out.println("resultado = "+resultado);
+        return resultado;
     }
 
 }

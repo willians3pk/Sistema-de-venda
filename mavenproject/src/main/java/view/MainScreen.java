@@ -15,9 +15,7 @@ import model.ItensVenda;
 import model.Produto;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -60,6 +58,9 @@ public class MainScreen extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
+        jSeparator5 = new javax.swing.JSeparator();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -68,8 +69,6 @@ public class MainScreen extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jMenuICancelarVenda = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jVendaHIstoricos = new javax.swing.JMenuItem();
         jMenuCliente = new javax.swing.JMenuItem();
@@ -128,7 +127,7 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
         jPanel4.add(jLabel3);
-        jLabel3.setBounds(10, 0, 190, 30);
+        jLabel3.setBounds(0, 0, 190, 30);
 
         menuLateral.add(jPanel4);
         jPanel4.setBounds(10, 240, 200, 30);
@@ -173,13 +172,35 @@ public class MainScreen extends javax.swing.JFrame {
         menuLateral.add(jPanel2);
         jPanel2.setBounds(10, 140, 200, 30);
         menuLateral.add(jSeparator1);
-        jSeparator1.setBounds(10, 320, 200, 10);
+        jSeparator1.setBounds(10, 370, 200, 10);
         menuLateral.add(jSeparator2);
         jSeparator2.setBounds(10, 170, 200, 10);
         menuLateral.add(jSeparator3);
         jSeparator3.setBounds(10, 220, 200, 10);
         menuLateral.add(jSeparator4);
         jSeparator4.setBounds(10, 270, 200, 10);
+        menuLateral.add(jSeparator5);
+        jSeparator5.setBounds(10, 320, 200, 10);
+
+        jPanel6.setLayout(null);
+
+        jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Caixa");
+        jLabel5.setToolTipText("");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                FocoMouse(evt);
+            }
+        });
+        jPanel6.add(jLabel5);
+        jLabel5.setBounds(0, 0, 190, 30);
+
+        menuLateral.add(jPanel6);
+        jPanel6.setBounds(10, 340, 200, 30);
 
         getContentPane().add(menuLateral);
         menuLateral.setBounds(0, 50, 220, 650);
@@ -222,13 +243,6 @@ public class MainScreen extends javax.swing.JFrame {
         jMenu4.add(jMenuItem4);
 
         jMenu1.add(jMenu4);
-
-        jMenu5.setText("Fornecedor");
-
-        jMenuItem2.setText("Desativados");
-        jMenu5.add(jMenuItem2);
-
-        jMenu1.add(jMenu5);
 
         jMenuBar1.add(jMenu1);
 
@@ -281,6 +295,11 @@ public class MainScreen extends javax.swing.JFrame {
         } else {
             jPanel5.setBackground(standardColor);
         }
+        if (evt.getSource() == jLabel5) {
+            jPanel6.setBackground(Color.white);
+        } else {
+            jPanel6.setBackground(standardColor);
+        }
     }//GEN-LAST:event_FocoMouse
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
@@ -305,12 +324,12 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        TelaVenda s = new TelaVenda();
+        TelaVenda v = new TelaVenda();
         jDesktopPane1.removeAll();
-        s.setLocation(0, 0);
-        s.setSize(1140, 650);
-        s.setVisible(true);
-        jDesktopPane1.add(s);
+        v.setLocation(0, 0);
+        v.setSize(1140, 650);
+        v.setVisible(true);
+        jDesktopPane1.add(v);
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
@@ -412,6 +431,15 @@ public class MainScreen extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuClienteActionPerformed
 
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        TelaCaixa c = new TelaCaixa();
+        jDesktopPane1.removeAll();
+        c.setLocation(0, 0);
+        c.setSize(1140, 650);
+        c.setVisible(true);
+        jDesktopPane1.add(c);
+    }//GEN-LAST:event_jLabel5MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -455,26 +483,27 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuCliente;
     private javax.swing.JMenuItem jMenuICancelarVenda;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JMenuItem jVendaHIstoricos;
     private javax.swing.JPanel menuLateral;
     // End of variables declaration//GEN-END:variables

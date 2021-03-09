@@ -60,7 +60,7 @@ Contributor(s):
         <mapping class="model.Venda"/>
         <mapping class="model.Parcelas"/>
         <mapping class="model.Caixa"/>
-        <mapping class="br.com.configuracao.Categoria"/>
+        <mapping class="model.Categoria"/>
         
     </session-factory>
 </hibernate-configuration>

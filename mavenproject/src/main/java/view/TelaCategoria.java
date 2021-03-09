@@ -1,6 +1,6 @@
 package view;
 
-import br.com.configuracao.Categoria;
+import model.Categoria;
 import conexao.Conexao;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;

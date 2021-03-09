@@ -5,7 +5,6 @@
  */
 package conexao;
 
-import br.com.configuracao.Categoria;
 import model.Fornecedor;
 import model.Produto;
 import model.Cliente;
@@ -17,6 +16,7 @@ import model.Venda;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import model.Categoria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

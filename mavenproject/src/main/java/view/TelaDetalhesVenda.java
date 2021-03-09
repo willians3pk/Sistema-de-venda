@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package view;
+
+import br.com.configuracao.TableRendererAPrazo;
 import model.ItensVenda;
 import model.Parcelas;
 import model.Venda;
@@ -30,7 +32,7 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
     public void setCc(TelaCadastroCliente cc) {
         this.cc = cc;
     }
-    
+
     public Venda getVenda() {
         return venda;
     }
@@ -46,7 +48,7 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         btn_removerItem.setVisible(false);
         btn_salvar.setVisible(false);
         btn_volta2.setVisible(false);
-        
+
         TableColumn colCodigo = jtableVenda.getColumnModel().getColumn(0);
         TableColumn colNome = jtableVenda.getColumnModel().getColumn(1);
         TableColumn colCor = jtableVenda.getColumnModel().getColumn(2);
@@ -108,6 +110,10 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         btn_salvar = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
         btn_volta2 = new javax.swing.JButton();
+        camp_desconto = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        camp_acrescimo = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
 
         setLayout(null);
 
@@ -326,6 +332,18 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         });
         jPanel1.add(btn_volta2);
         btn_volta2.setBounds(1060, 10, 60, 30);
+        jPanel1.add(camp_desconto);
+        camp_desconto.setBounds(440, 230, 70, 30);
+
+        jLabel7.setText("Desconto:");
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(440, 210, 80, 16);
+        jPanel1.add(camp_acrescimo);
+        camp_acrescimo.setBounds(530, 230, 70, 30);
+
+        jLabel10.setText("Acrescimo:");
+        jPanel1.add(jLabel10);
+        jLabel10.setBounds(530, 210, 70, 16);
 
         add(jPanel1);
         jPanel1.setBounds(6, 5, 1130, 640);
@@ -444,8 +462,10 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
     public javax.swing.JButton btn_volta2;
     public javax.swing.JButton btn_voltar;
     private javax.swing.JTextField camp_CodigoCliente;
+    private javax.swing.JTextField camp_acrescimo;
     private javax.swing.JTextField camp_codigovenda;
     private javax.swing.JFormattedTextField camp_datavenda;
+    private javax.swing.JTextField camp_desconto;
     private javax.swing.JTextField camp_formaPagamento;
     private javax.swing.JTextField camp_nome;
     private javax.swing.JTextArea camp_observacao;
@@ -453,11 +473,13 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
     private javax.swing.JTextField camp_valorentrada;
     private javax.swing.JCheckBox checkbox;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -486,6 +508,8 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         camp_observacao.setText(venda.getDescricao()); // descrição da venda;
         camp_formaPagamento.setText(venda.FormaPagamento()); // forma de pagamento da venda;
         camp_CodigoCliente.setText(venda.getCliente().getIdpessoa() + "");
+        camp_desconto.setText(venda.getDesconto() + " %");
+        camp_acrescimo.setText(dinheiro.format(venda.getAcrescimo()));
 
         DefaultTableModel tabelavenda = (DefaultTableModel) jtableVenda.getModel();
         tabelavenda.setNumRows(0);
@@ -516,6 +540,7 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
                     parcela.getPago()
                 });
             }
+            tableAPrazo.setDefaultRenderer(Object.class, new TableRendererAPrazo());
 
         }
         if (venda.FormaPagamento().equals("PARCELADO")) {
@@ -536,6 +561,7 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
                 }
 
             }
+            tableAPrazo.setDefaultRenderer(Object.class, new TableRendererAPrazo());
 
         } else {
             jlabelValorPago.setText("Valor Pago:");

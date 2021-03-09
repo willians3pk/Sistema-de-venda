@@ -1,5 +1,6 @@
 package view;
 
+import br.com.configuracao.TableRendererVendas;
 import br.com.configuracao.Teclas;
 import model.Cliente;
 import model.Endereco;
@@ -30,7 +31,8 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     public TelaCadastroCliente() {
         initComponents();
         btn_visualiza.setEnabled(false);
-        
+//        tabelaVenda.setDefaultRenderer(Object.class, new TableRenderer());
+
         //      tela cliente;        
         btn_edit1.setEnabled(false); // botao editar da tela cliente;
         btn_save1.setEnabled(false); // botao editar da tela cliente;
@@ -521,17 +523,17 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
 
         tabelaVenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Cod_Venda:", "Cliente:", "Estado_Venda:", "Total:"
+                "Cod_Venda:", "Cliente:", "Estado_Venda:", "Total:", "Data Venda"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1206,7 +1208,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         qtdeVendas.setText(""+cliente.getVendas().size());
         Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
         NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
-
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
         double y = 0;
         double x = 0;
         double z = 0;
@@ -1219,7 +1221,8 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
                 venda.getIdvenda(),
                 venda.getCliente().getNome(),
                 venda.getEstado().getDescricao(),
-                dinheiro.format(venda.getValorTotal())});
+                dinheiro.format(venda.getValorTotal()),
+                formato.format(venda.getDataVenda())});
             // não calcula as vendas canceladas;
             if (venda.isStatus()) {
                 x = venda.getValorTotal();
