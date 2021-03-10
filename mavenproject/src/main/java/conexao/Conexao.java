@@ -453,4 +453,13 @@ public class Conexao {
         return null;
     }
 
+    public List listavendas() {
+        
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        Query query = session.createQuery("from Venda");
+        List lista = query.list();
+
+        return lista;
+    }
 }

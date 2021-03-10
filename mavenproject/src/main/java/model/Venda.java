@@ -27,7 +27,7 @@ public class Venda {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "Cod_Venda", unique = true, nullable = false)
+    @Column(name = "idvenda", unique = true, nullable = false)
     private Integer idvenda;
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -21,6 +21,7 @@ public class TelaCategoria extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("CATEGORIA");
         setResizable(false);
         getContentPane().setLayout(null);
         getContentPane().add(camp_nome);
@@ -37,7 +38,7 @@ public class TelaCategoria extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(240, 50, 80, 30);
+        jButton1.setBounds(230, 50, 80, 30);
 
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -46,7 +47,7 @@ public class TelaCategoria extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(330, 50, 80, 30);
+        jButton2.setBounds(320, 50, 90, 30);
 
         setSize(new java.awt.Dimension(434, 115));
         setLocationRelativeTo(null);
@@ -70,7 +71,7 @@ public class TelaCategoria extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

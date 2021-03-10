@@ -17,15 +17,14 @@ import static view.MainScreen.jDesktopPane1;
 import static view.TelaVenda.produtos;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import model.Caixa;
 
 /**
  *
@@ -280,6 +279,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
         jLabel5.setBounds(20, 80, 300, 30);
 
         jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(55, 12, 244));
         jLabel7.setText("ACRESCIMO:");
         jPanel6.add(jLabel7);
         jLabel7.setBounds(20, 130, 170, 30);
@@ -314,6 +314,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
         camp_Acrescimo.setBounds(180, 116, 120, 40);
 
         jLabel12.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 9, 0));
         jLabel12.setText("DESCONTO:");
         jPanel6.add(jLabel12);
         jLabel12.setBounds(20, 170, 170, 30);
@@ -413,13 +414,13 @@ public class FinalizarVenda extends javax.swing.JPanel {
             int confirmacao = JOptionPane.showConfirmDialog(null, "<html>Você Deseja <html><font color=\"#FF0000\">*FINALIZAR A VENDA*?</font></html></html>", "FINALIZAR A VENDA", JOptionPane.YES_NO_OPTION);
             if (confirmacao == JOptionPane.YES_OPTION) {
                 if (campvalorPago.getText().length() > 0 & !dataVenda.getDate().equals("") & lista.size() > 0 & comboBOX_FormaPagamento.getSelectedIndex() <= 2) {
-                    finalizarVenda();
+                    cartaoVenda();
                 } else if (comboBOX_FormaPagamento.getSelectedIndex() == 5 & camp_qtdeParcelas.getText().length() > 0 & lista.size() > 0) {
                     vendaParcelada();
                 } else if (comboBOX_FormaPagamento.getSelectedIndex() == 3 & lista.size() > 0) {
                     vendaAprazo();
                 } else if (campvalorPago.getText().length() > 0 & !dataVenda.getDate().equals("") & lista.size() > 0 & comboBOX_FormaPagamento.getSelectedIndex() == 4) {
-                    finalizarVenda();
+                    transferenciaVenda();
                 } else {
                     JOptionPane.showMessageDialog(null, "Preencha os Campos relevantes a Forma de Pagamento!");
                 }
@@ -561,13 +562,13 @@ public class FinalizarVenda extends javax.swing.JPanel {
 
     }
 
-    private void finalizarVenda() {
+    private void cartaoVenda() {
         final TelaLoading carregando = new TelaLoading();
         carregando.setVisible(true);
         Thread t = new Thread() {
             @Override
             public void run() {
-
+                Caixa caixa = new Caixa();
                 double valortotal = Double.parseDouble(camptotal.getText().replace("R$", "").replace(",", "."));
                 double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", ".").replace(",", "."));
                 double troco = valortotal - valorPago;
@@ -598,7 +599,105 @@ public class FinalizarVenda extends javax.swing.JPanel {
                     }
 
                     venda.adicionarItens(lista, venda); // salva os itens da venda;
+                    caixa.setVenda(venda);
+                    caixa.setEntradaDinheiro(venda.getValorTotal());
+                    bancoMariaDB.save(caixa);
+                    
+                    // ATUALIZAR O ESTOQUE DE PRODUTO NO BANCO DE DADOS
+                    for (int i = 0;
+                            i < bancoMariaDB.productBook()
+                                    .size(); i++) {
+                        for (Produto produto : lista) {
+                            if (bancoMariaDB.productBook().get(i).getIdProduto().equals(produto.getIdProduto())) {
+                                Produto item = bancoMariaDB.productBook().get(i); // pega o produto do banco de dados
+                                int qnt_Atualizada = item.getQnt() - produto.getQnt(); // subtrair a quantidade do produto que foi vendido;
 
+                                item.setQnt(qnt_Atualizada); // adicionar a subtração;
+                                bancoMariaDB.update(item); // atualiza a quantidade do produto no banco;
+                                double totalValor = item.getQnt() * item.getValor_venda();
+                                item.setValor_total(totalValor);
+                                bancoMariaDB.update(item); // atualiza a quantidade do produto no banco;
+                            }
+                        }
+                    }
+
+                    lista.clear(); // limpa a lista;
+                    DefaultListModel datasparcelas = new DefaultListModel();
+
+                    camp_cliente.setText("");
+                    jListdatasparceladas.setModel(datasparcelas);
+
+                    camp_valorParcelas.setText("0,00");
+                    camp_qtdeParcelas.setVisible(false);
+                    camp_valorParcelas.setVisible(false);
+                    jListdatasparceladas.setVisible(false);
+                    telaVenda.adicionarItens();
+
+                    Cliente client = new Cliente();
+                    TelaVenda.setCliente(client); // limpa o objeto cliente;
+                    telaVenda.camp_buscarProduto.setText("");
+                    telaVenda.field_preco.setText("0,00");
+                    telaVenda.field_qnt.setText("0");
+                    JOptionPane.showMessageDialog(null, "Venda Registrada com sucesso!");
+                    TelaVenda s = new TelaVenda();
+
+                    jDesktopPane1.removeAll();
+                    s.setLocation(0, 0);
+                    s.setSize(1140, 650);
+                    s.setVisible(true);
+                    jDesktopPane1.add(s);
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Campo Desconto da Venda não pode ficar em branco!");
+                }
+                carregando.dispose();
+            }
+
+        };
+        t.start();
+    }
+
+    private void transferenciaVenda() {
+        final TelaLoading carregando = new TelaLoading();
+        carregando.setVisible(true);
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                Caixa caixa = new Caixa();
+                double valortotal = Double.parseDouble(camptotal.getText().replace("R$", "").replace(",", "."));
+                double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", ".").replace(",", "."));
+                double troco = valortotal - valorPago;
+
+                if (!camp_desconto.getText().isEmpty()) {
+                    venda.setStatus(true);
+                    venda.setDataVenda(dataVenda.getDate()); // data da venda
+                    venda.setAcrescimo(Double.parseDouble(camp_Acrescimo.getText().replace(",", ".")));
+                    venda.setDesconto(Float.parseFloat(camp_desconto.getText()));
+                    venda.setValorTotal(valortotal + Double.parseDouble(camp_Acrescimo.getText().replace(",", "."))); // valor total da venda
+                    venda.setValor_pago(Double.valueOf(campvalorPago.getText().replace(",", "."))); // valor que foi pago na venda;
+                    venda.setTroco(troco); // troco da venda;
+                    venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));// pega a forma de pagamento da venda;
+                    venda.setDescricao(observacaoVenda);
+                    venda.setEstado(Estado.PAGO);
+
+                    if (camp_cliente.getText().length() > 0) {
+                        System.out.println("Cliente: " + client.getNome());
+                        venda.setCliente(client); // adiciona o cliente na venda;
+                        client.getVendas().add(venda); // adiciona a venda na lista de vendas do cliente;
+                        bancoMariaDB.save_update(client);
+                    } else {
+                        Cliente consumidor = bancoMariaDB.list_Cliente().get(0);
+                        System.out.println("Cliente: " + consumidor.getNome());
+                        venda.setCliente(consumidor); // adiciona o cliente na venda;
+                        consumidor.getVendas().add(venda); // adiciona a venda na lista de vendas do cliente;
+                        bancoMariaDB.save_update(consumidor);
+                    }
+
+                    venda.adicionarItens(lista, venda); // salva os itens da venda;
+                    caixa.setVenda(venda);
+                    caixa.setEntradaDinheiro(venda.getValorTotal());
+                    bancoMariaDB.save(caixa);
+                    
                     // ATUALIZAR O ESTOQUE DE PRODUTO NO BANCO DE DADOS
                     for (int i = 0;
                             i < bancoMariaDB.productBook()
@@ -654,7 +753,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
     }
 
     public void vendaParcelada() {
-
+        Caixa caixa = new Caixa();
         double valortotal = Double.parseDouble(camptotal.getText().replace("R$", "").replace(",", "."));
         double valorEntrada = Double.parseDouble(campvalorPago.getText().replace(",", "."));
         double valorRestante = valortotal - valorEntrada;
@@ -684,6 +783,10 @@ public class FinalizarVenda extends javax.swing.JPanel {
                 bancoMariaDB.save_update(client);
                 venda.adicionarItens(lista, venda);// salva os itens da venda;
                 venda.gerarParcelas(Integer.parseInt(camp_qtdeParcelas.getText()), venda, parcela);
+
+                caixa.setVenda(venda);
+                caixa.setEntradaDinheiro(venda.getValorTotal());
+                bancoMariaDB.save(caixa);
 
                 // ATUALIZAR O ESTOQUE DE PRODUTO NO BANCO DE DADOS
                 for (int i = 0; i < bancoMariaDB.productBook().size(); i++) {
@@ -730,7 +833,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
     }
 
     public void vendaAprazo() {
-
+        Caixa caixa = new Caixa();
         double valortotal = Double.parseDouble(camptotal.getText().replace("R$", "").replace(",", "."));
         double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", "."));
         double troco = valortotal - valorPago;
@@ -755,6 +858,10 @@ public class FinalizarVenda extends javax.swing.JPanel {
             venda.adicionarItens(lista, venda); // salva os itens da venda;
             venda.gerarParcelasAprazo(1, venda, valortotal, dataVenda.getDate());
 
+            caixa.setVenda(venda);
+            caixa.setEntradaDinheiro(venda.getValorTotal());
+            bancoMariaDB.save(caixa);
+            
             // ATUALIZAR O ESTOQUE DE PRODUTO NO BANCO DE DADOS
             for (int i = 0; i < bancoMariaDB.productBook().size(); i++) {
                 for (Produto produto : lista) {

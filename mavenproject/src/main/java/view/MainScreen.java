@@ -15,8 +15,18 @@ import model.ItensVenda;
 import model.Produto;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -72,6 +82,8 @@ public class MainScreen extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jVendaHIstoricos = new javax.swing.JMenuItem();
         jMenuCliente = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(MAXIMIZED_BOTH);
@@ -268,6 +280,18 @@ public class MainScreen extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu5.setText("Relatorios");
+
+        jMenuItem2.setText("Clientes");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu5);
+
         setJMenuBar(jMenuBar1);
 
         setSize(new java.awt.Dimension(1370, 732));
@@ -440,6 +464,25 @@ public class MainScreen extends javax.swing.JFrame {
         jDesktopPane1.add(c);
     }//GEN-LAST:event_jLabel5MouseClicked
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        Conexao banco = new Conexao(); 
+        List vendas = banco.listavendas();
+        try {
+            String caminho = "/home/user/JaspersoftWorkspace/MyReports/classic.jrxml";
+            JasperReport pathjrxml = JasperCompileManager.compileReport(caminho);
+            JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, null, new JRBeanCollectionDataSource(vendas));
+            
+            // a linha abaixo exibe o relatorio atraves da classe jasperview
+            JasperViewer.viewReport(printReport);
+            
+//            JasperExportManager.exportReportToPdfFile(printReport, "/home/user/NetBeansProject/bibliotecas/relarotios/reportex.pdf");
+            
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());;
+        }
+
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -488,10 +531,12 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuCliente;
     private javax.swing.JMenuItem jMenuICancelarVenda;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

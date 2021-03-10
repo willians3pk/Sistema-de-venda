@@ -665,7 +665,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
 
         jLabel11.setText("Vendas que Foram Pagas:");
         jPanel1.add(jLabel11);
-        jLabel11.setBounds(940, 30, 160, 16);
+        jLabel11.setBounds(940, 30, 180, 16);
 
         jLabel12.setText("Vendas Canceladas:");
         jPanel1.add(jLabel12);
