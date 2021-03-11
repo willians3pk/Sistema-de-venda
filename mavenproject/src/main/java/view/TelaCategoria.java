@@ -61,7 +61,7 @@ public class TelaCategoria extends javax.swing.JFrame {
             Conexao banco = new Conexao();
             banco.save(c);
             camp_nome.setText("");
-            TelaProdutos.loadingCampos();
+            TelaProdutos.carregarComboxCategoria();
             JOptionPane.showMessageDialog(null, "Categoria Criada!");
             dispose();
         } catch (Exception e) {

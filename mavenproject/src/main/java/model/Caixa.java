@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ public class Caixa {
     private Integer id;
     private double entradaDinheiro;
     private double saidaDespesas;
+    private Date   data;
     private String observacao;
     @OneToOne
     private Venda venda;
@@ -73,6 +75,12 @@ public class Caixa {
         this.venda = venda;
     }
 
-    
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
     
 }

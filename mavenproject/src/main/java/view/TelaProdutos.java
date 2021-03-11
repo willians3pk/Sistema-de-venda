@@ -902,11 +902,6 @@ public class TelaProdutos extends javax.swing.JPanel {
                         comboBox_Supplier.setModel(comboBox);
                     }
 
-                    DefaultComboBoxModel comboBoxCategoria = new DefaultComboBoxModel();
-                    for (Categoria categoria : Conexao.lista_Categoria()) {
-                        comboBoxCategoria.addElement(categoria.getTipo_Categoria());
-                        comboxCategoria.setModel(comboBoxCategoria);
-                    }
                 } catch (Exception e) {
                     System.out.println(e);
                 }
@@ -915,6 +910,14 @@ public class TelaProdutos extends javax.swing.JPanel {
         };
         t.start();
 
+    }
+
+    public static void carregarComboxCategoria() {
+        DefaultComboBoxModel comboBoxCategoria = new DefaultComboBoxModel();
+        for (Categoria categoria : Conexao.lista_Categoria()) {
+            comboBoxCategoria.addElement(categoria.getTipo_Categoria());
+            comboxCategoria.setModel(comboBoxCategoria);
+        }
     }
 
 }

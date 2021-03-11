@@ -601,6 +601,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
                     venda.adicionarItens(lista, venda); // salva os itens da venda;
                     caixa.setVenda(venda);
                     caixa.setEntradaDinheiro(venda.getValorTotal());
+                    caixa.setData(venda.getDataVenda());
                     bancoMariaDB.save(caixa);
                     
                     // ATUALIZAR O ESTOQUE DE PRODUTO NO BANCO DE DADOS
@@ -696,6 +697,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
                     venda.adicionarItens(lista, venda); // salva os itens da venda;
                     caixa.setVenda(venda);
                     caixa.setEntradaDinheiro(venda.getValorTotal());
+                    caixa.setData(venda.getDataVenda());
                     bancoMariaDB.save(caixa);
                     
                     // ATUALIZAR O ESTOQUE DE PRODUTO NO BANCO DE DADOS
@@ -786,6 +788,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
 
                 caixa.setVenda(venda);
                 caixa.setEntradaDinheiro(venda.getValorTotal());
+                caixa.setData(venda.getDataVenda());
                 bancoMariaDB.save(caixa);
 
                 // ATUALIZAR O ESTOQUE DE PRODUTO NO BANCO DE DADOS
@@ -860,6 +863,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
 
             caixa.setVenda(venda);
             caixa.setEntradaDinheiro(venda.getValorTotal());
+            caixa.setData(venda.getDataVenda());
             bancoMariaDB.save(caixa);
             
             // ATUALIZAR O ESTOQUE DE PRODUTO NO BANCO DE DADOS

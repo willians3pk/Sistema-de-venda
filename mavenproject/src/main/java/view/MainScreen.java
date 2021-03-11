@@ -10,23 +10,28 @@ import model.Endereco;
 import model.FormaPagamento;
 import model.Venda;
 import conexao.Conexao;
+import conexao.NewHibernateUtil;
 import model.Estado;
 import model.ItensVenda;
 import model.Produto;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
+import java.sql.*;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -84,6 +89,7 @@ public class MainScreen extends javax.swing.JFrame {
         jMenuCliente = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(MAXIMIZED_BOTH);
@@ -290,6 +296,14 @@ public class MainScreen extends javax.swing.JFrame {
         });
         jMenu5.add(jMenuItem2);
 
+        jMenuItem3.setText("Vendas");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem3);
+
         jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
@@ -335,6 +349,7 @@ public class MainScreen extends javax.swing.JFrame {
         p.btn_ToEdit.setEnabled(false);
         p.btn_Deactivate.setEnabled(false);
         p.loadingCampos();
+        p.carregarComboxCategoria();
         jDesktopPane1.add(p);
     }//GEN-LAST:event_jLabel1MouseClicked
 
@@ -465,23 +480,51 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        Conexao banco = new Conexao(); 
-        List vendas = banco.listavendas();
-        try {
-            String caminho = "/home/user/JaspersoftWorkspace/MyReports/classic.jrxml";
-            JasperReport pathjrxml = JasperCompileManager.compileReport(caminho);
-            JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, null, new JRBeanCollectionDataSource(vendas));
-            
-            // a linha abaixo exibe o relatorio atraves da classe jasperview
-            JasperViewer.viewReport(printReport);
-            
-//            JasperExportManager.exportReportToPdfFile(printReport, "/home/user/NetBeansProject/bibliotecas/relarotios/reportex.pdf");
-            
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());;
+
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Você deseja GERAR Relatorio de Clientes? ", "Relatorio Clientes", JOptionPane.YES_NO_OPTION);
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            try {
+                // a linha abaixo cria a conexao com o banco de dados
+                Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys", "wsmint", "Ws@12345");
+
+                String caminho = "/home/user/JaspersoftWorkspace/MyReports/Cliente.jrxml";
+                JasperReport pathjrxml = JasperCompileManager.compileReport(caminho);
+                JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, null, conexao);
+
+                // a linha abaixo exibe o relatorio atraves da classe jasperview
+                JasperViewer.viewReport(printReport, false);
+
+            } catch (JRException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());;
+            } catch (SQLException ex) {
+                Logger.getLogger(MainScreen.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Você deseja fazer a emissão do Relatorio de Vendas? ", "Relatorio Vendas", JOptionPane.YES_NO_OPTION);
+        if (confirmacao == JOptionPane.YES_OPTION) {
+
+            try {
+                // a linha abaixo cria a conexao com o banco de dados
+                Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys", "wsmint", "Ws@12345");
+                String caminho = "/home/user/JaspersoftWorkspace/MyReports/Venda.jrxml";
+                JasperReport pathjrxml = JasperCompileManager.compileReport(caminho);
+                JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, null, conexao);
+
+                // a linha abaixo exibe o relatorio atraves da classe jasperview
+                JasperViewer.viewReport(printReport, false);
+
+            } catch (JRException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());;
+            } catch (SQLException ex) {
+                Logger.getLogger(MainScreen.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -537,6 +580,7 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuICancelarVenda;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -457,9 +457,10 @@ public class Conexao {
         
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
+        
         Query query = session.createQuery("from Venda");
         List lista = query.list();
-
+        tx.commit();
         return lista;
     }
 }
