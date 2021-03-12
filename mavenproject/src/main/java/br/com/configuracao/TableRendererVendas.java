@@ -17,7 +17,7 @@ public class TableRendererVendas extends DefaultTableCellRenderer {
 //            comp.setBackground(Color.LIGHT_GRAY);
             comp.setForeground(Color.BLACK);
 //            comp.setBackground(new Color(100, 200, 50));
-        } else if(estado.equals("RECEBER")){
+        } else if(estado.equals("PENDENTE")){
 //            comp.setBackground(Color.YELLOW);
             comp.setForeground(Color.red);
 //            comp.setBackground(new Color(255, 91, 96));

@@ -77,7 +77,6 @@ public class Main {
 
 //        Session session = NewHibernateUtil.getSessionFactory().openSession();
 //        Transaction tx = session.beginTransaction();
-
 ////        String hql = "FROM Venda as v INNER JOIN v.itens";
 //        String sql = "FROM Produto as v INNER JOIN v.fornecedor";
 //        List<Object[]> query = (List<Object[]>) session.createQuery(sql).list();
@@ -107,6 +106,12 @@ public class Main {
 //            
 //        }
 //        
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+
+        Query totalentrado = session.createQuery("SELECT SUM(entradaDinheiro) FROM Caixa");
+        double valor = (double) totalentrado.list().get(0);
+        System.out.println(valor);
     }
 
 }

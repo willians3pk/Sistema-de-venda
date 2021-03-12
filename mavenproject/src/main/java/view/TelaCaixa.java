@@ -5,6 +5,17 @@
  */
 package view;
 
+import conexao.Conexao;
+import conexao.NewHibernateUtil;
+import java.text.DecimalFormat;
+import java.util.List;
+import model.Estado;
+import model.Parcelas;
+import model.Venda;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 /**
  *
  * @author user
@@ -29,17 +40,19 @@ public class TelaCaixa extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        camp_totalcaixa = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        camp_despesas = new javax.swing.JTextField();
+        camp_receber = new javax.swing.JTextField();
+        camp_valorLiguido = new javax.swing.JTextField();
+        camp_valorBruto = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
 
         setLayout(null);
@@ -49,16 +62,16 @@ public class TelaCaixa extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("TOTAL CAIXA:");
+        jLabel1.setText("VALOR BRUTO NO CAIXA");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(70, 10, 280, 30);
+        jLabel1.setBounds(30, 10, 350, 30);
 
-        jTextField1.setEditable(false);
-        jTextField1.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(255, 0, 0));
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPanel1.add(jTextField1);
-        jTextField1.setBounds(20, 50, 370, 60);
+        camp_totalcaixa.setEditable(false);
+        camp_totalcaixa.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        camp_totalcaixa.setForeground(new java.awt.Color(255, 0, 0));
+        camp_totalcaixa.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel1.add(camp_totalcaixa);
+        camp_totalcaixa.setBounds(20, 50, 370, 60);
 
         add(jPanel1);
         jPanel1.setBounds(718, 12, 410, 140);
@@ -66,43 +79,57 @@ public class TelaCaixa extends javax.swing.JPanel {
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setLayout(null);
 
-        jTextField2.setEditable(false);
-        jTextField2.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        jPanel2.add(jTextField2);
-        jTextField2.setBounds(20, 40, 130, 40);
+        camp_despesas.setEditable(false);
+        camp_despesas.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        jPanel2.add(camp_despesas);
+        camp_despesas.setBounds(20, 40, 130, 40);
 
-        jTextField3.setEditable(false);
-        jTextField3.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        jPanel2.add(jTextField3);
-        jTextField3.setBounds(190, 40, 130, 40);
+        camp_receber.setEditable(false);
+        camp_receber.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        camp_receber.setForeground(new java.awt.Color(247, 236, 18));
+        jPanel2.add(camp_receber);
+        camp_receber.setBounds(210, 130, 160, 40);
 
-        jTextField4.setEditable(false);
-        jTextField4.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        jPanel2.add(jTextField4);
-        jTextField4.setBounds(370, 40, 130, 40);
+        camp_valorLiguido.setEditable(false);
+        camp_valorLiguido.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        camp_valorLiguido.setForeground(new java.awt.Color(26, 19, 242));
+        jPanel2.add(camp_valorLiguido);
+        camp_valorLiguido.setBounds(410, 130, 180, 40);
 
-        jTextField5.setEditable(false);
-        jTextField5.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        jPanel2.add(jTextField5);
-        jTextField5.setBounds(540, 40, 130, 40);
+        camp_valorBruto.setEditable(false);
+        camp_valorBruto.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        camp_valorBruto.setForeground(new java.awt.Color(247, 8, 8));
+        jPanel2.add(camp_valorBruto);
+        camp_valorBruto.setBounds(20, 130, 160, 40);
 
-        jLabel2.setText("ENTRADA CARTÃO:");
+        jLabel2.setText("Despesas:");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(20, 20, 116, 16);
+        jLabel2.setBounds(20, 20, 80, 16);
 
-        jLabel3.setText("ENTRADA TRANSFERENCIA:");
+        jLabel3.setText("Dinheiro a Receber:");
         jPanel2.add(jLabel3);
-        jLabel3.setBounds(180, 20, 180, 16);
+        jLabel3.setBounds(210, 110, 140, 16);
 
-        jLabel4.setText("ENTRADA A PRAZO:");
+        jLabel4.setText("Valor Bruto:");
         jPanel2.add(jLabel4);
-        jLabel4.setBounds(540, 20, 130, 16);
+        jLabel4.setBounds(20, 110, 90, 16);
 
-        jLabel5.setText("ENTRADA DINHEIRO:");
+        jLabel5.setText("Valor liguído:");
         jPanel2.add(jLabel5);
-        jLabel5.setBounds(370, 20, 140, 20);
+        jLabel5.setBounds(410, 110, 90, 20);
         jPanel2.add(jSeparator1);
         jSeparator1.setBounds(10, 90, 680, 10);
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("__");
+        jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(jLabel6);
+        jLabel6.setBounds(180, 130, 30, 30);
+
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("=");
+        jPanel2.add(jLabel7);
+        jLabel7.setBounds(380, 140, 20, 16);
 
         add(jPanel2);
         jPanel2.setBounds(10, 10, 700, 630);
@@ -115,19 +142,86 @@ public class TelaCaixa extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField camp_despesas;
+    private javax.swing.JTextField camp_receber;
+    private javax.swing.JTextField camp_totalcaixa;
+    private javax.swing.JTextField camp_valorBruto;
+    private javax.swing.JTextField camp_valorLiguido;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
+
+    public void calcularValorNoCaixa() {
+
+        Conexao banco = new Conexao();
+        List<Venda> vendas = banco.lista_Vendas();
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+
+        Query query1 = session.createQuery("SELECT SUM(entradaDinheiro) FROM Caixa");
+        Query query2 = session.createQuery("SELECT SUM(saidaDespesas) FROM Caixa");
+        Query query3 = session.createQuery("FROM Parcelas");
+        List<Parcelas> parcelas = query3.list();
+
+        double entradaCaixa = (double) query1.list().get(0);
+        double saidaCaixa = (double) query2.list().get(0);
+        double valorBruto = entradaCaixa - saidaCaixa;
+        double y = 0;
+        double x = 0;
+        double receber = 0;
+        double DinheiroPrazo = 0;
+        session.close();
+        
+        DecimalFormat decimal = new DecimalFormat("0.00");
+
+        for (Venda venda : vendas) {
+            if (venda.getEstado().equals(Estado.PENDENTE)) {
+
+                if (venda.FormaPagamento().equals("A PRAZO")) {
+                    // a linha abaixo só calcula as vendas que nao são canceladas;
+                    if (venda.isStatus()) {
+                        x = venda.getValorTotal() - venda.getAcrescimo();
+                        // soma todos os valores total de cada venda que está pendente;
+                        y = DinheiroPrazo + x;
+                        DinheiroPrazo = y;
+                    }
+                }
+                if (venda.FormaPagamento().equals("PARCELADO")) {
+                    double SomaDasParcelas = venda.getParcelas().size() * venda.getParcelas().get(0).getValor();
+                    receber = SomaDasParcelas;
+                    // a codigo abaixo só calcula as vendas que nao são canceladas;
+                    if (venda.isStatus()) {
+                        for (Parcelas parcela : parcelas) {
+                            // a linha abaixo verifica se a parcela é da venda;
+                            if (parcela.getVenda().getIdvenda().equals(venda.getIdvenda())) {
+                                // a linha abaixo verifica se a parcela foi paga
+                                if (parcela.getPago() == Estado.PAGO) {
+                                    // a linha subtrai a soma das parcelas com o valor que foi pago;
+                                    x = receber - parcela.getValor();
+                                    receber = x; // atualiza o valor que vai ser recebido;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+        double receber2 = receber + DinheiroPrazo; // soma as parcelas que falta receber com as vendas aprazo.
+        double valorLiguido = valorBruto - Double.parseDouble(decimal.format(receber2).replace(",", "."));
+        camp_valorLiguido.setText("R$ " + decimal.format(valorLiguido));
+        camp_receber.setText("R$ " + decimal.format(receber2));
+        camp_valorBruto.setText("R$ " + valorBruto);
+        camp_totalcaixa.setText("R$ " + valorBruto);
+    }
+
 }

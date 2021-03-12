@@ -1,6 +1,7 @@
 package model;
 
 import conexao.Conexao;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -206,7 +207,6 @@ public class Venda {
         this.acrescimo = acrescimo;
     }
 
-    
     public static Logger getLOG() {
         return LOG;
     }
@@ -222,13 +222,13 @@ public class Venda {
         return lista;
     }
 
-    public HashSet<Parcelas> listaParcelas() {
+    public List<Parcelas> listaParcelas() {
         HashSet<Parcelas> list = new HashSet();
-
         for (Parcelas iten : this.getParcelas()) {
             list.add(iten);
         }
-        return list;
+        List<Parcelas> lista = new ArrayList<>(new HashSet(list));
+        return lista;
     }
 
     public String FormaPagamento() {
@@ -260,7 +260,9 @@ public class Venda {
         Conexao bancoDAO = new Conexao();
         GregorianCalendar gc = new GregorianCalendar();
         Date diaAtual = new Date();
-
+        DecimalFormat decimal = new DecimalFormat("0.00");
+        String valor = decimal.format(valorParcela);
+        
         for (int i = 0; i < numParcela; i++) {
             Parcelas parcela = new Parcelas();// FAZ COM QUE REGISTRA UMA NOVA PARCELA NO BANCO;
 
@@ -270,11 +272,11 @@ public class Venda {
 
             venda.getParcelas().add(parcela);// ADICIONA AS PARCELAS
             parcela.setVenda(venda);
-            parcela.setValor(valorParcela);
+            parcela.setValor(Double.parseDouble(valor.replace(",", ".")));
             parcela.setParcela(numeroParcela + i);//  NUMERO DAS PARCELAS;
             parcela.setData(d);
             parcela.setStatus(true);
-            parcela.setPago(Estado.RECEBER);
+            parcela.setPago(Estado.PENDENTE);
 
             bancoDAO.save(parcela); //SALVA A PARCELA NO BANCO DE DADOS;
         }
@@ -286,7 +288,9 @@ public class Venda {
         Conexao bancoDAO = new Conexao();
         GregorianCalendar gc = new GregorianCalendar();
         Date diaAtual = datapagamento;
-
+        DecimalFormat decimal = new DecimalFormat("0.00");
+        String valor = decimal.format(valorParcela);
+        
         for (int i = 0; i < numParcela; i++) {
             Parcelas parcela = new Parcelas();// FAZ COM QUE REGISTRA UMA NOVA PARCELA NO BANCO;
 
@@ -296,11 +300,11 @@ public class Venda {
 
             venda.getParcelas().add(parcela);// ADICIONA AS PARCELAS
             parcela.setVenda(venda);
-            parcela.setValor(valorParcela);
+            parcela.setValor(Double.parseDouble(valor.replace(",", ".")));
             parcela.setParcela(numeroParcela + i);//  NUMERO DAS PARCELAS;
             parcela.setData(d);
             parcela.setStatus(true);
-            parcela.setPago(Estado.RECEBER);
+            parcela.setPago(Estado.PENDENTE);
 
             bancoDAO.save(parcela); //SALVA A PARCELA NO BANCO DE DADOS;
         }
@@ -312,9 +316,9 @@ public class Venda {
         float porcentagem = desconto / 100;
         System.out.println(porcentagem);
         double valordesconto = (porcentagem * valortotal);
-        System.out.println("valordesconto = "+valordesconto);
+        System.out.println("valordesconto = " + valordesconto);
         double resultado = valortotal - valordesconto;
-        System.out.println("resultado = "+resultado);
+        System.out.println("resultado = " + resultado);
         return resultado;
     }
 

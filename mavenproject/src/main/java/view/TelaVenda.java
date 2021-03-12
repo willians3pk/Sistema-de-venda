@@ -196,7 +196,7 @@ public class TelaVenda extends javax.swing.JPanel {
         jPanel2.setLayout(null);
 
         btn_venda.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btn_venda.setText("Vendas");
+        btn_venda.setText("Historicos Vendas");
         btn_venda.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_vendaMouseClicked(evt);
@@ -676,6 +676,7 @@ public class TelaVenda extends javax.swing.JPanel {
         jDesktopPane1.removeAll();
         caixa.setLocation(0, 0);
         caixa.setSize(1140, 650);
+        caixa.calcularValorNoCaixa();
         caixa.setVisible(true);
         jDesktopPane1.add(caixa);
     }//GEN-LAST:event_jLabel1MouseClicked

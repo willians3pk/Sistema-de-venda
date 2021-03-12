@@ -4,16 +4,29 @@ import br.com.configuracao.TableRendererVendas;
 import model.Venda;
 import conexao.Conexao;
 import conexao.NewHibernateUtil;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import model.Estado;
 import static view.MainScreen.jDesktopPane1;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -69,12 +82,12 @@ public class TelaHistorico extends javax.swing.JPanel {
         jCheckBox3 = new javax.swing.JCheckBox();
         jLabel8 = new javax.swing.JLabel();
         camp_quantidadeVenda = new javax.swing.JTextField();
+        btn_detalhes = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
         jtotalVendas = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jlabelAviso = new javax.swing.JLabel();
-        btn_gerarRelatorio = new javax.swing.JButton();
         camp_nomeCliente = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -82,7 +95,7 @@ public class TelaHistorico extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        btn_detalhes = new javax.swing.JButton();
+        btn_gerarRelatorio = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setLayout(null);
@@ -211,8 +224,19 @@ public class TelaHistorico extends javax.swing.JPanel {
         jLabel8.setBounds(620, 20, 90, 16);
 
         camp_quantidadeVenda.setEditable(false);
+        camp_quantidadeVenda.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jPanel4.add(camp_quantidadeVenda);
-        camp_quantidadeVenda.setBounds(620, 40, 80, 26);
+        camp_quantidadeVenda.setBounds(620, 40, 80, 31);
+
+        btn_detalhes.setBackground(new java.awt.Color(68, 255, 0));
+        btn_detalhes.setText("Vizualizar ");
+        btn_detalhes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_detalhesActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btn_detalhes);
+        btn_detalhes.setBounds(740, 30, 110, 40);
 
         jPanel1.add(jPanel4);
         jPanel4.setBounds(10, 120, 1100, 80);
@@ -238,15 +262,6 @@ public class TelaHistorico extends javax.swing.JPanel {
         jlabelAviso.setText("Vendas canceladas não se inclui nesse resultado:");
         jPanel1.add(jlabelAviso);
         jlabelAviso.setBounds(640, 600, 330, 16);
-
-        btn_gerarRelatorio.setText("Relatorio");
-        btn_gerarRelatorio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_gerarRelatorioActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_gerarRelatorio);
-        btn_gerarRelatorio.setBounds(10, 80, 100, 30);
 
         camp_nomeCliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -283,14 +298,15 @@ public class TelaHistorico extends javax.swing.JPanel {
         jPanel1.add(jLabel12);
         jLabel12.setBounds(940, 90, 130, 16);
 
-        btn_detalhes.setText("Vizualizar Detalhes");
-        btn_detalhes.addActionListener(new java.awt.event.ActionListener() {
+        btn_gerarRelatorio.setBackground(new java.awt.Color(241, 235, 81));
+        btn_gerarRelatorio.setText("Gerar Relatorio");
+        btn_gerarRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_detalhesActionPerformed(evt);
+                btn_gerarRelatorioActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_detalhes);
-        btn_detalhes.setBounds(10, 580, 150, 40);
+        jPanel1.add(btn_gerarRelatorio);
+        btn_gerarRelatorio.setBounds(10, 80, 130, 30);
 
         add(jPanel1);
         jPanel1.setBounds(10, 10, 1120, 630);
@@ -351,7 +367,8 @@ public class TelaHistorico extends javax.swing.JPanel {
                 venda.FormaPagamento(), venda.getDescricao(),
                 dinheiro.format(venda.getValorTotal()),
                 venda.getEstado().getDescricao()});
-            // só calcula as vendas que nao são canceladas;
+            
+            // a linha abaixo só calcula as vendas que nao são canceladas;
             if (venda.isStatus()) {
                 // soma todos os valores total de cada venda;
                 y = z + x;
@@ -424,7 +441,7 @@ public class TelaHistorico extends javax.swing.JPanel {
                     tabela.setNumRows(0);
                     for (Venda venda : vendas) {
 
-                        if (venda.isStatus() && venda.getEstado().equals(Estado.RECEBER)) {
+                        if (venda.isStatus() && venda.getEstado().equals(Estado.PENDENTE)) {
                             x = venda.getValorTotal();
                             tabela.addRow(new Object[]{
                                 venda.getIdvenda(),
@@ -505,7 +522,27 @@ public class TelaHistorico extends javax.swing.JPanel {
     }//GEN-LAST:event_jCheckBox3ActionPerformed
 
     private void btn_gerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_gerarRelatorioActionPerformed
+        try {
 
+            Map<String, Object> parameters = new HashMap<String, Object>();
+            // a linha abaixo adiciona as datas como parametro no relatorio
+            parameters.put("datainicio",camp_dataInicio.getText());
+            parameters.put("datafim",camp_dataFim.getText());
+            
+            // a linha abaixo cria a conexao com o banco de dados
+            Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys", "wsmint", "Ws@12345");
+            String caminho = "/home/user/JaspersoftWorkspace/MyReports/Venda.jrxml";
+            JasperReport pathjrxml = JasperCompileManager.compileReport(caminho);
+            JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, parameters, conexao);
+
+            // a linha abaixo exibe o relatorio atraves da classe jasperview
+            JasperViewer.viewReport(printReport, false);
+
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());;
+        } catch (SQLException ex) {
+            Logger.getLogger(MainScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btn_gerarRelatorioActionPerformed
 
     private void camp_nomeClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camp_nomeClienteKeyReleased

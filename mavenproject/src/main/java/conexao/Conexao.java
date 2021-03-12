@@ -454,7 +454,6 @@ public class Conexao {
     }
 
     public List listavendas() {
-        
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         

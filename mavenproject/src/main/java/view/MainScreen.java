@@ -472,11 +472,17 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         TelaCaixa c = new TelaCaixa();
-        jDesktopPane1.removeAll();
+        try {
+            jDesktopPane1.removeAll();
         c.setLocation(0, 0);
         c.setSize(1140, 650);
+        c.calcularValorNoCaixa();
         c.setVisible(true);
         jDesktopPane1.add(c);
+        } catch (Exception e) {
+            System.out.println("caixa sem vendas");
+        }
+        
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -510,7 +516,7 @@ public class MainScreen extends javax.swing.JFrame {
             try {
                 // a linha abaixo cria a conexao com o banco de dados
                 Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys", "wsmint", "Ws@12345");
-                String caminho = "/home/user/JaspersoftWorkspace/MyReports/Venda.jrxml";
+                String caminho = "/home/user/JaspersoftWorkspace/MyReports/Vendas.jrxml";
                 JasperReport pathjrxml = JasperCompileManager.compileReport(caminho);
                 JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, null, conexao);
 

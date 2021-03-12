@@ -10,9 +10,11 @@ import model.ItensVenda;
 import model.Parcelas;
 import model.Venda;
 import conexao.Conexao;
+import java.awt.Color;
 import model.Estado;
 import static view.MainScreen.jDesktopPane1;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -115,7 +117,8 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         camp_acrescimo = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         estadoVenda = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
+        camp_parcelasRestantes = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
 
         setLayout(null);
 
@@ -353,12 +356,18 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
 
         estadoVenda.setEditable(false);
         estadoVenda.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        estadoVenda.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPanel1.add(estadoVenda);
-        estadoVenda.setBounds(490, 40, 220, 30);
+        estadoVenda.setBounds(20, 90, 1100, 30);
 
-        jLabel9.setText("Estado Venda:");
-        jPanel1.add(jLabel9);
-        jLabel9.setBounds(490, 20, 100, 16);
+        camp_parcelasRestantes.setEditable(false);
+        camp_parcelasRestantes.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        jPanel1.add(camp_parcelasRestantes);
+        camp_parcelasRestantes.setBounds(1000, 480, 120, 30);
+
+        jLabel11.setText("Parcelas Restantes:");
+        jPanel1.add(jLabel11);
+        jLabel11.setBounds(1000, 460, 130, 20);
 
         add(jPanel1);
         jPanel1.setBounds(6, 5, 1130, 640);
@@ -396,13 +405,15 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
                 btn_receber.setEnabled(false);
                 checkbox.setSelected(false);
                 tableAPrazo.setEnabled(false);
+
+                // o comando abaixo impede de deixar todas as parcelas com Estado PAGO
                 for (Parcelas parcela : venda.getParcelas()) {
                     if (parcela.getPago().equals(Estado.PAGO)) {
                         venda.setEstado(Estado.PAGO);
                         banco.update(venda);
                     }
-                    if (parcela.getPago().equals(Estado.RECEBER)) {
-                        venda.setEstado(Estado.RECEBER);
+                    if (parcela.getPago().equals(Estado.PENDENTE)) {
+                        venda.setEstado(Estado.PENDENTE);
                         banco.update(venda);
                     }
                 }
@@ -484,12 +495,14 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
     private javax.swing.JTextField camp_formaPagamento;
     private javax.swing.JTextField camp_nome;
     private javax.swing.JTextArea camp_observacao;
+    private javax.swing.JTextField camp_parcelasRestantes;
     private javax.swing.JTextField camp_totalvenda;
     private javax.swing.JTextField camp_valorentrada;
     private javax.swing.JCheckBox checkbox;
     private javax.swing.JTextField estadoVenda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -497,7 +510,6 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -529,6 +541,12 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         camp_acrescimo.setText(dinheiro.format(venda.getAcrescimo()));
         estadoVenda.setText(venda.getEstado().getDescricao());
         
+        if (venda.getEstado().getDescricao().equals("PENDENTE")) {
+            estadoVenda.setBackground(Color.red);
+        }else{
+            estadoVenda.setBackground(Color.green);
+        }
+
         DefaultTableModel tabelavenda = (DefaultTableModel) jtableVenda.getModel();
         tabelavenda.setNumRows(0);
         camp_valorentrada.setText(dinheiro.format(venda.getValor_pago()));
@@ -561,6 +579,11 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
             tableAPrazo.setDefaultRenderer(Object.class, new TableRendererAPrazo());
 
         }
+        
+        double x = 0;
+        double y = 0;
+        double ParcelasRestantes = 0;
+        
         if (venda.FormaPagamento().equals("PARCELADO")) {
             DefaultTableModel tabelaParcelado = (DefaultTableModel) tableAPrazo.getModel();
             jlabelValorPago.setText("Valor Entrada:");
@@ -577,10 +600,17 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
                         parcela.getPago()
                     });
                 }
+                if(parcela.getPago().getDescricao().equals("PENDENTE")){
+                    x = parcela.getValor();
+                    y = ParcelasRestantes + x;
+                    ParcelasRestantes = y;
+                }
 
             }
+            
+            DecimalFormat decimal = new DecimalFormat("0.00");
             tableAPrazo.setDefaultRenderer(Object.class, new TableRendererAPrazo());
-
+            camp_parcelasRestantes.setText("R$ "+decimal.format(ParcelasRestantes));
         } else {
             jlabelValorPago.setText("Valor Pago:");
         }

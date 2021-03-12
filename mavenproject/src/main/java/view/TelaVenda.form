@@ -232,7 +232,7 @@
             <Component class="javax.swing.JLabel" name="btn_venda">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Vendas"/>
+                <Property name="text" type="java.lang.String" value="Historicos Vendas"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_vendaMouseClicked"/>

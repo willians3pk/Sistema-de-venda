@@ -5,6 +5,7 @@
  */
 package view;
 
+import br.com.configuracao.Teclas;
 import model.Endereco;
 import model.Fornecedor;
 import conexao.Conexao;
@@ -22,6 +23,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
      */
     public TelaCadastroFornecedor() {
         initComponents();
+        camp_SupplierName.setDocument(new Teclas());
     }
 
     /**

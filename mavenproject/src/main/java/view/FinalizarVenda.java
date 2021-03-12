@@ -755,6 +755,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
     }
 
     public void vendaParcelada() {
+        
         Caixa caixa = new Caixa();
         double valortotal = Double.parseDouble(camptotal.getText().replace("R$", "").replace(",", "."));
         double valorEntrada = Double.parseDouble(campvalorPago.getText().replace(",", "."));
@@ -770,7 +771,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
         venda.setTroco(valorRestante);
         venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));
         venda.setDescricao(this.observacaoVenda);
-        venda.setEstado(Estado.RECEBER);
+        venda.setEstado(Estado.PENDENTE);
         venda.setDesconto(Float.parseFloat(camp_desconto.getText().replace("R$", "").trim()));
 
         if (camp_cliente.getText().length() > 0 & !camp_cliente.getText().equals("CONSUMIDOR")) {
@@ -850,7 +851,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
         venda.setTroco(troco);
         venda.getFormaPagamento().add(bancoMariaDB.listFormPagamento().get(comboBOX_FormaPagamento.getSelectedIndex()));
         venda.setDescricao(this.observacaoVenda);
-        venda.setEstado(Estado.RECEBER);
+        venda.setEstado(Estado.PENDENTE);
         venda.setDesconto(Float.parseFloat(camp_desconto.getText().replace("R$", "").trim()));
 
         if (camp_cliente.getText().length() > 0 & !camp_cliente.getText().equals("CONSUMIDOR")) {

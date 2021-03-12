@@ -876,7 +876,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
                     tabela.setNumRows(0);
                     for (Venda venda : cliente.getVendas()) {
 
-                        if (venda.isStatus() && venda.getEstado().equals(Estado.RECEBER)) {
+                        if (venda.isStatus() && venda.getEstado().equals(Estado.PENDENTE)) {
                             x = venda.getValorTotal();
                             tabela.addRow(new Object[]{
                                 venda.getIdvenda(),
