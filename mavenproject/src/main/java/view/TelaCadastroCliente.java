@@ -92,7 +92,6 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         fieldSearch1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         btn_update1 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jpanelSupplier1 = new javax.swing.JPanel();
         camp_ClientName = new javax.swing.JTextField();
@@ -354,10 +353,6 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         jPanel11.add(btn_update1);
         btn_update1.setBounds(710, 30, 50, 50);
 
-        jButton1.setText("Vendas");
-        jPanel11.add(jButton1);
-        jButton1.setBounds(970, 60, 90, 30);
-
         jPanel5.add(jPanel11);
         jPanel11.setBounds(10, 0, 1090, 220);
 
@@ -497,7 +492,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
 
         camp_DataNascimento.setEnabled(false);
         jpanelSupplier1.add(camp_DataNascimento);
-        camp_DataNascimento.setBounds(240, 110, 160, 27);
+        camp_DataNascimento.setBounds(240, 110, 180, 27);
 
         jLabel4.setText("Data Nascimento:");
         jpanelSupplier1.add(jLabel4);
@@ -944,7 +939,6 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     private javax.swing.JTextField field_estado;
     private javax.swing.JFormattedTextField field_numeroCasa;
     private javax.swing.JTextField filed_Email;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
@@ -1097,7 +1091,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
                 camp_EmailClient.setText(cliente.getEmail());
                 camp_cpfClient.setText(cliente.getCpf().toString());
                 camp_DataNascimento.setDate(cliente.getDataNascimento());
-                camp_contato.setText(cliente.getContato().toString());
+                camp_contato.setText(cliente.getContato()+"");
 
 //              CONVERTE OS VALORES DO TIPO INTEIRO PRA STRING;
                 String cep = String.valueOf(cliente.getEndereco().getCep());

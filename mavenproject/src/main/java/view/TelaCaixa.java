@@ -53,8 +53,45 @@ public class TelaCaixa extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jFormattedTextField2 = new javax.swing.JFormattedTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        camp_valorEstornado = new javax.swing.JTextField();
+        camp_codigoVenda = new javax.swing.JTextField();
+        btn_RegistrarDevolucao = new javax.swing.JButton();
+        btn_cancelar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        camp_MotivoDevolucao = new javax.swing.JTextPane();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel11 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        jButton1 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jSeparator4 = new javax.swing.JSeparator();
+        jLabel15 = new javax.swing.JLabel();
+        jFormattedTextField3 = new javax.swing.JFormattedTextField();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
 
         setLayout(null);
 
@@ -132,28 +169,193 @@ public class TelaCaixa extends javax.swing.JPanel {
         jPanel2.add(jLabel7);
         jLabel7.setBounds(380, 140, 20, 16);
 
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("corrigir dinheiro a receber.");
-        jPanel2.add(jLabel8);
-        jLabel8.setBounds(130, 216, 320, 130);
+        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel4.setLayout(null);
+        jPanel2.add(jPanel4);
+        jPanel4.setBounds(10, 180, 680, 230);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
+        jPanel2.add(jScrollPane2);
+        jScrollPane2.setBounds(10, 460, 680, 160);
+        jPanel2.add(jFormattedTextField2);
+        jFormattedTextField2.setBounds(130, 430, 180, 26);
+
+        jLabel16.setText("Digite uma Data:");
+        jPanel2.add(jLabel16);
+        jLabel16.setBounds(10, 440, 120, 16);
+
+        jButton6.setText("Consultar");
+        jPanel2.add(jButton6);
+        jButton6.setBounds(594, 430, 90, 30);
+        jPanel2.add(jTextField2);
+        jTextField2.setBounds(450, 430, 100, 26);
+
+        jLabel18.setText("Valor Total:");
+        jPanel2.add(jLabel18);
+        jLabel18.setBounds(371, 436, 90, 20);
 
         add(jPanel2);
         jPanel2.setBounds(10, 10, 700, 630);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.setLayout(null);
+
+        jLabel9.setText("Codigo Venda:");
+        jPanel3.add(jLabel9);
+        jLabel9.setBounds(10, 80, 110, 16);
+
+        jLabel10.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel10.setText("Valor Estornado ao Cliente:");
+        jPanel3.add(jLabel10);
+        jLabel10.setBounds(10, 100, 200, 30);
+
+        jLabel8.setText("Motivo da Devolução:");
+        jPanel3.add(jLabel8);
+        jLabel8.setBounds(10, 130, 160, 16);
+        jPanel3.add(camp_valorEstornado);
+        camp_valorEstornado.setBounds(180, 100, 90, 26);
+        jPanel3.add(camp_codigoVenda);
+        camp_codigoVenda.setBounds(180, 70, 90, 26);
+
+        btn_RegistrarDevolucao.setText("Registrar");
+        jPanel3.add(btn_RegistrarDevolucao);
+        btn_RegistrarDevolucao.setBounds(310, 170, 90, 30);
+
+        btn_cancelar.setText("Cancelar");
+        jPanel3.add(btn_cancelar);
+        btn_cancelar.setBounds(310, 200, 90, 30);
+
+        jScrollPane1.setViewportView(camp_MotivoDevolucao);
+
+        jPanel3.add(jScrollPane1);
+        jScrollPane1.setBounds(10, 160, 260, 70);
+        jPanel3.add(jSeparator2);
+        jSeparator2.setBounds(10, 240, 390, 10);
+
+        jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel11.setText("Registro de Devolução:");
+        jPanel3.add(jLabel11);
+        jLabel11.setBounds(120, 10, 230, 21);
+        jPanel3.add(jSeparator3);
+        jSeparator3.setBounds(10, 30, 390, 10);
+
+        jButton1.setText("Novo");
+        jPanel3.add(jButton1);
+        jButton1.setBounds(320, 440, 80, 30);
+        jPanel3.add(jTextField1);
+        jTextField1.setBounds(10, 300, 170, 30);
+
+        jButton2.setText("Registrar");
+        jPanel3.add(jButton2);
+        jButton2.setBounds(210, 440, 100, 30);
+
+        jButton3.setText("Cancelar");
+        jPanel3.add(jButton3);
+        jButton3.setBounds(100, 440, 100, 30);
+
+        jLabel12.setText("Tipo:");
+        jPanel3.add(jLabel12);
+        jLabel12.setBounds(10, 280, 60, 16);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel3.add(jComboBox1);
+        jComboBox1.setBounds(10, 300, 210, 30);
+
+        jButton4.setText("Novo");
+        jPanel3.add(jButton4);
+        jButton4.setBounds(310, 140, 90, 30);
+
+        jButton5.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jButton5.setText("+");
+        jPanel3.add(jButton5);
+        jButton5.setBounds(220, 300, 40, 30);
+
+        jScrollPane3.setViewportView(jTextPane1);
+
+        jPanel3.add(jScrollPane3);
+        jScrollPane3.setBounds(10, 360, 230, 70);
+
+        jLabel13.setText("Descrição da Despesa:");
+        jPanel3.add(jLabel13);
+        jLabel13.setBounds(10, 340, 150, 16);
+
+        jLabel14.setText("Valor:");
+        jPanel3.add(jLabel14);
+        jLabel14.setBounds(280, 340, 80, 16);
+        jPanel3.add(jFormattedTextField1);
+        jFormattedTextField1.setBounds(280, 360, 100, 30);
+        jPanel3.add(jSeparator4);
+        jSeparator4.setBounds(10, 270, 390, 10);
+
+        jLabel15.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(59, 13, 245));
+        jLabel15.setText("Registro de Despesas:");
+        jPanel3.add(jLabel15);
+        jLabel15.setBounds(120, 250, 200, 21);
+        jPanel3.add(jFormattedTextField3);
+        jFormattedTextField3.setBounds(280, 300, 100, 30);
+
+        jLabel17.setText("Data:");
+        jPanel3.add(jLabel17);
+        jLabel17.setBounds(280, 280, 60, 16);
+
+        jLabel19.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(0, 62, 255));
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel19.setText("Ajuda?");
+        jPanel3.add(jLabel19);
+        jLabel19.setBounds(340, 50, 60, 16);
+
         add(jPanel3);
         jPanel3.setBounds(720, 160, 410, 480);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_RegistrarDevolucao;
+    private javax.swing.JButton btn_cancelar;
+    private javax.swing.JTextPane camp_MotivoDevolucao;
+    private javax.swing.JTextField camp_codigoVenda;
     private javax.swing.JTextField camp_despesas;
     private javax.swing.JTextField camp_receber;
     private javax.swing.JTextField camp_totalcaixa;
     private javax.swing.JTextField camp_valorBruto;
+    private javax.swing.JTextField camp_valorEstornado;
     private javax.swing.JTextField camp_valorLiguido;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JFormattedTextField jFormattedTextField2;
+    private javax.swing.JFormattedTextField jFormattedTextField3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -161,10 +363,22 @@ public class TelaCaixa extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextPane jTextPane1;
     // End of variables declaration//GEN-END:variables
 
     public void calcularValorNoCaixa() {

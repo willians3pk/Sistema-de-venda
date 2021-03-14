@@ -19,8 +19,10 @@ public class Caixa {
     private Integer id;
     private double entradaDinheiro;
     private double saidaDespesas;
+    private double devolucaoCliente;
+    private String descricaoMovito;
     private Date   data;
-    private String observacao;
+    private String descricaoDespesa;
     private String tipo;
     
     @OneToOne
@@ -29,11 +31,15 @@ public class Caixa {
     public Caixa() {
     }
 
-    public Caixa(Integer id, double entradaDinheiro, double saidaDespesas, String observacao, Venda venda) {
+    public Caixa(Integer id, double entradaDinheiro, double saidaDespesas, double devolucaoCliente, String descricaoMovito, Date data, String descricaoDespesa, String tipo, Venda venda) {
         this.id = id;
         this.entradaDinheiro = entradaDinheiro;
         this.saidaDespesas = saidaDespesas;
-        this.observacao = observacao;
+        this.devolucaoCliente = devolucaoCliente;
+        this.descricaoMovito = descricaoMovito;
+        this.data = data;
+        this.descricaoDespesa = descricaoDespesa;
+        this.tipo = tipo;
         this.venda = venda;
     }
 
@@ -61,12 +67,36 @@ public class Caixa {
         this.saidaDespesas = saidaDespesas;
     }
 
-    public String getObservacao() {
-        return observacao;
+    public double getDevolucaoCliente() {
+        return devolucaoCliente;
     }
 
-    public void setObservacao(String observacao) {
-        this.observacao = observacao;
+    public void setDevolucaoCliente(double devolucaoCliente) {
+        this.devolucaoCliente = devolucaoCliente;
+    }
+
+    public String getDescricaoMovito() {
+        return descricaoMovito;
+    }
+
+    public void setDescricaoMovito(String descricaoMovito) {
+        this.descricaoMovito = descricaoMovito;
+    }
+
+    public String getDescricaoDespesa() {
+        return descricaoDespesa;
+    }
+
+    public void setDescricaoDespesa(String descricaoDespesa) {
+        this.descricaoDespesa = descricaoDespesa;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public Venda getVenda() {
