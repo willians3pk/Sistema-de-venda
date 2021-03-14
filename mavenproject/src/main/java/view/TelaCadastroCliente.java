@@ -851,7 +851,8 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
                                 venda.getIdvenda(),
                                 venda.getCliente().getNome(),
                                 venda.getEstado(),
-                                dinheiro.format(venda.getValorTotal())});
+                                dinheiro.format(venda.getValorTotal()),
+                                formato.format(venda.getDataVenda())});
 
                             // soma todos os valores total de cada venda;
                             y = z + x;
@@ -882,7 +883,8 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
                                 venda.getIdvenda(),
                                 venda.getCliente().getNome(),
                                 venda.getEstado(),
-                                dinheiro.format(venda.getValorTotal())});
+                                dinheiro.format(venda.getValorTotal()),
+                                formato.format(venda.getDataVenda())});
 
                             // soma todos os valores total de cada venda;
                             y = z + x;
@@ -890,8 +892,6 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
                         }
                     }
                     jtotalVendas.setText(dinheiro.format(z));
-                } else {
-//                    carregarTabelaVendas();
                 }
                 carregando.dispose();
             }
@@ -1028,7 +1028,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
             cliente.setStatus(true);
             cliente.setClienteDesde(new Date()); // DATA QUE O CLIENTE FOI CADASTRADO;
             cliente.setDataNascimento(field_date.getDate());
-            
+
 // ---------- ENDEREÇO -----------------
             Endereco end = new Endereco();
             end.setRua(field_Rua.getText());
@@ -1251,17 +1251,16 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     }
 
     public void jList1MouseClicked() {
-        
-        
+
         btn_visualiza.setEnabled(true);
         Conexao banco = new Conexao();
         cliente = banco.list_Cliente().get(jList1.getSelectedIndex());
-        System.out.println(cliente.getNome()+" "+jList1.getSelectedIndex());
-        qtdeVendas.setText(""+cliente.getVendas().size());
+        System.out.println(cliente.getNome() + " " + jList1.getSelectedIndex());
+        qtdeVendas.setText("" + cliente.getVendas().size());
         Locale localeBR = new Locale("pt", "BR"); //declaração da variável do tipo Locale, responsável por definir o idioma e localidade a serem utilizados nas formatações;
         NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // formata o tipo date
-        camp_codigocliente.setText(cliente.getIdpessoa()+"");
+        camp_codigocliente.setText(cliente.getIdpessoa() + "");
         double y = 0;
         double x = 0;
         double z = 0;

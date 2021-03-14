@@ -3,52 +3,40 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package view.administrador;
 
 import br.com.configuracao.TableRendererAPrazo;
-import model.ItensVenda;
-import model.Parcelas;
-import model.Venda;
 import conexao.Conexao;
 import java.awt.Color;
-import model.Estado;
-import static view.MainScreen.jDesktopPane1;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import model.Estado;
+import model.FormaPagamento;
+import model.ItensVenda;
+import model.Parcelas;
+import model.Venda;
+import static view.MainScreen.jDesktopPane1;
 
 /**
  *
  * @author user
  */
-public class TelaDetalhesVenda extends javax.swing.JPanel {
+public class TelaDetalheVenda extends javax.swing.JPanel {
 
-    Venda venda;
-    TelaCadastroCliente cc;
+    public Venda venda;
+    Conexao connectbanco = new Conexao();
 
-    public void setCc(TelaCadastroCliente cc) {
-        this.cc = cc;
-    }
-
-    public Venda getVenda() {
-        return venda;
-    }
-
-    public void setVenda(Venda venda) {
-        this.venda = venda;
-    }
-
-    public TelaDetalhesVenda() {
+    public TelaDetalheVenda() {
         initComponents();
-
         checkbox.setVisible(false);
-        btn_salvar.setVisible(false);
-        btn_volta2.setVisible(false);
+        btn_removerItem.setVisible(false);
 
         TableColumn colCodigo = jtableVenda.getColumnModel().getColumn(0);
         TableColumn colNome = jtableVenda.getColumnModel().getColumn(1);
@@ -71,6 +59,15 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         colData.setPreferredWidth(50);
         colValor.setPreferredWidth(10);
         colStatus.setPreferredWidth(5);
+
+    }
+
+    public Venda getVenda() {
+        return venda;
+    }
+
+    public void setVenda(Venda venda) {
+        this.venda = venda;
     }
 
     @SuppressWarnings("unchecked")
@@ -97,18 +94,16 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        camp_totalvenda = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         btn_voltar = new javax.swing.JButton();
-        camp_valorentrada = new javax.swing.JTextField();
         jlabelValorPago = new javax.swing.JLabel();
         camp_CodigoCliente = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         checkbox = new javax.swing.JCheckBox();
         btn_receber = new javax.swing.JButton();
+        btn_removerItem = new javax.swing.JButton();
         btn_salvar = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
-        btn_volta2 = new javax.swing.JButton();
         camp_desconto = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         camp_acrescimo = new javax.swing.JTextField();
@@ -116,6 +111,10 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         estadoVenda = new javax.swing.JTextField();
         camp_parcelasRestantes = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        camp_totalvenda = new javax.swing.JFormattedTextField();
+        camp_valorentrada = new javax.swing.JFormattedTextField();
+        comboxFormaPagmento = new javax.swing.JComboBox<>();
 
         setLayout(null);
 
@@ -137,8 +136,6 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         jLabel2.setText("Forma de Pagamento:");
         jPanel1.add(jLabel2);
         jLabel2.setBounds(20, 210, 160, 20);
-
-        camp_datavenda.setEditable(false);
         jPanel1.add(camp_datavenda);
         camp_datavenda.setBounds(140, 40, 140, 30);
 
@@ -204,11 +201,6 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         });
         tableAPrazo.setEnabled(false);
         jScrollPane3.setViewportView(tableAPrazo);
-        if (tableAPrazo.getColumnModel().getColumnCount() > 0) {
-            tableAPrazo.getColumnModel().getColumn(0).setResizable(false);
-            tableAPrazo.getColumnModel().getColumn(1).setResizable(false);
-            tableAPrazo.getColumnModel().getColumn(2).setResizable(false);
-        }
 
         jPanel2.add(jScrollPane3);
         jScrollPane3.setBounds(800, 10, 280, 110);
@@ -223,14 +215,6 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         camp_observacao.setColumns(20);
         camp_observacao.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         camp_observacao.setRows(5);
-        camp_observacao.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                camp_observacaoFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                camp_observacaoFocusLost(evt);
-            }
-        });
         jScrollPane2.setViewportView(camp_observacao);
 
         jPanel1.add(jScrollPane2);
@@ -244,10 +228,6 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         jPanel1.add(jSeparator2);
         jSeparator2.setBounds(20, 300, 1100, 10);
 
-        camp_totalvenda.setEditable(false);
-        jPanel1.add(camp_totalvenda);
-        camp_totalvenda.setBounds(320, 40, 100, 30);
-
         jLabel6.setText("Total da Venda:");
         jPanel1.add(jLabel6);
         jLabel6.setBounds(320, 20, 100, 16);
@@ -260,10 +240,6 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         });
         jPanel1.add(btn_voltar);
         btn_voltar.setBounds(1060, 10, 60, 30);
-
-        camp_valorentrada.setEditable(false);
-        jPanel1.add(camp_valorentrada);
-        camp_valorentrada.setBounds(320, 230, 90, 30);
 
         jlabelValorPago.setText("Valor pago:");
         jPanel1.add(jlabelValorPago);
@@ -296,6 +272,15 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         jPanel1.add(btn_receber);
         btn_receber.setBounds(1020, 260, 80, 30);
 
+        btn_removerItem.setText("Remover Item");
+        btn_removerItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_removerItemActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_removerItem);
+        btn_removerItem.setBounds(660, 460, 130, 30);
+
         btn_salvar.setText("Salvar");
         btn_salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -303,28 +288,15 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btn_salvar);
-        btn_salvar.setBounds(500, 580, 80, 40);
+        btn_salvar.setBounds(1040, 600, 80, 30);
         jPanel1.add(jSeparator4);
         jSeparator4.setBounds(20, 120, 1100, 10);
-
-        btn_volta2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Left-48.png"))); // NOI18N
-        btn_volta2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_volta2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_volta2);
-        btn_volta2.setBounds(1060, 10, 60, 30);
-
-        camp_desconto.setEditable(false);
         jPanel1.add(camp_desconto);
         camp_desconto.setBounds(440, 230, 70, 30);
 
         jLabel7.setText("Desconto:");
         jPanel1.add(jLabel7);
         jLabel7.setBounds(440, 210, 80, 16);
-
-        camp_acrescimo.setEditable(false);
         jPanel1.add(camp_acrescimo);
         camp_acrescimo.setBounds(530, 230, 70, 30);
 
@@ -347,18 +319,41 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         jPanel1.add(jLabel11);
         jLabel11.setBounds(1000, 460, 130, 20);
 
+        jLabel9.setFont(new java.awt.Font("Ubuntu", 0, 48)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("ADMINISTRADOR");
+        jPanel1.add(jLabel9);
+        jLabel9.setBounds(470, 30, 570, 40);
+
+        camp_totalvenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        jPanel1.add(camp_totalvenda);
+        camp_totalvenda.setBounds(320, 40, 90, 30);
+
+        camp_valorentrada.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        jPanel1.add(camp_valorentrada);
+        camp_valorentrada.setBounds(320, 230, 90, 30);
+
+        comboxFormaPagmento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboxFormaPagmentoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(comboxFormaPagmento);
+        comboxFormaPagmento.setBounds(20, 230, 260, 30);
+
         add(jPanel1);
         jPanel1.setBounds(6, 5, 1130, 640);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_voltarActionPerformed
-        TelaHistorico sH = new TelaHistorico();
+        TelaEditarVenda TH = new TelaEditarVenda();
         jDesktopPane1.removeAll();
-        sH.setLocation(0, 0);
-        sH.setSize(1140, 650);
-        sH.setVisible(true);
-        sH.carregarTabelaVendas();
-        jDesktopPane1.add(sH);
+        TH.setLocation(0, 0);
+        TH.setSize(1140, 650);
+        TH.setVisible(true);
+        TH.carregarTabelaVendas();
+        jDesktopPane1.add(TH);
     }//GEN-LAST:event_btn_voltarActionPerformed
 
     private void checkboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxActionPerformed
@@ -401,39 +396,60 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Selecione uma Parcela! \n" + e);
         }
-
     }//GEN-LAST:event_btn_receberActionPerformed
+
+    private void btn_removerItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removerItemActionPerformed
+        DefaultTableModel tabela = (DefaultTableModel) jtableVenda.getModel();
+        Conexao banco = new Conexao();
+        try {
+            int confirmacao = JOptionPane.showInternalConfirmDialog(null, "Você tem certeza que deseja remover esse item?", "REMOVER ITEM", JOptionPane.YES_OPTION);
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                int row = jtableVenda.getSelectedRow();
+                for (ItensVenda iten : venda.getItens()) {
+                    System.out.println(iten.getIditensVenda() + " " + iten.getItems().getNome());
+                    if (iten.getIditensVenda().equals(tabela.getValueAt(row, 0))) {
+                        venda.getItens().remove(iten);
+                        banco.update(venda);
+                        carregarCampos();
+                        break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Selecione o Item que deseja remover! \n" + e);
+        }
+    }//GEN-LAST:event_btn_removerItemActionPerformed
 
     private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
         Conexao banco = new Conexao();
-        int confirmacao = JOptionPane.showInternalConfirmDialog(null, "Você deseja salvar observação da venda?", "SALVAR OBSERVAÇÃO", JOptionPane.YES_OPTION);
+        int confirmacao = JOptionPane.showInternalConfirmDialog(null, "Você deseja salvar as auterações da venda?", "SALVAR ALTERAÇÃO", JOptionPane.YES_OPTION);
         if (confirmacao == JOptionPane.YES_OPTION) {
+            venda.setValorTotal(Double.parseDouble(camp_totalvenda.getText().replace("R$", "").replace(",", ".").trim())); // valor total
+            venda.setValor_pago(Double.parseDouble(camp_valorentrada.getText().replace("R$", "").replace(",", ".").trim()));// valor pago
+            venda.setDesconto(Float.parseFloat(camp_desconto.getText().replace("%", "").replace(".", "")));
+            venda.setAcrescimo(Double.parseDouble(camp_acrescimo.getText().replace("R$", "").replace(",", ".").trim()));
+            
+            FormaPagamento formapagamento;
+            int posicao = comboxFormaPagmento.getSelectedIndex();
+            formapagamento = connectbanco.listFormPagamento().get(posicao);
+            venda.getFormaPagamento().clear();
+            venda.getFormaPagamento().add(formapagamento);
             venda.setDescricao(camp_observacao.getText());
+            
             banco.update(venda);
+            carregarCampos();
         }
     }//GEN-LAST:event_btn_salvarActionPerformed
 
-    private void camp_observacaoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_camp_observacaoFocusGained
-        btn_salvar.setVisible(true);
-    }//GEN-LAST:event_camp_observacaoFocusGained
-
-    private void camp_observacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_camp_observacaoFocusLost
-        btn_salvar.setVisible(false);
-    }//GEN-LAST:event_camp_observacaoFocusLost
-
-    private void btn_volta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volta2ActionPerformed
-        jDesktopPane1.removeAll();
-        cc.setLocation(0, 0);
-        cc.setSize(1140, 650);
-        cc.setVisible(true);
-        jDesktopPane1.add(cc);
-    }//GEN-LAST:event_btn_volta2ActionPerformed
+    private void comboxFormaPagmentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboxFormaPagmentoActionPerformed
+        camp_formaPagamento.setText(comboxFormaPagmento.getSelectedItem().toString());
+    }//GEN-LAST:event_comboxFormaPagmentoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_receber;
+    private javax.swing.JButton btn_removerItem;
     private javax.swing.JButton btn_salvar;
-    public javax.swing.JButton btn_volta2;
     public javax.swing.JButton btn_voltar;
     private javax.swing.JTextField camp_CodigoCliente;
     private javax.swing.JTextField camp_acrescimo;
@@ -444,9 +460,10 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
     private javax.swing.JTextField camp_nome;
     private javax.swing.JTextArea camp_observacao;
     private javax.swing.JTextField camp_parcelasRestantes;
-    private javax.swing.JTextField camp_totalvenda;
-    private javax.swing.JTextField camp_valorentrada;
+    private javax.swing.JFormattedTextField camp_totalvenda;
+    private javax.swing.JFormattedTextField camp_valorentrada;
     private javax.swing.JCheckBox checkbox;
+    private javax.swing.JComboBox<String> comboxFormaPagmento;
     private javax.swing.JTextField estadoVenda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -458,6 +475,7 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -478,26 +496,39 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
         DateFormat data = new SimpleDateFormat("dd/MM/yyyy");
 
+        DefaultComboBoxModel comboBox = new DefaultComboBoxModel();
+        for (FormaPagamento formapagamento : connectbanco.listFormPagamento()) {
+            comboBox.addElement(formapagamento.getDescricao());
+            comboxFormaPagmento.setModel(comboBox);
+        }
+
         camp_codigovenda.setText(venda.getIdvenda() + ""); // codigo da venda;
         camp_datavenda.setText(data.format(venda.getDataVenda()) + ""); // data da venda
-        camp_totalvenda.setText(dinheiro.format(venda.getValorTotal()) + ""); // valor total da venda;
+        camp_totalvenda.setText(venda.getValorTotal() + ""); // valor total da venda;
         camp_nome.setText(venda.getCliente().getNome()); // nome do cliente
         camp_observacao.setText(venda.getDescricao()); // descrição da venda;
         camp_formaPagamento.setText(venda.FormaPagamento()); // forma de pagamento da venda;
         camp_CodigoCliente.setText(venda.getCliente().getIdpessoa() + "");
-        camp_desconto.setText(venda.getDesconto() + " %");
-        camp_acrescimo.setText(dinheiro.format(venda.getAcrescimo()));
+        camp_desconto.setText(venda.getDesconto() + "%");
+        camp_acrescimo.setText("" + venda.getAcrescimo());
         estadoVenda.setText(venda.getEstado().getDescricao());
-        
+        camp_valorentrada.setText("" + venda.getValor_pago());
+
+        // a linha abaixo seleciona na combobox a forma de pagamento da venda;
+        if (comboxFormaPagmento.getSelectedItem() == (venda.FormaPagamento())) {
+            comboxFormaPagmento.setSelectedItem(venda.FormaPagamento().toString());
+        } else {
+            comboxFormaPagmento.setSelectedItem(venda.FormaPagamento());
+        }
+
         if (venda.getEstado().getDescricao().equals("PENDENTE")) {
             estadoVenda.setBackground(Color.red);
-        }else{
+        } else {
             estadoVenda.setBackground(Color.green);
         }
 
         DefaultTableModel tabelavenda = (DefaultTableModel) jtableVenda.getModel();
         tabelavenda.setNumRows(0);
-        camp_valorentrada.setText(dinheiro.format(venda.getValor_pago()));
 
         for (ItensVenda iten : venda.listaItens()) {
             tabelavenda.addRow(new Object[]{
@@ -513,7 +544,7 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         if (venda.FormaPagamento().equals("A PRAZO")) {
             DefaultTableModel tabelaAprazo = (DefaultTableModel) tableAPrazo.getModel();
             jlabelValorPago.setText("Valor Pago:");
-            camp_valorentrada.setText(dinheiro.format(venda.getValor_pago())); // valor da entrada;
+            camp_valorentrada.setText("" + venda.getValor_pago()); // valor da entrada;
             checkbox.setVisible(true);
             btn_receber.setVisible(true);
             tabelaAprazo.setNumRows(0);
@@ -527,15 +558,15 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
             tableAPrazo.setDefaultRenderer(Object.class, new TableRendererAPrazo());
 
         }
-        
+
         double x = 0;
         double y = 0;
         double ParcelasRestantes = 0;
-        
+
         if (venda.FormaPagamento().equals("PARCELADO")) {
             DefaultTableModel tabelaParcelado = (DefaultTableModel) tableAPrazo.getModel();
             jlabelValorPago.setText("Valor Entrada:");
-            camp_valorentrada.setText(dinheiro.format(venda.getValor_pago())); // valor da entrada;
+            camp_valorentrada.setText("" + venda.getValor_pago()); // valor da entrada;
             checkbox.setVisible(true);
             btn_receber.setVisible(true);
 
@@ -548,17 +579,17 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
                         parcela.getPago()
                     });
                 }
-                if(parcela.getPago().getDescricao().equals("PENDENTE")){
+                if (parcela.getPago().getDescricao().equals("PENDENTE")) {
                     x = parcela.getValor();
                     y = ParcelasRestantes + x;
                     ParcelasRestantes = y;
                 }
 
             }
-            
+
             DecimalFormat decimal = new DecimalFormat("0.00");
             tableAPrazo.setDefaultRenderer(Object.class, new TableRendererAPrazo());
-            camp_parcelasRestantes.setText("R$ "+decimal.format(ParcelasRestantes));
+            camp_parcelasRestantes.setText("R$ " + decimal.format(ParcelasRestantes));
         } else {
             jlabelValorPago.setText("Valor Pago:");
         }

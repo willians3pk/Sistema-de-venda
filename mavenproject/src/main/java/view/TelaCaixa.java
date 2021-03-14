@@ -53,6 +53,7 @@ public class TelaCaixa extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
 
         setLayout(null);
@@ -131,6 +132,11 @@ public class TelaCaixa extends javax.swing.JPanel {
         jPanel2.add(jLabel7);
         jLabel7.setBounds(380, 140, 20, 16);
 
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("corrigir dinheiro a receber.");
+        jPanel2.add(jLabel8);
+        jLabel8.setBounds(130, 216, 320, 130);
+
         add(jPanel2);
         jPanel2.setBounds(10, 10, 700, 630);
 
@@ -154,6 +160,7 @@ public class TelaCaixa extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

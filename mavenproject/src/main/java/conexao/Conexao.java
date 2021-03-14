@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.Categoria;
+import model.Usuario;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -277,6 +278,25 @@ public class Conexao {
         return null;
     }
 
+    public List<Usuario> list_Usuarios() {
+
+        this.session = NewHibernateUtil.getSessionFactory().openSession();
+        this.tx = session.beginTransaction();
+        List<Usuario> list = null;
+        String sql = "from Pessoa where DTYPE = 'Usuario'";
+        try {
+            list = (List<Usuario>) session.createQuery(sql).list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n" + e);
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+    
     public List<FormaPagamento> listFormPagamento() {
 
         this.session = NewHibernateUtil.getSessionFactory().openSession();

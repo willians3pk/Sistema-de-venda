@@ -84,6 +84,7 @@ public class MainScreen extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jMenuICancelarVenda = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jVendaHIstoricos = new javax.swing.JMenuItem();
         jMenuCliente = new javax.swing.JMenuItem();
@@ -99,7 +100,7 @@ public class MainScreen extends javax.swing.JFrame {
         jPanel1.setLayout(null);
 
         horariodoSystema.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        horariodoSystema.setText("jLabel6");
+        horariodoSystema.setText("data");
         jPanel1.add(horariodoSystema);
         horariodoSystema.setBounds(1250, 0, 110, 20);
 
@@ -258,9 +259,17 @@ public class MainScreen extends javax.swing.JFrame {
         jMenu4.add(jMenuICancelarVenda);
 
         jMenuItem4.setText("Editar");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem4);
 
         jMenu1.add(jMenu4);
+
+        jMenuItem5.setText("Banco Dados");
+        jMenu1.add(jMenuItem5);
 
         jMenuBar1.add(jMenu1);
 
@@ -532,6 +541,10 @@ public class MainScreen extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        new TelaAutenticacao().setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -588,6 +601,7 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

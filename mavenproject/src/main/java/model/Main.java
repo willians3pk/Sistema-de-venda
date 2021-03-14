@@ -105,13 +105,7 @@ public class Main {
 //            System.out.println(object.getIditensVenda());
 //            
 //        }
-//        
-        Session session = NewHibernateUtil.getSessionFactory().openSession();
-        Transaction tx = session.beginTransaction();
 
-        Query totalentrado = session.createQuery("SELECT SUM(entradaDinheiro) FROM Caixa");
-        double valor = (double) totalentrado.list().get(0);
-        System.out.println(valor);
     }
 
 }

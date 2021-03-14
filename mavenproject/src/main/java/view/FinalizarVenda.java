@@ -778,7 +778,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
 
             // se o valor do textfield está vazia ou for zero;
             if (camp_qtdeParcelas.getText().isEmpty() || camp_qtdeParcelas.getText().equals("0")) {
-                JOptionPane.showMessageDialog(null, "Por favor, digite a quantidade de parcelas!");
+                JOptionPane.showMessageDialog(null, "Por favor, digite a quantidade de parcelas!", "ATENÇÃO!!", HEIGHT);
             } else {
                 venda.setCliente(client); // adiciona o cliente na venda;
                 client.getVendas().add(venda); // adiciona a venda na lista de cliente;
@@ -832,7 +832,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "ATENÇÃO vendas Parceladas precisa de um cliente cadastrado.");
+            JOptionPane.showMessageDialog(null, "ATENÇÃO vendas Parceladas precisa de um cliente cadastrado.", "ATENÇÃO!!", HEIGHT);
         }
     }
 
@@ -906,7 +906,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
             s.setVisible(true);
             jDesktopPane1.add(s);
         } else {
-            JOptionPane.showMessageDialog(null, "ATENÇÃO vendas A PRAZO precisa de um cliente cadastrado.");
+            JOptionPane.showMessageDialog(null, "ATENÇÃO vendas A PRAZO precisa de um cliente cadastrado.", "ATENÇÃO!!", HEIGHT);
         }
 
     }
