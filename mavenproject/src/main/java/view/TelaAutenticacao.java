@@ -92,7 +92,7 @@ public class TelaAutenticacao extends javax.swing.JFrame {
         Conexao banco = new Conexao();
         List<Usuario> admin = banco.list_Usuarios();
         for (Usuario usuario : admin) {
-            if (usuario.getNome().equals(jTextField2.getText()) && usuario.getSenha().equals(jPasswordField1.getText())) {
+            if (usuario.getLogin().equals(jTextField2.getText()) && usuario.getSenha().equals(jPasswordField1.getText())) {
                 JOptionPane.showMessageDialog(null, "Usuario Autenticado!");
                 final TelaLoading carregando = new TelaLoading();
                 carregando.setVisible(true);

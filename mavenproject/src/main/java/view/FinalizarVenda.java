@@ -12,6 +12,7 @@ import model.FormaPagamento;
 import model.Produto;
 import model.Venda;
 import conexao.Conexao;
+import static java.awt.image.ImageObserver.HEIGHT;
 import model.Estado;
 import static view.MainScreen.jDesktopPane1;
 import static view.TelaVenda.produtos;
@@ -573,7 +574,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
                 double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", ".").replace(",", "."));
                 double troco = valortotal - valorPago;
 
-                if (!camp_desconto.getText().isEmpty()) {
+                if (!camp_desconto.getText().isEmpty() && !camp_Acrescimo.getText().isEmpty()) {
                     venda.setStatus(true);
                     venda.setDataVenda(dataVenda.getDate()); // data da venda
                     venda.setAcrescimo(Double.parseDouble(camp_Acrescimo.getText().replace(",", ".")));
@@ -649,7 +650,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
                     jDesktopPane1.add(s);
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "Campo Desconto da Venda não pode ficar em branco!");
+                    JOptionPane.showMessageDialog(null, "Campo Desconto da Venda e Acrescimo não pode ficar em branco!", "ATENÇÂO" , HEIGHT);
                 }
                 carregando.dispose();
             }
@@ -669,7 +670,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
                 double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", ".").replace(",", "."));
                 double troco = valortotal - valorPago;
 
-                if (!camp_desconto.getText().isEmpty()) {
+                if (!camp_desconto.getText().isEmpty() && !camp_Acrescimo.getText().isEmpty()) {
                     venda.setStatus(true);
                     venda.setDataVenda(dataVenda.getDate()); // data da venda
                     venda.setAcrescimo(Double.parseDouble(camp_Acrescimo.getText().replace(",", ".")));
@@ -745,7 +746,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
                     jDesktopPane1.add(s);
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "Campo Desconto da Venda não pode ficar em branco!");
+                    JOptionPane.showMessageDialog(null, "Campo Desconto da Venda e Acrescimo não pode ficar em branco!", "ATENÇÂO" , HEIGHT);
                 }
                 carregando.dispose();
             }

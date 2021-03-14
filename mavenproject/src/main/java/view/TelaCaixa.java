@@ -182,12 +182,18 @@ public class TelaCaixa extends javax.swing.JPanel {
         double entradaCaixa = (double) query1.list().get(0);
         double saidaCaixa = (double) query2.list().get(0);
         double valorBruto = entradaCaixa - saidaCaixa;
+
         double y = 0;
         double x = 0;
-        double receber = 0;
+
+        double c = 0;
+        double d = 0;
+
         double DinheiroPrazo = 0;
+        double DinheiroParcelas = 0;
+
         session.close();
-        
+
         DecimalFormat decimal = new DecimalFormat("0.00");
 
         for (Venda venda : vendas) {
@@ -203,18 +209,18 @@ public class TelaCaixa extends javax.swing.JPanel {
                     }
                 }
                 if (venda.FormaPagamento().equals("PARCELADO")) {
-                    double SomaDasParcelas = venda.getParcelas().size() * venda.getParcelas().get(0).getValor();
-                    receber = SomaDasParcelas;
+//                    double SomaDasParcelas = venda.getParcelas().size() * venda.getParcelas().get(0).getValor();
+//                    DinheiroParcelas = SomaDasParcelas;
                     // a codigo abaixo só calcula as vendas que nao são canceladas;
                     if (venda.isStatus()) {
                         for (Parcelas parcela : parcelas) {
                             // a linha abaixo verifica se a parcela é da venda;
                             if (parcela.getVenda().getIdvenda().equals(venda.getIdvenda())) {
                                 // a linha abaixo verifica se a parcela foi paga
-                                if (parcela.getPago() == Estado.PAGO) {
-                                    // a linha subtrai a soma das parcelas com o valor que foi pago;
-                                    x = receber - parcela.getValor();
-                                    receber = x; // atualiza o valor que vai ser recebido;
+                                if (parcela.getPago() == Estado.PENDENTE) {
+                                    c = parcela.getValor();
+                                    d = DinheiroParcelas + c;
+                                    DinheiroParcelas = d;
                                 }
                             }
                         }
@@ -223,10 +229,10 @@ public class TelaCaixa extends javax.swing.JPanel {
                 }
             }
         }
-        double receber2 = receber + DinheiroPrazo; // soma as parcelas que falta receber com as vendas aprazo.
-        double valorLiguido = valorBruto - Double.parseDouble(decimal.format(receber2).replace(",", "."));
+        double Faltareceber = (DinheiroPrazo + DinheiroParcelas); // soma as parcelas que falta receber com as vendas aprazo.
+        double valorLiguido = valorBruto - Double.parseDouble(decimal.format(Faltareceber).replace(",", "."));
         camp_valorLiguido.setText("R$ " + decimal.format(valorLiguido));
-        camp_receber.setText("R$ " + decimal.format(receber2));
+        camp_receber.setText("R$ " + decimal.format(Faltareceber));
         camp_valorBruto.setText("R$ " + valorBruto);
         camp_totalcaixa.setText("R$ " + valorBruto);
     }

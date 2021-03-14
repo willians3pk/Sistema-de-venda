@@ -21,6 +21,8 @@ public class Caixa {
     private double saidaDespesas;
     private Date   data;
     private String observacao;
+    private String tipo;
+    
     @OneToOne
     private Venda venda;
 
