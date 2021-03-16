@@ -5,7 +5,7 @@
  */
 package view;
 
-import br.com.configuracao.TableRendererAPrazo;
+import util.TableRendererAPrazo;
 import model.ItensVenda;
 import model.Parcelas;
 import model.Venda;

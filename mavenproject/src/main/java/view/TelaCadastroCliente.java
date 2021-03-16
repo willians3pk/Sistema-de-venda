@@ -1,7 +1,7 @@
 package view;
 
-import br.com.configuracao.TableRendererClientes;
-import br.com.configuracao.Teclas;
+import util.TableRendererClientes;
+import util.Teclas;
 import model.Cliente;
 import model.Endereco;
 import model.Venda;

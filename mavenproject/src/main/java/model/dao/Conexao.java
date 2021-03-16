@@ -16,7 +16,10 @@ import model.Venda;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import model.Caixa;
 import model.Categoria;
+import model.Estado;
+import model.Parcelas;
 import model.Usuario;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -143,6 +146,45 @@ public class Conexao {
         } finally {
             session.close();
         }
+    }
+
+    public List<Caixa> ListaTodoCaixa() {
+
+        this.session = NewHibernateUtil.getSessionFactory().openSession();
+        this.tx = session.beginTransaction();
+        List<Caixa> list = null;
+
+        try {
+            list = (List<Caixa>) session.createQuery("FROM Caixa").list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            System.out.println("Erro ao Pegar lista no Banco de Dados!");
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n" + e);
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
+    public List<Caixa> ListaCaixaPorData(String data) {
+
+        this.session = NewHibernateUtil.getSessionFactory().openSession();
+        this.tx = session.beginTransaction();
+        List<Caixa> list = null;
+
+        try {
+            String hql = "from Caixa where data BETWEEN ('" + data + "')" + "and" + "('" + data + "')";
+            list = (List<Caixa>) session.createQuery(hql).list();
+            tx.commit();
+            return list;
+        } catch (Exception e) {
+            System.out.println("Erro ao Pegar lista no Banco de Dados!");
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n" + e);
+        } finally {
+            session.close();
+        }
+        return null;
     }
 
     public List<Produto> productBook() {
@@ -296,7 +338,7 @@ public class Conexao {
         }
         return null;
     }
-    
+
     public List<FormaPagamento> listFormPagamento() {
 
         this.session = NewHibernateUtil.getSessionFactory().openSession();
@@ -476,10 +518,94 @@ public class Conexao {
     public List listavendas() {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
-        
+
         Query query = session.createQuery("from Venda");
         List lista = query.list();
         tx.commit();
         return lista;
     }
+
+    public List Parcelas() {
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        try {
+            Query query3 = session.createQuery("FROM Parcelas");
+            List<Parcelas> parcelas = query3.list();
+            return parcelas;
+        } catch (Exception e) {
+            System.out.println("Erro ao Pegar lista de Categoria Banco de Dados!");
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n" + e);
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
+    public double saidaCaixa() {
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+
+        Query query = session.createQuery("SELECT SUM(saidaDespesas) FROM Caixa");
+        double saidaCaixa = (double) query.list().get(0);
+        return saidaCaixa;
+
+    }
+
+    public double entradaCaixa() {
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+
+        Query query = session.createQuery("SELECT SUM(entradaDinheiro) FROM Caixa");
+        double entradaCaixa = (double) query.list().get(0);
+        return entradaCaixa;
+
+    }
+
+    public double entradasCanceladas() {
+        List<Venda> vendas = listavendas();
+        double x = 0;
+        double y = 0;
+        double entradasCanceladas = 0;
+
+        for (Venda venda : vendas) {
+            if (!venda.isStatus()) {
+                x = venda.getValorTotal();
+                y = entradasCanceladas + x;
+                entradasCanceladas = y;
+            }
+        }
+
+        return entradasCanceladas;
+    }
+
+    public double parcelasPagas() {
+        List<Parcelas> parcelas = Parcelas();
+        double x = 0;
+        double y = 0;
+        double parcelasPagas = 0;
+        for (Parcelas parcela : parcelas) {
+            if (parcela.getPago().equals(Estado.PAGO)) {
+                x = parcela.getValor();
+                y = parcelasPagas + x;
+                parcelasPagas = y;
+            }
+        }
+        return parcelasPagas;
+    }
+    
+    public double parcelasPendente() {
+        List<Parcelas> parcelas = Parcelas();
+        double x = 0;
+        double y = 0;
+        double parcelasPendentes = 0;
+        for (Parcelas parcela : parcelas) {
+            if (parcela.getPago().equals(Estado.PENDENTE)&&parcela.isStatus()) {
+                x = parcela.getValor();
+                y = parcelasPendentes + x;
+                parcelasPendentes = y;
+            }
+        }
+        return parcelasPendentes;
+    }
+    
 }

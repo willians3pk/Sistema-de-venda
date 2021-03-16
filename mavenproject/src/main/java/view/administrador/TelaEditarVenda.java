@@ -1,7 +1,7 @@
 
 package view.administrador;
 
-import br.com.configuracao.TableRendererVendas;
+import util.TableRendererVendas;
 import conexao.Conexao;
 import conexao.NewHibernateUtil;
 import java.sql.Connection;

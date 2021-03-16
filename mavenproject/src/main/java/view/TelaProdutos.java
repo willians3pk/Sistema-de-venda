@@ -1,9 +1,9 @@
 package view;
 
 import model.Categoria;
-import br.com.configuracao.TableRendererProdutos;
-import br.com.configuracao.Teclas;
-import br.com.configuracao.TeclasPermitidas;
+import util.TableRendererProdutos;
+import util.Teclas;
+import util.TeclasPermitidas;
 import conexao.Conexao;
 import java.awt.Color;
 import model.Fornecedor;

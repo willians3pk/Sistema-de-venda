@@ -1,7 +1,7 @@
 package view;
 
-import br.com.configuracao.Teclas;
-import br.com.configuracao.TeclasPermitidas;
+import util.Teclas;
+import util.TeclasPermitidas;
 import model.Produto;
 import conexao.Conexao;
 import model.Cliente;
@@ -676,7 +676,7 @@ public class TelaVenda extends javax.swing.JPanel {
         jDesktopPane1.removeAll();
         caixa.setLocation(0, 0);
         caixa.setSize(1140, 650);
-        caixa.calcularValorNoCaixa();
+        caixa.preencherCampo();
         caixa.setVisible(true);
         jDesktopPane1.add(caixa);
     }//GEN-LAST:event_jLabel1MouseClicked

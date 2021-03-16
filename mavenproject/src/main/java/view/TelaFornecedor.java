@@ -1,6 +1,6 @@
 package view;
 
-import br.com.configuracao.Teclas;
+import util.Teclas;
 import model.Cliente;
 import conexao.Conexao;
 import conexao.NewHibernateUtil;

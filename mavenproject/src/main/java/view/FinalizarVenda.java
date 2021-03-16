@@ -5,8 +5,8 @@
  */
 package view;
 
-import br.com.configuracao.Teclas;
-import br.com.configuracao.TeclasPermitidas;
+import util.Teclas;
+import util.TeclasPermitidas;
 import model.Cliente;
 import model.FormaPagamento;
 import model.Produto;

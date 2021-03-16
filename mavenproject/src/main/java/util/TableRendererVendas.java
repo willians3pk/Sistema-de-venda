@@ -1,5 +1,5 @@
 
-package br.com.configuracao;
+package util;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JTable;

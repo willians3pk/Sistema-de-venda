@@ -10,28 +10,23 @@ import model.Endereco;
 import model.FormaPagamento;
 import model.Venda;
 import conexao.Conexao;
-import conexao.NewHibernateUtil;
 import model.Estado;
 import model.ItensVenda;
 import model.Produto;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.Date;
 import java.sql.*;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import model.Parcelas;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
@@ -435,6 +430,9 @@ public class MainScreen extends javax.swing.JFrame {
                         Venda venda = banco.getVenda(id);
                         venda.setEstado(Estado.CANCELADO);
                         venda.setStatus(false);
+                        for (Parcelas parcela : venda.getParcelas()) {
+                            parcela.setStatus(false);
+                        }             
                         banco.update(venda);
                         // ESTORNA OS ITENS DA VENDA CANCELADA PARA O ESTOQUE
                         for (ItensVenda listaIten : venda.listaItens()) {
@@ -485,7 +483,7 @@ public class MainScreen extends javax.swing.JFrame {
             jDesktopPane1.removeAll();
         c.setLocation(0, 0);
         c.setSize(1140, 650);
-        c.calcularValorNoCaixa();
+        c.preencherCampo();
         c.setVisible(true);
         jDesktopPane1.add(c);
         } catch (Exception e) {

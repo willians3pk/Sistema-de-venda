@@ -1,6 +1,6 @@
 package view;
 
-import br.com.configuracao.TableRendererVendas;
+import util.TableRendererVendas;
 import model.Venda;
 import conexao.Conexao;
 import conexao.NewHibernateUtil;

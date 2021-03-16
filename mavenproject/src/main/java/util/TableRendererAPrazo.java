@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.configuracao;
+package util;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -14,24 +14,21 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author user
  */
-public class TableRendererClientes extends DefaultTableCellRenderer{
-    
+public class TableRendererAPrazo extends DefaultTableCellRenderer{
+
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
         String estado = table.getModel().getValueAt(row, 2).toString();
-        if(estado.equals("PAGO")){
-//            comp.setBackground(Color.LIGHT_GRAY);
+        if (estado.equals("PAGO")) {
+            comp.setBackground(Color.GREEN);
             comp.setForeground(Color.BLACK);
 //            comp.setBackground(new Color(100, 200, 50));
-        } else if(estado.equals("PENDENTE")){
-//            comp.setBackground(Color.YELLOW);
-            comp.setForeground(Color.red);
+        } else if (estado.equals("PENDENTE")) {
+            comp.setBackground(Color.red);
+            comp.setForeground(Color.black);
 //            comp.setBackground(new Color(255, 91, 96));
-        }else if(estado.equals("CANCELADO")){
-            comp.setForeground(Color.ORANGE);
-//            comp.setBackground(new Color(109, 149, 254));
         }
 
         return comp;

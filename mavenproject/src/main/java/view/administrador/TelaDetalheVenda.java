@@ -5,7 +5,7 @@
  */
 package view.administrador;
 
-import br.com.configuracao.TableRendererAPrazo;
+import util.TableRendererAPrazo;
 import conexao.Conexao;
 import java.awt.Color;
 import java.text.DateFormat;

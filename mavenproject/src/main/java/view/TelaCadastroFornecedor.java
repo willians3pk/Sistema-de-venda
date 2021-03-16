@@ -5,7 +5,7 @@
  */
 package view;
 
-import br.com.configuracao.Teclas;
+import util.Teclas;
 import model.Endereco;
 import model.Fornecedor;
 import conexao.Conexao;
