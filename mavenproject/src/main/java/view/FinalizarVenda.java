@@ -11,7 +11,7 @@ import model.Cliente;
 import model.FormaPagamento;
 import model.Produto;
 import model.Venda;
-import conexao.Conexao;
+import model.dao.Conexao;
 import static java.awt.image.ImageObserver.HEIGHT;
 import model.Estado;
 import static view.MainScreen.jDesktopPane1;
@@ -25,7 +25,7 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import model.Caixa;
+import model.movimentacao;
 
 /**
  *
@@ -569,7 +569,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
         Thread t = new Thread() {
             @Override
             public void run() {
-                Caixa caixa = new Caixa();
+                movimentacao caixa = new movimentacao();
                 double valortotal = Double.parseDouble(camptotal.getText().replace("R$", "").replace(",", "."));
                 double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", ".").replace(",", "."));
                 double troco = valortotal - valorPago;
@@ -665,7 +665,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
         Thread t = new Thread() {
             @Override
             public void run() {
-                Caixa caixa = new Caixa();
+                movimentacao caixa = new movimentacao();
                 double valortotal = Double.parseDouble(camptotal.getText().replace("R$", "").replace(",", "."));
                 double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", ".").replace(",", "."));
                 double troco = valortotal - valorPago;
@@ -757,7 +757,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
 
     public void vendaParcelada() {
         
-        Caixa caixa = new Caixa();
+        movimentacao caixa = new movimentacao();
         double valortotal = Double.parseDouble(camptotal.getText().replace("R$", "").replace(",", "."));
         double valorEntrada = Double.parseDouble(campvalorPago.getText().replace(",", "."));
         double valorRestante = valortotal - valorEntrada;
@@ -838,7 +838,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
     }
 
     public void vendaAprazo() {
-        Caixa caixa = new Caixa();
+        movimentacao caixa = new movimentacao();
         double valortotal = Double.parseDouble(camptotal.getText().replace("R$", "").replace(",", "."));
         double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", "."));
         double troco = valortotal - valorPago;

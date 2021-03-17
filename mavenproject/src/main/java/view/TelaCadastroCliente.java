@@ -5,7 +5,7 @@ import util.Teclas;
 import model.Cliente;
 import model.Endereco;
 import model.Venda;
-import conexao.Conexao;
+import model.dao.Conexao;
 import model.Estado;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;

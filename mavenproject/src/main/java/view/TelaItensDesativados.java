@@ -5,7 +5,7 @@
  */
 package view;
 
-import conexao.Conexao;
+import model.dao.Conexao;
 import model.Produto;
 import java.text.NumberFormat;
 import java.util.ArrayList;

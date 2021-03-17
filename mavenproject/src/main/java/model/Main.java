@@ -1,6 +1,6 @@
 package model;
 
-import conexao.Conexao;
+import model.dao.Conexao;
 import conexao.NewHibernateUtil;
 import view.MainScreen;
 import java.util.ArrayList;

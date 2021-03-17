@@ -3,7 +3,7 @@ package view;
 import util.Teclas;
 import model.Fornecedor;
 import model.Produto;
-import conexao.Conexao;
+import model.dao.Conexao;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;

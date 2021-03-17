@@ -6,7 +6,7 @@
 package view.administrador;
 
 import util.TableRendererAPrazo;
-import conexao.Conexao;
+import model.dao.Conexao;
 import java.awt.Color;
 import java.text.DateFormat;
 import java.text.DecimalFormat;

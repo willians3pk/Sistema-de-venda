@@ -3,7 +3,7 @@ package view;
 import util.Teclas;
 import util.TeclasPermitidas;
 import model.Produto;
-import conexao.Conexao;
+import model.dao.Conexao;
 import model.Cliente;
 import model.FormaPagamento;
 import model.ItensVenda;
@@ -672,7 +672,7 @@ public class TelaVenda extends javax.swing.JPanel {
     }//GEN-LAST:event_camp_nomeClienteMouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        TelaCaixa caixa = new TelaCaixa();
+        TelaMovimentacao caixa = new TelaMovimentacao();
         jDesktopPane1.removeAll();
         caixa.setLocation(0, 0);
         caixa.setSize(1140, 650);

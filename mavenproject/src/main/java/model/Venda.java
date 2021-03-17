@@ -1,6 +1,6 @@
 package model;
 
-import conexao.Conexao;
+import model.dao.Conexao;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;

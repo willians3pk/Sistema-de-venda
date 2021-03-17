@@ -9,7 +9,7 @@ import model.Cliente;
 import model.Endereco;
 import model.FormaPagamento;
 import model.Venda;
-import conexao.Conexao;
+import model.dao.Conexao;
 import model.Estado;
 import model.ItensVenda;
 import model.Produto;
@@ -432,7 +432,7 @@ public class MainScreen extends javax.swing.JFrame {
                         venda.setStatus(false);
                         for (Parcelas parcela : venda.getParcelas()) {
                             parcela.setStatus(false);
-                        }             
+                        }
                         banco.update(venda);
                         // ESTORNA OS ITENS DA VENDA CANCELADA PARA O ESTOQUE
                         for (ItensVenda listaIten : venda.listaItens()) {
@@ -478,18 +478,18 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuClienteActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        TelaCaixa c = new TelaCaixa();
+        TelaMovimentacao c = new TelaMovimentacao();
         try {
             jDesktopPane1.removeAll();
-        c.setLocation(0, 0);
-        c.setSize(1140, 650);
-        c.preencherCampo();
-        c.setVisible(true);
-        jDesktopPane1.add(c);
+            c.setLocation(0, 0);
+            c.setSize(1140, 650);
+            c.preencherCampo();
+            c.setVisible(true);
+            jDesktopPane1.add(c);
         } catch (Exception e) {
-            System.out.println("caixa sem vendas");
+            System.out.println("caixa sem vendas"+e);
         }
-        
+
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed

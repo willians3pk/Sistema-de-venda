@@ -10,8 +10,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "caixa")
-public class Caixa {
+@Table(name = "movimentacao")
+public class movimentacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,10 +28,10 @@ public class Caixa {
     @OneToOne
     private Venda venda;
 
-    public Caixa() {
+    public movimentacao() {
     }
 
-    public Caixa(Integer id, double entradaDinheiro, double saidaDespesas, double devolucaoCliente, String descricaoMovito, Date data, String descricaoDespesa, String tipo, Venda venda) {
+    public movimentacao(Integer id, double entradaDinheiro, double saidaDespesas, double devolucaoCliente, String descricaoMovito, Date data, String descricaoDespesa, String tipo, Venda venda) {
         this.id = id;
         this.entradaDinheiro = entradaDinheiro;
         this.saidaDespesas = saidaDespesas;

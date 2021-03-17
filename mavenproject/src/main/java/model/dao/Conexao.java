@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package conexao;
+package model.dao;
 
+import conexao.NewHibernateUtil;
 import model.Fornecedor;
 import model.Produto;
 import model.Cliente;
@@ -16,11 +17,10 @@ import model.Venda;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import model.Caixa;
+import model.movimentacao;
 import model.Categoria;
 import model.Estado;
 import model.Parcelas;
-import model.Usuario;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -148,14 +148,14 @@ public class Conexao {
         }
     }
 
-    public List<Caixa> ListaTodoCaixa() {
+    public List<movimentacao> ListaTodoCaixa() {
 
         this.session = NewHibernateUtil.getSessionFactory().openSession();
         this.tx = session.beginTransaction();
-        List<Caixa> list = null;
+        List<movimentacao> list = null;
 
         try {
-            list = (List<Caixa>) session.createQuery("FROM Caixa").list();
+            list = (List<movimentacao>) session.createQuery("FROM movimentacao").list();
             tx.commit();
             return list;
         } catch (Exception e) {
@@ -167,15 +167,15 @@ public class Conexao {
         return null;
     }
 
-    public List<Caixa> ListaCaixaPorData(String data) {
+    public List<movimentacao> ListaCaixaPorData(String data) {
 
         this.session = NewHibernateUtil.getSessionFactory().openSession();
         this.tx = session.beginTransaction();
-        List<Caixa> list = null;
+        List<movimentacao> list = null;
 
         try {
-            String hql = "from Caixa where data BETWEEN ('" + data + "')" + "and" + "('" + data + "')";
-            list = (List<Caixa>) session.createQuery(hql).list();
+            String hql = "from movimentacao where data BETWEEN ('" + data + "')" + "and" + "('" + data + "')";
+            list = (List<movimentacao>) session.createQuery(hql).list();
             tx.commit();
             return list;
         } catch (Exception e) {
@@ -309,25 +309,6 @@ public class Conexao {
         String sql = "from Pessoa where DTYPE = 'Cliente'";
         try {
             list = (List<Cliente>) session.createQuery(sql).list();
-            tx.commit();
-            return list;
-        } catch (Exception e) {
-            System.out.println(e);
-            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n" + e);
-        } finally {
-            session.close();
-        }
-        return null;
-    }
-
-    public List<Usuario> list_Usuarios() {
-
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
-        List<Usuario> list = null;
-        String sql = "from Pessoa where DTYPE = 'Usuario'";
-        try {
-            list = (List<Usuario>) session.createQuery(sql).list();
             tx.commit();
             return list;
         } catch (Exception e) {
@@ -545,7 +526,7 @@ public class Conexao {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
 
-        Query query = session.createQuery("SELECT SUM(saidaDespesas) FROM Caixa");
+        Query query = session.createQuery("SELECT SUM(saidaDespesas) FROM movimentacao");
         double saidaCaixa = (double) query.list().get(0);
         return saidaCaixa;
 
@@ -555,7 +536,7 @@ public class Conexao {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
 
-        Query query = session.createQuery("SELECT SUM(entradaDinheiro) FROM Caixa");
+        Query query = session.createQuery("SELECT SUM(entradaDinheiro) FROM movimentacao");
         double entradaCaixa = (double) query.list().get(0);
         return entradaCaixa;
 

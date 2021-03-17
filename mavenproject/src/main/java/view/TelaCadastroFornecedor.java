@@ -8,7 +8,7 @@ package view;
 import util.Teclas;
 import model.Endereco;
 import model.Fornecedor;
-import conexao.Conexao;
+import model.dao.Conexao;
 import java.util.Date;
 import javax.swing.JOptionPane;
 

@@ -5,7 +5,7 @@
  */
 package view;
 
-import conexao.Conexao;
+import model.dao.Conexao;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.Usuario;
@@ -90,32 +90,31 @@ public class TelaAutenticacao extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Conexao banco = new Conexao();
-        List<Usuario> admin = banco.list_Usuarios();
-        for (Usuario usuario : admin) {
-            if (usuario.getLogin().equals(jTextField2.getText()) && usuario.getSenha().equals(jPasswordField1.getText())) {
-                JOptionPane.showMessageDialog(null, "Usuario Autenticado!");
-                final TelaLoading carregando = new TelaLoading();
-                carregando.setVisible(true);
-                Thread t = new Thread() {
-                    @Override
-                    public void run() {
-                        TelaEditarVenda sH = new TelaEditarVenda();
-                        jDesktopPane1.removeAll();
-                        sH.setLocation(0, 0);
-                        sH.setSize(1140, 650);
-                        sH.setVisible(true);
-                        sH.carregarTabelaVendas();
-                        jDesktopPane1.add(sH);
-                        carregando.dispose();
-                        dispose();
-                    }
-
-                };
-                t.start();
-            } else {
-                JOptionPane.showMessageDialog(null, "Usuario ou Senha Incorreto!", "ATENÇAO", HEIGHT);
-            }
-        }
+//        for (Usuario usuario : admin) {
+//            if (usuario.getLogin().equals(jTextField2.getText()) && usuario.getSenha().equals(jPasswordField1.getText())) {
+//                JOptionPane.showMessageDialog(null, "Usuario Autenticado!");
+//                final TelaLoading carregando = new TelaLoading();
+//                carregando.setVisible(true);
+//                Thread t = new Thread() {
+//                    @Override
+//                    public void run() {
+//                        TelaEditarVenda sH = new TelaEditarVenda();
+//                        jDesktopPane1.removeAll();
+//                        sH.setLocation(0, 0);
+//                        sH.setSize(1140, 650);
+//                        sH.setVisible(true);
+//                        sH.carregarTabelaVendas();
+//                        jDesktopPane1.add(sH);
+//                        carregando.dispose();
+//                        dispose();
+//                    }
+//
+//                };
+//                t.start();
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Usuario ou Senha Incorreto!", "ATENÇAO", HEIGHT);
+//            }
+//        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

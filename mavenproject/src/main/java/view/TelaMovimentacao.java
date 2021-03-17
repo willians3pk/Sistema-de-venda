@@ -5,9 +5,9 @@
  */
 package view;
 
-import conexao.Conexao;
+import model.dao.Conexao;
 import conexao.NewHibernateUtil;
-import controller.Controller;
+import controller.ControllerMovimentacao;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,24 +15,18 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import model.Caixa;
-import model.Estado;
-import model.Parcelas;
-import model.Venda;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import model.movimentacao;
 
 /**
  *
  * @author user
  */
-public class TelaCaixa extends javax.swing.JPanel {
+public class TelaMovimentacao extends javax.swing.JPanel {
 
     /**
      * Creates new form Caixa
      */
-    public TelaCaixa() {
+    public TelaMovimentacao() {
         initComponents();
         botoesDevolucao(true, false, false);
         botoesDespesas(true, false, false);
@@ -446,11 +440,11 @@ public class TelaCaixa extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_novaDespesaActionPerformed
 
     private void btn_RegistrarDespesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RegistrarDespesasActionPerformed
-        Caixa Despesa = null;
+        movimentacao Despesa = null;
         try {
-            Despesa = Controller.RegistroDespesas(this.campTipo.getText(), this.camp_Data.getText(), this.camp_Valor.getText(), this.camp_DescricaoDespesas.getText());
+            Despesa = ControllerMovimentacao.RegistroDespesas(this.campTipo.getText(), this.camp_Data.getText(), this.camp_Valor.getText(), this.camp_DescricaoDespesas.getText());
         } catch (ParseException ex) {
-            Logger.getLogger(TelaCaixa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaMovimentacao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if (Despesa != null) {
@@ -471,7 +465,7 @@ public class TelaCaixa extends javax.swing.JPanel {
 
     private void btn_consultarDespesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_consultarDespesasActionPerformed
         try {
-            jTable1Despesas.setModel(Controller.PrencherTableDespesas(jTable1Despesas, camp_dataPesquisa.getText()));
+            jTable1Despesas.setModel(ControllerMovimentacao.PrencherTableDespesas(jTable1Despesas, camp_dataPesquisa.getText()));
         } catch (Exception e) {
             Logger.getLogger(e.getMessage());
         }
@@ -479,7 +473,7 @@ public class TelaCaixa extends javax.swing.JPanel {
 
     private void camp_dataPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camp_dataPesquisaActionPerformed
         try {
-            jTable1Despesas.setModel(Controller.PrencherTableDespesas(jTable1Despesas, camp_dataPesquisa.getText()));
+            jTable1Despesas.setModel(ControllerMovimentacao.PrencherTableDespesas(jTable1Despesas, camp_dataPesquisa.getText()));
         } catch (Exception e) {
             Logger.getLogger(e.getMessage());
         }
@@ -545,11 +539,12 @@ public class TelaCaixa extends javax.swing.JPanel {
 
     public void preencherCampo() {
         DecimalFormat decimal = new DecimalFormat("0.00");
-        camp_valorLiguido.setText("R$ " + decimal.format(Controller.ValorLiquido()));
-        camp_receber.setText("R$ " + decimal.format(Controller.ValorParcelasPendentes()));
-        camp_valorBruto.setText("R$ " + decimal.format(Controller.ValorTotalEntradas()));
-        camp_totalcaixa.setText("R$ " + decimal.format(Controller.ValorTotalEntradas()));
-        camp_despesas.setText(Controller.ValorTotalDespesas()+"");
+        camp_valorLiguido.setText("R$ " + decimal.format(ControllerMovimentacao.ValorLiquido()));
+        camp_receber.setText("R$ " + decimal.format(ControllerMovimentacao.ValorParcelasPendentes()));
+        camp_valorBruto.setText("R$ " + decimal.format(ControllerMovimentacao.ValorTotalEntradas()));
+        camp_totalcaixa.setText("R$ " + decimal.format(ControllerMovimentacao.ValorTotalEntradas()));
+        camp_despesas.setText(ControllerMovimentacao.ValorTotalDespesas()+"");
+        ControllerMovimentacao.CarregarTodasDespesas(jTable1Despesas);
     }
 
 }

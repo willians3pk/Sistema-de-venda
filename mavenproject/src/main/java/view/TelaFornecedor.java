@@ -2,7 +2,7 @@ package view;
 
 import util.Teclas;
 import model.Cliente;
-import conexao.Conexao;
+import model.dao.Conexao;
 import conexao.NewHibernateUtil;
 import model.Endereco;
 import model.Fornecedor;

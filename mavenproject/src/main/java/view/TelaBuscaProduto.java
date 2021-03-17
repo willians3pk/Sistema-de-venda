@@ -6,7 +6,7 @@
 package view;
 
 import model.Produto;
-import conexao.Conexao;
+import model.dao.Conexao;
 import static view.TelaVenda.jTable_produto;
 import java.text.NumberFormat;
 import java.util.ArrayList;

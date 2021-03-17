@@ -59,7 +59,7 @@ Contributor(s):
         <mapping class="model.Usuario"/>
         <mapping class="model.Venda"/>
         <mapping class="model.Parcelas"/>
-        <mapping class="model.Caixa"/>
+        <mapping class="model.movimentacao"/>
         <mapping class="model.Categoria"/>
         
     </session-factory>

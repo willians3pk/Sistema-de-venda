@@ -4,7 +4,7 @@ import model.Categoria;
 import util.TableRendererProdutos;
 import util.Teclas;
 import util.TeclasPermitidas;
-import conexao.Conexao;
+import model.dao.Conexao;
 import java.awt.Color;
 import model.Fornecedor;
 import model.Produto;

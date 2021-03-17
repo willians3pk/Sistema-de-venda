@@ -9,7 +9,7 @@ import util.TableRendererAPrazo;
 import model.ItensVenda;
 import model.Parcelas;
 import model.Venda;
-import conexao.Conexao;
+import model.dao.Conexao;
 import java.awt.Color;
 import model.Estado;
 import static view.MainScreen.jDesktopPane1;

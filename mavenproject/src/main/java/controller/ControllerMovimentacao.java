@@ -1,18 +1,17 @@
 package controller;
 
-import conexao.Conexao;
+import model.dao.Conexao;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import model.Caixa;
+import model.movimentacao;
 
-public class Controller {
+public class ControllerMovimentacao {
 
-    public static Caixa RegistroDespesas(String tipo, String Data, String valor, String descricaoMotivo) throws ParseException {
+    public static movimentacao RegistroDespesas(String tipo, String Data, String valor, String descricaoMotivo) throws ParseException {
 
         if (Data.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Digite a Data da Despesa!");
@@ -24,7 +23,7 @@ public class Controller {
             JOptionPane.showMessageDialog(null, "Escolha o Tipo da Despesa!");
         } else {
 
-            Caixa Despesas = new Caixa();
+            movimentacao Despesas = new movimentacao();
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
             Despesas.setData(formato.parse(Data));
@@ -40,7 +39,7 @@ public class Controller {
         return null;
     }
 
-    public static List<Caixa> ConsultarDespesasPorData(String dataConsulta) {
+    public static List<movimentacao> ConsultarDespesasPorData(String dataConsulta) {
 
         if (!dataConsulta.toString().isEmpty()) {
             Conexao DAO = new Conexao();
@@ -55,20 +54,46 @@ public class Controller {
     public static DefaultTableModel PrencherTableDespesas(JTable table, String dataConsulta) {
 
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        List<Caixa> despesas = ConsultarDespesasPorData(dataConsulta);
+        List<movimentacao> despesas = ConsultarDespesasPorData(dataConsulta);
         DefaultTableModel tabelaModel = (DefaultTableModel) table.getModel();
 
         tabelaModel.setNumRows(0);
-        for (Caixa despesa : despesas) {
-            tabelaModel.addRow(new Object[]{
-                despesa.getId(),
-                formato.format(despesa.getData()),
-                "R$ " + despesa.getSaidaDespesas(),
-                despesa.getTipo(),
-                despesa.getDescricaoDespesa()
-            });
+        for (movimentacao despesa : despesas) {
+            if (despesa.getSaidaDespesas() != 0) {
+                tabelaModel.addRow(new Object[]{
+                    despesa.getId(),
+                    formato.format(despesa.getData()),
+                    "R$ " + despesa.getSaidaDespesas(),
+                    despesa.getTipo(),
+                    despesa.getDescricaoDespesa()
+                });
+            }
         }
         return tabelaModel;
+    }
+
+    public static DefaultTableModel CarregarTodasDespesas(JTable table) {
+
+        Conexao dao = new Conexao();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        List<movimentacao> despesas = dao.ListaTodoCaixa();
+        DefaultTableModel tabelaModel = (DefaultTableModel) table.getModel();
+
+        tabelaModel.setNumRows(0);
+        for (movimentacao despesa : despesas) {
+            if (despesa.getSaidaDespesas() != 0) {
+                tabelaModel.addRow(new Object[]{
+                    despesa.getId(),
+                    formato.format(despesa.getData()),
+                    "R$ " + despesa.getSaidaDespesas(),
+                    despesa.getTipo(),
+                    despesa.getDescricaoDespesa()
+                });
+            }
+
+        }
+        return tabelaModel;
+
     }
 
     public static double ValorTotalDespesas() {
@@ -81,25 +106,25 @@ public class Controller {
         double entradasNoCaixa = DAO.entradaCaixa() - ValorTotalVendasCanceladas();
         return entradasNoCaixa;
     }
-    
-    public static double ValorTotalVendasCanceladas(){
+
+    public static double ValorTotalVendasCanceladas() {
         Conexao DAO = new Conexao();
         return DAO.entradasCanceladas();
     }
-    
-    public static double ValorParcelasPagas(){
-        Conexao DAO =  new Conexao();
+
+    public static double ValorParcelasPagas() {
+        Conexao DAO = new Conexao();
         return DAO.parcelasPagas();
     }
-    
-    public static double ValorParcelasPendentes(){
-        Conexao DAO =  new Conexao();
+
+    public static double ValorParcelasPendentes() {
+        Conexao DAO = new Conexao();
         return DAO.parcelasPendente();
     }
-    
-    public static double ValorLiquido(){
+
+    public static double ValorLiquido() {
         double valorLiquido = ValorTotalEntradas() - ValorParcelasPendentes();
         return valorLiquido;
     }
-    
+
 }

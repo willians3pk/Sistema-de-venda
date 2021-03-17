@@ -2,7 +2,7 @@ package view;
 
 import util.TableRendererVendas;
 import model.Venda;
-import conexao.Conexao;
+import model.dao.Conexao;
 import conexao.NewHibernateUtil;
 import java.sql.Connection;
 import java.sql.DriverManager;

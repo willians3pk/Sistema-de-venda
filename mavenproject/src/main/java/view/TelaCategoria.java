@@ -1,7 +1,7 @@
 package view;
 
 import model.Categoria;
-import conexao.Conexao;
+import model.dao.Conexao;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 

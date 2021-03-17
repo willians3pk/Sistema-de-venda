@@ -1,6 +1,6 @@
 package model;
 
-import conexao.Conexao;
+import model.dao.Conexao;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
