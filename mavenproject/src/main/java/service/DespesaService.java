@@ -1,17 +1,28 @@
-package controller;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package service;
 
-import model.dao.Conexao;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import model.movimentacao;
+import model.Despesa;
+import model.dao.Conexao;
+import model.dao.DespesaDAO;
+import static service.CaixaService.ValorLiquido;
 
-public class ControllerMovimentacao {
-
-    public static movimentacao RegistroDespesas(String tipo, String Data, String valor, String descricaoMotivo) throws ParseException {
+/**
+ *
+ * @author user
+ */
+public class DespesaService {
+    
+    public static Despesa RegistroDespesas(String tipo, String Data, String valor, String descricaoMotivo) throws ParseException {
 
         if (Data.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Digite a Data da Despesa!");
@@ -23,42 +34,56 @@ public class ControllerMovimentacao {
             JOptionPane.showMessageDialog(null, "Escolha o Tipo da Despesa!");
         } else {
 
-            movimentacao Despesas = new movimentacao();
+            Despesa despesa = new Despesa();
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
-            Despesas.setData(formato.parse(Data));
-            Despesas.setDescricaoDespesa(descricaoMotivo);
-            Despesas.setSaidaDespesas(Double.parseDouble(valor.replace(",", ".")));
-            Despesas.setTipo(tipo);
+            despesa.setData(formato.parse(Data));
+            despesa.setDescricaoDespesa(descricaoMotivo);
+            despesa.setSaidaDespesas(Double.parseDouble(valor.replace(",", ".")));
+            despesa.setTipo(tipo);
 
-            Conexao DAO = new Conexao();
-            DAO.save(Despesas);
-            return Despesas;
+            if (ValidarDespesa(despesa)) {
+                Conexao DAO = new Conexao();
+                DAO.save(despesa);
+                return despesa;
+            } else {
+                JOptionPane.showMessageDialog(null, "Nao Foi possivel REGISTRAR DESPESA, valor em caixa " + "R$ " + ValorLiquido() + " Menor\n"
+                        + "que o Valor a ser retirado pra DESPESA!");
+            }
         }
 
         return null;
     }
-
-    public static List<movimentacao> ConsultarDespesasPorData(String dataConsulta) {
+    
+    public static boolean ValidarDespesa(Despesa despesa) {
+        if (despesa.getSaidaDespesas() > ValorLiquido()) {
+            return false;
+        } else if (despesa.getSaidaDespesas() < ValorLiquido()) {
+            return true;
+        }
+        return false;
+    }
+    
+    public static List<Despesa> ConsultarDespesasPorData(String dataConsulta) {
 
         if (!dataConsulta.toString().isEmpty()) {
-            Conexao DAO = new Conexao();
-            return DAO.ListaCaixaPorData(dataConsulta);
+            DespesaDAO DAO = new DespesaDAO();
+            return DAO.ListaDespesaPorData(dataConsulta);
         } else {
             JOptionPane.showMessageDialog(null, "Digite a Data da Pesquisa!");
         }
 
         return null;
     }
-
+    
     public static DefaultTableModel PrencherTableDespesas(JTable table, String dataConsulta) {
 
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        List<movimentacao> despesas = ConsultarDespesasPorData(dataConsulta);
+        List<Despesa> despesas = ConsultarDespesasPorData(dataConsulta);
         DefaultTableModel tabelaModel = (DefaultTableModel) table.getModel();
 
         tabelaModel.setNumRows(0);
-        for (movimentacao despesa : despesas) {
+        for (Despesa despesa : despesas) {
             if (despesa.getSaidaDespesas() != 0) {
                 tabelaModel.addRow(new Object[]{
                     despesa.getId(),
@@ -71,16 +96,16 @@ public class ControllerMovimentacao {
         }
         return tabelaModel;
     }
-
+    
     public static DefaultTableModel CarregarTodasDespesas(JTable table) {
 
-        Conexao dao = new Conexao();
+        DespesaDAO dao = new DespesaDAO();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        List<movimentacao> despesas = dao.ListaTodoCaixa();
+        List<Despesa> despesas = dao.ListaTodasDespesa();
         DefaultTableModel tabelaModel = (DefaultTableModel) table.getModel();
 
         tabelaModel.setNumRows(0);
-        for (movimentacao despesa : despesas) {
+        for (Despesa despesa : despesas) {
             if (despesa.getSaidaDespesas() != 0) {
                 tabelaModel.addRow(new Object[]{
                     despesa.getId(),
@@ -95,36 +120,11 @@ public class ControllerMovimentacao {
         return tabelaModel;
 
     }
-
+    
     public static double ValorTotalDespesas() {
-        Conexao DAO = new Conexao();
-        return DAO.saidaCaixa();
+        DespesaDAO DAO = new DespesaDAO();
+        if(DAO.saidaCaixa() != 0)
+            return DAO.saidaCaixa();
+        return 0;
     }
-
-    public static double ValorTotalEntradas() {
-        Conexao DAO = new Conexao();
-        double entradasNoCaixa = DAO.entradaCaixa() - ValorTotalVendasCanceladas();
-        return entradasNoCaixa;
-    }
-
-    public static double ValorTotalVendasCanceladas() {
-        Conexao DAO = new Conexao();
-        return DAO.entradasCanceladas();
-    }
-
-    public static double ValorParcelasPagas() {
-        Conexao DAO = new Conexao();
-        return DAO.parcelasPagas();
-    }
-
-    public static double ValorParcelasPendentes() {
-        Conexao DAO = new Conexao();
-        return DAO.parcelasPendente();
-    }
-
-    public static double ValorLiquido() {
-        double valorLiquido = ValorTotalEntradas() - ValorParcelasPendentes();
-        return valorLiquido;
-    }
-
 }

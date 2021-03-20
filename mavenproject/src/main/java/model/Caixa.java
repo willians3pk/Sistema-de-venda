@@ -10,36 +10,30 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "movimentacao")
-public class movimentacao {
+@Table(name = "caixa")
+public class Caixa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Cod_Caixa", unique = true, nullable = false)
     private Integer id;
     private double entradaDinheiro;
-    private double saidaDespesas;
     private double devolucaoCliente;
     private String descricaoMovito;
     private Date   data;
-    private String descricaoDespesa;
-    private String tipo;
     
     @OneToOne
     private Venda venda;
 
-    public movimentacao() {
+    public Caixa() {
     }
 
-    public movimentacao(Integer id, double entradaDinheiro, double saidaDespesas, double devolucaoCliente, String descricaoMovito, Date data, String descricaoDespesa, String tipo, Venda venda) {
+    public Caixa(Integer id, double entradaDinheiro, double devolucaoCliente, String descricaoMovito, Date data, Venda venda) {
         this.id = id;
         this.entradaDinheiro = entradaDinheiro;
-        this.saidaDespesas = saidaDespesas;
         this.devolucaoCliente = devolucaoCliente;
         this.descricaoMovito = descricaoMovito;
         this.data = data;
-        this.descricaoDespesa = descricaoDespesa;
-        this.tipo = tipo;
         this.venda = venda;
     }
 
@@ -59,14 +53,6 @@ public class movimentacao {
         this.entradaDinheiro = entradaDinheiro;
     }
 
-    public double getSaidaDespesas() {
-        return saidaDespesas;
-    }
-
-    public void setSaidaDespesas(double saidaDespesas) {
-        this.saidaDespesas = saidaDespesas;
-    }
-
     public double getDevolucaoCliente() {
         return devolucaoCliente;
     }
@@ -82,23 +68,7 @@ public class movimentacao {
     public void setDescricaoMovito(String descricaoMovito) {
         this.descricaoMovito = descricaoMovito;
     }
-
-    public String getDescricaoDespesa() {
-        return descricaoDespesa;
-    }
-
-    public void setDescricaoDespesa(String descricaoDespesa) {
-        this.descricaoDespesa = descricaoDespesa;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
+    
     public Venda getVenda() {
         return venda;
     }

@@ -483,7 +483,7 @@ public class MainScreen extends javax.swing.JFrame {
             jDesktopPane1.removeAll();
             c.setLocation(0, 0);
             c.setSize(1140, 650);
-            c.preencherCampo();
+            c.atualizarCaixa();
             c.setVisible(true);
             jDesktopPane1.add(c);
         } catch (Exception e) {

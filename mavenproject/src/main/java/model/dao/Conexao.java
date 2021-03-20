@@ -17,7 +17,7 @@ import model.Venda;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import model.movimentacao;
+import model.Caixa;
 import model.Categoria;
 import model.Estado;
 import model.Parcelas;
@@ -148,14 +148,14 @@ public class Conexao {
         }
     }
 
-    public List<movimentacao> ListaTodoCaixa() {
+    public List<Caixa> ListaTodoCaixa() {
 
         this.session = NewHibernateUtil.getSessionFactory().openSession();
         this.tx = session.beginTransaction();
-        List<movimentacao> list = null;
+        List<Caixa> list = null;
 
         try {
-            list = (List<movimentacao>) session.createQuery("FROM movimentacao").list();
+            list = (List<Caixa>) session.createQuery("FROM movimentacao").list();
             tx.commit();
             return list;
         } catch (Exception e) {
@@ -167,15 +167,15 @@ public class Conexao {
         return null;
     }
 
-    public List<movimentacao> ListaCaixaPorData(String data) {
+    public List<Caixa> ListaCaixaPorData(String data) {
 
         this.session = NewHibernateUtil.getSessionFactory().openSession();
         this.tx = session.beginTransaction();
-        List<movimentacao> list = null;
+        List<Caixa> list = null;
 
         try {
             String hql = "from movimentacao where data BETWEEN ('" + data + "')" + "and" + "('" + data + "')";
-            list = (List<movimentacao>) session.createQuery(hql).list();
+            list = (List<Caixa>) session.createQuery(hql).list();
             tx.commit();
             return list;
         } catch (Exception e) {

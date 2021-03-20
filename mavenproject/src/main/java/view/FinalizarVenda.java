@@ -25,7 +25,7 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import model.movimentacao;
+import model.Caixa;
 
 /**
  *
@@ -569,7 +569,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
         Thread t = new Thread() {
             @Override
             public void run() {
-                movimentacao caixa = new movimentacao();
+                Caixa caixa = new Caixa();
                 double valortotal = Double.parseDouble(camptotal.getText().replace("R$", "").replace(",", "."));
                 double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", ".").replace(",", "."));
                 double troco = valortotal - valorPago;
@@ -665,7 +665,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
         Thread t = new Thread() {
             @Override
             public void run() {
-                movimentacao caixa = new movimentacao();
+                Caixa caixa = new Caixa();
                 double valortotal = Double.parseDouble(camptotal.getText().replace("R$", "").replace(",", "."));
                 double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", ".").replace(",", "."));
                 double troco = valortotal - valorPago;
@@ -757,7 +757,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
 
     public void vendaParcelada() {
         
-        movimentacao caixa = new movimentacao();
+        Caixa caixa = new Caixa();
         double valortotal = Double.parseDouble(camptotal.getText().replace("R$", "").replace(",", "."));
         double valorEntrada = Double.parseDouble(campvalorPago.getText().replace(",", "."));
         double valorRestante = valortotal - valorEntrada;
@@ -838,7 +838,7 @@ public class FinalizarVenda extends javax.swing.JPanel {
     }
 
     public void vendaAprazo() {
-        movimentacao caixa = new movimentacao();
+        Caixa caixa = new Caixa();
         double valortotal = Double.parseDouble(camptotal.getText().replace("R$", "").replace(",", "."));
         double valorPago = Double.parseDouble(campvalorPago.getText().replace(",", "."));
         double troco = valortotal - valorPago;

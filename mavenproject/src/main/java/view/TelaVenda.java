@@ -528,7 +528,6 @@ public class TelaVenda extends javax.swing.JPanel {
     private void camp_buscarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camp_buscarProdutoActionPerformed
         String pesquisa = camp_buscarProduto.getText();
         List<Produto> listaProduto = bancoMariaDB.filtrarProdutoNome(pesquisa);
-
         for (Produto produto1 : listaProduto) {
             if (produto1.isStatus()) {
                 produto = produto1;
@@ -676,7 +675,7 @@ public class TelaVenda extends javax.swing.JPanel {
         jDesktopPane1.removeAll();
         caixa.setLocation(0, 0);
         caixa.setSize(1140, 650);
-        caixa.preencherCampo();
+        caixa.atualizarCaixa();
         caixa.setVisible(true);
         jDesktopPane1.add(caixa);
     }//GEN-LAST:event_jLabel1MouseClicked
