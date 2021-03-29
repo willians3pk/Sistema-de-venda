@@ -68,7 +68,6 @@ public class DespesaDAO {
 
     public double saidaCaixa() {
         Query query = session.createQuery("SELECT SUM(saidaDespesas) FROM Despesa");
-        Logger.getLogger(DespesaDAO.class.getName()).log(Level.WARNING.SEVERE, null, query.list().get(0));
         if (query.list().get(0) != null) {
             double saidaCaixa = (double) query.list().get(0);
             return saidaCaixa;

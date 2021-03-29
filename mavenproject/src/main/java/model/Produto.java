@@ -27,7 +27,7 @@ public class Produto {
     @OneToOne(fetch = FetchType.EAGER)
     @Cascade({CascadeType.ALL})
     private Fornecedor fornecedor;
-    private String nome;
+    private String item;
     private double valor_compra;
     private double valor_venda;
     private double valor_total;
@@ -51,7 +51,7 @@ public class Produto {
     public Produto(Integer idProduto, Fornecedor fornecedor, String nome, double valor_compra, double valor_venda, double valor_total, boolean status, String tamanho, String apelido, int qnt, String descricao, Date dataEntrega, Date dataRegistro, List<ItensVenda> itensVendas) {
         this.idProduto = idProduto;
         this.fornecedor = fornecedor;
-        this.nome = nome;
+        this.item = nome;
         this.valor_compra = valor_compra;
         this.valor_venda = valor_venda;
         this.valor_total = valor_total;
@@ -82,11 +82,11 @@ public class Produto {
     }
 
     public String getNome() {
-        return nome;
+        return item;
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.item = nome;
     }
 
     public double getValor_compra() {

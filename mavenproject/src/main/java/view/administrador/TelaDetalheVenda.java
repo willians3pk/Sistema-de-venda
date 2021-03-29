@@ -12,6 +12,8 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -36,7 +38,6 @@ public class TelaDetalheVenda extends javax.swing.JPanel {
     public TelaDetalheVenda() {
         initComponents();
         checkbox.setVisible(false);
-        btn_removerItem.setVisible(false);
 
         TableColumn colCodigo = jtableVenda.getColumnModel().getColumn(0);
         TableColumn colNome = jtableVenda.getColumnModel().getColumn(1);
@@ -115,6 +116,9 @@ public class TelaDetalheVenda extends javax.swing.JPanel {
         camp_totalvenda = new javax.swing.JFormattedTextField();
         camp_valorentrada = new javax.swing.JFormattedTextField();
         comboxFormaPagmento = new javax.swing.JComboBox<>();
+        jComboBoxEstadoVenda = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        jCheckBoxAtivarVenda = new javax.swing.JCheckBox();
 
         setLayout(null);
 
@@ -324,7 +328,7 @@ public class TelaDetalheVenda extends javax.swing.JPanel {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("ADMINISTRADOR");
         jPanel1.add(jLabel9);
-        jLabel9.setBounds(470, 30, 570, 40);
+        jLabel9.setBounds(420, 30, 570, 40);
 
         camp_totalvenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         jPanel1.add(camp_totalvenda);
@@ -341,6 +345,18 @@ public class TelaDetalheVenda extends javax.swing.JPanel {
         });
         jPanel1.add(comboxFormaPagmento);
         comboxFormaPagmento.setBounds(20, 230, 260, 30);
+
+        jPanel1.add(jComboBoxEstadoVenda);
+        jComboBoxEstadoVenda.setBounds(950, 160, 160, 30);
+
+        jLabel12.setText("Estado:");
+        jPanel1.add(jLabel12);
+        jLabel12.setBounds(950, 140, 80, 16);
+
+        jCheckBoxAtivarVenda.setText("Ativar/Cancelar:");
+        jCheckBoxAtivarVenda.setEnabled(false);
+        jPanel1.add(jCheckBoxAtivarVenda);
+        jCheckBoxAtivarVenda.setBounds(950, 200, 130, 22);
 
         add(jPanel1);
         jPanel1.setBounds(6, 5, 1130, 640);
@@ -428,15 +444,30 @@ public class TelaDetalheVenda extends javax.swing.JPanel {
             venda.setValor_pago(Double.parseDouble(camp_valorentrada.getText().replace("R$", "").replace(",", ".").trim()));// valor pago
             venda.setDesconto(Float.parseFloat(camp_desconto.getText().replace("%", "").replace(".", "")));
             venda.setAcrescimo(Double.parseDouble(camp_acrescimo.getText().replace("R$", "").replace(",", ".").trim()));
-            
+
             FormaPagamento formapagamento;
             int posicao = comboxFormaPagmento.getSelectedIndex();
             formapagamento = connectbanco.listFormPagamento().get(posicao);
+
+            if (jComboBoxEstadoVenda.getSelectedItem().toString().equals("CANCELADO")) {
+                venda.setEstado(Estado.CANCELADO);
+            } else if (jComboBoxEstadoVenda.getSelectedItem().toString().equals("PENDENTE")) {
+                venda.setEstado(Estado.PENDENTE);
+            } else {
+                venda.setEstado(Estado.PAGO);
+            }
+
             venda.getFormaPagamento().clear();
             venda.getFormaPagamento().add(formapagamento);
             venda.setDescricao(camp_observacao.getText());
-            
+            venda.setStatus(jCheckBoxAtivarVenda.isSelected());
+
+            for (Parcelas parcela : venda.getParcelas()) {
+                parcela.setStatus(true);
+            }
+
             banco.update(venda);
+
             carregarCampos();
         }
     }//GEN-LAST:event_btn_salvarActionPerformed
@@ -465,9 +496,12 @@ public class TelaDetalheVenda extends javax.swing.JPanel {
     private javax.swing.JCheckBox checkbox;
     private javax.swing.JComboBox<String> comboxFormaPagmento;
     private javax.swing.JTextField estadoVenda;
+    private javax.swing.JCheckBox jCheckBoxAtivarVenda;
+    private javax.swing.JComboBox<String> jComboBoxEstadoVenda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -502,6 +536,29 @@ public class TelaDetalheVenda extends javax.swing.JPanel {
             comboxFormaPagmento.setModel(comboBox);
         }
 
+        List<Estado> arrayList = new ArrayList<Estado>();
+        arrayList.add(Estado.CANCELADO);
+        arrayList.add(Estado.PAGO);
+        arrayList.add(Estado.PENDENTE);
+
+        DefaultComboBoxModel comboBox1 = new DefaultComboBoxModel();
+        for (Estado estado : arrayList) {
+            comboBox1.addElement(estado.getDescricao());
+            jComboBoxEstadoVenda.setModel(comboBox1);
+        }
+
+        if (jComboBoxEstadoVenda.getSelectedItem() == (venda.getEstado().getDescricao())) {
+            jComboBoxEstadoVenda.setSelectedItem(venda.getEstado().getDescricao());
+        } else {
+            jComboBoxEstadoVenda.setSelectedItem(venda.getEstado().getDescricao());
+        }
+
+        if (venda.isStatus()) {
+            jCheckBoxAtivarVenda.setSelected(true);
+        } else {
+            jCheckBoxAtivarVenda.setSelected(false);
+        }
+
         camp_codigovenda.setText(venda.getIdvenda() + ""); // codigo da venda;
         camp_datavenda.setText(data.format(venda.getDataVenda()) + ""); // data da venda
         camp_totalvenda.setText(venda.getValorTotal() + ""); // valor total da venda;
@@ -523,6 +580,8 @@ public class TelaDetalheVenda extends javax.swing.JPanel {
 
         if (venda.getEstado().getDescricao().equals("PENDENTE")) {
             estadoVenda.setBackground(Color.red);
+        } else if (venda.getEstado().getDescricao().equals("CANCELADO")) {
+            estadoVenda.setBackground(Color.YELLOW);
         } else {
             estadoVenda.setBackground(Color.green);
         }

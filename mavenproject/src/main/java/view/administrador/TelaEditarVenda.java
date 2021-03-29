@@ -1,4 +1,3 @@
-
 package view.administrador;
 
 import util.TableRendererVendas;
@@ -31,7 +30,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import view.MainScreen;
 import static view.MainScreen.jDesktopPane1;
-import view.TelaDetalhesVenda;
 import view.TelaLoading;
 
 /**
@@ -643,21 +641,19 @@ public class TelaEditarVenda extends javax.swing.JPanel {
         tabela.setNumRows(0);
         for (Venda venda : vendas) {
 
-            if (venda.isStatus()) {
-                x = venda.getValorTotal();
-                tabela.addRow(new Object[]{
-                    venda.getIdvenda(),
-                    formato.format(venda.getDataVenda()),
-                    venda.getCliente().getNome(),
-                    venda.FormaPagamento(),
-                    venda.getDescricao(),
-                    dinheiro.format(venda.getValorTotal()),
-                    venda.getEstado().getDescricao()});
+            x = venda.getValorTotal();
+            tabela.addRow(new Object[]{
+                venda.getIdvenda(),
+                formato.format(venda.getDataVenda()),
+                venda.getCliente().getNome(),
+                venda.FormaPagamento(),
+                venda.getDescricao(),
+                dinheiro.format(venda.getValorTotal()),
+                venda.getEstado().getDescricao()});
 
-                // soma todos os valores total de cada venda;
-                y = z + x;
-                z = y;
-            }
+            // soma todos os valores total de cada venda;
+            y = z + x;
+            z = y;
         }
         camp_quantidadeVenda.setText(vendas.size() + "");
         jlabelAviso.setVisible(false);

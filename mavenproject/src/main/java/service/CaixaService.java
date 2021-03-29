@@ -1,16 +1,11 @@
 package service;
 
 import model.dao.Conexao;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import model.Parcelas;
 import model.Venda;
 import model.dao.CaixaDAO;
@@ -31,21 +26,22 @@ public class CaixaService {
                 Venda venda = BuscaVendaPorId(id);
                 Caixa devolucao = new Caixa();
                 CaixaDAO DAO = new CaixaDAO();
+                if (venda.isStatus()) {
+                    devolucao.setVenda(venda);
+                    devolucao.setDescricaoMovito(MotivoDevolucao);
+                    devolucao.setDevolucaoCliente(Double.parseDouble(valor.replace(",", ".").replace("R$", "")));
+                    devolucao.setData(new Date());
 
-                devolucao.setVenda(venda);
-                devolucao.setDescricaoMovito(MotivoDevolucao);
-                devolucao.setDevolucaoCliente(Double.parseDouble(valor.replace(",", ".").replace("R$", "")));
-                devolucao.setData(new Date());
-
-                if (ValidarDevolucao(devolucao)) {
-                    // devolucao valida
-                    DAO.save(devolucao);
-                    VendaService.CancelarVenda(venda.getIdvenda());
-                    return true;
-                } else {
-                    JOptionPane.showMessageDialog(null, "Nao Foi possivel fazer a Devolucao, valor em caixa " + "R$ " + ValorLiquido() + " Menor\n"
-                            + "que o Valor a ser Devolvido!");
-                }
+                    if (ValidarDevolucao(devolucao)) {
+                        // devolucao valida
+                        DAO.save(devolucao);
+                        VendaService.CancelarVenda(venda.getIdvenda());
+                        return true;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Nao Foi possivel fazer a Devolucao, valor em caixa " + "R$ " + ValorLiquido() + " Menor\n"
+                                + "que o Valor a ser Devolvido!");
+                    }
+                }else{JOptionPane.showMessageDialog(null, "ESSA VENDA JA ESTÁ CANCELADA!");}
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -120,37 +116,42 @@ public class CaixaService {
     public static double ValorTotalEntradas() {
         CaixaDAO DAO = new CaixaDAO();
         double entradasNoCaixa = DAO.entradaCaixa() - ValorTotalVendasCanceladas();
-        if (entradasNoCaixa != 0 )
+        if (entradasNoCaixa != 0) {
             return entradasNoCaixa;
+        }
         return 0;
     }
 
     public static double ValorTotalVendasCanceladas() {
         CaixaDAO DAO = new CaixaDAO();
-        if(DAO.entradasCanceladas() != 0 )
+        if (DAO.entradasCanceladas() != 0) {
             return DAO.entradasCanceladas();
+        }
         return 0;
     }
 
     public static double ValorParcelasPagas() {
         CaixaDAO DAO = new CaixaDAO();
-        if(DAO.parcelasPagas() != 0)
+        if (DAO.parcelasPagas() != 0) {
             return DAO.parcelasPagas();
+        }
         return 0;
     }
 
     public static double ValorParcelasPendentes() {
         CaixaDAO DAO = new CaixaDAO();
-        if(DAO.parcelasPendente() != 0 )
+        if (DAO.parcelasPendente() != 0) {
             return DAO.parcelasPendente();
+        }
         return 0;
     }
 
     public static double ValorLiquido() {
         double Despesatotal = DespesaService.ValorTotalDespesas();
         double valorLiquido = ValorTotalEntradas() - ValorParcelasPendentes() - Despesatotal;
-        if(valorLiquido != 0)
+        if (valorLiquido != 0) {
             return valorLiquido;
+        }
         return 0;
     }
 

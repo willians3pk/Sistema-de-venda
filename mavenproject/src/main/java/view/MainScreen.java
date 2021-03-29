@@ -77,12 +77,11 @@ public class MainScreen extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuICancelarVenda = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jVendaHIstoricos = new javax.swing.JMenuItem();
         jMenuCliente = new javax.swing.JMenuItem();
+        jMenuICancelarVenda = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -244,16 +243,8 @@ public class MainScreen extends javax.swing.JFrame {
 
         jMenu4.setText("Venda");
 
-        jMenuICancelarVenda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuICancelarVenda.setText("Cancelar Venda");
-        jMenuICancelarVenda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuICancelarVendaActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuICancelarVenda);
-
         jMenuItem4.setText("Editar");
+        jMenuItem4.setEnabled(false);
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -262,9 +253,6 @@ public class MainScreen extends javax.swing.JFrame {
         jMenu4.add(jMenuItem4);
 
         jMenu1.add(jMenu4);
-
-        jMenuItem5.setText("Banco Dados");
-        jMenu1.add(jMenuItem5);
 
         jMenuBar1.add(jMenu1);
 
@@ -287,6 +275,15 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuCliente);
+
+        jMenuICancelarVenda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuICancelarVenda.setText("Cancelar Venda");
+        jMenuICancelarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuICancelarVendaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuICancelarVenda);
 
         jMenuBar1.add(jMenu2);
 
@@ -417,7 +414,7 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void jMenuICancelarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuICancelarVendaActionPerformed
         String codigo = JOptionPane.showInputDialog("CODIGO da Venda que deseja Cancelar!");
-        int confirmacao = JOptionPane.showConfirmDialog(null, "Você tem Certeza que Deseja Cancelar a Venda de Numero " + codigo, "Cancelar a Venda?", JOptionPane.YES_NO_OPTION);
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Você tem Certeza que Deseja Cancelar a Venda de Numero " + codigo, "Cancelar a Venda?", JOptionPane.YES_OPTION);
         if (confirmacao == JOptionPane.YES_OPTION) {
             final TelaLoading carregando = new TelaLoading();
             carregando.setVisible(true);
@@ -599,7 +596,6 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -651,9 +647,9 @@ public class MainScreen extends javax.swing.JFrame {
             FormaPagamento formapagamento4 = new FormaPagamento();
             formapagamento4.setDescricao("TRANSFERENCIA");
             bancoDAO.save(formapagamento4);
-            FormaPagamento formapagamento5 = new FormaPagamento();
-            formapagamento5.setDescricao("PARCELADO");
-            bancoDAO.save(formapagamento5);
+//            FormaPagamento formapagamento5 = new FormaPagamento();
+//            formapagamento5.setDescricao("PARCELADO");
+//            bancoDAO.save(formapagamento5);
 
         }
     }

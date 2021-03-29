@@ -395,7 +395,6 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
                         banco.update(venda);
                     }
                 }
-
                 carregarCampos();
             }
         } catch (Exception e) {
@@ -491,8 +490,8 @@ public class TelaDetalhesVenda extends javax.swing.JPanel {
         
         if (venda.getEstado().getDescricao().equals("PENDENTE")) {
             estadoVenda.setBackground(Color.red);
-        }else{
-            estadoVenda.setBackground(Color.green);
+        }else if(venda.getEstado().getDescricao().equals("CANCELADO")){
+            estadoVenda.setBackground(Color.YELLOW);
         }
 
         DefaultTableModel tabelavenda = (DefaultTableModel) jtableVenda.getModel();

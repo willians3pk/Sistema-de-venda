@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.TableColumn;
 import model.Despesa;
 import model.Log;
+import model.Venda;
 import model.dao.LogDAO;
 import service.DespesaService;
 
@@ -32,7 +33,7 @@ public class TelaMovimentacao extends javax.swing.JPanel {
         botoesDespesas(true, false, false);
         habilitarCamposDespesas(false, false, false, false, false, false);
         habilitaCamposDevolucao(false, false, false);
-        
+
         // ajusta tamanho das colunas da tabela;
         TableColumn colCodigo = jTable1Despesas.getColumnModel().getColumn(0);
         TableColumn colData = jTable1Despesas.getColumnModel().getColumn(1);
@@ -45,7 +46,7 @@ public class TelaMovimentacao extends javax.swing.JPanel {
         colValor.setPreferredWidth(20);
         colTipo.setPreferredWidth(30);
         colDescricao.setPreferredWidth(270);
-        
+
     }
 
     public void botoesDevolucao(boolean novo, boolean registrar, boolean cancelar) {
@@ -79,8 +80,8 @@ public class TelaMovimentacao extends javax.swing.JPanel {
         this.camp_Valor.setText("");
         this.camp_DescricaoDespesas.setText("");
     }
-    
-    public void limparCamposDevolucao(){
+
+    public void limparCamposDevolucao() {
         this.camp_codigoVenda.setText("");
         this.camp_valorEstornado.setText("");
         this.camp_MotivoDevolucao.setText("");
@@ -111,10 +112,8 @@ public class TelaMovimentacao extends javax.swing.JPanel {
         camp_dataPesquisa = new javax.swing.JFormattedTextField();
         jLabel16 = new javax.swing.JLabel();
         btn_consultarDespesas = new javax.swing.JButton();
-        camp_valorTotaldespesas = new javax.swing.JTextField();
-        jLabel18 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -276,12 +275,6 @@ public class TelaMovimentacao extends javax.swing.JPanel {
         });
         jPanel2.add(btn_consultarDespesas);
         btn_consultarDespesas.setBounds(594, 430, 90, 30);
-        jPanel2.add(camp_valorTotaldespesas);
-        camp_valorTotaldespesas.setBounds(450, 430, 100, 26);
-
-        jLabel18.setText("Valor Total:");
-        jPanel2.add(jLabel18);
-        jLabel18.setBounds(371, 436, 90, 20);
 
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel20.setText("__");
@@ -289,12 +282,13 @@ public class TelaMovimentacao extends javax.swing.JPanel {
         jPanel2.add(jLabel20);
         jLabel20.setBounds(170, 40, 30, 30);
 
-        jLabel21.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(57, 65, 247));
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setText("Despesas Cadastradas:");
-        jPanel2.add(jLabel21);
-        jLabel21.setBounds(230, 380, 210, 30);
+        jTextField1.setEditable(false);
+        jTextField1.setBackground(new java.awt.Color(255, 201, 0));
+        jTextField1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField1.setText("DESPESAS CADASTRADAS:");
+        jPanel2.add(jTextField1);
+        jTextField1.setBounds(120, 380, 470, 31);
 
         add(jPanel2);
         jPanel2.setBounds(10, 10, 700, 630);
@@ -475,8 +469,8 @@ public class TelaMovimentacao extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        
-                
+
+
     }//GEN-LAST:event_btn_RegistrarDevolucaoActionPerformed
 
     private void btn_novaDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novaDespesaActionPerformed
@@ -511,6 +505,22 @@ public class TelaMovimentacao extends javax.swing.JPanel {
         habilitarCamposDespesas(false, false, false, false, false, false);
     }//GEN-LAST:event_btn_cancelarDespesasActionPerformed
 
+    private void camp_codigoVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camp_codigoVendaActionPerformed
+
+        try {
+            Venda venda = CaixaService.BuscaVendaPorId(Integer.parseInt(camp_codigoVenda.getText()));
+            if (venda.isStatus()) {
+                camp_valorEstornado.setText(CaixaService.ValoresPagoDaVenda(Integer.parseInt(camp_codigoVenda.getText())) + "");
+                camp_nomeCliente.setText(CaixaService.BuscaVendaPorId(Integer.parseInt(camp_codigoVenda.getText())).getCliente().getNome());
+            }else{
+                JOptionPane.showMessageDialog(null, "Essa Venda Já Foi Cancelada!");
+            }
+        } catch (Exception e) {
+            Logger.getLogger(e.getMessage());
+        }
+
+    }//GEN-LAST:event_camp_codigoVendaActionPerformed
+
     private void btn_consultarDespesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_consultarDespesasActionPerformed
         try {
             jTable1Despesas.setModel(DespesaService.PrencherTableDespesas(jTable1Despesas, camp_dataPesquisa.getText()));
@@ -526,17 +536,6 @@ public class TelaMovimentacao extends javax.swing.JPanel {
             Logger.getLogger(e.getMessage());
         }
     }//GEN-LAST:event_camp_dataPesquisaActionPerformed
-
-    private void camp_codigoVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camp_codigoVendaActionPerformed
-        
-        try {
-            camp_valorEstornado.setText(CaixaService.ValoresPagoDaVenda(Integer.parseInt(camp_codigoVenda.getText()))+"");
-            camp_nomeCliente.setText(CaixaService.BuscaVendaPorId(Integer.parseInt(camp_codigoVenda.getText())).getCliente().getNome());
-        } catch (Exception e) {
-            Logger.getLogger(e.getMessage());
-        }
-        
-    }//GEN-LAST:event_camp_codigoVendaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -561,7 +560,6 @@ public class TelaMovimentacao extends javax.swing.JPanel {
     private javax.swing.JTextField camp_valorBruto;
     private javax.swing.JFormattedTextField camp_valorEstornado;
     private javax.swing.JTextField camp_valorLiguido;
-    private javax.swing.JTextField camp_valorTotaldespesas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -571,11 +569,9 @@ public class TelaMovimentacao extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -595,6 +591,7 @@ public class TelaMovimentacao extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTable jTable1Despesas;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
     public void atualizarCaixa() {
@@ -603,7 +600,7 @@ public class TelaMovimentacao extends javax.swing.JPanel {
         camp_receber.setText("R$ " + decimal.format(CaixaService.ValorParcelasPendentes()));
         camp_valorBruto.setText("R$ " + decimal.format(CaixaService.ValorTotalEntradas()));
         camp_totalcaixa.setText("R$ " + decimal.format(CaixaService.ValorLiquido()));
-        camp_despesas.setText(DespesaService.ValorTotalDespesas()+"");
+        camp_despesas.setText(DespesaService.ValorTotalDespesas() + "");
         DespesaService.CarregarTodasDespesas(jTable1Despesas);
     }
 

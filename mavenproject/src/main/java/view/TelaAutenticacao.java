@@ -90,6 +90,13 @@ public class TelaAutenticacao extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Conexao banco = new Conexao();
+        TelaEditarVenda sH = new TelaEditarVenda();
+        jDesktopPane1.removeAll();
+        sH.setLocation(0, 0);
+        sH.setSize(1140, 650);
+        sH.setVisible(true);
+        sH.carregarTabelaVendas();
+        jDesktopPane1.add(sH);
 //        for (Usuario usuario : admin) {
 //            if (usuario.getLogin().equals(jTextField2.getText()) && usuario.getSenha().equals(jPasswordField1.getText())) {
 //                JOptionPane.showMessageDialog(null, "Usuario Autenticado!");

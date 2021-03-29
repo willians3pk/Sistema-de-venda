@@ -531,7 +531,7 @@ public class TelaHistorico extends javax.swing.JPanel {
             
             // a linha abaixo cria a conexao com o banco de dados
             Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys", "wsmint", "Ws@12345");
-            String caminho = "/home/user/JaspersoftWorkspace/MyReports/Venda.jrxml";
+            String caminho = "/home/user/JaspersoftWorkspace/MyReports/VendaEntreData.jrxml";
             JasperReport pathjrxml = JasperCompileManager.compileReport(caminho);
             JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, parameters, conexao);
 
