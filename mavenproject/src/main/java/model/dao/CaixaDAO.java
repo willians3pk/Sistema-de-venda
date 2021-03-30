@@ -58,7 +58,6 @@ public class CaixaDAO {
         try {
             session.update(objeto);
             tx.commit();
-//            JOptionPane.showMessageDialog(null, "Atualizado com Sucesso!");
         } catch (Exception e) {
             System.out.println(e);
             System.out.println("Erro ao Atualizar na Base de Dados!");
@@ -81,7 +80,6 @@ public class CaixaDAO {
 
     public void delete(Object obj) {
         try {
-
             session.delete(obj);
             tx.commit();
         } catch (Exception e) {
