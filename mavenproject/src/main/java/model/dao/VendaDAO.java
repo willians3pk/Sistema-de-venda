@@ -29,7 +29,6 @@ public class VendaDAO {
     }
 
     public List<Venda> lista_Vendas() {
-
         try {
             List<Venda> list = session.createQuery("from Venda").list();
             tx.commit();
