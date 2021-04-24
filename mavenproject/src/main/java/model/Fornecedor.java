@@ -66,14 +66,6 @@ public class Fornecedor {
         this.idFornecedor = idFornecedor;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
     public String getNome() {
         return nome;
     }
@@ -114,12 +106,12 @@ public class Fornecedor {
         this.homePage = homePage;
     }
 
-    public List<Produto> getList_Produto() {
-        return list_Produto;
+    public Date getDataCadastro() {
+        return dataCadastro;
     }
 
-    public void setList_Produto(List<Produto> list_Produto) {
-        this.list_Produto = list_Produto;
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
     }
 
     public Long getContato() {
@@ -130,8 +122,20 @@ public class Fornecedor {
         this.contato = contato;
     }
 
-    public void setDataCadastro(Date dataCadastro) {
-        this.dataCadastro = dataCadastro;
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public List<Produto> getList_Produto() {
+        return list_Produto;
+    }
+
+    public void setList_Produto(List<Produto> list_Produto) {
+        this.list_Produto = list_Produto;
     }
 
     public boolean isStatus() {
@@ -141,17 +145,17 @@ public class Fornecedor {
     public void setStatus(boolean status) {
         this.status = status;
     }
-       
+    
     
     // -----------------------------------------------
-    
-    public void adicionarProduto(Produto produto) {
-        this.list_Produto.add(produto);
-    }
-
-    public void removeItem(Produto produto){
-        this.getList_Produto().remove(produto);
-    }
+//    
+//    public void adicionarProduto(Produto produto) {
+//        this.list_Produto.add(produto);
+//    }
+//
+//    public void removeItem(Produto produto){
+//        this.getList_Produto().remove(produto);
+//    }
     
     
     

@@ -31,14 +31,31 @@ import org.hibernate.Transaction;
  */
 public class Conexao {
 
-    private Session session;
-    private Transaction tx;
+    Session session;
+    Transaction tx;
+
+    public Conexao() {
+    }
+
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
+    public Transaction getTx() {
+        return tx;
+    }
+
+    public void setTx(Transaction tx) {
+        this.tx = tx;
+    }
 
     public void save(Object objeto) {
-
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
-
         try {
             session.save(objeto);
             tx.commit();
@@ -51,10 +68,8 @@ public class Conexao {
     }
 
     public void persist(Object obj) {
-
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
-
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
         try {
             session.persist(obj);
             tx.commit();
@@ -67,10 +82,8 @@ public class Conexao {
     }
 
     public void update(Object objeto) {
-
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
-
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
         try {
             session.update(objeto);
             tx.commit();
@@ -84,10 +97,8 @@ public class Conexao {
     }
 
     public void save_update(Object obj) {
-
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
-
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
         try {
             session.saveOrUpdate(obj);
             tx.commit();
@@ -100,10 +111,8 @@ public class Conexao {
     }
 
     public void delete(Object obj) {
-
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
-
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
         try {
 
             session.delete(obj);
@@ -117,10 +126,8 @@ public class Conexao {
     }
 
     public void merge(Object obj) {
-
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
-
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
         try {
             session.merge(obj);
             tx.commit();
@@ -133,10 +140,8 @@ public class Conexao {
     }
 
     public void refresh(Object obj) {
-
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
-
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
         try {
             session.refresh(obj);
             tx.commit();
@@ -149,9 +154,8 @@ public class Conexao {
     }
 
     public List<Caixa> ListaTodoCaixa() {
-
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
         List<Caixa> list = null;
 
         try {
@@ -168,9 +172,8 @@ public class Conexao {
     }
 
     public List<Caixa> ListaCaixaPorData(String data) {
-
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
         List<Caixa> list = null;
 
         try {
@@ -188,9 +191,8 @@ public class Conexao {
     }
 
     public List<Produto> productBook() {
-
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
         List<Produto> list = null;
 
         try {
@@ -207,9 +209,8 @@ public class Conexao {
     }
 
     public List<Produto> produtosOrdenados() {
-
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
         List<Produto> list = null;
 
         try {
@@ -227,29 +228,32 @@ public class Conexao {
 
     public List<Fornecedor> list_Fornecedores() {
 
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+
         List<Fornecedor> list = null;
         String sql = "FROM Fornecedor";
+
         try {
             list = (List<Fornecedor>) session.createQuery(sql).list();
+            System.out.println(list.get(0).getNome());
             tx.commit();
             return list;
         } catch (Exception e) {
             System.out.println("Erro ao Pegar lista no Banco de Dados!");
-            JOptionPane.showMessageDialog(null, "Erro na Base de Dados!\n" + e);
+            System.out.println("erro " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na Base de Dados Fornecedor!\n" + e);
         } finally {
             session.close();
         }
+
         return null;
     }
 
     public List<Pessoa> list_Pessoa() {
-
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
         List<Pessoa> list = null;
-
         try {
             list = (List<Pessoa>) session.createQuery("from Pessoa").list();
             tx.commit();
@@ -264,9 +268,8 @@ public class Conexao {
     }
 
     public List<ItensVenda> list_ItemsVenda() {
-
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
         List<ItensVenda> list = null;
 
         try {
@@ -283,9 +286,8 @@ public class Conexao {
     }
 
     public List<Endereco> list_Endereco() {
-
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
         List<Endereco> list = null;
 
         try {
@@ -302,9 +304,8 @@ public class Conexao {
     }
 
     public List<Cliente> list_Cliente() {
-
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
         List<Cliente> list = null;
         String sql = "from Pessoa where DTYPE = 'Cliente'";
         try {
@@ -322,8 +323,9 @@ public class Conexao {
 
     public List<FormaPagamento> listFormPagamento() {
 
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+
         List<FormaPagamento> list = null;
         String sql = "from FormaPagamento";
         try {
@@ -341,10 +343,8 @@ public class Conexao {
     }
 
     public List<Venda> lista_Vendas() {
-
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
-
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
         try {
             List<Venda> list = session.createQuery("from Venda").list();
             tx.commit();
@@ -417,8 +417,8 @@ public class Conexao {
     }
 
     public Venda getVenda(Integer id) {
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
         try {
             Venda venda = (Venda) session.get(Venda.class, id);
             return venda;
@@ -432,10 +432,11 @@ public class Conexao {
     }
 
     public Fornecedor getFornecedor(int id) {
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
         try {
-            Fornecedor forncedor = (Fornecedor) session.get(Fornecedor.class, id);
+            Fornecedor forncedor = (Fornecedor) session.get(Fornecedor.class,
+                    id);
             return forncedor;
         } catch (Exception e) {
             System.out.println(e);
@@ -447,9 +448,10 @@ public class Conexao {
     }
 
     public List<Venda> filtraDatas(String dataInicio, String dataFim) {
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
         try {
-            Session session = NewHibernateUtil.getSessionFactory().openSession();
-            Transaction tx = session.beginTransaction();
+
             String hql = "from Venda where dataVenda BETWEEN ('" + dataInicio + "')" + "and" + "('" + dataFim + "')";
             Query query = session.createQuery(hql);
             List<Venda> results = query.list();
@@ -464,10 +466,11 @@ public class Conexao {
     }
 
     public Produto getProduto(Integer id) {
-        this.session = NewHibernateUtil.getSessionFactory().openSession();
-        this.tx = session.beginTransaction();
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
         try {
-            Produto produto = (Produto) session.get(Produto.class, id);
+            Produto produto = (Produto) session.get(Produto.class,
+                    id);
             return produto;
         } catch (Exception e) {
             System.out.println(e);
@@ -499,7 +502,6 @@ public class Conexao {
     public List listavendas() {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
-
         Query query = session.createQuery("from Venda");
         List lista = query.list();
         tx.commit();
@@ -525,7 +527,6 @@ public class Conexao {
     public double saidaCaixa() {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
-
         Query query = session.createQuery("SELECT SUM(saidaDespesas) FROM movimentacao");
         double saidaCaixa = (double) query.list().get(0);
         return saidaCaixa;
@@ -535,7 +536,6 @@ public class Conexao {
     public double entradaCaixa() {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
-
         Query query = session.createQuery("SELECT SUM(entradaDinheiro) FROM movimentacao");
         double entradaCaixa = (double) query.list().get(0);
         return entradaCaixa;
@@ -573,14 +573,14 @@ public class Conexao {
         }
         return parcelasPagas;
     }
-    
+
     public double parcelasPendente() {
         List<Parcelas> parcelas = Parcelas();
         double x = 0;
         double y = 0;
         double parcelasPendentes = 0;
         for (Parcelas parcela : parcelas) {
-            if (parcela.getPago().equals(Estado.PENDENTE)&&parcela.isStatus()) {
+            if (parcela.getPago().equals(Estado.PENDENTE) && parcela.isStatus()) {
                 x = parcela.getValor();
                 y = parcelasPendentes + x;
                 parcelasPendentes = y;
@@ -588,5 +588,5 @@ public class Conexao {
         }
         return parcelasPendentes;
     }
-    
+
 }

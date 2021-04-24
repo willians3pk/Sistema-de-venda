@@ -13,7 +13,7 @@
                 <exec.args>-classpath %classpath view.MainScreen</exec.args>
                 <exec.executable>java</exec.executable>
                 <jshell.run.enable>true</jshell.run.enable>
-                <exec.workingdir>/home/user/NetBeansProject/Sistema-de-venda/mavenproject/lib/unknown/binary/jcalendar-tz-1.3.3-4/SNAPSHOT</exec.workingdir>
+                <exec.workingdir></exec.workingdir>
             </properties>
         </action>
         <action>
@@ -30,7 +30,7 @@
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
                 <jshell.run.enable>true</jshell.run.enable>
-                <exec.workingdir>/home/user/NetBeansProject/Sistema-de-venda/mavenproject/lib/unknown/binary/jcalendar-tz-1.3.3-4/SNAPSHOT</exec.workingdir>
+                <exec.workingdir></exec.workingdir>
             </properties>
         </action>
         <action>
@@ -45,7 +45,7 @@
             <properties>
                 <exec.args>-classpath %classpath view.MainScreen</exec.args>
                 <exec.executable>java</exec.executable>
-                <exec.workingdir>/home/user/NetBeansProject/Sistema-de-venda/mavenproject/lib/unknown/binary/jcalendar-tz-1.3.3-4/SNAPSHOT</exec.workingdir>
+                <exec.workingdir></exec.workingdir>
             </properties>
         </action>
     </actions>
